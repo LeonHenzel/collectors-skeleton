@@ -30,9 +30,9 @@
           {{ labels.draw }}
         </button>
       </div>
-      Auction
+      Skills
       <div class="cardslots">
-        <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index"/>
+        <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
       </div>
       Hand
       <div class="cardslots" v-if="players[playerId]">
@@ -106,7 +106,8 @@ export default {
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],
-      playerid: 0
+      playerid: 0,
+      currentAuction: []
     }
   },
   computed: {
