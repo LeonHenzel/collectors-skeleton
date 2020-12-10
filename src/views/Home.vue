@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     setupCollectors: function (playerCount, lang="en") {
-      this.$store.commit('SETUP_GAME', {roomId: this.$store.state.roomId, 
+      this.$store.commit('SETUP_GAME', {roomId: this.$store.state.roomId,
         playerCount: playerCount,
         lang: lang });
       this.$router.push("/room/" + this.$store.state.roomId);
@@ -34,6 +34,8 @@ export default {
   }
 }
 </script>
+
+
 <style scoped>
   .center {
     display: flex;
