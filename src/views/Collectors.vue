@@ -1,38 +1,84 @@
 <template>
   <div>
     <main>
-      {{buyPlacement}} {{chosenPlacementCost}}
+      //{{buyPlacement}} {{chosenPlacementCost}}
       <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
-        :itemsOnSale="itemsOnSale" 
-        :marketValues="marketValues" 
+        :itemsOnSale="itemsOnSale"
+        :marketValues="marketValues"
         :placement="buyPlacement"
         @buyCard="buyCard($event)"
         @placeBottle="placeBottle('buy', $event)"/>
-      <div class="buttons">
-        <button @click="drawCard">
-          {{ labels.draw }} 
-        </button>
+        /*<div class="buttons">
+          <button @click="drawCard">
+            {{ labels.draw }}
+          </button>
+        </div>*/
+
+      /*Grid test start*/
+
+      <div class = "grid-container">
+        <div class = "Info">
+        Display a menu or something
+        </div>
+
+        <div class = "otherPlayers">
+        Info about other players:
+        <br>
+
+            <ul>
+              <li>{{players}}</li>
+            </ul>
+
+        <br>
+        {{marketValues}}
+        <br>
+        {{buyPlacement}} {{chosenPlacementCost}}
+        </div>
+
+        <div class = "Skills">
+          Skills
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
+          </div>
+        </div>
+
+        <div class="Auction">
+          Auction
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index"/>
+          </div>
+        </div>
+
+        <div class="myStatus">
+          Your status
+          <div class="cardslots" v-if="players[playerId]">
+            <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="buyCard(card)" :key="index"/>
+          </div>
+          <div class="buttons">
+            <button @click="drawCard">
+              {{ labels.draw }}
+            </button>
+          </div>
+        </div>
+
+        <div class="Items">
+          Items
+          <div class="cardslots" v-if="players[playerId]">
+            <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+          </div>
+        </div>
+
+        <div class="cardsOnSale">
+
+        </div>
       </div>
-      Skills
-      <div class="cardslots">
-        <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
-      </div>
-      Auction
-      <div class="cardslots">
-        <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index"/>
-      </div>
-      Hand
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="buyCard(card)" :key="index"/>
-      </div>
-      Items
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
-      </div>
+      /*Grid test slut*/
+
     </main>
     {{players}}
+    <br>
     {{marketValues}}
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
@@ -62,7 +108,7 @@ export default {
     return {
       publicPath: "localhost:8080/#", //"collectors-groupxx.herokuapp.com/#",
       touchScreen: false,
-      maxSizes: { x: 0, 
+      maxSizes: { x: 0,
                   y: 0 },
       labels: {},
       players: {},
@@ -79,11 +125,11 @@ export default {
       skillPlacement: [],
       auctionPlacement: [],
       marketPlacement: [],
-      chosenPlacementCost: null, 
-      marketValues: { fastaval: 0, 
-                     movie: 0, 
-                     technology: 0, 
-                     figures: 0, 
+      chosenPlacementCost: null,
+      marketValues: { fastaval: 0,
+                     movie: 0,
+                     technology: 0,
+                     figures: 0,
                      music: 0 },
       itemsOnSale: [],
       skillsOnSale: [],
@@ -113,11 +159,11 @@ export default {
     if (this.$route.params.id + "?id=" + this.$route.query.id !== newRoute)
       this.$router.push(newRoute);
 
-    this.$store.state.socket.emit('collectorsLoaded', 
-      { roomId: this.$route.params.id, 
+    this.$store.state.socket.emit('collectorsLoaded',
+      { roomId: this.$route.params.id,
         playerId: this.playerId } );
 
-    this.$store.state.socket.on('collectorsInitialize', 
+    this.$store.state.socket.on('collectorsInitialize',
       function(d) {
         this.labels = d.labels;
         this.players = d.players;
@@ -131,7 +177,7 @@ export default {
         this.auctionPlacement = d.placements.auctionPlacement;
       }.bind(this));
 
-    this.$store.state.socket.on('collectorsBottlePlaced', 
+    this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
         this.buyPlacement = d.buyPlacement;
         this.skillPlacement = d.skillPlacement;
@@ -141,7 +187,7 @@ export default {
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
 
-    this.$store.state.socket.on('collectorsCardDrawn', 
+    this.$store.state.socket.on('collectorsCardDrawn',
       function(d) {
           //this has been refactored to not single out one player's cards
           //better to update the state of all cards
@@ -149,7 +195,7 @@ export default {
       }.bind(this)
     );
 
-    this.$store.state.socket.on('collectorsCardBought', 
+    this.$store.state.socket.on('collectorsCardBought',
       function(d) {
         console.log(d.playerId, "bought a card");
         this.players = d.players;
@@ -163,28 +209,28 @@ export default {
     },
     placeBottle: function (action, cost) {
       this.chosenPlacementCost = cost;
-      this.$store.state.socket.emit('collectorsPlaceBottle', { 
-          roomId: this.$route.params.id, 
+      this.$store.state.socket.emit('collectorsPlaceBottle', {
+          roomId: this.$route.params.id,
           playerId: this.playerId,
-          action: action, 
-          cost: cost, 
+          action: action,
+          cost: cost,
         }
       );
     },
     drawCard: function () {
-      this.$store.state.socket.emit('collectorsDrawCard', { 
-          roomId: this.$route.params.id, 
+      this.$store.state.socket.emit('collectorsDrawCard', {
+          roomId: this.$route.params.id,
           playerId: this.playerId
         }
       );
     },
     buyCard: function (card) {
       console.log("buyCard", card);
-      this.$store.state.socket.emit('collectorsBuyCard', { 
-          roomId: this.$route.params.id, 
+      this.$store.state.socket.emit('collectorsBuyCard', {
+          roomId: this.$route.params.id,
           playerId: this.playerId,
           card: card,
-          cost: this.marketValues[card.market] + this.chosenPlacementCost 
+          cost: this.marketValues[card.market] + this.chosenPlacementCost
         }
       );
     }
@@ -192,6 +238,63 @@ export default {
 }
 </script>
 <style scoped>
+
+  /*Grid test start*/
+  .grid-container {
+    display: grid;
+    /*border-radius: 10px;*/
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "Info Info otherPlayers"
+      "Auction Items otherPlayers"
+      "Auction Skills myStatus"
+      "Auction cardsOnSale myStatus";
+  }
+
+  .Info {
+    grid-area: Info;
+    border: 5px solid #fff;
+    background-color: Gold;
+  }
+
+  .Auction {
+    grid-area: Auction;
+    border: 5px solid #fff;
+    background-color: PaleVioletRed;
+  }
+
+  .Items {
+    grid-area: Items;
+    border: 5px solid #fff;
+    background-color: Chocolate;
+  }
+
+  .Skills {
+    grid-area: Skills;
+    border: 5px solid #fff;
+    background-color: MediumSeaGreen;
+  }
+
+  .otherPlayers {
+    grid-area: otherPlayers;
+    border: 5px solid #fff;
+    background-color: RoyalBlue;
+  }
+
+  .myStatus {
+    grid-area: myStatus;
+    border: 5px solid #fff;
+    background-color: RoyalBlue;
+  }
+  .cardsOnSale {
+    grid-area: cardsOnSale;
+    border: 5px solid #fff;
+    background-color: Black;
+  }
+  /*Grid test slut*/
+
   header {
     user-select: none;
     position: fixed;
