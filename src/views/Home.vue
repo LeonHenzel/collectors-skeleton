@@ -57,14 +57,16 @@ export default {
   }
 
   /*These CSS classes makes the texts in the fOr loop change colOR And changes the mousepointer img*/
+
   .Engelska :hover{
     color: Cyan;
-    cursor: url('https://cdn.freebiesupply.com/logos/large/2x/windows-cursor-logo-png-transparent.png'), pointer;
+    cursor: pointer;
   }
   .Svenska :hover{
     color: Cyan;
-    cursor: url('https://cdn.freebiesupply.com/logos/large/2x/windows-cursor-logo-png-transparent.png'), pointer;
+    cursor: pointer;
   }
+
 
 
 </style>
