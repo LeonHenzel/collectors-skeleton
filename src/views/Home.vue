@@ -11,7 +11,7 @@
       <img src= "https://cdn.countryflags.com/thumbs/united-kingdom/flag-800.png" witdh = "30" height = "20">
     </button>
 
-    <div>
+    <div id = "welcomeTable">
       <h1 id="mainTitle">Collectors</h1>
       <ul v-if="englishGotClicked">
         <li v-for="i in 3" :key="i">
@@ -55,12 +55,19 @@ export default {
 </script>
 
 <style scoped>
+
   .center {
     display: absolute;
-    align-items: center;
-    justify-content: center;
     height: 100vh;
     padding: 1em;
+
+  }
+
+  #welcomeTable{
+    /*position: relative;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);*/
   }
 
   .switchLanguage{
