@@ -1,39 +1,6 @@
 <template>
   <div>
     <main>
-      {{buyPlacement}} {{chosenPlacementCost}}
-      <CollectorsBuyActions v-if="players[playerId]"
-        :labels="labels"
-        :player="players[playerId]"
-        :itemsOnSale="itemsOnSale"
-        :marketValues="marketValues"
-        :placement="buyPlacement"
-        @buyCard="buyCard($event)"
-        @placeBottle="placeBottle('buy', $event)"/>
-
-      <CollectorsStartAuction v-if="players[playerId]"
-        :labels="labels"
-        :player="players[playerId]"
-        :auctionCards="auctionCards"
-        :marketValues="marketValues"
-        :placement="auctionPlacement"
-        @startAuction="startAuction($event)"
-        @placeBottle="placeBottle('auction', $event)"/>
-
-      <CollectorsBuySkill v-if="players[playerId]"
-        :labels="labels"
-        :player="players[playerId]"
-        :skillsOnSale="skillsOnSale"
-        :placement="skillPlacement"
-        @buySkill="buySkill($event)"
-        @placeBottle="placeBottle('skill',$event)"/>
-
-      <div class="buttons">
-        <button @click="drawCard">
-          {{ labels.draw }}
-        </button>
-      </div>
-
       <div class="layout">
         <div class="menuBar">
           Menu
@@ -41,37 +8,87 @@
 
         <div class="otherPlayers">
           Stats
+          <br>
+            {{buyPlacement}}
+            <br>
+            {{chosenPlacementCost}}
+        </div>
+
+        <div class="Items">
+          Items
+
+        </div>
+
+        <div class="Skills">
+          Skills
+          <br>
+          <CollectorsBuySkill v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :skillsOnSale="skillsOnSale"
+            :placement="skillPlacement"
+            @buySkill="buySkill($event)"
+            @placeBottle="placeBottle('skill',$event)"/>
         </div>
 
         <div class="cardsOnSale">
           Köp dina kort här
+          <br>
+          <CollectorsBuyActions v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :itemsOnSale="itemsOnSale"
+            :marketValues="marketValues"
+            :placement="buyPlacement"
+            @buyCard="buyCard($event)"
+            @placeBottle="placeBottle('buy', $event)"/>
         </div>
 
-        <div class="playerView">
-          <div class="myHand">
-            My Hand
-            <div class="cardslots" v-if="players[playerId]">
-              <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+        <div class="playerView" >
+          <div class="overlayPlayerView" id = "expand">
+            <a href="#" class="closeGridButton" @click="minimizeGrid()">&times;</a>
+            <div class="myHand">
+              My Hand
+              <div class="cardslots" v-if="players[playerId]">
+                <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+              </div>
             </div>
-          </div>
 
-          <div class="myItems">
-            My Items
-            <div class="cardslots" v-if="players[playerId]">
-              <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+            <div class="myItems">
+              My Items
+              <div class="cardslots" v-if="players[playerId]">
+                <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+              </div>
             </div>
-          </div>
 
-          <div class="mySkills">
-            My Skills
-            <div class="cardslots" v-if="players[playerId]">
-              <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+            <div class="mySkills">
+              My Skills
+              <div class="cardslots" v-if="players[playerId]">
+                <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+              </div>
             </div>
+            <div class="buttons">
+              <button @click="drawCard">
+                {{ labels.draw }}
+              </button>
+            </div>
+            <button href="#" class = "playerboardGridButton" @click="minimizeGrid()"> Minimize </button>
           </div>
+        <button href="#" class = "openGridButton" @click="expandGrid()">Expand</button>
         </div>
 
         <div class="Auction">
           Current auction
+          <br>
+          <CollectorsStartAuction v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :auctionCards="auctionCards"
+            :marketValues="marketValues"
+            :placement="auctionPlacement"
+            @startAuction="startAuction($event)"
+            @placeBottle="placeBottle('auction', $event)"/>
+            <br>
           <div class="cardslots">
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
@@ -310,6 +327,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           cost: this.chosenPlacementCost
         }
       );
+    },
+    expandGrid: function(){
+      document.getElementById('expand').style.width = "100%";
+    },
+    minimizeGrid: function(){
+      document.getElementById('expand').style.width = "0%";
     }
   },
 }
@@ -334,6 +357,38 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   footer a:visited {
     color:ivory;
   }
+  .overlayPlayerView{
+    position: fixed;
+    width: 0%;
+    height:100%;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,.7);
+    overflow-x: hidden;
+    z-index: 5;
+    transition: all 0.5s;
+  }
+
+  .overlayPlayerView__content{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .overlayPlayerView a{
+    paddin: 10px;
+    color: white;
+    display: block;
+  }
+
+  .overlayPlayerView .closeGridButton{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 40px;
+  }
+
   .layout{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -341,8 +396,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     gap: 0px 0px;
     grid-template-areas:
     "menuBar menuBar otherPlayers"
-    "Auction cardsOnSale cardsOnSale"
-    "Auction playerView playerView";
+    "Auction Items otherPlayers"
+    "Auction Skills playerView"
+    "Auction cardsOnSale playerView";
   }
   .menuBar{
     grid-area: menuBar;
@@ -359,6 +415,16 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px solid #fff;
     background-color: PaleVioletRed;
   }
+  .Items{
+    grid-area: Items;
+    border: 5px solid #fff;
+    background-color: Red;
+  }
+  .Skills{
+    grid-area: Skills;
+    border: 5px solid #fff;
+    background-color: Green;
+  }
   .cardsOnSale{
     grid-area: cardsOnSale;
     border: 5px solid #fff;
@@ -369,6 +435,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px solid #fff;
     background-color: RoyalBlue;
   }
+
+
 
   .cardslots {
     display: grid;
