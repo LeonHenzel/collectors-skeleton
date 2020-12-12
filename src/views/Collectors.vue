@@ -1,8 +1,22 @@
 <template>
   <div>
     <main>
+<<<<<<< HEAD
     <CollectorsChat :messages="messages" :playerId="playerId" @sendMessage = "sendMessage($event)"/>
+=======
+      <div>{{players}}</div>
+      <br>
+      <div>Mitt ID är {{this.$store.state.playerId}}</div>
+      <br>
+      <br>
+>>>>>>> gameMechanics
       {{buyPlacement}} {{chosenPlacementCost}}
+      <br>
+      <div class="buttons">
+        <button @click="skipThisRound">
+          {{ labels.skipThisRound }}
+        </button>
+      </div>
       <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
@@ -11,35 +25,60 @@
         :placement="buyPlacement"
         @buyCard="buyCard($event)"
         @placeBottle="placeBottle('buy', $event)"/>
+
+      <CollectorsStartAuction v-if="players[playerId]"
+        :labels="labels"
+        :player="players[playerId]"
+        :auctionCards="auctionCards"
+        :marketValues="marketValues"
+        :placement="auctionPlacement"
+        @startAuction="startAuction($event)"
+        @placeBottle="placeBottle('auction', $event)"/>
+
+      <CollectorsBuySkill v-if="players[playerId]"
+        :labels="labels"
+        :player="players[playerId]"
+        :skillsOnSale="skillsOnSale"
+        :placement="skillPlacement"
+        @buySkill="buySkill($event)"
+        @placeBottle="placeBottle('skill',$event)"/>
+
+        <CollectorsMarket v-if="players[playerId]"
+        :labels="labels"
+        :player="players[playerId]"
+        :placement="marketPlacement"
+        @placeBottle="placeBottle('market',$event)"
+        @changeTwoMarket="changeTwoMarket()"/>
+
+
+
       <div class="buttons">
         <button @click="drawCard">
           {{ labels.draw }}
         </button>
       </div>
-      Skills
-      <div class="cardslots">
-        <CollectorsCard v-for="(card, index) in skillsOnSale" :card="card" :key="index"/>
-      </div>
-      Auction
-      <div class="cardslots">
-        <CollectorsCard v-for="(card, index) in auctionCards" :card="card" :key="index"/>
-      </div>
-      Hand
+      My Hand
       <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="buyCard(card)" :key="index"/>
+        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
       </div>
-      Items
+      My Items
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
       </div>
+      My Skills
+      <div class="cardslots" v-if="players[playerId]">
+        <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+      </div>
+      Current auction
+      <div class="cardslots">
+        <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+      </div>
     </main>
+    PLAYERS
     {{players}}
+    MARKET
     {{marketValues}}
 
-    <!--<div v-for="(player, index) in players" :key="player+index">
-      {{player[playerId]}}
-    </div>-->
-    
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
     </button>
@@ -52,12 +91,19 @@
   </div>
 </template>
 
+
 <script>
 /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
 
 import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyActions from '@/components/CollectorsBuyActions.vue'
+
 import CollectorsChat from '@/components/CollectorsChat.vue'
+
+import CollectorsStartAuction from '@/components/CollectorsStartAuction.vue'
+import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
+import CollectorsMarket from '@/components/CollectorsMarket.vue'
+
 
 export default {
   name: 'Collectors',
@@ -65,6 +111,10 @@ export default {
     CollectorsCard,
     CollectorsBuyActions,
     CollectorsChat,
+    CollectorsStartAuction,
+    CollectorsBuySkill,
+    CollectorsMarket
+
   },
   data: function () {
     return {
@@ -83,6 +133,11 @@ export default {
       //   income: [],
       //   secret: []
       // }
+      isPlacedList: {item: false,
+                     skill: false,
+                     auction: false,
+                     market: false
+                    },
       buyPlacement: [],
       skillPlacement: [],
       auctionPlacement: [],
@@ -96,7 +151,14 @@ export default {
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],
+
       messages: [],
+
+      playerid: 0,
+      currentAuction: [],
+      twoMarket: false,
+      twoMarketCounter:0
+
     }
   },
   computed: {
@@ -157,6 +219,14 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('collectorsRoundSkipped',
+      function(d) {
+          this.players = d;
+      }.bind(this)
+    );
+
+
+
     this.$store.state.socket.on('collectorsCardBought',
       function(d) {
         console.log(d.playerId, "bought a card");
@@ -165,6 +235,7 @@ export default {
       }.bind(this)
     );
 
+
     this.$store.state.socket.on('collectorsUpdateMessages',
       function(d) {
         console.log(d)
@@ -172,13 +243,77 @@ export default {
       }.bind(this)
     );
 
+
+    this.$store.state.socket.on('collectorsSkillBought',
+      function(d){
+        console.log(d.playerId, "bought a Skill");
+        this.players=d.players;
+        this.skillsOnSale=d.skillsOnSale;
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('auctionStarted',
+      function(d) {
+        console.log(d.playerId, "started an auction");
+        this.players = d.players;
+        this.auctionCards = d.auctionCards;
+        this.currentAuction = d.currentAuction;
+        console.log("currentAuction = " + this.currentAuction)
+      }.bind(this)
+    );
+
+    this.$store.state.socket.on('ValueRaised', function(d){
+      console.log(d.playerId, "raised the market");
+      this.players=d.players;
+      this.marketValues=d.marketValues;
+      this.skillsOnSale=d.skillsOnSale;
+      this.auctionCards=d.auctionCards;
+      if (this.twoMarket===true){
+        if(this.twoMarketCounter===0){
+          console.log("kör market en gång till")
+          this.twoMarketCounter +=1;
+          this.placeBottle('market',0);
+        }
+        else{
+          this.twoMarketCounter=0;
+          this.twoMarket=false;
+        }
+      }
+    }.bind(this))
+
+
   },
   methods: {
     selectAll: function (n) {
       n.target.select();
     },
+
+/* Vad har vi gjort här med placeBottle och doAction? Jo, problemet var att när man klickade på en auctionknapp
+och ville aktionera ut ngt man hade på handen så lades det i item och inte i currentAuction. Det löstes genom att
+skicka @doAction till vår egen doAction, och denna skickar vidare till rätt funktion beroende på vad som placeBottle
+har gjort true eller false. Om man börjar auction så ska auction vara true och allt annat false tex. */
     placeBottle: function (action, cost) {
-      this.chosenPlacementCost = cost;
+      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+        return
+      }
+      else if(action === "buy"){
+        this.isPlacedList.item = true
+      }
+      else if(action === "skill"){
+        this.isPlacedList.skill = true
+      }
+      else if(action === "auction"){
+        this.isPlacedList.auction = true
+      }
+      else if(action ==="market"){
+        console.log("market i placeBottle");
+        this.isPlacedList.market = true;
+        this.chosenPlacementCost = cost;
+        this.marketBottle(action, cost, this.twoMarket);
+        return
+      }
+      this.chosenPlacementCost =cost ;
+      
       this.$store.state.socket.emit('collectorsPlaceBottle', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -187,14 +322,114 @@ export default {
         }
       );
     },
+
+    doAction: function(card){
+      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+        return
+      }
+      else if(this.isPlacedList.item===true){
+        this.isPlacedList.item=false;
+        this.buyCard(card);
+      }
+      else if(this.isPlacedList.skill===true){
+        this.isPlacedList.skill=false;
+        this.buySkill(card);
+      }
+      else if(this.isPlacedList.auction===true){
+        this.isPlacedList.auction=false;
+        this.startAuction(card);
+      }
+      else if(this.isPlacedList.market===true){
+        this.raiseMarket(card,'hand');
+        this.isPlacedList.market=false;
+      }
+    },
+    // drawCard kommer inte behållas på detta vis
     drawCard: function () {
+      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+        return
+      }
       this.$store.state.socket.emit('collectorsDrawCard', {
           roomId: this.$route.params.id,
           playerId: this.playerId
         }
       );
     },
+
+    skipThisRound: function() {
+      if(this.players[this.playerId].myTurn === false){
+        console.log("skip this round säger myturn är false")
+        return
+      }
+      else{
+        console.log("hit kommer vi")
+        this.$store.state.socket.emit('collectorsSkipThisRound', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId
+        }
+      );
+      }
+    },
+
+
+    marketBottle: function(action, cost=0, twoMarket){
+      console.log("marketBottle")
+      for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
+        this.$set(this.players[this.playerId].hand[i], 'available', true);
+        //console.log(this.players[this.playerId].hand[i],"handen i marketbottle")
+      }
+      for (let i = 0; i < this.skillsOnSale.length; i += 1){
+        if(this.skillsOnSale[i].item !== undefined){
+          this.$set(this.skillsOnSale[i], 'available', true);
+          break
+        }
+      }
+      for (let i = 0; i < this.auctionCards.length; i += 1){
+        if(this.auctionCards[i].item !== undefined){
+          this.$set(this.auctionCards[i], 'available', true);
+          break
+      }
+    }
+    if(this.twoMarketCounter===0){
+    this.$store.state.socket.emit('collectorsPlaceBottle', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        action: action,
+        cost: cost,
+        twoMarket: twoMarket
+      }
+      );
+    }
+
+
+  },
+
+    marketBottleDone: function (){
+      for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
+        this.$set(this.players[this.playerId].hand[i], 'available', false);
+      }
+      for (let i = 0; i < this.skillsOnSale.length; i += 1){
+        if(this.skillsOnSale[i] !== 'undefined'){
+          //this.$set(this.skillsOnSale[i], 'available', false);
+          //this.skillsOnSale[i].availableAction=true;
+          break
+        }
+      }
+      for (let i = 0; i < this.auctionCards.length; i += 1){
+        if(this.auctionCards[i] !== 'undefined'){
+          this.$set(this.auctionCards[i], 'available', false);
+          break
+      }
+    }
+    },
+
+
     buyCard: function (card) {
+      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+        console.log("buyCard säger myturn är false")
+        return
+      }
+      this.isPlacedList.item=false;
       console.log("buyCard", card);
       this.$store.state.socket.emit('collectorsBuyCard', {
           roomId: this.$route.params.id,
@@ -204,10 +439,78 @@ export default {
         }
       );
     },
+    buySkill: function (card){
+
+       if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+        console.log("buySkill säger myturn är false")
+        return
+      }
+        this.isPlacedList.skill=false;
+        console.log("buySkill", card);
+        this.$store.state.socket.emit('collectorsBuySkill', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          card: card,
+          cost: this.chosenPlacementCost
+        });
+        if(this.isPlacedList.market===true){
+          this.raiseMarket(card,'skill');
+          this.isPlacedList.market=false;
+
+        }
+        else {
+          this.$store.state.socket.emit('collectorsBuySkill', {
+            roomId: this.$route.params.id,
+            playerId: this.playerId,
+            card: card,
+            cost: this.chosenPlacementCost
+        }
+          );
+        }
+
+    },
+    startAuction: function (card){
+
+      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+        console.log("startAuction säger myturn är false")
+        return
+      }
+
+
+      if(this.isPlacedList.market===true){
+        this.raiseMarket(card,'auction');
+        this.isPlacedList.market=false;
+      }
+        else{
+          this.isPlacedList.auction=false;
+          this.$store.state.socket.emit('collectorsStartAuction', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          card: card,
+          cost: this.chosenPlacementCost
+        }
+      );
+    },
      sendMessage: function(msg) {
       this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id});
     }
   },
+  raiseMarket: function(card,action){
+    console.log('raiseMarket i Collectors')
+    this.$store.state.socket.emit('collectorsRaiseValue', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        card: card,
+        cost: this.chosenPlacementCost,
+        action: action
+  });
+  this.marketBottleDone();
+},
+  changeTwoMarket: function(){
+    this.twoMarket=true;
+    this.twoMarketCounter=0;
+  }
+}
 }
 </script>
 <style scoped>

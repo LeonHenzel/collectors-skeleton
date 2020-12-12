@@ -2,5 +2,9 @@
 	"draw": "Dra kort",
 	"invite": "Bjud in andra spelare med den här länken:",
 	"endTurn": "Avsluta runda",
-	"buyCard": "Köp ett kort"
+	"buyCard": "Köp ett kort",
+	"buySkill": "BuySkill",
+	"startAuction": "Starta Auktion",
+	"skipThisRound": "Avsluta Runda",
+	"raiseMarket": "Öka värdet"
 }
