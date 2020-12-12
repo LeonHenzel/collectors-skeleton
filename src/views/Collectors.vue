@@ -200,10 +200,6 @@ export default {
       );
     },
      sendMessage: function(msg) {
-      /*this.message.msg = msg;
-      console.log(msg);
-      this.message.pId = this.playerId;
-      this.message.rId = this.roomId;*/
       this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id});
     }
   },

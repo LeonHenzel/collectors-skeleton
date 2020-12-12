@@ -1,10 +1,10 @@
 
 <template class="chat">
   <div class="mainWrapper">
-    <button type="submit" id="openChatButton" @click = "chatGotClicked=true">
+    <button type="submit" id="openChatButton" @click="chatGotClicked=true">
       <img src="https://www.flaticon.com/premium-icon/icons/svg/14/14558.svg" height="20" width="20">
     </button>
-    <!-- sendMessage-->
+
     <div id="chatWrapper" v-if="chatGotClicked" @keyup.enter="sendMessage">
 
         <div id="chatHeader">
@@ -50,16 +50,18 @@
       chatGotClicked: false,
       gotSubmitted: false,
       message: "",
-      sentMessage: "",
       send: false
     }
   },
   methods:{
     sendMessage: function(){
       var msg = this.message;
-      this.$emit('sendMessage', msg);
+      if(msg.length>1 || this.chatGotClicked===true){
+        this.$emit('sendMessage', msg);
+      }
       this.message = ""
-      this.scrollIntoView();
+      var chatWindow = document.getElementById("messages");
+      chatWindow.scrollIntoView();
     },
 
     test: function(){
@@ -80,6 +82,10 @@
 <!--.................................................................................................... -->
 
 <style>
+.mainWrapper{
+  margin-left: 5px;
+}
+
 #commentWindow{
   resize: none;
   max-height: 16pt;
@@ -94,33 +100,40 @@
 #messages{
   position:absolute;
   height: 500px;
-  max-height: 500px;
+  max-height: 490px;
   width:100%;
   overflow:auto;
+  background-color: #313639;
 }
 #chatHeader{
   background-color: #6495ED;
   padding: 10px;
   font-size: 20pt;
   border-radius: 10px 10px 0px 0px;
-  border-bottom: none;
+  border-bottom: 1px solid lightgrey;
 }
 #invisibleDiv{
   height: 40px;
   background-color: transparent;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .bubble{
   min-width: 20%;
   position: absolute;
   width: max-content;
-  max-width: 80%;
+  max-width: 60%;
   color: white;
   margin: 5px;
   border-radius: 15px;
   padding: 10px;
   background-color: #6495ED;
   right: 0;
+}
+
+.bubble:hover{
+  cursor: text;
 }
 
 .friendBubble{
