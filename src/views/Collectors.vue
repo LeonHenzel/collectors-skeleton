@@ -35,6 +35,11 @@
     </main>
     {{players}}
     {{marketValues}}
+
+    <!--<div v-for="(player, index) in players" :key="player+index">
+      {{player[playerId]}}
+    </div>-->
+    
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
     </button>

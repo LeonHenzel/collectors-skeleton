@@ -56,7 +56,6 @@
   methods:{
     sendMessage: function(){
       var msg = this.message;
-      console.log(msg.length)
       if(msg.length>1){
         this.$emit('sendMessage', msg);
       }
@@ -121,7 +120,6 @@
 }
 
 .bubble{
-  min-width: 20%;
   position: absolute;
   width: max-content;
   max-width: 60%;

@@ -108,13 +108,15 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  skills: [],
                                  items: [],
                                  income: [],
-                                 secret: [] };
+                                 secret: [],
+                                 randomVal: Math.random()};
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
   }
   return false;
 }
+
 
 Data.prototype.getPlayers = function (id) {
   let room = this.rooms[id]
