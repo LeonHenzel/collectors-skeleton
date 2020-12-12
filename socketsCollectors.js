@@ -60,6 +60,20 @@ function sockets(io, socket, data) {
         }
       );
     });
+    socket.on('collectorsRaiseBid', function(d) {
+      data.raiseBid(d.roomId, d.playerId, d.currentBid)
+      io.to(d.roomId).emit('bidRaised', { 
+          currentBid: data.getCurrentBid(d.roomId)
+        }
+      );
+    });
+    socket.on('collectorsSkipBidding', function(d) {
+      data.skipBidding(d.roomId, d.playerId, d.currentBid, d.currentAuctionCard)
+      io.to(d.roomId).emit('bidRaised', { 
+          currentBid: data.getCurrentBid(d.roomId)
+        }
+      );
+    });
 }
 
 module.exports = sockets;

@@ -56,9 +56,20 @@
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
       </div>
-      Current auction
-      <div class="cardslots">
-        <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+      
+      <div class="auctionWrapper">
+        <div class="currentAuctionWrapper">
+          Current auction
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+          </div>
+        </div>
+        <div class="currentBidWrapper">
+          <p> Current Bid </p>
+          <h3> {{ currentBid }} Coins </h3>
+          <button @click="raiseBid">Raise Bid By 1 Coin</button>
+          <button @click="skipThisBidding">Give Up Bidding</button>
+        </div>
       </div>
     </main>
     {{players}}
@@ -126,7 +137,9 @@ export default {
       skillsOnSale: [],
       auctionCards: [],
       playerid: 0,
-      currentAuction: []
+      currentAuction: [],
+      currentBid: 0,
+      bidSkipper: false
     }
   },
   computed: {
@@ -193,8 +206,6 @@ export default {
       }.bind(this)
     );
 
-
-
     this.$store.state.socket.on('collectorsCardBought', 
       function(d) {
         console.log(d.playerId, "bought a card");
@@ -220,6 +231,14 @@ export default {
         console.log("currentAuction = " + this.currentAuction)
       }.bind(this)
     ); 
+    this.$store.state.socket.on('bidRaised', 
+      function(d) {
+        console.log(this.currentBid);
+        console.log(d.currentBid);
+        this.currentBid = d.currentBid;
+        console.log("current bid raised")
+      }.bind(this)
+    );  
   },
   methods: {
     selectAll: function (n) {
@@ -334,9 +353,28 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           roomId: this.$route.params.id, 
           playerId: this.playerId,
           card: card,
-          cost: this.chosenPlacementCost 
+          cost: this.chosenPlacementCost
         }
-      );
+      );    
+    },
+    raiseBid: function (){
+      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playersId].bidSkipper === false){
+          this.$store.state.socket.emit('collectorsRaiseBid', { 
+          roomId: this.$route.params.id, 
+          playerId: this.playerId,
+          currentBid: this.currentBid
+        }
+      );    
+      }
+    },
+    skipThisBidding: function (){
+        this.$store.state.socket.emit('collectorsSkipBidding', { 
+        roomId: this.$route.params.id,
+        playerId: this.playerId, 
+        currentBid: this.currentBid,
+        currentAuctionCard: this.currentAuction
+        }
+      );   
     }
   },
 }
@@ -375,6 +413,22 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .cardslots div:hover {
     transform: scale(1)translate(-25%,0);
     z-index: 1;
+  }
+
+  .auctionWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .currentBidWrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .currentBidWrapper p {
+    margin: 0;
   }
 
   @media screen and (max-width: 800px) {

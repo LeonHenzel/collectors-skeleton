@@ -83,6 +83,9 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
                            {cost:-2, playerId: null},
                            {cost:0, playerId: null} ];
   this.rooms[roomId] = room;
+  room.currentBid = 0;
+  room.bidSkippersCount = 0; // När detta blir playerCount - 1 så avslutas the bidding. 
+  room.bidders = [];
 }
 
 Data.prototype.createDeck = function() {
@@ -111,7 +114,9 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  income: [],
                                  secret: [],
                                  energyBottles: 2,
-                                 myTurn: true };
+                                 myTurn: true,
+                                 myBiddingTurn: false,
+                                 bidSkipper: false };
       }
       else{
       room.players[playerId] = { hand: [], 
@@ -122,7 +127,9 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  income: [],
                                  secret: [],
                                  energyBottles: 2,
-                                 myTurn: false };
+                                 myTurn: false,
+                                 myBiddingTurn: false,
+                                 bidSkipper: false };
       }
       return true;
     }
@@ -374,13 +381,14 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
     }
     room.currentAuction = c;
     room.players[playerId].money -= cost;
+
+
     
   }
 
   // Turn-base- function
   var aPlayer
   for(aPlayer in room.players){
-  
     if(room.players[aPlayer].myTurn === true){
   
       if(Object.keys(room.players).indexOf(aPlayer) === room.playerCount - 1){
@@ -392,6 +400,7 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
           room.players[aPlayer].myTurn = false;
   
           // Följande är en black box. Men jag kan förklara:
+          // aPlayer = ett player Id
           // Object.keys(room.players).indexOf(aPlayer) = index av den spelare vars tur det är
 
           // Object.keys(room.players).indexOf(aPlayer) = index av den spelare vars tur det är nästa gång, 
@@ -408,7 +417,105 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
     }
   }
 
+  // Den som auktionerar ut får börja bidda. 
+  room.players[playerId].myBiddingTurn = true;
 }
+
+Data.prototype.raiseBid = function (roomId, playerId, currentBid) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.currentBid = currentBid + 1;
+
+    // Now player with playerId is part of the bidding
+    if(room.bidders.includes(playerId)){
+      break;
+    }
+    else{
+      room.bidders.push(playerId)
+    }
+  }
+}
+
+Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuctionCard) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].bidSkipper = true;
+    room.bidSkippersCount += 1;
+    if(room.bidSkippersCount === room.playerCount-1){
+      // bidding ends för det finns bara en kvar i bidding och kortet går till den spelare som 
+      // har bidSkipper===false
+      var aPlayer;
+      for(aPlayer in room.players){
+        if(room.players[aPlayer].bidSkipper === false){
+          // currentAuctionCard ska läggas till i antingen aPlayers items, skills eller raise market value,
+          // beroende på vad han väljer. 
+          console.log(aPlayer + " won the bidding of " + currentAuctionCard)
+        }
+      }
+    }
+    else{
+      //avgör nästa persons tur
+
+      var indexOfCurrentPlayer = Object.keys(room.players).indexOf(playerId);
+
+      // if playercount = 2
+      if(room.playerCount === 2){
+        // if the current player is the last player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 1){
+          // then it's the player ones biddingturn. Both needs to have bidSkipper === false since room.bidSkippersCount !== room.playerCount-1
+          Object.keys(room.players)[0].myBiddingTurn = true;
+        }
+
+        // if the current player is not the last player in the list
+        else{
+          // then it's player 2:s biddingTurn
+          Object.keys(room.players)[1].myBiddingTurn = true;
+        }
+      }
+
+
+      // if playercount = 3
+      else if(room.playerCount === 3){
+        // if the current player is the last player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 2){
+          if(Object.keys(room.players)[0].bidSkipper === false){
+            Object.keys(room.players)[0].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[1].bidSkipper === false){
+            Object.keys(room.players)[1].myBiddingTurn = true;
+          }
+      }
+
+
+      // if playercount = 4
+
+
+
+
+
+      // if the current player is the last player in the list
+      if(Object.keys(room.players).indexOf(aPlayer) === room.playerCount - 1){
+        if(Object.keys(room.players)[0].bidSkipper === false){
+          Object.keys(room.players)[0].myBiddingTurn = true;
+        }
+        else if(Object.keys(room.players)[1].bidSkipper === false){
+          Object.keys(room.players)[1].myBiddingTurn = true;
+        }
+        else if(Object.keys(room.players)[2].bidSkipper === false){
+          Object.keys(room.players)[2].myBiddingTurn = true;
+        }
+      }
+      //if the current player is not the last player in the list and the next person hasn't given up the bidding...
+      else if(room.players[Object.keys(room.players)[indexOfCurrentPlayer + 1]].bidSkipper === false){
+        // then it is his/her turn
+        room.players[Object.keys(room.players)[indexOfCurrentPlayer + 1]].myBiddingTurn = true;
+      }
+      //if the current player is not the last player in the list and the next person has given up the bidding but the second next person hasn't given up the bidding...
+      else if(room.players[Object.keys(room.players)[indexOfCurrentPlayer + 2]].bidSkipper === false)
+    }
+  }
+}
+
 
 /* returns the hand of the player */
 Data.prototype.getCards = function (roomId, playerId) {
@@ -477,6 +584,20 @@ Data.prototype.getAuctionCards = function(roomId){
   }
   else return [];
 }
+
+Data.prototype.getCurrentBid = function(roomId){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    return room.currentBid;
+  }
+  else return [];
+}
+
+
+
+
+
+
 
 module.exports = Data;
 
