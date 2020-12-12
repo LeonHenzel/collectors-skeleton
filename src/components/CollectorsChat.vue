@@ -56,7 +56,8 @@
   methods:{
     sendMessage: function(){
       var msg = this.message;
-      if(msg.length>1 || this.chatGotClicked===true){
+      console.log(msg.length)
+      if(msg.length>1){
         this.$emit('sendMessage', msg);
       }
       this.message = ""
