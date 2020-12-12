@@ -476,8 +476,26 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
 
       // if playercount = 3
       else if(room.playerCount === 3){
+        // if the current player is the first player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 0){
+          if(Object.keys(room.players)[1].bidSkipper === false){
+            Object.keys(room.players)[1].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[2].bidSkipper === false){
+            Object.keys(room.players)[2].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the second player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 1){
+          if(Object.keys(room.players)[2].bidSkipper === false){
+            Object.keys(room.players)[2].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[0].bidSkipper === false){
+            Object.keys(room.players)[0].myBiddingTurn = true;
+          }
+        }
         // if the current player is the last player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 2){
+        else if(Object.keys(room.players).indexOf(aPlayer) === 2){
           if(Object.keys(room.players)[0].bidSkipper === false){
             Object.keys(room.players)[0].myBiddingTurn = true;
           }
@@ -486,9 +504,53 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
           }
       }
 
-
       // if playercount = 4
-
+      else if(room.playerCount === 4){
+        // if the current player is the first player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 0){
+          if(Object.keys(room.players)[1].bidSkipper === false){
+            Object.keys(room.players)[1].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[2].bidSkipper === false){
+            Object.keys(room.players)[2].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[3].bidSkipper === false){
+            Object.keys(room.players)[3].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the second player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 1){
+          if(Object.keys(room.players)[2].bidSkipper === false){
+            Object.keys(room.players)[2].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[3].bidSkipper === false){
+            Object.keys(room.players)[3].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[0].bidSkipper === false){
+            Object.keys(room.players)[0].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the third player in the list
+        if(Object.keys(room.players).indexOf(aPlayer) === 2){
+          if(Object.keys(room.players)[3].bidSkipper === false){
+            Object.keys(room.players)[3].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[0].bidSkipper === false){
+            Object.keys(room.players)[0].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[1].bidSkipper === false){
+            Object.keys(room.players)[1].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the last player in the list
+        else if(Object.keys(room.players).indexOf(aPlayer) === 2){
+          if(Object.keys(room.players)[0].bidSkipper === false){
+            Object.keys(room.players)[0].myBiddingTurn = true;
+          }
+          else if(Object.keys(room.players)[1].bidSkipper === false){
+            Object.keys(room.players)[1].myBiddingTurn = true;
+          }//FBfnnifmfififififfi
+      }
 
 
 

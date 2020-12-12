@@ -233,10 +233,7 @@ export default {
     ); 
     this.$store.state.socket.on('bidRaised', 
       function(d) {
-        console.log(this.currentBid);
-        console.log(d.currentBid);
         this.currentBid = d.currentBid;
-        console.log("current bid raised")
       }.bind(this)
     );  
   },
