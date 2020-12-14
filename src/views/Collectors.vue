@@ -3,24 +3,23 @@
     <main>
       <div class="layout">
         <div class="menuBar">
-          Menu
+          Menu/navbar
         </div>
 
         <div class="otherPlayers">
-          Stats
-          <br>
+          <h3>Stats</h3>
+          <h4>Placement in current round:</h4>
             {{buyPlacement}}
             <br>
             {{chosenPlacementCost}}
         </div>
 
         <div class="Items">
-          Items
-
+          <h3>Items</h3>
         </div>
 
         <div class="Skills">
-          Skills
+          <h3>Skills</h3>
           <br>
           <CollectorsBuySkill v-if="players[playerId]"
             :labels="labels"
@@ -32,7 +31,7 @@
         </div>
 
         <div class="cardsOnSale">
-          Köp dina kort här
+          <h3>Köp dina kort här</h3>
           <br>
           <CollectorsBuyActions v-if="players[playerId]"
             :labels="labels"
@@ -45,24 +44,25 @@
         </div>
 
         <div class="playerView" >
+          <h3>Playerview</h3>
           <div class="overlayPlayerView" id = "expand">
             <a href="#" class="closeGridButton" @click="minimizeGrid()">&times;</a>
             <div class="myHand">
-              My Hand
+              <h4>My Hand</h4>
               <div class="cardslots" v-if="players[playerId]">
                 <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
               </div>
             </div>
 
             <div class="myItems">
-              My Items
+              <h4>My Items</h4>
               <div class="cardslots" v-if="players[playerId]">
                 <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
               </div>
             </div>
 
             <div class="mySkills">
-              My Skills
+              <h4>My Skills</h4>
               <div class="cardslots" v-if="players[playerId]">
                 <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
               </div>
@@ -78,17 +78,19 @@
         </div>
 
         <div class="Auction">
-          Current auction
+          <h3>Current auction</h3>
           <br>
-          <CollectorsStartAuction v-if="players[playerId]"
-            :labels="labels"
-            :player="players[playerId]"
-            :auctionCards="auctionCards"
-            :marketValues="marketValues"
-            :placement="auctionPlacement"
-            @startAuction="startAuction($event)"
-            @placeBottle="placeBottle('auction', $event)"/>
-            <br>
+
+            <CollectorsStartAuction v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :auctionCards="auctionCards"
+              :marketValues="marketValues"
+              :placement="auctionPlacement"
+              @startAuction="startAuction($event)"
+              @placeBottle="placeBottle('auction', $event)"/>
+              <br>
+
           <div class="cardslots">
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
