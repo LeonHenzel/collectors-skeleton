@@ -524,12 +524,12 @@ Data.prototype.raiseBid = function (roomId, playerId, currentBid) {
     room.players[playerId].myBiddingTurn = false;
           //avgör nästa persons tur
 
-      var indexOfCurrentPlayer = Object.keys(room.players).indexOf(playerId);
+     // var indexOfCurrentPlayer = Object.keys(room.players).indexOf(playerId);
 
       // if playercount = 2
       if(room.playerCount === 2){
         // if the current player is the last player in the list
-        if(Object.keys(room.players).indexOf(indexOfCurrentPlayer) === 1){
+        if(Object.keys(room.players).indexOf(playerId) === 1){
           // then it's the player ones biddingturn. Both needs to have bidSkipper === false since room.bidSkippersCount !== room.playerCount-1
           room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
         }
@@ -769,24 +769,26 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
   }
 }
 
-Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard) {
+Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard, cardCost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
     room.players[playerId].items.push(...currentAuctionCard);
     room.players[playerId].myBiddingTurn = false;
+    room.players[playerId].money -= cardCost;
     room.currentAuction = [];
     room.currentBid = 0;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
   }
 } 
 
-Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard) {
+Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard, cardCost) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
     room.players[playerId].skills.push(...currentAuctionCard);
     room.players[playerId].myBiddingTurn = false;
+    room.players[playerId].money -= cardCost;
     room.currentAuction = [];
     room.currentBid = 0;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
