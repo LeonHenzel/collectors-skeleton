@@ -27,6 +27,8 @@
           <div :class="['bubble', {'friendBubble':msg.playerId!==playerId}]">
             {{msg.message}}
           </div>
+          <br>
+          <p id="senderName" v-if="msg.playerId!==playerId"> {{playerName}}</p>
         </div>
 
 
@@ -44,6 +46,7 @@
     props:{
       messages: Array,
       playerId: String,
+      playerName: String,
     },
   data: function () {
     return{
@@ -85,6 +88,10 @@
 .mainWrapper{
   margin-left: 5px;
 }
+#senderName{
+  font-size: 8pt;
+  color: white;
+}
 
 #commentWindow{
   resize: none;
@@ -116,7 +123,7 @@
   height: 40px;
   background-color: transparent;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 .bubble{

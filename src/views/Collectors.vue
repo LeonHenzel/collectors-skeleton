@@ -1,15 +1,23 @@
 <template>
   <div>
+  <form class="nameEnter" v-if="gotSubmitted===false && fixedPlayerName === ''">
+    <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
+    <button type="submit" @click="submitName"></button>
+  </form>
+
+  <div id="megaWrapper" v-if="gotSubmitted">
     <main>
-<<<<<<< HEAD
-    <CollectorsChat :messages="messages" :playerId="playerId" @sendMessage = "sendMessage($event)"/>
-=======
+      <div class="bajs" v-for="player in players" :key="player">
+        {{player.playerName}}
+      </div>
+    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="playerName" @sendMessage = "sendMessage($event)"/>
+
       <div>{{players}}</div>
       <br>
       <div>Mitt ID är {{this.$store.state.playerId}}</div>
       <br>
       <br>
->>>>>>> gameMechanics
+
       {{buyPlacement}} {{chosenPlacementCost}}
       <br>
       <div class="buttons">
@@ -89,6 +97,7 @@
         </p>
     </footer>
   </div>
+  </div>
 </template>
 
 
@@ -118,6 +127,9 @@ export default {
   },
   data: function () {
     return {
+      playerName: "",
+      fixedPlayerName:"",
+      gotSubmitted: false,
       publicPath: "localhost:8080/#", //"collectors-groupxx.herokuapp.com/#",
       touchScreen: false,
       maxSizes: { x: 0,
@@ -238,7 +250,6 @@ export default {
 
     this.$store.state.socket.on('collectorsUpdateMessages',
       function(d) {
-        console.log(d)
         this.messages = d.messages;
       }.bind(this)
     );
@@ -279,13 +290,30 @@ export default {
           this.twoMarket=false;
         }
       }
-    }.bind(this))
+    }.bind(this)
+  );
+
+  this.$store.state.socket.on('nameSet',function(d){
+    this.players = d.players;
+    this.playerName = d.playerName;
+    console.log(this.playerName, "from listnener in view")
+  }.bind(this)
+);
 
 
   },
   methods: {
     selectAll: function (n) {
       n.target.select();
+
+    },
+    submitName: function(){
+      this.fixedPlayerName = this.playerName;
+      this.gotSubmitted = true;
+      this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
+         playerId: this.playerId,
+          playerName: this.playerName});
+      console.log(this.playerName, "from submitName")
     },
 
 /* Vad har vi gjort här med placeBottle och doAction? Jo, problemet var att när man klickade på en auctionknapp
@@ -313,7 +341,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         return
       }
       this.chosenPlacementCost =cost ;
-      
+
       this.$store.state.socket.emit('collectorsPlaceBottle', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -489,7 +517,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           card: card,
           cost: this.chosenPlacementCost
         }
-      );
+      );}
     },
      sendMessage: function(msg) {
       this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id});
@@ -511,7 +539,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     this.twoMarketCounter=0;
   }
 }
-}
+
 </script>
 <style scoped>
   header {

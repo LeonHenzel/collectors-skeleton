@@ -79,11 +79,19 @@ function sockets(io, socket, data) {
         skillsOnSale: data.rooms[d.roomId].skillsOnSale,
         auctionCards: data.rooms[d.roomId].auctionCards
       })
+    });
+
+      socket.on('sendPlayerName', function(d){
+        data.setPlayerName(d.roomId, d.playerId, d.playerName)
+        socket.emit('nameSet',{
+          players: data.getPlayers(d.roomId),
+          playerId: d.playerId,
+          playerName: d.playerName
+      })
+      console.log(d.playerName, " from socket listener")
+    });
 
 
-
-
-    })
 
 }
 

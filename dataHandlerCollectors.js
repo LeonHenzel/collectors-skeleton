@@ -131,7 +131,9 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                    figures:0},
                                  items: [],
                                  income: [],
+                                 randomVal: Math.random(),
                                  secret: [],
+                                 playerName: "",
                                  energyBottles: 2,
                                  myTurn: true};
       }
@@ -149,13 +151,12 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  items: [],
                                  income: [],
                                  secret: [],
-<<<<<<< HEAD
-                                 randomVal: Math.random()};
-
+                                 playerName: "",
+                                 randomVal: Math.random(),
                                  energyBottles: 2,
                                  myTurn: false };
       }
->>>>>>> gameMechanics
+
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
@@ -259,8 +260,6 @@ Data.prototype.buyCard = function (roomId, playerId, card, cost) {
     Data.prototype.raiseItem(c, room, playerId);
     room.players[playerId].money -= cost;
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -357,7 +356,6 @@ Data.prototype.buySkill=function (roomId,playerId,card,cost){
       c = room.players[playerId].hand.splice(i,1);
       break;
     }
->>>>>>> gameMechanics
   }
   room.players[playerId].skills.push(...c);
   room.players[playerId].money -= cost;
@@ -635,7 +633,6 @@ Data.prototype.getAuctionCards = function(roomId){
   else return [];
 }
 
-<<<<<<< HEAD
 /*Data.prototype.getMessage = function(roomId, playerId){
   let room = this.rooms[roomId];
   let player = this.players[playerId];
@@ -655,7 +652,6 @@ Data.prototype.getMessages = function(roomId){
   console.log(this.rooms)
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    console.log(room.messages, " from dataHandler")
     return room.messages;
   }
 
@@ -665,7 +661,13 @@ Data.prototype.getMessages = function(roomId){
   }
 }
 
+Data.prototype.setPlayerName = function(roomId, playerId, playerName){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined'){
+    room.players[playerId].playerName =  playerName;
+    console.log(playerName, "from DH")
+  }
+}
 
-=======
->>>>>>> gameMechanics
+
 module.exports = Data;
