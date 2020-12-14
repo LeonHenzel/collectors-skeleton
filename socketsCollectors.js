@@ -63,13 +63,39 @@ function sockets(io, socket, data) {
     socket.on('collectorsRaiseBid', function(d) {
       data.raiseBid(d.roomId, d.playerId, d.currentBid)
       io.to(d.roomId).emit('bidRaised', { 
+          players: data.getPlayers(d.roomId),
           currentBid: data.getCurrentBid(d.roomId)
         }
       );
     });
     socket.on('collectorsSkipBidding', function(d) {
-      data.skipBidding(d.roomId, d.playerId, d.currentBid, d.currentAuctionCard)
-      io.to(d.roomId).emit('bidRaised', { 
+      data.skipBidding(d.roomId, d.playerId, d.currentBid, d.currentAuctionCard, d.bidWinnerWrapper)
+      io.to(d.roomId).emit('bidSkipped', { 
+          playerId: d.playerId,
+          players: data.getPlayers(d.roomId),
+          bidSkippersCount: data.getBidSkippersCount(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId)
+        }
+      );
+    });
+    socket.on('collectorsPlaceInItems', function(d) {
+      data.placeInItems(d.roomId, d.playerId, d.currentAuctionCard)
+      io.to(d.roomId).emit('auctionCardPlacedInItems', { 
+          players: data.getPlayers(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId)
+        }
+      );
+    });
+    socket.on('collectorsPlaceInSkills', function(d) {
+      data.placeInSkills(d.roomId, d.playerId, d.currentAuctionCard)
+      io.to(d.roomId).emit('auctionCardPlacedInSkills', { 
+          players: data.getPlayers(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId),
           currentBid: data.getCurrentBid(d.roomId)
         }
       );

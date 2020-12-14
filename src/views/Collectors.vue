@@ -64,6 +64,7 @@
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
         </div>
+        <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
         <div class="currentBidWrapper">
           <p> Current Bid </p>
           <h3> {{ currentBid }} Coins </h3>
@@ -71,6 +72,17 @@
           <button @click="skipThisBidding">Give Up Bidding</button>
         </div>
       </div>
+
+      <div v-bind:class="bidWinnerWrapper">
+        Choose where you want to put your won Auction-card
+        <br>
+          <!-- <button class="placeholder">This is just a placeholder button</button> -->
+          <button @click="placeAuctionCardInItems">Place your newly won Auction-card in Items</button>
+          <button @click="placeAuctionCardInSkills">Place your newly won Auction-card in Skills</button>
+          <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
+      </div>
+      <br>
+
     </main>
     {{players}}
     {{marketValues}}
@@ -139,7 +151,7 @@ export default {
       playerid: 0,
       currentAuction: [],
       currentBid: 0,
-      bidSkipper: false
+      bidWinnerWrapper: "bidWinnerWrapperInvisible"
     }
   },
   computed: {
@@ -234,8 +246,38 @@ export default {
     this.$store.state.socket.on('bidRaised', 
       function(d) {
         this.currentBid = d.currentBid;
+        this.players = d.players;
       }.bind(this)
     );  
+    this.$store.state.socket.on('bidSkipped', 
+      function(d) {
+        this.currentAuction = d.currentAuction;
+        this.players = d.players;
+        if(this.players[this.playerId].myBiddingTurn === true){
+          this.bidWinnerWrapper = d.bidWinnerWrapper;
+        }
+      }.bind(this)
+    );  
+    this.$store.state.socket.on('auctionCardPlacedInItems', 
+      function(d) {
+        this.currentBid = d.currentBid;
+        this.players = d.players;
+        this.currentAuction = d.currentAuction
+        if(this.players[this.playerId].bidSkipper === false){
+          this.bidWinnerWrapper = d.bidWinnerWrapper;
+        }
+      }.bind(this)
+    );  
+    this.$store.state.socket.on('auctionCardPlacedInSkills', 
+      function(d) {
+        this.currentBid = d.currentBid;
+        this.players = d.players;
+        this.currentAuction = d.currentAuction
+        if(this.players[this.playerId].bidSkipper === false){
+          this.bidWinnerWrapper = d.bidWinnerWrapper;
+        }
+      }.bind(this)
+    ); 
   },
   methods: {
     selectAll: function (n) {
@@ -355,7 +397,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       );    
     },
     raiseBid: function (){
-      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playersId].bidSkipper === false){
+      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
+          console.log("inne i raiseBid i Collectors.vue")
           this.$store.state.socket.emit('collectorsRaiseBid', { 
           roomId: this.$route.params.id, 
           playerId: this.playerId,
@@ -365,13 +408,32 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       }
     },
     skipThisBidding: function (){
+      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
         this.$store.state.socket.emit('collectorsSkipBidding', { 
         roomId: this.$route.params.id,
         playerId: this.playerId, 
         currentBid: this.currentBid,
+        currentAuctionCard: this.currentAuction,
+        bidWinnerWrapper: this.bidWinnerWrapper
+        }
+      );
+      }
+    },
+    placeAuctionCardInItems: function (){
+        this.$store.state.socket.emit('collectorsPlaceInItems', { 
+        roomId: this.$route.params.id,
+        playerId: this.playerId, 
         currentAuctionCard: this.currentAuction
         }
-      );   
+      );
+    },
+    placeAuctionCardInSkills: function (){
+        this.$store.state.socket.emit('collectorsPlaceInSkills', { 
+        roomId: this.$route.params.id,
+        playerId: this.playerId, 
+        currentAuctionCard: this.currentAuction
+        }
+      );
     }
   },
 }
@@ -428,6 +490,14 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin: 0;
   }
 
+  .bidWinnerWrapperInvisible {
+    display: none;
+  }
+
+  .bidWinnerWrapperVisible {
+    display: block;
+  }
+  
   @media screen and (max-width: 800px) {
     main {
       width:90vw;

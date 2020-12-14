@@ -85,7 +85,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
   this.rooms[roomId] = room;
   room.currentBid = 0;
   room.bidSkippersCount = 0; // När detta blir playerCount - 1 så avslutas the bidding. 
-  room.bidders = [];
+  room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
 }
 
 Data.prototype.createDeck = function() {
@@ -382,9 +382,16 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
     room.currentAuction = c;
     room.players[playerId].money -= cost;
 
+    var eachPlayer
+    for(eachPlayer in room.players){
+      room.players[eachPlayer].bidSkipper = false;
+      room.players[eachPlayer].myBiddingTurn = false;
+    }
 
+    // Den som auktionerar ut får börja bidda. 
+    room.players[playerId].myBiddingTurn = true;
     
-  }
+  
 
   // Turn-base- function
   var aPlayer
@@ -417,8 +424,7 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
     }
   }
 
-  // Den som auktionerar ut får börja bidda. 
-  room.players[playerId].myBiddingTurn = true;
+  }
 }
 
 Data.prototype.raiseBid = function (roomId, playerId, currentBid) {
@@ -426,50 +432,22 @@ Data.prototype.raiseBid = function (roomId, playerId, currentBid) {
   if (typeof room !== 'undefined') {
     room.currentBid = currentBid + 1;
 
-    // Now player with playerId is part of the bidding
-    if(room.bidders.includes(playerId)){
-      break;
-    }
-    else{
-      room.bidders.push(playerId)
-    }
-  }
-}
-
-Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuctionCard) {
-  let room = this.rooms[roomId];
-  if (typeof room !== 'undefined') {
-    room.players[playerId].bidSkipper = true;
-    room.bidSkippersCount += 1;
-    if(room.bidSkippersCount === room.playerCount-1){
-      // bidding ends för det finns bara en kvar i bidding och kortet går till den spelare som 
-      // har bidSkipper===false
-      var aPlayer;
-      for(aPlayer in room.players){
-        if(room.players[aPlayer].bidSkipper === false){
-          // currentAuctionCard ska läggas till i antingen aPlayers items, skills eller raise market value,
-          // beroende på vad han väljer. 
-          console.log(aPlayer + " won the bidding of " + currentAuctionCard)
-        }
-      }
-    }
-    else{
-      //avgör nästa persons tur
+    room.players[playerId].myBiddingTurn = false;
+          //avgör nästa persons tur
 
       var indexOfCurrentPlayer = Object.keys(room.players).indexOf(playerId);
 
       // if playercount = 2
       if(room.playerCount === 2){
         // if the current player is the last player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 1){
+        if(Object.keys(room.players).indexOf(indexOfCurrentPlayer) === 1){
           // then it's the player ones biddingturn. Both needs to have bidSkipper === false since room.bidSkippersCount !== room.playerCount-1
-          Object.keys(room.players)[0].myBiddingTurn = true;
+          room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
         }
-
         // if the current player is not the last player in the list
         else{
           // then it's player 2:s biddingTurn
-          Object.keys(room.players)[1].myBiddingTurn = true;
+          room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
         }
       }
 
@@ -477,106 +455,255 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
       // if playercount = 3
       else if(room.playerCount === 3){
         // if the current player is the first player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 0){
-          if(Object.keys(room.players)[1].bidSkipper === false){
-            Object.keys(room.players)[1].myBiddingTurn = true;
+
+        if(Object.keys(room.players).indexOf(playerId) === 0){
+          if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[2].bidSkipper === false){
-            Object.keys(room.players)[2].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
           }
         }
         // if the current player is the second player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 1){
-          if(Object.keys(room.players)[2].bidSkipper === false){
-            Object.keys(room.players)[2].myBiddingTurn = true;
+        else if(Object.keys(room.players).indexOf(playerId) === 1){
+          if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[0].bidSkipper === false){
-            Object.keys(room.players)[0].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
           }
         }
         // if the current player is the last player in the list
-        else if(Object.keys(room.players).indexOf(aPlayer) === 2){
-          if(Object.keys(room.players)[0].bidSkipper === false){
-            Object.keys(room.players)[0].myBiddingTurn = true;
+        else if(Object.keys(room.players).indexOf(playerId) === 2){
+          if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[1].bidSkipper === false){
-            Object.keys(room.players)[1].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
           }
+        } 
       }
 
       // if playercount = 4
       else if(room.playerCount === 4){
         // if the current player is the first player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 0){
-          if(Object.keys(room.players)[1].bidSkipper === false){
-            Object.keys(room.players)[1].myBiddingTurn = true;
+        if(Object.keys(room.players).indexOf(playerId) === 0){
+          if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[2].bidSkipper === false){
-            Object.keys(room.players)[2].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[3].bidSkipper === false){
-            Object.keys(room.players)[3].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
           }
         }
         // if the current player is the second player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 1){
-          if(Object.keys(room.players)[2].bidSkipper === false){
-            Object.keys(room.players)[2].myBiddingTurn = true;
+        if(Object.keys(room.players).indexOf(playerId) === 1){
+          if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[3].bidSkipper === false){
-            Object.keys(room.players)[3].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[0].bidSkipper === false){
-            Object.keys(room.players)[0].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
           }
         }
         // if the current player is the third player in the list
-        if(Object.keys(room.players).indexOf(aPlayer) === 2){
-          if(Object.keys(room.players)[3].bidSkipper === false){
-            Object.keys(room.players)[3].myBiddingTurn = true;
+        if(Object.keys(room.players).indexOf(playerId) === 2){
+          if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[0].bidSkipper === false){
-            Object.keys(room.players)[0].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[1].bidSkipper === false){
-            Object.keys(room.players)[1].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
           }
         }
         // if the current player is the last player in the list
-        else if(Object.keys(room.players).indexOf(aPlayer) === 2){
-          if(Object.keys(room.players)[0].bidSkipper === false){
-            Object.keys(room.players)[0].myBiddingTurn = true;
+        else if(Object.keys(room.players).indexOf(playerId) === 3){
+          if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
           }
-          else if(Object.keys(room.players)[1].bidSkipper === false){
-            Object.keys(room.players)[1].myBiddingTurn = true;
-          }//FBfnnifmfififififfi
-      }
-
-
-
-
-      // if the current player is the last player in the list
-      if(Object.keys(room.players).indexOf(aPlayer) === room.playerCount - 1){
-        if(Object.keys(room.players)[0].bidSkipper === false){
-          Object.keys(room.players)[0].myBiddingTurn = true;
-        }
-        else if(Object.keys(room.players)[1].bidSkipper === false){
-          Object.keys(room.players)[1].myBiddingTurn = true;
-        }
-        else if(Object.keys(room.players)[2].bidSkipper === false){
-          Object.keys(room.players)[2].myBiddingTurn = true;
+          else if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
+          }
         }
       }
-      //if the current player is not the last player in the list and the next person hasn't given up the bidding...
-      else if(room.players[Object.keys(room.players)[indexOfCurrentPlayer + 1]].bidSkipper === false){
-        // then it is his/her turn
-        room.players[Object.keys(room.players)[indexOfCurrentPlayer + 1]].myBiddingTurn = true;
-      }
-      //if the current player is not the last player in the list and the next person has given up the bidding but the second next person hasn't given up the bidding...
-      else if(room.players[Object.keys(room.players)[indexOfCurrentPlayer + 2]].bidSkipper === false)
-    }
   }
 }
+
+Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuctionCard, bidWinnerWrapper) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.players[playerId].bidSkipper = true;
+    room.players[playerId].myBiddingTurn = false;
+
+    room.bidSkippersCount += 1;
+    if(room.bidSkippersCount === room.playerCount-1){
+      // bidding ends för det finns bara en kvar i bidding och kortet går till den spelare som 
+      // har bidSkipper===false  --- We have a winner
+      var aPlayer;
+      for(aPlayer in room.players){
+        if(room.players[aPlayer].bidSkipper === false){
+          // currentAuctionCard ska läggas till i antingen aPlayers items, skills eller raise market value,
+          // beroende på vad han väljer. 
+          console.log(aPlayer + " won the bidding of " + currentAuctionCard + "  och current bid är " + currentBid)
+
+          // reseting variables
+        //  room.players[aPlayer].myBiddingTurn = false; väntar med detta så jag kan göra så att bara den som vinner får knapparna. Sen gör jag när man klickar på en knapp att myBiddingTurn = false, och såklart så att knapparna försvinner. gör även alla bidskipper till false!
+          // room.players[aPlayer].bidSkipper = true;
+          room.bidSkippersCount = 0;
+
+          room.players[aPlayer].money -= currentBid;
+          room.currentBid = 0;
+
+          room.bidWinnerWrapper = "bidWinnerWrapperVisible"
+        }
+      }
+    }
+   // else{
+
+      //avgör nästa persons tur
+
+      // var indexOfCurrentPlayer = Object.keys(room.players).indexOf(playerId);
+
+      // if playercount = 2
+      if(room.playerCount === 2){
+        // if the current player is the last player in the list
+        if(Object.keys(room.players).indexOf(playerId) === 1){
+          // then it's the player ones biddingturn. Both needs to have bidSkipper === false since room.bidSkippersCount !== room.playerCount-1
+          room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
+        }
+        // if the current player is not the last player in the list
+        else{
+          // then it's player 2:s biddingTurn
+          room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+        }
+      }
+
+
+      // if playercount = 3
+      else if(room.playerCount === 3){
+        // if the current player is the first player in the list
+        if(Object.keys(room.players).indexOf(playerId) === 0){
+          if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the second player in the list
+        else if(Object.keys(room.players).indexOf(playerId) === 1){
+          if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the last player in the list
+        else if(Object.keys(room.players).indexOf(playerId) === 2){
+          if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+          }
+        } 
+      }
+
+      // if playercount = 4
+      else if(room.playerCount === 4){
+        // if the current player is the first player in the list
+        if(Object.keys(room.players).indexOf(playerId) === 0){
+          if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the second player in the list
+        if(Object.keys(room.players).indexOf(playerId) === 1){
+          if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the third player in the list
+        if(Object.keys(room.players).indexOf(playerId) === 2){
+          if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+          }
+        }
+        // if the current player is the last player in the list
+        else if(Object.keys(room.players).indexOf(playerId) === 3){
+          if(room.players[Object.keys(room.players)[0]].bidSkipper === false){
+            room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[1]].bidSkipper === false){
+            room.players[Object.keys(room.players)[1]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[2]].bidSkipper === false){
+            room.players[Object.keys(room.players)[2]].myBiddingTurn = true;
+          }
+          else if(room.players[Object.keys(room.players)[3]].bidSkipper === false){
+            room.players[Object.keys(room.players)[3]].myBiddingTurn = true;
+          }
+        }
+      }
+
+  //  }
+  }
+}
+
+Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+
+    room.players[playerId].items.push(...currentAuctionCard);
+    room.players[playerId].myBiddingTurn = false;
+    room.currentAuction = [];
+    room.currentBid = 0;
+    room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
+  }
+} 
+
+Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard) {
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+
+    room.players[playerId].skills.push(...currentAuctionCard);
+    room.players[playerId].myBiddingTurn = false;
+    room.currentAuction = [];
+    room.currentBid = 0;
+    room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
+  }
+} 
 
 
 /* returns the hand of the player */
@@ -656,12 +783,24 @@ Data.prototype.getCurrentBid = function(roomId){
 }
 
 
+Data.prototype.getBidSkippersCount = function(roomId){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    return room.bidSkippersCount;
+  }
+  else return [];
+}
 
+Data.prototype.getBidWinnerWrapper = function(roomId){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    return room.bidWinnerWrapper;
+  }
+  else return [];
+}
 
 
 
 
 module.exports = Data;
-
-
 
