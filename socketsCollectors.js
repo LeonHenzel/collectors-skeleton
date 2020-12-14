@@ -12,7 +12,9 @@ function sockets(io, socket, data) {
             marketValues: data.rooms[d.roomId].market,
             skillsOnSale: data.getSkillsOnSale(d.roomId),
             auctionCards: data.getAuctionCards(d.roomId),
-            placements: data.getPlacements(d.roomId)
+            placements: data.getPlacements(d.roomId),
+            playerList: data.rooms[d.roomId].playerList,
+            round: data.rooms[d.roomId].round
           }
         );
       }
@@ -23,7 +25,7 @@ function sockets(io, socket, data) {
       );
     });
     socket.on('collectorsSkipThisRound', function(d) {
-      io.to(d.roomId).emit('collectorsRoundSkipped', 
+      io.to(d.roomId).emit('collectorsRoundSkipped',
         data.skipThisRound(d.roomId, d.playerId)
       );
     });
@@ -62,18 +64,37 @@ function sockets(io, socket, data) {
     });
     socket.on('collectorsRaiseValue', function(d){
       data.raiseMarket(d.roomId, d.playerId, d.card,d.cost,d.action)
-      socket.emit('ValueRaised',{
+      io.to(d.roomId).emit('ValueRaised',{
         playerId: d.playerId,
         players: data.getPlayers(d.roomId),
         marketValues: data.rooms[d.roomId].market,
         skillsOnSale: data.rooms[d.roomId].skillsOnSale,
         auctionCards: data.rooms[d.roomId].auctionCards
-      })
+      });
 
 
 
 
     })
+    socket.on('collectorsChangeTurn',function(d){
+      data.changeTurn(d.roomId,d.playerId)
+      io.to(d.roomId).emit('turnChanged',{
+        playerId: d.playerId,
+        players: data.getPlayers(d.roomId)
+      });
+    });
+
+
+    socket.on('collectorsChangeRound',function(d){
+      data.changeRound(d.roomId,d.playerId)
+      io.to(d.roomId).emit('roundChanged',{
+        playerId: d.playerId,
+        players: data.getPlayers(d.roomId),
+        round: data.rooms[d.roomId].round,
+        playerList: data.rooms[d.roomId].playerList
+      });
+    });
+
 }
 
 module.exports = sockets;

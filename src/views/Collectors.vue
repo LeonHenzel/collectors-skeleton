@@ -8,6 +8,7 @@
       <br>
       {{buyPlacement}} {{chosenPlacementCost}}
       <br>
+      {{round}}
       <div class="buttons">
         <button @click="skipThisRound">
           {{ labels.skipThisRound }}
@@ -144,7 +145,8 @@ export default {
       playerid: 0,
       currentAuction: [],
       twoMarket: false,
-      twoMarketCounter:0
+      twoMarketCounter:0,
+      round: 0
     }
   },
   computed: {
@@ -185,6 +187,7 @@ export default {
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
+        this.round=d.round;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
@@ -218,6 +221,9 @@ export default {
         console.log(d.playerId, "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
+        if(this.players[this.playerId].myTurn===true){
+        this.changeTurn();
+      }
       }.bind(this)
     );
 
@@ -226,6 +232,9 @@ export default {
         console.log(d.playerId, "bought a Skill");
         this.players=d.players;
         this.skillsOnSale=d.skillsOnSale;
+        if(this.players[this.playerId].myTurn===true){
+        this.changeTurn();
+      }
       }.bind(this)
     );
 
@@ -235,7 +244,10 @@ export default {
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.currentAuction = d.currentAuction;
-        console.log("currentAuction = " + this.currentAuction)
+        console.log("currentAuction = " + this.currentAuction);
+        if(this.players[this.playerId].myTurn===true){
+        this.changeTurn();
+      }
       }.bind(this)
     );
 
@@ -256,6 +268,19 @@ export default {
           this.twoMarket=false;
         }
       }
+      if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
+      this.changeTurn();
+    }
+    }.bind(this))
+
+    this.$store.state.socket.on('turnChanged',function(d){
+      console.log(d.players);
+      this.players=d.players;
+      console.log(this.players);
+    }.bind(this))
+
+    this.$store.state.socket.on('roundChanged', function(d){
+      this.round=d.round;
     }.bind(this))
 
   },
@@ -298,8 +323,30 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       );
     },
 
+    changeTurn: function(){
+      let totalBottles=0;
+      console.log("changeTurn")
+      for(let id in this.players){
+        console.log("forfor")
+        totalBottles+=this.players[id].energyBottles;
+      }
+      console.log(totalBottles)
+      if(totalBottles!==0){
+          this.$store.state.socket.emit('collectorsChangeTurn',{
+          roomId: this.$route.params.id,
+          playerId: this.playerId
+        });
+      }
+      else{
+        this.$store.state.socket.emit('collectorsChangeRound',{
+          roomId: this.$route.params.id,
+          playerId: this.playerId
+        });
+      }
+    },
+
     doAction: function(card){
-      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+      if(this.players[this.playerId].myTurn === false){
         return
       }
       else if(this.isPlacedList.item===true){
@@ -321,7 +368,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
     // drawCard kommer inte behållas på detta vis
     drawCard: function () {
-      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+      if(this.players[this.playerId].myTurn === false){
         return
       }
       this.$store.state.socket.emit('collectorsDrawCard', {
@@ -400,7 +447,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
     buyCard: function (card) {
-      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+      if(this.players[this.playerId].myTurn === false){
         console.log("buyCard säger myturn är false")
         return
       }
@@ -416,18 +463,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
     buySkill: function (card){
 
-       if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+       if(this.players[this.playerId].myTurn === false){
         console.log("buySkill säger myturn är false")
         return
       }
         this.isPlacedList.skill=false;
-        console.log("buySkill", card);
-        this.$store.state.socket.emit('collectorsBuySkill', {
-          roomId: this.$route.params.id,
-          playerId: this.playerId,
-          card: card,
-          cost: this.chosenPlacementCost
-        });
         if(this.isPlacedList.market===true){
           this.raiseMarket(card,'skill');
           this.isPlacedList.market=false;
@@ -446,7 +486,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
     startAuction: function (card){
 
-      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+      if(this.players[this.playerId].myTurn === false){
         console.log("startAuction säger myturn är false")
         return
       }
@@ -468,6 +508,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
   },
   raiseMarket: function(card,action){
+    if(this.players[this.playerId].myTurn === false){
+      return
+    }
     console.log('raiseMarket i Collectors')
     this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
