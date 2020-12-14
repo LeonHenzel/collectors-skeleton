@@ -1,26 +1,29 @@
-
-
 <template>
   <div class="center">
-    <div id="hover">
-      <h1>Collectors</h1>
+
+    <button type="submit" class = "switchLanguage" id = "swedishLanguage" v-if="swedishGotClicked == false"
+    @click="swedishGotClicked = true, englishGotClicked= false">
+      <img src= "https://cdn.countryflags.com/thumbs/sweden/flag-800.png" witdh = "30" height = "20">
+    </button>
+
+    <button type="submit" class = "switchLanguage" id = "englishLanguage" v-if="englishGotClicked == false"
+    @click="englishGotClicked = true, swedishGotClicked= false">
+      <img src= "https://cdn.countryflags.com/thumbs/united-kingdom/flag-800.png" witdh = "30" height = "20">
+    </button>
 
     <div>
-    <ul>
-        <li class ="Engelska" v-for="i in 3" :key="i">
-          <a @click="setupCollectors(i+1, 'en')">  Set up a game of Collectors for {{i+1}} players</a>.
+      <h1 id="mainTitle">Collectors</h1>
+      <ul v-if="englishGotClicked">
+        <li v-for="i in 3" :key="i">
+          <a class="clickableText" @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players</a>.
         </li>
       </ul>
-      </div>
-
-    <div>
-      <ul>
-        <li class="Svenska" v-for="i in 3" :key="i">
-          <a @click="setupCollectors(i+1, 'se')">Spela Collectors med {{i+1}} spelare</a>.
+      <ul v-if="swedishGotClicked">
+        <li v-for="i in 3" :key="i">
+          <a class="clickableText" @click="setupCollectors(i+1, 'se')">Spela Collectors med {{i+1}} spelare</a>.
         </li>
       </ul>
     </div>
-  </div>
   </div>
 </template>
 
@@ -29,44 +32,52 @@
 
 export default {
   name: 'Home',
+  data:function(){
+    return{
+      swedishGotClicked: false,
+      englishGotClicked: true,
+      language: "",
+    }
+  },
   created: function () {
     this.$store.commit('SET_ROOM_ID');
   },
   methods: {
     setupCollectors: function (playerCount, lang="en") {
+
       this.$store.commit('SETUP_GAME', {roomId: this.$store.state.roomId,
         playerCount: playerCount,
         lang: lang });
       this.$router.push("/room/" + this.$store.state.roomId);
-    },
+    }
   }
 }
-
-
-
-
 </script>
+
 <style scoped>
   .center {
-    display: flex;
+    display: absolute;
     align-items: center;
     justify-content: center;
     height: 100vh;
     padding: 1em;
-
   }
 
-  /*These CSS classes makes the texts in the fOr loop change colOR And changes the mousepointer img*/
-
-  .Engelska :hover{
-    color: Cyan;
+  .switchLanguage{
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    margin: 5px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+  }
+  .switchLanguage:hover{
     cursor: pointer;
   }
-  .Svenska :hover{
-    color: Cyan;
+
+  .clickableText:hover{
+    Color: cyan;
     cursor: pointer;
   }
-
-
-
 </style>

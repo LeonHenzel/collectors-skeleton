@@ -1,5 +1,10 @@
 {
 	"draw": "Draw card",
 	"invite": "Invite other players with this link:",
-	"endTurn": "End turn"
+	"endTurn": "End turn",
+	"buyCard": "Buy a card",
+	"buySkill": "Buy Skill",
+	"startAuction": "Start Auction",
+	"skipThisRound": "End Turn",
+	"raiseMarket": "Raise Market"
 }
