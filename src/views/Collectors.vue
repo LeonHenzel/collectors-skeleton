@@ -314,7 +314,6 @@ export default {
       }.bind(this)
     );
 
-    );
 
     this.$store.state.socket.on('ValueRaised', function(d){
       console.log(d.playerId, "raised the market");

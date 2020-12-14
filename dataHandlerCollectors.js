@@ -529,7 +529,7 @@ Data.prototype.raiseBid = function (roomId, playerId, currentBid) {
       // if playercount = 2
       if(room.playerCount === 2){
         // if the current player is the last player in the list
-        if(Object.keys(room.players).indexOf(indexOfCurrentPlayer) === 1){
+        if(Object.keys(room.players).indexOf(playerId) === 1){
           // then it's the player ones biddingturn. Both needs to have bidSkipper === false since room.bidSkippersCount !== room.playerCount-1
           room.players[Object.keys(room.players)[0]].myBiddingTurn = true;
         }
@@ -779,7 +779,7 @@ Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard) {
     room.currentBid = 0;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
   }
-} 
+}
 
 Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard) {
   let room = this.rooms[roomId];
