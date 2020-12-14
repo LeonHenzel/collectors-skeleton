@@ -39,6 +39,7 @@ export default {
     skillsOnSale: Array,
     placement: Array
   },
+
   methods: {
     cannotAfford: function (cost) {
       return this.player.money<cost;
@@ -48,13 +49,15 @@ export default {
       this.highlightAvailableCards(p.cost);
     },
     highlightAvailableCards: function (cost=100) {
-      for (let i = 0; i < this.skillsOnSale.length; i += 1) {
-        this.$set(this.skillsOnSale[i],'available',true);
-        this.chosenPlacementCost=cost;
-      }
-      for (let i = 0; i< this.player.hand.length; i += 1 ){
-        this.$set(this.player.hand[i], 'available',true);
-        this.chosenPlacementCost=cost;
+      if(this.player.myTurn === true && this.player.energyBottles > 0){
+        for (let i = 0; i < this.skillsOnSale.length; i += 1) {
+          this.$set(this.skillsOnSale[i],'available',true);
+          this.chosenPlacementCost=cost;
+        }
+        for (let i = 0; i< this.player.hand.length; i += 1 ){
+          this.$set(this.player.hand[i], 'available',true);
+          this.chosenPlacementCost=cost;
+        }
       }
     },
 

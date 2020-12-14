@@ -64,15 +64,18 @@ export default {
       this.$emit('placeBottle', p.cost);
       this.highlightAvailableCards(p.cost);
     },
+
+
     highlightAvailableCards: function (cost=100) {
-      for (let i = 0; i < this.itemsOnSale.length; i += 1) {
-        if (this.marketValues[this.itemsOnSale[i].item] <= this.player.money - cost) {
-          this.$set(this.itemsOnSale[i], "available", true);
-        }
-        else {
-          this.$set(this.itemsOnSale[i], "available", false);
-        }
-        this.chosenPlacementCost = cost;
+      if(this.player.myTurn === true && this.player.energyBottles > 0){
+        for (let i = 0; i < this.itemsOnSale.length; i += 1) {
+          if (this.marketValues[this.itemsOnSale[i].item] <= this.player.money - cost) {
+            this.$set(this.itemsOnSale[i], "available", true);
+          }
+          else {
+            this.$set(this.itemsOnSale[i], "available", false);
+          }
+          this.chosenPlacementCost = cost;
       }
       for (let i = 0; i < this.player.hand.length; i += 1) {
         if (this.marketValues[this.player.hand[i].item] <= this.player.money - cost) {
@@ -84,7 +87,10 @@ export default {
           this.chosenPlacementCost = cost;
         }
       }
+    }
     },
+
+
     buyCard: function (card) {
       if (card.available) {
         this.$emit('buyCard', card)
