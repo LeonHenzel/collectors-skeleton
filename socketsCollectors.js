@@ -137,7 +137,8 @@ function sockets(io, socket, data) {
         market: data.rooms[d.roomId].market,
         skillsOnSale: data.rooms[d.roomId].skillsOnSale,
         auctionCards: data.rooms[d.roomId].auctionCards,
-        itemsOnSale:  data.rooms[d.roomId].itemsOnSale
+        itemsOnSale:  data.rooms[d.roomId].itemsOnSale,
+        placements: data.getPlacements(d.roomId)
       });
     });
 

@@ -142,7 +142,8 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  myTurn: true,
                                  myBiddingTurn: false,
                                  bidSkipper: false,
-                                  playerNumberInList: room.playerNumber};
+                                  playerNumberInList: room.playerNumber,
+                                firstPlayerToken: false};
 
       }
       else{
@@ -159,17 +160,21 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  items: [],
                                  income: [],
                                  secret: [],
-                                 energyBottles: 4,
+                                 energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: false,
 
                                  myBiddingTurn: false,
                                  bidSkipper: false,
-                                playerNumberInList: room.playerNumber};
+                                playerNumberInList: room.playerNumber,
+                              firstPlayerToken: false};
 
       }
       room.playerList.push(room.players[playerId]);
       room.playerNumber+=1;
+      if (room.players[playerId].playerNumberInList===1){
+        room.players[playerId].firstPlayerToken=true;
+      }
       return true;
     }
     console.log("Player", playerId, "was declined due to player limit");
@@ -276,6 +281,10 @@ Data.prototype.buyCard = function (roomId, playerId, card, cost) {
 }
 }
 
+
+/*Denna funtion ändrar vilkens spelares tur som det är och tar även hänsyn till om
+spelarna har flaskor kvar eller inte då detta görs. Om en spelare inte har flaskor kvar hoppas
+denna över*/
 Data.prototype.changeTurn=function(roomId,playerId){
   console.log('change turn');
   let room = this.rooms[roomId];
@@ -283,39 +292,17 @@ Data.prototype.changeTurn=function(roomId,playerId){
   player.myTurn=false;
   let playerNumber=player.playerNumberInList;
   for(let i=playerNumber+1;i<room.playerCount;i+=1){
-    console.log("   1",i)
     if(room.playerList[i].energyBottles!==0){
-      console.log("   1 IF");
       room.playerList[i].myTurn=true;
       return
     }
   }
   for(let i=0;i<playerNumber+1;i+=1){
-    console.log("   2",i);
     if(room.playerList[i].energyBottles!==0){
-      console.log("    2 IF");
       room.playerList[i].myTurn=true;
       return
     }
   }
-
-
-  /*if(player.playerNumberInList===room.playerCount-1){
-    if(room.playerList[0].energyBottles!==0){
-    room.playerList[0].myTurn=true;
-  }
-  else{
-    Data.prototype.changeTurn(roomId,Object.keys(room.playerList[0]));
-  }
-  }
-  else{
-    if(room.playerList[player.playerNumberInList+1].energyBottles!==0){
-    room.playerList[player.playerNumberInList+1].myTurn=true;
-  }
-  else{
-    Data.prototype.changeTurn(roomId, Object.keys(room.playerList[player.playerNumberInList+1]));
-  }
-}*/
 }
 
 
@@ -333,7 +320,93 @@ Data.prototype.changeRound=function(roomId){
   Data.prototype.reFillSkills(room);
   Data.prototype.reFillItems(room);
   Data.prototype.reFillAuction(room);
+  Data.prototype.getBottlesBack(room);
+  Data.prototype.resetPlacements(room);
+  Data.prototype.changeTurnBetweenRound(room);
   room.round+=1;
+}
+
+
+Data.prototype.changeTurnBetweenRound=function(room){
+  for(let i=0;i<room.playerCount;i+=1){
+    if(room.playerList[i].firstPlayerToken===true){
+      room.playerList[i].myTurn=true;
+    }
+    else{
+      room.playerList[i].myTurn=false;
+    }
+  }
+  for(let i=0;i<room.playerCount;i+=1){
+    if(room.playerList[i].firstPlayerToken===true){
+      room.playerList[i].firstPlayerToken=false;
+      if(i===room.playerCount-1){
+        console.log("sist i listan");
+        room.playerList[0].firstPlayerToken=true;
+        return
+      }
+      else{
+        console.log("inte sist")
+        room.playerList[i+1].firstPlayerToken=true;
+        return
+      }
+    }
+  }
+}
+
+
+Data.prototype.resetPlacements=function(room){
+  Data.prototype.resetSpecificplacement(room,"buy");
+  Data.prototype.resetSpecificplacement(room,"skill");
+  Data.prototype.resetSpecificplacement(room,"market");
+  Data.prototype.resetSpecificplacement(room,"auction");
+}
+
+
+
+
+
+Data.prototype.resetSpecificplacement=function(room,action){
+  let activePlacement=[];
+  console.log(action);
+  if(action==="buy"){
+    activePlacement=room.buyPlacement;
+  }
+  else if (action==="skill") {
+    activePlacement=room.skillPlacement;
+  }
+  else if (action==="auction"){
+    activePlacement=room.auctionPlacement;
+  }
+  else if( action==="market"){
+    activePlacement=room.marketPlacement
+  }
+  for (let i=0;i<activePlacement.length;i+=1){
+    activePlacement[i].playerId=null;
+  }
+}
+
+
+
+
+
+
+/*
+for(let i = 0; i < activePlacement.length; i += 1) {
+    if( activePlacement[i].cost === cost &&
+        activePlacement[i].playerId === null ) {
+      activePlacement[i].playerId = playerId;
+      break;
+    }
+*/
+
+
+
+
+
+Data.prototype.getBottlesBack=function(room){
+  for(let i=0;i<room.playerCount;i+=1){
+    room.playerList[i].energyBottles=room.playerList[i].maxEnergyBottles;
+  }
 }
 
 Data.prototype.reFillAuction=function(room){

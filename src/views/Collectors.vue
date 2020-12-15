@@ -354,6 +354,11 @@ export default {
       this.skillsOnSale=d.skillsOnSale;
       this.auctionCards=d.auctionCards;
       this.itemsOnSale=d.itemsOnSale;
+      this.players=d.players;
+      this.buyPlacement=d.placements.buyPlacement;
+      this.skillPlacement=d.placements.skillPlacement;
+      this.marketPlacement=d.placements.marketPlacement;
+      this.auctionPlacement=d.placements.auctionPlacement
     }.bind(this));
 
 
