@@ -17,7 +17,11 @@ function sockets(io, socket, data) {
             round: data.rooms[d.roomId].round
           }
         );
+
       }
+      socket.emit('playerJoined',{
+        players: data.getPlayers(d.roomId)
+      })
     });
     socket.on('collectorsDrawCard', function(d) {
       io.to(d.roomId).emit('collectorsCardDrawn',

@@ -159,7 +159,7 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  items: [],
                                  income: [],
                                  secret: [],
-                                 energyBottles: 2,
+                                 energyBottles: 4,
                                  maxEnergyBottles:2,
                                  myTurn: false,
 
@@ -277,16 +277,48 @@ Data.prototype.buyCard = function (roomId, playerId, card, cost) {
 }
 
 Data.prototype.changeTurn=function(roomId,playerId){
+  console.log('change turn');
   let room = this.rooms[roomId];
   let player=room.players[playerId];
   player.myTurn=false;
-  if(player.playerNumberInList===room.playerCount-1){
+  let playerNumber=player.playerNumberInList;
+  for(let i=playerNumber+1;i<room.playerCount;i+=1){
+    console.log("   1",i)
+    if(room.playerList[i].energyBottles!==0){
+      console.log("   1 IF");
+      room.playerList[i].myTurn=true;
+      return
+    }
+  }
+  for(let i=0;i<playerNumber+1;i+=1){
+    console.log("   2",i);
+    if(room.playerList[i].energyBottles!==0){
+      console.log("    2 IF");
+      room.playerList[i].myTurn=true;
+      return
+    }
+  }
+
+
+  /*if(player.playerNumberInList===room.playerCount-1){
+    if(room.playerList[0].energyBottles!==0){
     room.playerList[0].myTurn=true;
   }
   else{
+    Data.prototype.changeTurn(roomId,Object.keys(room.playerList[0]));
+  }
+  }
+  else{
+    if(room.playerList[player.playerNumberInList+1].energyBottles!==0){
     room.playerList[player.playerNumberInList+1].myTurn=true;
   }
+  else{
+    Data.prototype.changeTurn(roomId, Object.keys(room.playerList[player.playerNumberInList+1]));
+  }
+}*/
 }
+
+
 
 
 

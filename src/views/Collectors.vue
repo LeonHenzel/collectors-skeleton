@@ -217,6 +217,11 @@ export default {
         this.round=d.round;
       }.bind(this));
 
+    this.$store.state.socket.on('playerJoined',
+  function(d){
+    this.players=d.players;
+  }.bind(this));
+
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
         this.buyPlacement = d.buyPlacement;
