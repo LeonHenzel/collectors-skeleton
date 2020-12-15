@@ -129,7 +129,11 @@ function sockets(io, socket, data) {
         playerId: d.playerId,
         players: data.getPlayers(d.roomId),
         round: data.rooms[d.roomId].round,
-        playerList: data.rooms[d.roomId].playerList
+        playerList: data.rooms[d.roomId].playerList,
+        market: data.rooms[d.roomId].market,
+        skillsOnSale: data.rooms[d.roomId].skillsOnSale,
+        auctionCards: data.rooms[d.roomId].auctionCards,
+        itemsOnSale:  data.rooms[d.roomId].itemsOnSale
       });
     });
 

@@ -272,9 +272,7 @@ export default {
         this.auctionCards = d.auctionCards;
         this.currentAuction = d.currentAuction;
         console.log("currentAuction = " + this.currentAuction);
-        if(this.players[this.playerId].myTurn===true){
-        this.changeTurn();
-      }
+
       }.bind(this)
 
     );
@@ -311,9 +309,10 @@ export default {
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
+        if(this.players[this.playerId].myTurn===true){
+        this.changeTurn();
+      }
       }.bind(this)
-    );
-
     );
 
     this.$store.state.socket.on('ValueRaised', function(d){
@@ -346,6 +345,10 @@ export default {
 
     this.$store.state.socket.on('roundChanged', function(d){
       this.round=d.round;
+      this.marketValues=d.market;
+      this.skillsOnSale=d.skillsOnSale;
+      this.auctionCards=d.auctionCards;
+      this.itemsOnSale=d.itemsOnSale;
     }.bind(this));
 
 
@@ -360,7 +363,7 @@ och ville aktionera ut ngt man hade på handen så lades det i item och inte i c
 skicka @doAction till vår egen doAction, och denna skickar vidare till rätt funktion beroende på vad som placeBottle
 har gjort true eller false. Om man börjar auction så ska auction vara true och allt annat false tex. */
     placeBottle: function (action, cost) {
-      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+      if(this.players[this.playerId].myTurn === false){
         return
       }
       else if(action === "buy"){
