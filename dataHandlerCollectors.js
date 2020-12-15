@@ -101,7 +101,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
                            {cost:2, playerId: null,numberOfChangedMarkets: 2},
                            {cost:0, playerId: null,numberOfChangedMarkets: 1} ];
   this.rooms[roomId] = room;
-  room.currentBid = 0;
+  room.currentBid = -1;
   room.bidSkippersCount = 0; // När detta blir playerCount - 1 så avslutas the bidding.
   room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
 }
@@ -409,6 +409,7 @@ Data.prototype.placeMarketBottle=function(room,playerId,cost,twoMarket){
 }
 }
 }
+
 /* auction */
 Data.prototype.startAuction = function (roomId, playerId, card, cost) {
   let room = this.rooms[roomId];
@@ -463,7 +464,8 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
       //console.log("room.players[eachPlayer].maxAuctionAffordance = " + room.players[eachPlayer].maxAuctionAffordance)
     }
 
-    
+    room.currentBid = 0;
+
     // Den som auktionerar ut får börja bidda.
     room.players[playerId].myBiddingTurn = true;
 
@@ -660,6 +662,8 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
       // har bidSkipper===false  --- We have a winner
       var aPlayer;
       for(aPlayer in room.players){
+        room.players[aPlayer].maxAuctionAffordance = 0;
+
         if(room.players[aPlayer].bidSkipper === false){
           // currentAuctionCard ska läggas till i antingen aPlayers items, skills eller raise market value,
           // beroende på vad han väljer.
@@ -671,7 +675,7 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
           room.bidSkippersCount = 0;
 
           room.players[aPlayer].money -= currentBid;
-          room.currentBid = 0;
+          room.currentBid = -1;
 
           room.bidWinnerWrapper = "bidWinnerWrapperVisible"
         }
@@ -795,7 +799,7 @@ Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard) {
     room.players[playerId].myBiddingTurn = false;
     //room.players[playerId].money -= cardCost;
     room.currentAuction = [];
-    room.currentBid = 0;
+    room.currentBid = -1;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
   }
 } 
@@ -808,7 +812,7 @@ Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard) {
     room.players[playerId].myBiddingTurn = false;
     //room.players[playerId].money -= cardCost;
     room.currentAuction = [];
-    room.currentBid = 0;
+    room.currentBid = -1;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
   }
 }

@@ -79,11 +79,15 @@
         </div>
         <!-- Får error om jag inte kör denna extra div runt h3:n -->
         <div v-if="players[playerId]"> 
-        <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3> 
+          <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
+            <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3> 
+            <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3> 
+          </div>
         </div>
         <div class="currentBidWrapper">
           <p> Current Bid </p>
-          <h3> {{ currentBid }} Coins </h3>
+          <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
+          <h3 v-if="this.currentBid === -1"> No current auction </h3>
           <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
           <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Give Up Bidding</button>
         </div>
@@ -175,7 +179,7 @@ export default {
       playerid: 0,
       currentAuction: [],
 
-      currentBid: 0,
+      currentBid: -1,
       bidWinnerWrapper: "bidWinnerWrapperInvisible",
       twoMarket: false,
       twoMarketCounter:0,
@@ -278,6 +282,7 @@ export default {
         this.players = d.players;
         this.auctionCards = d.auctionCards;
         this.currentAuction = d.currentAuction;
+        this.currentBid = d.currentBid;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -294,7 +299,12 @@ export default {
       function(d) {
         this.currentAuction = d.currentAuction;
         this.players = d.players;
+        this.currentBid = d.currentBid;
         if(this.players[this.playerId].myBiddingTurn === true){
+          for (let i = 0; i < this.players[this.playerId].hand.length; i += 1) {
+            this.$set(this.players[this.playerId].hand[i], "available", true);
+            console.log(this.players[this.playerId].hand[i]); //funkar ej
+          }
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
       }.bind(this)
@@ -570,13 +580,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
   },
     raiseBid: function (){
-      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false && this.players[this.playerId].money > this.currentBid){
+      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
+          if(this.players[this.playerId].maxAuctionAffordance <= this.currentBid){
+            console.log("du har inte råd att höja budet")
+          }
+          else{
           this.$store.state.socket.emit('collectorsRaiseBid', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
           currentBid: this.currentBid
-        }
-      );
+          });
+          }  
       }
     },
     skipThisBidding: function (){

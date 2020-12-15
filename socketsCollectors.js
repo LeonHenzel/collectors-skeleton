@@ -58,7 +58,8 @@ function sockets(io, socket, data) {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
           auctionCards: data.getAuctionCards(d.roomId),
-          currentAuction: data.getCurrentAuctionCard(d.roomId)
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId)
         }
       );
     });
