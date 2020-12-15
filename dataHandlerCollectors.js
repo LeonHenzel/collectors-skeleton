@@ -141,7 +141,8 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  myTurn: true,
                                  myBiddingTurn: false,
                                  bidSkipper: false,
-                                  playerNumberInList: room.playerNumber};
+                                 playerNumberInList: room.playerNumber,
+                                 maxAuctionAffordance: 0};
 
       }
       else{
@@ -160,10 +161,10 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  secret: [],
                                  energyBottles: 2,
                                  myTurn: false,
-
                                  myBiddingTurn: false,
                                  bidSkipper: false,
-                                playerNumberInList: room.playerNumber};
+                                 playerNumberInList: room.playerNumber,
+                                 maxAuctionAffordance: 0};
 
       }
       room.playerList.push(room.players[playerId]);
@@ -438,14 +439,31 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
 
 
 
-
-
-    var eachPlayer
+        // När en auction start så måste en kreditupplysning göras på varje spelare. I collectors.vue ska jag ha en variabel som är maxAffordance för varje spelare
+    // detta ska vara lika med spelarens pengar + värdet av kortet på handen (korten är värda 1 eller 2 (2 om skill innehåller ngt med VP)). 
+    var eachPlayer;
+    var eachCard;
     for(eachPlayer in room.players){
+
+      // extra reset av variabler för att undvika fel
       room.players[eachPlayer].bidSkipper = false;
       room.players[eachPlayer].myBiddingTurn = false;
+
+     // console.log(room.players[eachPlayer].hand)
+      room.players[eachPlayer].maxAuctionAffordance = room.players[eachPlayer].money;
+      for(eachCard in room.players[eachPlayer].hand){
+        //console.log("för spelare med spelarId "+ room.players[eachPlayer] +" så är Kort nr " + eachCard + "s skill är " + room.players[eachPlayer].hand[eachCard].skill)
+        if(room.players[eachPlayer].hand[eachCard].skill === 'VP-all' || room.players[eachPlayer].hand[eachCard].skill === 'VP-music' || room.players[eachPlayer].hand[eachCard].skill === 'VP-movie' || room.players[eachPlayer].hand[eachCard].skill === 'VP-fastaval' || room.players[eachPlayer].hand[eachCard].skill === 'VP-figures' || room.players[eachPlayer].hand[eachCard].skill === 'VP-technology'){
+          room.players[eachPlayer].maxAuctionAffordance += 2;
+        }
+        else{
+          room.players[eachPlayer].maxAuctionAffordance += 1;
+        }
+      }
+      //console.log("room.players[eachPlayer].maxAuctionAffordance = " + room.players[eachPlayer].maxAuctionAffordance)
     }
 
+    
     // Den som auktionerar ut får börja bidda.
     room.players[playerId].myBiddingTurn = true;
 
@@ -769,26 +787,26 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
   }
 }
 
-Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard, cardCost) {
+Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
     room.players[playerId].items.push(...currentAuctionCard);
     room.players[playerId].myBiddingTurn = false;
-    room.players[playerId].money -= cardCost;
+    //room.players[playerId].money -= cardCost;
     room.currentAuction = [];
     room.currentBid = 0;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
   }
 } 
 
-Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard, cardCost) {
+Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
     room.players[playerId].skills.push(...currentAuctionCard);
     room.players[playerId].myBiddingTurn = false;
-    room.players[playerId].money -= cardCost;
+    //room.players[playerId].money -= cardCost;
     room.currentAuction = [];
     room.currentBid = 0;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";

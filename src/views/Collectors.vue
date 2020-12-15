@@ -570,7 +570,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
   },
     raiseBid: function (){
-      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
+      if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false && this.players[this.playerId].money > this.currentBid){
           this.$store.state.socket.emit('collectorsRaiseBid', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -596,7 +596,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         roomId: this.$route.params.id,
         playerId: this.playerId,
         currentAuctionCard: this.currentAuction,
-        cardCost: this.marketValues[this.currentAuction[0].market]
+        //cardCost: this.marketValues[this.currentAuction[0].market]
         }
       );
     },
@@ -605,7 +605,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         roomId: this.$route.params.id,
         playerId: this.playerId,
         currentAuctionCard: this.currentAuction,
-        cardCost: this.marketValues[this.currentAuction[0].market]
+        //cardCost: this.marketValues[this.currentAuction[0].market]
         }
       );
     },
