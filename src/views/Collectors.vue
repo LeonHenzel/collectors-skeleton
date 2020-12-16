@@ -94,9 +94,17 @@
       </div>
 
       <div v-bind:class="bidWinnerWrapper">
-        Choose where you want to put your won Auction-card
-        <br>
-          <!-- <button class="placeholder">This is just a placeholder button</button> -->
+          <br>
+          Auction Payment
+          <br>
+          You can choose cards from your hand to use as payment
+          <div class="cardslots">
+            <CollectorsCard v-for="(card, index) in auctionPayment" :card="card" :key="index" @doAction="doAction(card)"/>
+            <!-- lägg in vad varje kort är värt till auktionsbetalning -->
+          </div>
+          <br>
+          Choose where you want to put your won Auction-card
+          <br>
           <button @click="placeAuctionCardInItems">Place your newly won Auction-card in Items</button>
           <button @click="placeAuctionCardInSkills">Place your newly won Auction-card in Skills</button>
           <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
@@ -178,7 +186,7 @@ export default {
       auctionCards: [],
       playerid: 0,
       currentAuction: [],
-
+      auctionPayment: [],
       currentBid: -1,
       bidWinnerWrapper: "bidWinnerWrapperInvisible",
       twoMarket: false,
@@ -301,10 +309,24 @@ export default {
         this.players = d.players;
         this.currentBid = d.currentBid;
         if(this.players[this.playerId].myBiddingTurn === true){
-          for (let i = 0; i < this.players[this.playerId].hand.length; i += 1) {
-            this.$set(this.players[this.playerId].hand[i], "available", true);
-            console.log(this.players[this.playerId].hand[i]); //funkar ej
+          // for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
+          //   this.$set(this.players[this.playerId].hand[i], 'available', true);  //detta funkar. handen blir true. ändå händer inget. uppdatera??? måste det vara myturn för att det ska funka?
+          // }
+          for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
+            this.$set(this.players[this.playerId].hand[i], 'available', true);
+            //console.log(this.players[this.playerId].hand[i],"handen i marketbottle")
           }
+
+          // for (let i = 0; i < this.skillsOnSale.length; i += 1){
+          //   if(this.skillsOnSale[i].item !== undefined){
+          //   this.$set(this.skillsOnSale[i], 'available', true);
+          // }
+          // }
+          // for (let i = 0; i < this.auctionCards.length; i += 1){
+          // if(this.auctionCards[i].item !== undefined){
+          // this.$set(this.auctionCards[i], 'available', true);
+          // }
+          // }
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
       }.bind(this)
@@ -420,8 +442,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     doAction: function(card){
+      console.log("inne i doAction")
       if(this.players[this.playerId].myTurn === false){
-        return
+        console.log("not my turn");
       }
       else if(this.isPlacedList.item===true){
         this.isPlacedList.item=false;
@@ -438,6 +461,23 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       else if(this.isPlacedList.market===true){
         this.raiseMarket(card,'hand');
         this.isPlacedList.market=false;
+      }
+      // if you won the auction
+      if(this.bidWinnerWrapper==="bidWinnerWrapperVisible" && this.players[this.playerId].hand.indexOf(card) > -1){
+        this.auctionPayment.push(card);
+        const index = this.players[this.playerId].hand.indexOf(card);
+        console.log("index = " + index);
+        if (index > -1) {
+        this.players[this.playerId].hand.splice(index, 1);
+        }
+      }
+      else if(this.bidWinnerWrapper==="bidWinnerWrapperVisible" && this.auctionPayment.indexOf(card) > -1){
+        this.players[this.playerId].hand.push(card);
+        const index = this.auctionPayment.indexOf(card);
+        console.log("index = " + index);
+        if (index > -1) {
+        this.auctionPayment.splice(index, 1);
+        }
       }
     },
     // drawCard kommer inte behållas på detta vis
