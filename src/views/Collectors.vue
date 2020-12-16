@@ -47,6 +47,10 @@
         @placeBottle="placeBottle('market',$event)"
         @changeTwoMarket="changeTwoMarket()"/>
 
+        <CollectorsIncome v-if="!players[playerId].hasChoosenIncome"
+        :labels="labels"
+        :player="players[playerId]"
+        @income="income($event)"/>
 
 
       <div class="buttons">
@@ -120,6 +124,7 @@ import CollectorsBuyActions from '@/components/CollectorsBuyActions.vue'
 import CollectorsStartAuction from '@/components/CollectorsStartAuction.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 import CollectorsMarket from '@/components/CollectorsMarket.vue'
+import CollectorsIncome from '@/components/CollectorsIncome.vue'
 
 export default {
   name: 'Collectors',
@@ -128,7 +133,8 @@ export default {
     CollectorsBuyActions,
     CollectorsStartAuction,
     CollectorsBuySkill,
-    CollectorsMarket
+    CollectorsMarket,
+    CollectorsIncome
   },
   data: function () {
     return {
@@ -215,6 +221,9 @@ export default {
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
         this.round=d.round;
+        this.incomePhase=d.incomePhase;
+        this.twoMarket=d.twoMarket;
+        this.twoMarketCounter=d.twoMarketCounter;
       }.bind(this));
 
     this.$store.state.socket.on('playerJoined',
@@ -358,9 +367,28 @@ export default {
       this.buyPlacement=d.placements.buyPlacement;
       this.skillPlacement=d.placements.skillPlacement;
       this.marketPlacement=d.placements.marketPlacement;
-      this.auctionPlacement=d.placements.auctionPlacement
+      this.auctionPlacement=d.placements.auctionPlacement;
+      this.incomePhase=d.incomePhase;
     }.bind(this));
 
+
+    this.$store.state.socket.on('incomeStarted',function(d){
+      this.players=d.players;
+      this.incomePhase=d.incomePhase;
+    }.bind(this));
+
+    this.$store.state.socket.on('incomeGotten',function(d){
+      this.players=d.players;
+      for(let id in this.players){
+        console.log("incomeGotten for. player is", this.players[id].hasChoosenIncome);
+        if(this.players[id].hasChoosenIncome===false){
+          return
+        }
+      }
+    if(this.players[this.playerId].playerNumberInList===0){
+      this.changeRound();
+    }
+    }.bind(this));
 
   },
   methods: {
@@ -402,6 +430,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       );
     },
 
+    income: function(d){
+      console.log("income i Collectors");
+      this.$store.state.socket.emit('collectorsSetIncome', {
+        drawOneCard: d.drawOneCard,
+        oneIncome: d.oneIncome,
+        twoIncome: d.twoIncome,
+        roomId: this.$route.params.id,
+        playerId: this.playerId
+    });
+  },
+
     changeTurn: function(){
       let totalBottles=0;
       console.log("changeTurn")
@@ -409,7 +448,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         console.log("forfor")
         totalBottles+=this.players[id].energyBottles;
       }
-      console.log(totalBottles)
       if(totalBottles!==0){
           this.$store.state.socket.emit('collectorsChangeTurn',{
           roomId: this.$route.params.id,
@@ -417,11 +455,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         });
       }
       else{
-        this.$store.state.socket.emit('collectorsChangeRound',{
-          roomId: this.$route.params.id,
-          playerId: this.playerId
-        });
+        this.$store.state.socket.emit('collectorsStartIncome',{
+          roomId: this.$route.params.id
+        })
       }
+    },
+
+    changeRound: function(){
+      this.$store.state.socket.emit('collectorsChangeRound',{
+        roomId: this.$route.params.id,
+        playerId: this.playerId
+      });
     },
 
     doAction: function(card){

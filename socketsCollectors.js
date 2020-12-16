@@ -14,7 +14,9 @@ function sockets(io, socket, data) {
             auctionCards: data.getAuctionCards(d.roomId),
             placements: data.getPlacements(d.roomId),
             playerList: data.rooms[d.roomId].playerList,
-            round: data.rooms[d.roomId].round
+            round: data.rooms[d.roomId].round,
+            twoMarket: data.rooms[d.roomId].twoMarket,
+            twoMarketCounter: data.rooms[d.roomId].twoMarketCounter
           }
         );
 
@@ -139,6 +141,20 @@ function sockets(io, socket, data) {
         auctionCards: data.rooms[d.roomId].auctionCards,
         itemsOnSale:  data.rooms[d.roomId].itemsOnSale,
         placements: data.getPlacements(d.roomId)
+      });
+    });
+    socket.on('collectorsStartIncome',function(d){
+      data.startIncome(d.roomId)
+      io.to(d.roomId).emit('incomeStarted',{
+        players:  data.getPlayers(d.roomId),
+        incomePhase: data.rooms[d.roomId].incomePhase
+      });
+    });
+
+    socket.on('collectorsSetIncome', function(d){
+      data.getIncome(d.drawOneCard, d.oneIncome, d.twoIncome, d.roomId,d.playerId)
+      io.to(d.roomId).emit('incomeGotten',{
+        players: data.getPlayers(d.roomId)
       });
     });
 

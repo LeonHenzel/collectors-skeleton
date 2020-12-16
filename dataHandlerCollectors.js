@@ -136,14 +136,16 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                    figures:0},
                                  items: [],
                                  income: [],
+                                 incomeByNumber:0,
                                  secret: [],
                                  energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: true,
                                  myBiddingTurn: false,
                                  bidSkipper: false,
-                                  playerNumberInList: room.playerNumber,
-                                firstPlayerToken: false};
+                                 playerNumberInList: room.playerNumber,
+                                 firstPlayerToken: false,
+                                 hasChoosenIncome: true};
 
       }
       else{
@@ -159,15 +161,16 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                    figures:0},
                                  items: [],
                                  income: [],
+                                 incomeByNumber:0,
                                  secret: [],
                                  energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: false,
-
                                  myBiddingTurn: false,
                                  bidSkipper: false,
-                                playerNumberInList: room.playerNumber,
-                              firstPlayerToken: false};
+                                 playerNumberInList: room.playerNumber,
+                                 firstPlayerToken: false,
+                                 hasChoosenIncome: true};
 
       }
       room.playerList.push(room.players[playerId]);
@@ -286,7 +289,7 @@ Data.prototype.buyCard = function (roomId, playerId, card, cost) {
 spelarna har flaskor kvar eller inte då detta görs. Om en spelare inte har flaskor kvar hoppas
 denna över*/
 Data.prototype.changeTurn=function(roomId,playerId){
-  console.log('change turn');
+  //console.log('change turn');
   let room = this.rooms[roomId];
   let player=room.players[playerId];
   player.myTurn=false;
@@ -305,7 +308,34 @@ Data.prototype.changeTurn=function(roomId,playerId){
   }
 }
 
+Data.prototype.startIncome=function(roomId){
+  let room=this.rooms[roomId];
+  if(typeof room !== 'undefined'){
+    for(let i=0;i<room.playerCount;i+=1){
+        room.playerList[i].myTurn=false;
+        room.playerList[i].hasChoosenIncome=false;
+    }
+  }
+}
 
+Data.prototype.getIncome=function(oneCard,oneIncome,twoIncome,roomId,playerId){
+  let room=this.rooms[roomId];
+  if(typeof room !== 'undefined'){
+    let player=room.players[playerId];
+    if(oneCard){
+      let card = room.deck.pop();
+      player.hand.push(card);
+    }
+    if(oneIncome){
+      player.money+=1;
+    }
+    if(twoIncome){
+      player.money+=2;
+    }
+    player.money+=player.incomeByNumber;
+    player.hasChoosenIncome=true;
+  }
+}
 
 
 
@@ -326,14 +356,18 @@ Data.prototype.changeRound=function(roomId){
   room.round+=1;
 }
 
+Data.prototype.setChoosenIncomeToFalse=function(room){
+  room.incomePhase=false;
+  for(let i=0;i<room.playerCount;i+=1){
+    room.playerList[i].hasChoosenIncome=false;
+  }
+}
+
 
 Data.prototype.changeTurnBetweenRound=function(room){
   for(let i=0;i<room.playerCount;i+=1){
     if(room.playerList[i].firstPlayerToken===true){
       room.playerList[i].myTurn=true;
-    }
-    else{
-      room.playerList[i].myTurn=false;
     }
   }
   for(let i=0;i<room.playerCount;i+=1){
