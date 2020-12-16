@@ -1,16 +1,16 @@
 <template>
   <div>
-  <form class="nameEnter" v-if="gotSubmitted===false && fixedPlayerName === ''">
+  <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
     <button type="submit" @click="submitName"></button>
   </form>
 
-  <div id="megaWrapper" v-if="gotSubmitted">
+  <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
       <div class="bajs" v-for="player in players" :key="player">
         {{player.playerName}}
       </div>
-    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="playerName" @sendMessage = "sendMessage($event)"/>
+    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
       <div>{{players}}</div>
       <br>
@@ -166,6 +166,7 @@ export default {
 
       messages: [],
 
+
       playerid: 0,
       currentAuction: [],
       twoMarket: false,
@@ -250,6 +251,7 @@ export default {
 
     this.$store.state.socket.on('collectorsUpdateMessages',
       function(d) {
+        console.log(this.players[this.playerId].playerName, "player name is attribute")
         this.messages = d.messages;
       }.bind(this)
     );
@@ -520,7 +522,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       );}
     },
      sendMessage: function(msg) {
-      this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id});
+      this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id, playerName: this.players[this.playerId].playerName});
+      console.log(this.players[this.playerId].playerName ,"från sendmessage emit")
     }
   },
   raiseMarket: function(card,action){

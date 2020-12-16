@@ -54,7 +54,7 @@ function sockets(io, socket, data) {
 
 
     socket.on('collectorsSendMessage', function(d) {
-      data.addMessage(d.roomId, d.playerId, d.msg);
+      data.addMessage(d.roomId, d.playerId, d.msg, d.playerName);
       io.to(d.roomId).emit('collectorsUpdateMessages', {
         messages: data.getMessages(d.roomId)
       })

@@ -640,11 +640,12 @@ Data.prototype.getAuctionCards = function(roomId){
     if()
   }
 }*/
-Data.prototype.addMessage = function(roomId, playerId, message){
-  console.log(message, " from dataHandler")
+Data.prototype.addMessage = function(roomId, playerId, message, playerName){
+  console.log(playerName, " from dataHandler")
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
-    room.messages.push({message: message, playerId: playerId})
+    room.messages.push({message: message, playerId: playerId, playerName: playerName})
+    console.log(room.messages, "hejhej")
   }
 }
 

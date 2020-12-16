@@ -24,11 +24,16 @@
       <div id="messages">
 
         <div id="invisibleDiv" v-for="(msg,index) in messages" :key="'msg'+index">
+
+          <p id="senderName" v-if="msg.playerId!==playerId"> {{msg.playerName}}</p>
+
           <div :class="['bubble', {'friendBubble':msg.playerId!==playerId}]">
             {{msg.message}}
           </div>
           <br>
-          <p id="senderName" v-if="msg.playerId!==playerId"> {{playerName}}</p>
+
+
+
         </div>
 
 
@@ -89,8 +94,11 @@
   margin-left: 5px;
 }
 #senderName{
-  font-size: 8pt;
+  position: relative;
+  top: 14px;
+  font-size: 10pt;
   color: white;
+  margin-left: 8px;
 }
 
 #commentWindow{
@@ -123,7 +131,7 @@
   height: 40px;
   background-color: transparent;
   margin-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 35px;
 }
 
 .bubble{
