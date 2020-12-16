@@ -12,7 +12,9 @@ function sockets(io, socket, data) {
             marketValues: data.rooms[d.roomId].market,
             skillsOnSale: data.getSkillsOnSale(d.roomId),
             auctionCards: data.getAuctionCards(d.roomId),
-            placements: data.getPlacements(d.roomId)
+            placements: data.getPlacements(d.roomId),
+            playerList: data.rooms[d.roomId].playerList,
+            round: data.rooms[d.roomId].round
           }
         );
       }
@@ -66,19 +68,74 @@ function sockets(io, socket, data) {
           playerId: d.playerId,
           players: data.getPlayers(d.roomId),
           auctionCards: data.getAuctionCards(d.roomId),
-          currentAuction: data.getCurrentAuctionCard(d.roomId)
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId)
         }
       );
     });
+
+    socket.on('collectorsRaiseBid', function(d) {
+      data.raiseBid(d.roomId, d.playerId, d.currentBid)
+      io.to(d.roomId).emit('bidRaised', {
+          players: data.getPlayers(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId)
+        }
+      );
+    });
+    socket.on('collectorsSkipBidding', function(d) {
+      data.skipBidding(d.roomId, d.playerId, d.currentBid, d.currentAuctionCard, d.bidWinnerWrapper)
+      io.to(d.roomId).emit('bidSkipped', {
+          playerId: d.playerId,
+          players: data.getPlayers(d.roomId),
+          bidSkippersCount: data.getBidSkippersCount(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId)
+        }
+      );
+    });
+    socket.on('collectorsPlaceInItems', function(d) {
+      data.placeInItems(d.roomId, d.playerId, d.currentAuctionCard)
+      io.to(d.roomId).emit('auctionCardPlacedInItems', {
+          players: data.getPlayers(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId)
+        }
+      );
+    });
+    socket.on('collectorsPlaceInSkills', function(d) {
+      data.placeInSkills(d.roomId, d.playerId, d.currentAuctionCard)
+      io.to(d.roomId).emit('auctionCardPlacedInSkills', {
+          players: data.getPlayers(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId)
+        }
+      );
+    });
+
     socket.on('collectorsRaiseValue', function(d){
       data.raiseMarket(d.roomId, d.playerId, d.card,d.cost,d.action)
-      socket.emit('ValueRaised',{
+      io.to(d.roomId).emit('ValueRaised',{
         playerId: d.playerId,
         players: data.getPlayers(d.roomId),
         marketValues: data.rooms[d.roomId].market,
         skillsOnSale: data.rooms[d.roomId].skillsOnSale,
         auctionCards: data.rooms[d.roomId].auctionCards
+
       })
+
+      });
+  
+
+    socket.on('collectorsChangeTurn',function(d){
+      data.changeTurn(d.roomId,d.playerId)
+      io.to(d.roomId).emit('turnChanged',{
+        playerId: d.playerId,
+        players: data.getPlayers(d.roomId)
+      });
+
     });
 
       socket.on('sendPlayerName', function(d){
@@ -91,6 +148,15 @@ function sockets(io, socket, data) {
       console.log(d.playerName, " from socket listener")
     });
 
+    socket.on('collectorsChangeRound',function(d){
+      data.changeRound(d.roomId,d.playerId)
+      io.to(d.roomId).emit('roundChanged',{
+        playerId: d.playerId,
+        players: data.getPlayers(d.roomId),
+        round: data.rooms[d.roomId].round,
+        playerList: data.rooms[d.roomId].playerList
+      });
+    });
 
 
 }

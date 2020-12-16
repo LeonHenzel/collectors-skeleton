@@ -31,6 +31,14 @@ export default {
     height:350px;
     background-image: url('/images/collectors-cards.png');
     border-radius: 10px;
+
+    box-shadow: -1rem 0 3rem #000;
+    transition: 0.2s;
+  }
+
+    /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
+  .card:hover{
+      transform: translateY(-1rem);
   }
 
   .available-to-choose {
