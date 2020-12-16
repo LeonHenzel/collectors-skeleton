@@ -436,7 +436,7 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
       }
     }
     room.currentAuction = c;
-    room.players[playerId].money -= cost;
+    room.players[playerId].money -= cost; //hejsan
 
 
 
