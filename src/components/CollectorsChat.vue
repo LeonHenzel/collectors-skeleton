@@ -23,7 +23,7 @@
       </form>
       <div id="messages">
         <div id="invisibleDiv" v-for="(msg,index) in messages" :key="'msg'+index">
-          <p id="senderName"> {{playerName}} </p>
+          <p id="senderName" v-if="msg.playerId!==playerId" >  {{msg.playerName}} </p>
           <div :class="['bubble', {'friendBubble':msg.playerId!==playerId}]">
             {{msg.message}}
           </div>
@@ -87,9 +87,10 @@
 #senderName{
   padding-left: 2px;
   position: relative;
-  top: 10px;
-  font-size: 8pt;
+  top: 9px;
+  font-size: 10pt;
   color: white;
+  margin-left: 10px;
 }
 
 #commentWindow{
@@ -122,7 +123,7 @@
   height: 40px;
   background-color: transparent;
   margin-top: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 .bubble{

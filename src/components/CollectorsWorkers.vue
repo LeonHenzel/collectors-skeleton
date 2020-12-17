@@ -1,8 +1,8 @@
 <template>
   <div class="workersWrapper">
 
-    <button v-for="f in fields" :key="f" class="workerOption" type="submit" @click="buyWorkers">
-      <h1>{{f.fieldNumber}}</h1>
+    <button class="workerOption" type="submit" @click="buyWorkers">
+     knapp
     </button>
 
   </div>
@@ -15,7 +15,7 @@
     data: function() {
       return{
 
-        field1:{
+        /*field1:{
           fieldNumber: 1,
           description: "cost: -1 Bottle, gives 1 dollar"
         },
@@ -41,7 +41,7 @@
         },
 
         fields: [this.field1, this.field2, this.field3, this.field4, this.field5]
-    }
+    */}
   },
     methods:{
       buyWorkers: function(){

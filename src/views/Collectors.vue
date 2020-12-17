@@ -10,11 +10,6 @@
       <div class="bajs" v-for="player in players" :key="player">
         {{player.playerName}}
       </div>
-      <div class="">
-        <CollectorsWorkers/>
-      </div>
-
-
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
       <div>{{players}}</div>
@@ -34,6 +29,7 @@
           {{ labels.skipThisRound }}
         </button>
       </div>
+
       <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
@@ -43,6 +39,8 @@
         @buyCard="buyCard($event)"
         @placeBottle="placeBottle('buy', $event)"/>
 
+      <CollectorsWorkers v-if="players[playerId]"/>
+
       <CollectorsStartAuction v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
@@ -51,6 +49,8 @@
         :placement="auctionPlacement"
         @startAuction="startAuction($event)"
         @placeBottle="placeBottle('auction', $event)"/>
+
+
 
       <CollectorsBuySkill v-if="players[playerId]"
         :labels="labels"
@@ -146,8 +146,10 @@
 
 import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyActions from '@/components/CollectorsBuyActions.vue'
-import CollectorsWorkers from '@/components/CollectorsWorkers.vue'
+
 import CollectorsChat from '@/components/CollectorsChat.vue'
+
+import CollectorsWorkers from '@/components/CollectorsWorkers.vue'
 
 import CollectorsStartAuction from '@/components/CollectorsStartAuction.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
@@ -164,6 +166,7 @@ export default {
     CollectorsBuySkill,
     CollectorsMarket,
     CollectorsWorkers
+
   },
   data: function () {
     return {
@@ -714,12 +717,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     this.twoMarketCounter=0;
   }
 }
-}
+};
 
 
 </script>
 <style scoped>
-
   header {
     user-select: none;
     position: fixed;
