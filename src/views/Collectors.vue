@@ -1,11 +1,23 @@
 <template>
   <div>
+  <form class="nameEnter" v-if="players[playerId].playerName===''">
+    <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
+    <button type="submit" @click="submitName"></button>
+  </form>
+
+  <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
+      <div class="bajs" v-for="player in players" :key="player">
+        {{player.playerName}}
+      </div>
+    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
+
       <div>{{players}}</div>
       <br>
       <div>My ID is {{this.$store.state.playerId}}</div>
       <br>
       <br>
+
       {{buyPlacement}} {{chosenPlacementCost}}
       <br>
       <br>
@@ -17,6 +29,7 @@
           {{ labels.skipThisRound }}
         </button>
       </div>
+
       <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
@@ -26,6 +39,8 @@
         @buyCard="buyCard($event)"
         @placeBottle="placeBottle('buy', $event)"/>
 
+      <CollectorsWorkers v-if="players[playerId]"/>
+
       <CollectorsStartAuction v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
@@ -34,6 +49,8 @@
         :placement="auctionPlacement"
         @startAuction="startAuction($event)"
         @placeBottle="placeBottle('auction', $event)"/>
+
+
 
       <CollectorsBuySkill v-if="players[playerId]"
         :labels="labels"
@@ -82,10 +99,10 @@
           </div>
         </div>
         <!-- Får error om jag inte kör denna extra div runt h3:n -->
-        <div v-if="players[playerId]"> 
+        <div v-if="players[playerId]">
           <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
-            <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3> 
-            <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3> 
+            <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
+            <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3>
           </div>
         </div>
         <div class="currentBidWrapper">
@@ -140,6 +157,7 @@
         </p>
     </footer>
   </div>
+  </div>
 </template>
 
 
@@ -148,25 +166,34 @@
 
 import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyActions from '@/components/CollectorsBuyActions.vue'
+import CollectorsChat from '@/components/CollectorsChat.vue'
+import CollectorsWorkers from '@/components/CollectorsWorkers.vue'
 import CollectorsStartAuction from '@/components/CollectorsStartAuction.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 import CollectorsMarket from '@/components/CollectorsMarket.vue'
 import CollectorsAuctionPayment from '@/components/CollectorsAuctionPayment.vue'
 import CollectorsIncome from '@/components/CollectorsIncome.vue'
 
+
 export default {
   name: 'Collectors',
   components: {
     CollectorsCard,
     CollectorsBuyActions,
+    CollectorsChat,
     CollectorsStartAuction,
     CollectorsBuySkill,
     CollectorsMarket,
     CollectorsAuctionPayment,
-    CollectorsIncome
+    CollectorsIncome,
+    CollectorsWorkers
+
   },
   data: function () {
     return {
+      playerName: "",
+      fixedPlayerName:"",
+      gotSubmitted: false,
       publicPath: "localhost:8080/#", //"collectors-groupxx.herokuapp.com/#",
       touchScreen: false,
       maxSizes: { x: 0,
@@ -200,6 +227,10 @@ export default {
       itemsOnSale: [],
       skillsOnSale: [],
       auctionCards: [],
+
+      messages: [],
+
+
       playerid: 0,
       currentBid: -1,
       currentAuction: [],
@@ -209,8 +240,10 @@ export default {
       winningbid: 0,
       bidWinnerWrapper: "bidWinnerWrapperInvisible",
       twoMarket: false,
+
       twoMarketCounter:0,
       round: 0
+
 
     }
   },
@@ -299,6 +332,15 @@ export default {
       }
       }.bind(this)
     );
+
+
+    this.$store.state.socket.on('collectorsUpdateMessages',
+      function(d) {
+        console.log(this.players[this.playerId].playerName, "player name is attribute")
+        this.messages = d.messages;
+      }.bind(this)
+    );
+
 
     this.$store.state.socket.on('collectorsSkillBought',
       function(d){
@@ -404,11 +446,26 @@ export default {
           this.twoMarketCounter=0;
           this.twoMarket=false;
         }
+
       }
+
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
-  }.bind(this));
+
+    }.bind(this)
+  );
+
+
+  this.$store.state.socket.on('nameSet',function(d){
+    this.players = d.players;
+    this.playerName = d.playerName;
+    console.log(this.playerName, "from listnener in view")
+  }.bind(this)
+);
+
+
+
 
     this.$store.state.socket.on('turnChanged',function(d){
       this.players=d.players;
@@ -447,10 +504,20 @@ export default {
     }
     }.bind(this));
 
+
   },
   methods: {
     selectAll: function (n) {
       n.target.select();
+
+    },
+    submitName: function(){
+      this.fixedPlayerName = this.playerName;
+      this.gotSubmitted = true;
+      this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
+         playerId: this.playerId,
+          playerName: this.playerName});
+      console.log(this.playerName, "from submitName")
     },
 
 /* Vad har vi gjort här med placeBottle och doAction? Jo, problemet var att när man klickade på en auctionknapp
@@ -477,6 +544,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         return
       }
       this.chosenPlacementCost =cost ;
+
       this.$store.state.socket.emit('collectorsPlaceBottle', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -714,9 +782,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           card: card,
           cost: this.chosenPlacementCost
         }
-      );
-    }
-  },
+      );}
+    },
+     sendMessage: function(msg) {
+      this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id, playerName: this.players[this.playerId].playerName});
+      console.log(this.players[this.playerId].playerName ,"från sendmessage emit")
+    },
+
     raiseBid: function (){
       if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
           if(this.players[this.playerId].maxAuctionAffordance <= this.currentBid){
@@ -728,7 +800,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           playerId: this.playerId,
           currentBid: this.currentBid
           });
-          }  
+          }
       }
     },
     skipThisBidding: function (){
@@ -792,7 +864,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     this.twoMarketCounter=0;
   }
 }
-}
+};
+
+
 </script>
 <style scoped>
   header {

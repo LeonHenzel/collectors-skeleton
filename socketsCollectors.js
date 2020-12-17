@@ -25,6 +25,7 @@ function sockets(io, socket, data) {
         players: data.getPlayers(d.roomId)
       })
     });
+
     socket.on('collectorsDrawCard', function(d) {
       io.to(d.roomId).emit('collectorsCardDrawn',
         data.drawCard(d.roomId, d.playerId)
@@ -58,6 +59,15 @@ function sockets(io, socket, data) {
       io.to(d.roomId).emit('collectorsBottlePlaced', data.getPlacements(d.roomId)
       );
     });
+
+
+    socket.on('collectorsSendMessage', function(d) {
+      data.addMessage(d.roomId, d.playerId, d.msg, d.playerName);
+      io.to(d.roomId).emit('collectorsUpdateMessages', {
+        messages: data.getMessages(d.roomId)
+      })
+    });
+
     socket.on('collectorsStartAuction', function(d) {
       data.startAuction(d.roomId, d.playerId, d.card, d.cost)
       io.to(d.roomId).emit('auctionStarted', {
@@ -119,16 +129,30 @@ function sockets(io, socket, data) {
         marketValues: data.rooms[d.roomId].market,
         skillsOnSale: data.rooms[d.roomId].skillsOnSale,
         auctionCards: data.rooms[d.roomId].auctionCards
+
+      })
+
       });
-    });
+  
+
     socket.on('collectorsChangeTurn',function(d){
       data.changeTurn(d.roomId,d.playerId)
       io.to(d.roomId).emit('turnChanged',{
         playerId: d.playerId,
         players: data.getPlayers(d.roomId)
       });
+
     });
 
+      socket.on('sendPlayerName', function(d){
+        data.setPlayerName(d.roomId, d.playerId, d.playerName)
+        socket.emit('nameSet',{
+          players: data.getPlayers(d.roomId),
+          playerId: d.playerId,
+          playerName: d.playerName
+      })
+      console.log(d.playerName, " from socket listener")
+    });
 
     socket.on('collectorsChangeRound',function(d){
       data.changeRound(d.roomId,d.playerId)

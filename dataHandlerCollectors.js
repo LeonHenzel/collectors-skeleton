@@ -109,9 +109,13 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
                         {cost: -2, playerId: null, action: "roundThree"},
                       {cost: -3, playerId: null, action: "roundFour"}];
   this.rooms[roomId] = room;
+
+  room.messages = [];
+
   room.currentBid = -1;
   room.bidSkippersCount = 0; // När detta blir playerCount - 1 så avslutas the bidding.
   room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
+
 }
 
 Data.prototype.createDeck = function() {
@@ -145,7 +149,9 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  items: [],
                                  income: [],
                                  incomeByNumber:0,
+                                 randomVal: Math.random(),
                                  secret: [],
+                                 playerName: "",
                                  energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: true,
@@ -173,6 +179,8 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  income: [],
                                  incomeByNumber:0,
                                  secret: [],
+                                 playerName: "",
+                                 randomVal: Math.random(),
                                  energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: false,
@@ -185,17 +193,22 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  incomeToChoose: 0};
 
       }
+
       room.playerList.push(room.players[playerId]);
       room.playerNumber+=1;
       if (room.players[playerId].playerNumberInList===1){
         room.players[playerId].firstPlayerToken=true;
       }
       return true;
+
     }
+
     console.log("Player", playerId, "was declined due to player limit");
+
   }
   return false;
 }
+
 
 Data.prototype.getPlayers = function (id) {
   let room = this.rooms[id]
@@ -753,12 +766,12 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
       }
     }
     room.currentAuction = c;
-    room.players[playerId].money -= cost;
+    room.players[playerId].money -= cost; //hejsan
 
 
 
         // När en auction start så måste en kreditupplysning göras på varje spelare. I collectors.vue ska jag ha en variabel som är maxAffordance för varje spelare
-    // detta ska vara lika med spelarens pengar + värdet av kortet på handen (korten är värda 1 eller 2 (2 om skill innehåller ngt med VP)). 
+    // detta ska vara lika med spelarens pengar + värdet av kortet på handen (korten är värda 1 eller 2 (2 om skill innehåller ngt med VP)).
     var eachPlayer;
     var eachCard;
     for(eachPlayer in room.players){
@@ -1225,6 +1238,46 @@ Data.prototype.getAuctionCards = function(roomId){
   }
   else return [];
 }
+
+
+/*Data.prototype.getMessage = function(roomId, playerId){
+  let room = this.rooms[roomId];
+  let player = this.players[playerId];
+  if (typeof room !== 'undefined' && typeof player !== 'undefined'){
+    if()
+  }
+}*/
+Data.prototype.addMessage = function(roomId, playerId, message, playerName){
+  console.log(playerName, " from dataHandler")
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    room.messages.push({message: message, playerId: playerId, playerName: playerName})
+    console.log(room.messages, "hejhej")
+  }
+}
+
+Data.prototype.getMessages = function(roomId){
+  console.log(this.rooms)
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined') {
+    return room.messages;
+  }
+
+  else {
+    console.log('room undefined in getMessages')
+    return [];
+  }
+}
+
+Data.prototype.setPlayerName = function(roomId, playerId, playerName){
+  let room = this.rooms[roomId];
+  if (typeof room !== 'undefined'){
+    room.players[playerId].playerName =  playerName;
+    console.log(playerName, "from DH")
+  }
+}
+
+
 
 Data.prototype.getCurrentBid = function(roomId){
   let room = this.rooms[roomId];
