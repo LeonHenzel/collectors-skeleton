@@ -674,7 +674,6 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
           // room.players[aPlayer].bidSkipper = true;
           room.bidSkippersCount = 0;
 
-          room.players[aPlayer].money -= currentBid;
           room.currentBid = -1;
 
           room.bidWinnerWrapper = "bidWinnerWrapperVisible"
@@ -791,26 +790,35 @@ Data.prototype.skipBidding = function (roomId, playerId, currentBid, currentAuct
   }
 }
 
-Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard) {
+Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard, moneyPayment, winningPlayerHand) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
     room.players[playerId].items.push(...currentAuctionCard);
     room.players[playerId].myBiddingTurn = false;
+    room.players[playerId].money -= moneyPayment;
     //room.players[playerId].money -= cardCost;
+
+    //room.players = players;
+    room.players[playerId].hand = winningPlayerHand;
+
     room.currentAuction = [];
     room.currentBid = -1;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
   }
 } 
 
-Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard) {
+Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard, moneyPayment, winningPlayerHand) {
   let room = this.rooms[roomId];
   if (typeof room !== 'undefined') {
 
     room.players[playerId].skills.push(...currentAuctionCard);
     room.players[playerId].myBiddingTurn = false;
+    room.players[playerId].money -= moneyPayment;
     //room.players[playerId].money -= cardCost;
+
+    room.players[playerId].hand = winningPlayerHand;
+
     room.currentAuction = [];
     room.currentBid = -1;
     room.bidWinnerWrapper = "bidWinnerWrapperInvisible";

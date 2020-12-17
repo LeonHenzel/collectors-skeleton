@@ -85,7 +85,7 @@ function sockets(io, socket, data) {
       );
     });
     socket.on('collectorsPlaceInItems', function(d) {
-      data.placeInItems(d.roomId, d.playerId, d.currentAuctionCard)
+      data.placeInItems(d.roomId, d.playerId, d.currentAuctionCard, d.moneyPayment, d.winningPlayerHand)
       io.to(d.roomId).emit('auctionCardPlacedInItems', {
           players: data.getPlayers(d.roomId),
           currentAuction: data.getCurrentAuctionCard(d.roomId),
@@ -95,7 +95,7 @@ function sockets(io, socket, data) {
       );
     });
     socket.on('collectorsPlaceInSkills', function(d) {
-      data.placeInSkills(d.roomId, d.playerId, d.currentAuctionCard)
+      data.placeInSkills(d.roomId, d.playerId, d.currentAuctionCard, d.moneyPayment, d.winningPlayerHand)
       io.to(d.roomId).emit('auctionCardPlacedInSkills', {
           players: data.getPlayers(d.roomId),
           currentAuction: data.getCurrentAuctionCard(d.roomId),
