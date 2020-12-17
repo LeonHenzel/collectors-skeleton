@@ -50,6 +50,10 @@
         @placeBottle="placeBottle('market',$event)"
         @changeTwoMarket="changeTwoMarket()"/>
 
+        <CollectorsIncome v-if="!players[playerId].hasChoosenIncome"
+        :labels="labels"
+        :player="players[playerId]"
+        @income="income($event)"/>
 
 
       <div class="buttons">
@@ -148,6 +152,7 @@ import CollectorsStartAuction from '@/components/CollectorsStartAuction.vue'
 import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 import CollectorsMarket from '@/components/CollectorsMarket.vue'
 import CollectorsAuctionPayment from '@/components/CollectorsAuctionPayment.vue'
+import CollectorsIncome from '@/components/CollectorsIncome.vue'
 
 export default {
   name: 'Collectors',
@@ -157,7 +162,8 @@ export default {
     CollectorsStartAuction,
     CollectorsBuySkill,
     CollectorsMarket,
-    CollectorsAuctionPayment
+    CollectorsAuctionPayment,
+    CollectorsIncome
   },
   data: function () {
     return {
@@ -247,7 +253,15 @@ export default {
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
         this.round=d.round;
+        this.incomePhase=d.incomePhase;
+        this.twoMarket=d.twoMarket;
+        this.twoMarketCounter=d.twoMarketCounter;
       }.bind(this));
+
+    this.$store.state.socket.on('playerJoined',
+  function(d){
+    this.players=d.players;
+  }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
@@ -304,12 +318,11 @@ export default {
         this.auctionCards = d.auctionCards;
         this.currentAuction = d.currentAuction;
         this.currentBid = d.currentBid;
-        if(this.players[this.playerId].myTurn===true){
-        this.changeTurn();
-      }
-      }.bind(this)
+        console.log("currentAuction = " + this.currentAuction);
 
+      }.bind(this)
     );
+
     this.$store.state.socket.on('bidRaised',
       function(d) {
         this.currentBid = d.currentBid;
@@ -355,6 +368,9 @@ export default {
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
+        if(this.players[this.playerId].myTurn===true){
+        this.changeTurn();
+        }
       }.bind(this)
     );
     this.$store.state.socket.on('auctionCardPlacedInSkills',
@@ -365,6 +381,9 @@ export default {
         this.auctionPayment = [];
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
+        }
+        if(this.players[this.playerId].myTurn===true){
+        this.changeTurn();
         }
       }.bind(this)
     );
@@ -397,8 +416,36 @@ export default {
 
     this.$store.state.socket.on('roundChanged', function(d){
       this.round=d.round;
+      this.marketValues=d.market;
+      this.skillsOnSale=d.skillsOnSale;
+      this.auctionCards=d.auctionCards;
+      this.itemsOnSale=d.itemsOnSale;
+      this.players=d.players;
+      this.buyPlacement=d.placements.buyPlacement;
+      this.skillPlacement=d.placements.skillPlacement;
+      this.marketPlacement=d.placements.marketPlacement;
+      this.auctionPlacement=d.placements.auctionPlacement;
+      this.incomePhase=d.incomePhase;
     }.bind(this));
 
+
+    this.$store.state.socket.on('incomeStarted',function(d){
+      this.players=d.players;
+      this.incomePhase=d.incomePhase;
+    }.bind(this));
+
+    this.$store.state.socket.on('incomeGotten',function(d){
+      this.players=d.players;
+      for(let id in this.players){
+        console.log("incomeGotten for. player is", this.players[id].hasChoosenIncome);
+        if(this.players[id].hasChoosenIncome===false){
+          return
+        }
+      }
+    if(this.players[this.playerId].playerNumberInList===0){
+      this.changeRound();
+    }
+    }.bind(this));
 
   },
   methods: {
@@ -411,7 +458,7 @@ och ville aktionera ut ngt man hade på handen så lades det i item och inte i c
 skicka @doAction till vår egen doAction, och denna skickar vidare till rätt funktion beroende på vad som placeBottle
 har gjort true eller false. Om man börjar auction så ska auction vara true och allt annat false tex. */
     placeBottle: function (action, cost) {
-      if(this.players[this.playerId].myTurn === false || this.players[this.playerId].energyBottles === 0){
+      if(this.players[this.playerId].myTurn === false){
         return
       }
       else if(action === "buy"){
@@ -439,6 +486,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       );
     },
 
+    income: function(d){
+      console.log("income i Collectors");
+      this.$store.state.socket.emit('collectorsSetIncome', {
+        drawOneCard: d.drawOneCard,
+        oneIncome: d.oneIncome,
+        twoIncome: d.twoIncome,
+        roomId: this.$route.params.id,
+        playerId: this.playerId
+    });
+  },
+
     changeTurn: function(){
       let totalBottles=0;
       for(let id in this.players){
@@ -451,11 +509,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         });
       }
       else{
-        this.$store.state.socket.emit('collectorsChangeRound',{
-          roomId: this.$route.params.id,
-          playerId: this.playerId
-        });
+        this.$store.state.socket.emit('collectorsStartIncome',{
+          roomId: this.$route.params.id
+        })
       }
+    },
+
+    changeRound: function(){
+      this.$store.state.socket.emit('collectorsChangeRound',{
+        roomId: this.$route.params.id,
+        playerId: this.playerId
+      });
     },
 
     doAction: function(card){

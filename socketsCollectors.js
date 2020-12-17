@@ -14,10 +14,16 @@ function sockets(io, socket, data) {
             auctionCards: data.getAuctionCards(d.roomId),
             placements: data.getPlacements(d.roomId),
             playerList: data.rooms[d.roomId].playerList,
-            round: data.rooms[d.roomId].round
+            round: data.rooms[d.roomId].round,
+            twoMarket: data.rooms[d.roomId].twoMarket,
+            twoMarketCounter: data.rooms[d.roomId].twoMarketCounter
           }
         );
+
       }
+      socket.emit('playerJoined',{
+        players: data.getPlayers(d.roomId)
+      })
     });
     socket.on('collectorsDrawCard', function(d) {
       io.to(d.roomId).emit('collectorsCardDrawn',
@@ -130,7 +136,26 @@ function sockets(io, socket, data) {
         playerId: d.playerId,
         players: data.getPlayers(d.roomId),
         round: data.rooms[d.roomId].round,
-        playerList: data.rooms[d.roomId].playerList
+        playerList: data.rooms[d.roomId].playerList,
+        market: data.rooms[d.roomId].market,
+        skillsOnSale: data.rooms[d.roomId].skillsOnSale,
+        auctionCards: data.rooms[d.roomId].auctionCards,
+        itemsOnSale:  data.rooms[d.roomId].itemsOnSale,
+        placements: data.getPlacements(d.roomId)
+      });
+    });
+    socket.on('collectorsStartIncome',function(d){
+      data.startIncome(d.roomId)
+      io.to(d.roomId).emit('incomeStarted',{
+        players:  data.getPlayers(d.roomId),
+        incomePhase: data.rooms[d.roomId].incomePhase
+      });
+    });
+
+    socket.on('collectorsSetIncome', function(d){
+      data.getIncome(d.drawOneCard, d.oneIncome, d.twoIncome, d.roomId,d.playerId)
+      io.to(d.roomId).emit('incomeGotten',{
+        players: data.getPlayers(d.roomId)
       });
     });
 
