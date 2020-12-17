@@ -100,6 +100,14 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
   room.marketPlacement = [ {cost:0, playerId: null, numberOfChangedMarkets: 2},
                            {cost:2, playerId: null,numberOfChangedMarkets: 2},
                            {cost:0, playerId: null,numberOfChangedMarkets: 1} ];
+  room.workerPlacement = [{cost:0, playerId: null,action: "roundOne"},
+                          {cost:-1, playerId: null, action: "recycle"},
+                          {cost:1, playerId: null, action: "twoCards"},
+                          {cost:0, playerId: null, action: "cardsAndfirstPlayer"},
+                          {cost:0, playerId: null, action: "cardAndIncome"}];
+  room.quarterTiles = [{cost: -1, playerId: null, action: "roundTwo"},
+                        {cost: -2, playerId: null, action: "roundThree"},
+                      {cost: -3, playerId: null, action: "roundFour"}];
   this.rooms[roomId] = room;
   room.currentBid = 0;
   room.bidSkippersCount = 0; // När detta blir playerCount - 1 så avslutas the bidding.
@@ -145,7 +153,8 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  bidSkipper: false,
                                  playerNumberInList: room.playerNumber,
                                  firstPlayerToken: false,
-                                 hasChoosenIncome: true};
+                                 hasChoosenIncome: true,
+                                incomeToChoose: 0};
 
       }
       else{
@@ -170,7 +179,8 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  bidSkipper: false,
                                  playerNumberInList: room.playerNumber,
                                  firstPlayerToken: false,
-                                 hasChoosenIncome: true};
+                                 hasChoosenIncome: true,
+                                  incomeToChoose: 0};
 
       }
       room.playerList.push(room.players[playerId]);
@@ -314,6 +324,17 @@ Data.prototype.startIncome=function(roomId){
     for(let i=0;i<room.playerCount;i+=1){
         room.playerList[i].myTurn=false;
         room.playerList[i].hasChoosenIncome=false;
+
+
+          if(room.playerList[i].maxEnergyBottles<2){
+            room.playerList[i].incomeToChoose=3;
+          }
+          else{
+            room.playerList[i].incomeToChoose=5-room.playerList[i].maxEnergyBottles;
+          }
+
+
+
     }
   }
 }

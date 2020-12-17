@@ -22,7 +22,7 @@
     Bekräfta inkomst
   </button>
   <div v-if="wrongBoxesChecked()">
-    Var god fyll vilka {{numberToChoose}} inkomster du vill välja
+    Var god fyll vilka {{player.incomeToChoose}} inkomster du vill välja
   </div>
 </div>
 </div>
@@ -41,16 +41,6 @@ export default {
     twoIncomeVar: false,
     numberToChoose: 0
   }},
-  created: function(){
-    if(this.player.maxEnergyBottles<2){
-      this.numberToChoose=3;
-      return
-    }
-    else{
-      this.numberToChoose=5-this.player.maxEnergyBottles;
-      return
-    }
-  },
   methods: {
     wrongBoxesChecked: function(){
       let numberChecked=0;
@@ -63,7 +53,7 @@ export default {
       if(this.twoIncomeVar===true){
         numberChecked+=1;
       }
-      return numberChecked!==this.numberToChoose;
+      return numberChecked!==this.player.incomeToChoose;
     },
     sendIncomeInfo: function(){
       console.log("CollectorIncome Onclick")
