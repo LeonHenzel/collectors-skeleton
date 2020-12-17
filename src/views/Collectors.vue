@@ -10,6 +10,11 @@
       <div class="bajs" v-for="player in players" :key="player">
         {{player.playerName}}
       </div>
+      <div class="">
+        <CollectorsWorkers/>
+      </div>
+
+
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
       <div>{{players}}</div>
@@ -141,7 +146,7 @@
 
 import CollectorsCard from '@/components/CollectorsCard.vue'
 import CollectorsBuyActions from '@/components/CollectorsBuyActions.vue'
-
+import CollectorsWorkers from '@/components/CollectorsWorkers.vue'
 import CollectorsChat from '@/components/CollectorsChat.vue'
 
 import CollectorsStartAuction from '@/components/CollectorsStartAuction.vue'
@@ -157,8 +162,8 @@ export default {
     CollectorsChat,
     CollectorsStartAuction,
     CollectorsBuySkill,
-    CollectorsMarket
-
+    CollectorsMarket,
+    CollectorsWorkers
   },
   data: function () {
     return {
@@ -714,6 +719,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 </script>
 <style scoped>
+
   header {
     user-select: none;
     position: fixed;

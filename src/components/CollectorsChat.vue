@@ -22,18 +22,12 @@
         </span>
       </form>
       <div id="messages">
-
         <div id="invisibleDiv" v-for="(msg,index) in messages" :key="'msg'+index">
-
-          <p id="senderName" v-if="msg.playerId!==playerId"> {{msg.playerName}}</p>
-
+          <p id="senderName"> {{playerName}} </p>
           <div :class="['bubble', {'friendBubble':msg.playerId!==playerId}]">
             {{msg.message}}
           </div>
           <br>
-
-
-
         </div>
 
 
@@ -63,13 +57,10 @@
   },
   methods:{
     sendMessage: function(){
-      var msg = this.message;
-      if(msg.length>1){
-        this.$emit('sendMessage', msg);
+      if(this.message.length>1){
+        this.$emit('sendMessage', this.message);
       }
       this.message = ""
-      var chatWindow = document.getElementById("messages");
-      chatWindow.scrollIntoView();
     },
 
     test: function(){
@@ -94,11 +85,11 @@
   margin-left: 5px;
 }
 #senderName{
+  padding-left: 2px;
   position: relative;
-  top: 14px;
-  font-size: 10pt;
+  top: 10px;
+  font-size: 8pt;
   color: white;
-  margin-left: 8px;
 }
 
 #commentWindow{
@@ -131,7 +122,7 @@
   height: 40px;
   background-color: transparent;
   margin-top: 5px;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 }
 
 .bubble{
