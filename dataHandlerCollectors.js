@@ -543,12 +543,17 @@ Data.prototype.getIncome=function(oneCard,oneIncome,twoIncome,roomId,playerId){
 
 
 Data.prototype.changeRound=function(roomId){
-  console.log("Cahnge round datahandler")
+
   let room = this.rooms[roomId];
   Data.prototype.raisSkillEndOfRound(room);
   Data.prototype.raisAuctionEndOfRound(room);
   Data.prototype.getRidOfSkill(room);
   Data.prototype.getRidOfAuction(room);
+  Data.prototype.getAllpoints(room);
+  if(room.round===1){
+    Data.prototype.endGame(room);
+  }
+  else{
   Data.prototype.reFillSkills(room);
   Data.prototype.reFillItems(room);
   Data.prototype.reFillAuction(room);
@@ -558,6 +563,37 @@ Data.prototype.changeRound=function(roomId){
   Data.prototype.changeTurnBetweenRound(room);
 
   room.round+=1;
+}
+}
+
+Data.prototype.endGame=function(room){
+  for(let i=0;i<room.playerList.length;i+=1){
+    room.playerList[i].myTurn=false;
+    room.playerList[i].points+=Data.prototype.endGamePoints(room.playerList[i],room);
+  }
+}
+
+Data.prototype.endGamePoints=function(player,room){
+  let moneyPoints=Math.floor(player.money/2);
+  let secretPoints=0;
+  console.log("playerMoney",player.money)
+  console.log("moneyPoints",moneyPoints);
+  /*if(player.secret[0].item==="fastaval"){
+    secretPoints=room.market.fastaval;
+  }
+  else if(player.secret[0].item==="movie"){
+    secretPoints=room.market.movie;
+  }
+  else if(player.secret[0].item==="music"){
+    secretPoints=room.market.music;
+  }
+  else if(player.secret[0].item==="technology"){
+    secretPoints=room.market.technology;
+  }
+  else if(player.secret[0].item==="figures"){
+    secretPoints=room.market.figures;
+  }*/
+  return moneyPoints //+secretPoints;
 }
 
 Data.prototype.changeQuarterPlacement=function(room){
@@ -631,22 +667,6 @@ Data.prototype.resetSpecificplacement=function(room,action){
     activePlacement[i].playerId=null;
   }
 }
-
-
-
-
-
-
-/*
-for(let i = 0; i < activePlacement.length; i += 1) {
-    if( activePlacement[i].cost === cost &&
-        activePlacement[i].playerId === null ) {
-      activePlacement[i].playerId = playerId;
-      break;
-    }
-*/
-
-
 
 
 
