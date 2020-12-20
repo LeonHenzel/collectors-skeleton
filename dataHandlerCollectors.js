@@ -550,7 +550,7 @@ Data.prototype.changeRound=function(roomId){
   Data.prototype.getRidOfSkill(room);
   Data.prototype.getRidOfAuction(room);
   Data.prototype.getAllpoints(room);
-  if(room.round===1){
+  if(room.round===4){
     Data.prototype.endGame(room);
   }
   else{
