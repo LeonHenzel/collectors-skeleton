@@ -26,7 +26,9 @@
     methods:{
       placeWorkers: function(p){
         console.log("CollectorsWorkers Onclick")
+        if(this.round!==4&&p.action==="quarter"){
         this.$emit('setDiscardTwoTrue')
+      }
         this.$emit('placeWorker', {action: p.action, cost: p.cost})
       },
 

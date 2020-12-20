@@ -161,7 +161,8 @@ function sockets(io, socket, data) {
         io.to(d.roomId).emit('workerPlaced',{
           players: data.getPlayers(d.roomId),
           placements: data.getPlacements(d.roomId),
-          isPlacedList: data.rooms[d.roomId].isPlacedList
+          isPlacedList: data.rooms[d.roomId].isPlacedList,
+          action: d.action
         })
       })
 

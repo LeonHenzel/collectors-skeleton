@@ -12,7 +12,13 @@
       </div>
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
-      <div>{{players}}</div>
+      <div> MyTurn: {{players[playerId].myTurn}}
+        Firstplayer: {{players[playerId].firstPlayerToken}}
+        energyBottles: {{players[playerId].energyBottles}}
+        maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
+        money: {{players[playerId].money}}
+        auctionIncome: {{players[playerId].auctionIncome}}
+      </div>
       <br>
       <div>My ID is {{this.$store.state.playerId}}</div>
       <br>
@@ -147,8 +153,9 @@
       <br>
 
     </main>
-    PLAYERS
-    {{players}}
+    {{players[playerId].skillVP}}
+    {{players[playerId].itemsByNumber}}
+    {{players[playerId].points}}
     <br>
     MARKET
     {{marketValues}}
@@ -462,7 +469,7 @@ export default {
         console.log("kör market en gång till")
         this.placeBottle('market',0);
       }
-
+      console.log(this.twoMarket);
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
@@ -482,7 +489,6 @@ this.$store.state.socket.on('quarterWorkerPlaced',function(d){
   this.players=d.players;
   this.workerPlacement=d.placements.workerPlacement;
   this.isPlacedList=d.isPlacedList;
-  console.log(this.players[this.playerId].hand[0].available);
 }.bind(this));
 
 
@@ -490,6 +496,9 @@ this.$store.state.socket.on('workerPlaced',function(d){
   this.players=d.players;
   this.workerPlacement=d.placements.workerPlacement;
   this.isPlacedList=d.isPlacedList;
+  if(this.players[this.playerId].myTurn===true&&d.action!=="cardAndIncome"){
+    this.changeTurn();
+  }
 }.bind(this));
 
 
@@ -512,6 +521,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
       this.skillPlacement=d.placements.skillPlacement;
       this.marketPlacement=d.placements.marketPlacement;
       this.auctionPlacement=d.placements.auctionPlacement;
+      this.workerPlacement=d.placements.workerPlacement;
       this.incomePhase=d.incomePhase;
     }.bind(this));
 
@@ -520,7 +530,9 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
       this.discardTwo=d.discardTwo;
       this.isPlacedList=d.isPlacedList;
       console.log("isPLacedList",this.isPlacedList.getIncome);
+
       if(this.discardTwo===true){
+        console.log("kör igen")
         this.placeWorker({action: 'quarter', cost: 0})
       }
       if(this.players[this.playerId].myTurn===true && this.discardTwo!==true){
