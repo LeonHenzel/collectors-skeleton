@@ -1,7 +1,7 @@
 <template>
     <div v-if="card.x>0" :class="['card', {'available-to-choose': availableAction}]" :style="{'background-position': (-(card.x-1)*250)+'px ' + (-(card.y-1)*350)+'px'}" @click="doAction">
 
-      {{card.item}} 
+      {{card.item}}
       {{card.skill}}
       {{card.market}}
     </div>
@@ -31,14 +31,15 @@ export default {
     height:350px;
     background-image: url('/images/collectors-cards.png');
     border-radius: 10px;
-
     box-shadow: -1rem 0 3rem #000;
     transition: 0.2s;
+    transform: scale(0.5);
   }
 
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
   .card:hover{
-      transform: translateY(-1rem);
+    transform: translateY(-1rem);
+    /* transform: scale(0.5); */
   }
 
   .available-to-choose {
