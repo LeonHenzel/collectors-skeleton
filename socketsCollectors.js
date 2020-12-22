@@ -141,6 +141,18 @@ function sockets(io, socket, data) {
       );
     });
 
+    socket.on('collectorsPlaceInMarket',function(d){
+      data.placeInMarket(d.roomId, d.playerId, d.currentAuctionCard, d.moneyPayment, d.winningPlayerHand)
+      io.to(d.roomId).emit('auctionCardPlacedInMarket', {
+          players: data.getPlayers(d.roomId),
+          currentAuction: data.getCurrentAuctionCard(d.roomId),
+          bidWinnerWrapper: data.getBidWinnerWrapper(d.roomId),
+          currentBid: data.getCurrentBid(d.roomId),
+          market: data.rooms[d.roomId].market
+        }
+      );
+    })
+
     socket.on('collectorsRaiseValue', function(d){
       data.raiseMarket(d.roomId, d.playerId, d.card,d.cost,d.action)
       io.to(d.roomId).emit('ValueRaised',{

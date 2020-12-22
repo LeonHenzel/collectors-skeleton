@@ -148,6 +148,7 @@
           <br>
           <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
           <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+          <button @click="placeAuctionCardInMarket">Place your newly in raise market</button>
           <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
       </div>
       <br>
@@ -452,6 +453,20 @@ export default {
         }
       }.bind(this)
     );
+
+    this.$store.state.socket.on('auctionCardPlacedInMarket', function(d){
+      this.currentBid = d.currentBid;
+      this.players = d.players;
+      this.currentAuction = d.currentAuction;
+      this.auctionPayment = [];
+      this.marketValues=d.market;
+      if(this.players[this.playerId].bidSkipper === false){
+        this.bidWinnerWrapper = d.bidWinnerWrapper;
+      }
+      if(this.players[this.playerId].myTurn===true){
+      this.changeTurn();
+      }
+    }.bind(this));
 
     this.$store.state.socket.on('twoMarketChanged',function(d){
       this.twoMarket=d.twoMarket;
@@ -917,6 +932,23 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           alert("You don't have enough money. Please choose more cards on your hand to pay with")
         }
     },
+
+    placeAuctionCardInMarket: function(){
+      if(this.players[this.playerId].money >= this.moneyPayment){
+        this.$store.state.socket.emit('collectorsPlaceInMarket', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        currentAuctionCard: this.currentAuction,
+        moneyPayment: this.moneyPayment,
+        winningPlayerHand: this.players[this.playerId].hand
+        }
+        );
+      }
+      else{
+        alert("You don't have enough money. Please choose more cards on your hand to pay with")
+      }
+    },
+
     placeAuctionCardInSkills: function (){
         if(this.players[this.playerId].money >= this.moneyPayment){
           this.$store.state.socket.emit('collectorsPlaceInSkills', {

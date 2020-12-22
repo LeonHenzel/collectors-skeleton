@@ -1123,6 +1123,53 @@ Data.prototype.changeTwoMarket=function(roomId){
 }
 
 
+Data.prototype.placeInMarket=function(roomId, playerId, currentAuctionCard, moneyPayment, winningPlayerHand){
+let room=this.rooms[roomId];
+  if(typeof room!=='undefined'){
+  Data.prototype.raiseMarketAuction(room,currentAuctionCard)
+  room.players[playerId].myBiddingTurn = false;
+  room.players[playerId].money -= moneyPayment;
+
+
+  room.players[playerId].hand = winningPlayerHand;
+
+  room.currentAuction = [];
+  room.currentBid = -1;
+  room.bidWinnerWrapper = "bidWinnerWrapperInvisible";
+}
+}
+
+
+Data.prototype.raiseMarketAuction=function(room, card){
+  if (typeof room !== 'undefined'){
+    console.log("raiseMarketAuction");
+    console.log(card.market)
+    if(card.market==='movie'){
+      console.log("If1");
+      room.market.movie+=1;
+    }
+    if(card.market==='music'){
+      console.log("If2");
+      room.market.music+=1;
+    }
+    if(card.market==='technology'){
+      console.log("If3");
+      room.market.technology+=1;
+    }
+    if(card.market==='fastaval'){
+      console.log("If4");
+      room.market.fastaval+=1;
+    }
+    if(card.market==='figures'){
+      console.log("If5");
+      room.market.figures+=1;
+    }
+  }
+
+Data.prototype.getAllpoints(room);
+}
+
+
 
 Data.prototype.raiseMarket=function(roomId, playerId, card, cost,action){
   let room = this.rooms[roomId];
