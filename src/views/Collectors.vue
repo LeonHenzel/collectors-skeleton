@@ -7,6 +7,7 @@
 
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
+
       <div class="bajs" v-for="player in players" :key="player">
         {{player.playerName}}
       </div>
@@ -19,6 +20,23 @@
         money: {{players[playerId].money}}
         auctionIncome: {{players[playerId].auctionIncome}}
       </div>
+
+
+      <div class="layout">
+        <div class="menuBar">
+          Menu/navbar
+        </div>
+
+        <div class="otherPlayers">
+          <h3>Stats</h3>
+          <h4>Placement in current round:</h4>
+            {{buyPlacement}}
+            <br>
+            {{chosenPlacementCost}}
+        </div>
+
+      <div>{{players}}</div>
+
       <br>
       <div>My ID is {{this.$store.state.playerId}}</div>
       <br>
@@ -36,7 +54,14 @@
         </button>
       </div>
 
-      <CollectorsBuyActions v-if="players[playerId]"
+      <CollectorsWorkers v-if="players[playerId]"
+      :labels="labels"
+      :player="players[playerId]"
+      :placement="workerPlacement"
+      @placeWorker="placeWorker($event)"
+      @setDiscardTwoTrue="setDiscardTwoTrue()"/>
+
+<!--      <CollectorsBuyActions v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
         :itemsOnSale="itemsOnSale"
@@ -61,6 +86,86 @@
         :placement="auctionPlacement"
         @startAuction="startAuction($event)"
         @placeBottle="placeBottle('auction', $event)"/>
+-->
+
+        <div class="Items">
+          <h3>Items</h3>
+        </div>
+
+
+        <div class="Skills">
+          <h3>Skills</h3>
+          <br>
+          <CollectorsBuySkill v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :skillsOnSale="skillsOnSale"
+            :placement="skillPlacement"
+            @buySkill="buySkill($event)"
+            @placeBottle="placeBottle('skill',$event)"/>
+        </div>
+
+        <div class="cardsOnSale">
+          <h3>Köp dina kort här</h3>
+          <br>
+          <CollectorsBuyActions v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :itemsOnSale="itemsOnSale"
+            :marketValues="marketValues"
+            :placement="buyPlacement"
+            @buyCard="buyCard($event)"
+            @placeBottle="placeBottle('buy', $event)"/>
+        </div>
+
+        <div class="playerView" >
+          <h3>Playerview</h3>
+          <div class="overlayPlayerView" id = "expand">
+            <a href="#" class="closeGridButton" @click="minimizeGrid()">&times;</a>
+            <div class="myHand">
+              <h4>My Hand</h4>
+              <div class="cardslots" v-if="players[playerId]">
+                <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+              </div>
+            </div>
+
+            <div class="myItems">
+              <h4>My Items</h4>
+              <div class="cardslots" v-if="players[playerId]">
+                <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+              </div>
+            </div>
+
+            <div class="mySkills">
+              <h4>My Skills</h4>
+              <div class="cardslots" v-if="players[playerId]">
+                <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+              </div>
+            </div>
+            <div class="buttons">
+              <button @click="drawCard">
+                {{ labels.draw }}
+              </button>
+            </div>
+            <button href="#" class = "playerboardGridButton" @click="minimizeGrid()"> Minimize </button>
+          </div>
+        <button href="#" class = "openGridButton" @click="expandGrid()">Expand</button>
+        </div>
+
+        <div class="Auction">
+          <h3>Current auction</h3>
+          <br>
+
+            <CollectorsStartAuction v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :auctionCards="auctionCards"
+              :marketValues="marketValues"
+              :placement="auctionPlacement"
+              @startAuction="startAuction($event)"
+              @placeBottle="placeBottle('auction', $event)"/>
+              <br>
+              </div>
 
 
 
@@ -84,7 +189,7 @@
         :player="players[playerId]"
         @income="income($event)"/>
 
-
+<!--
       <div class="buttons">
         <button @click="drawCard">
           {{ labels.draw }}
@@ -102,10 +207,11 @@
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
       </div>
-
+-->
       <div class="auctionWrapper">
         <div class="currentAuctionWrapper">
           Current auction
+
           <div class="cardslots">
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
@@ -151,7 +257,7 @@
           <button @click="placeAuctionCardInMarket">Place your newly in raise market</button>
           <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
       </div>
-      <br>
+    </div>
 
     </main>
     {{players[playerId].skillVP}}
@@ -884,12 +990,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           card: card,
           cost: this.chosenPlacementCost
         }
+
       );}
     },
      sendMessage: function(msg) {
       this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id, playerName: this.players[this.playerId].playerName});
       //console.log(this.players[this.playerId].playerName ,"från sendmessage emit")
     },
+
+  /*  startAuction: function (card){
+      this.isPlacedList.auction=false;
+      this.$store.state.socket.emit('collectorsStartAuction', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          card: card,
+          cost: this.chosenPlacementCost
+        }
+      );
+    },*/
+    expandGrid: function(){
+      document.getElementById('expand').style.width = "100%";
+    },
+    minimizeGrid: function(){
+      document.getElementById('expand').style.width = "0%";
+
+  },
 
     raiseBid: function (){
       if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
@@ -967,6 +1092,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   raiseMarket: function(card,action){
     if(this.players[this.playerId].myTurn === false){
       return
+
     }
     console.log(action);
     console.log('raiseMarket i Collectors')
@@ -1007,6 +1133,88 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   footer a:visited {
     color:ivory;
   }
+  .overlayPlayerView{
+    position: fixed;
+    width: 0%;
+    height:100%;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,.7);
+    overflow-x: hidden;
+    z-index: 5;
+    transition: all 0.5s;
+  }
+
+  .overlayPlayerView__content{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+  .overlayPlayerView a{
+    paddin: 10px;
+    color: white;
+    display: block;
+  }
+
+  .overlayPlayerView .closeGridButton{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 40px;
+  }
+
+  .layout{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "menuBar menuBar otherPlayers"
+    "Auction Items otherPlayers"
+    "Auction Skills playerView"
+    "Auction cardsOnSale playerView";
+  }
+  .menuBar{
+    grid-area: menuBar;
+    border: 5px solid #fff;
+    background-color: Gold;
+  }
+  .otherPlayers{
+    grid-area: otherPlayers;
+    border: 5px solid #fff;
+    background-color: RoyalBlue;
+  }
+  .Auction{
+    grid-area: Auction;
+    border: 5px solid #fff;
+    background-color: PaleVioletRed;
+  }
+  .Items{
+    grid-area: Items;
+    border: 5px solid #fff;
+    background-color: Red;
+  }
+  .Skills{
+    grid-area: Skills;
+    border: 5px solid #fff;
+    background-color: Green;
+  }
+
+  .cardsOnSale{
+    grid-area: cardsOnSale;
+    border: 5px solid #fff;
+    background-color: Black;
+  }
+  .playerView{
+    grid-area: playerView;
+    border: 5px solid #fff;
+    background-color: RoyalBlue;
+  }
+
+
+
   .cardslots {
     display: grid;
     grid-template-columns: repeat(auto-fill, 130px);

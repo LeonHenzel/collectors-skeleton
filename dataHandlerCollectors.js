@@ -1144,23 +1144,23 @@ Data.prototype.raiseMarketAuction=function(room, card){
   if (typeof room !== 'undefined'){
     console.log("raiseMarketAuction");
     console.log(card.market)
-    if(card.market==='movie'){
+    if(card[0].market==='movie'){
       console.log("If1");
       room.market.movie+=1;
     }
-    if(card.market==='music'){
+    if(card[0].market==='music'){
       console.log("If2");
       room.market.music+=1;
     }
-    if(card.market==='technology'){
+    if(card[0].market==='technology'){
       console.log("If3");
       room.market.technology+=1;
     }
-    if(card.market==='fastaval'){
+    if(card[0].market==='fastaval'){
       console.log("If4");
       room.market.fastaval+=1;
     }
-    if(card.market==='figures'){
+    if(card[0].market==='figures'){
       console.log("If5");
       room.market.figures+=1;
     }
