@@ -1,7 +1,7 @@
 <template>
     <div v-if="card.x>0" :class="['card', {'available-to-choose': availableAction}]" :style="{'background-position': (-(card.x-1)*250)+'px ' + (-(card.y-1)*350)+'px'}" @click="doAction">
 
-      {{card.item}} 
+      {{card.item}}
       {{card.skill}}
       {{card.market}}
     </div>
@@ -31,6 +31,7 @@ export default {
     height:350px;
     background-image: url('/images/collectors-cards.png');
     border-radius: 10px;
+    transform: scale(0.5);
   }
 
   .available-to-choose {

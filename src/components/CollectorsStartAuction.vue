@@ -94,7 +94,7 @@ export default {
 <style scoped>
   .auction-cards{
     display: grid;
-    grid-template-rows: repeat(auto-fill, 100px);
+    grid-template-rows: repeat(auto-fill, 368.67px); /*368.67pxpx här avgör var nästa kort efter 1:a ligger*/
   }
 
   .buttons {
