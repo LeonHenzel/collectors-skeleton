@@ -54,10 +54,13 @@
           <h3>{{labels.currentrankings}}</h3>
           <div v-for="player in players" :key="player">
           <h4>{{player.playerName}} {{labels.hasthismanypoints}} {{player.points}}</h4>
+          </div>
 
-          <div v-if="players[playerId].myTurn">
+          <h3>{{labels.whosturnisit}}</h3>
+          <div v-for="player in players" :key="player">
+          <div v-if="player.myTurn">
 
-          <h4>{{playerId.playerName}} {{labels.itsyourturn}}</h4>
+          <h4>{{labels.its}} {{player.playerName}} {{labels.turn}}</h4>
 
 
           </div>

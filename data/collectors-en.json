@@ -10,5 +10,8 @@
 	"currentlyitsround": "Currently it's round:",
 	"itsyourturn": "it's your turn!",
 	"currentrankings": "The currents leaderboard is as follows:",
-	"hasthismanypoints": "has this many points:"
+	"hasthismanypoints": "has this many points:",
+	"whosturnisit": "Who's turn is it?",
+	"its": "it's",
+	"turn": "turn"
 }
