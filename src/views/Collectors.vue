@@ -48,28 +48,30 @@
 
 
         <div class="otherPlayers">
-          <h3>Stats</h3>
-          <h4>{{labels.currentlyitsround}} <h2>{{round}}</h2></h4>
+          <h2>Stats</h2>
+          <h3>{{labels.currentlyitsround}} {{round}}</h3>
+          <br>
 
           <h3>{{labels.currentrankings}}</h3>
           <div v-for="player in players" :key="player">
           <h4>{{player.playerName}} {{labels.hasthismanypoints}} {{player.points}}</h4>
           </div>
 
+          <br>
           <h3>{{labels.whosturnisit}}</h3>
           <div v-for="player in players" :key="player">
           <div v-if="player.myTurn">
 
-          <h4>{{labels.its}} {{player.playerName}} {{labels.turn}}</h4>
+          <h4>{{labels.its}} {{player.playerName}}'s {{labels.turn}}</h4>
+
+          <br>
+          <h3>{{labels.whosbidding}}</h3>
 
 
           </div>
           </div>
 
-            {{players}}
-            {{players.PlayerId}}
-            <br>
-            {{chosenPlacementCost}}
+
         </div>
 
         <div>{{players}}</div>
