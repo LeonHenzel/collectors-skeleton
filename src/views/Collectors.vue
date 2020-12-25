@@ -51,7 +51,9 @@
           <h3>Stats</h3>
           <h4>{{labels.currentlyitsround}} <h2>{{round}}</h2></h4>
 
-          <div v-for="playerid in players" :key="playerid">
+          
+          <div v-for="player in players" :key="player">
+          {{player.points}}
 
           <div v-if="players[playerId].myTurn">
 

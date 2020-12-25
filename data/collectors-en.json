@@ -8,5 +8,6 @@
 	"skipThisRound": "End Turn",
 	"raiseMarket": "Raise Market",
 	"currentlyitsround": "Currently it's round:",
-	"itsyourturn": "it's your turn!"
+	"itsyourturn": "it's your turn!",
+	"currentrankings": "The currents leaderboard is:"
 }
