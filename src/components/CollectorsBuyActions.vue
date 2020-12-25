@@ -1,12 +1,40 @@
 <template>
-    <div>
+    <div class="CollectorsBuyAction">
+
+      <button href="#" class = "openButton" @click="openNav()">Expand</button>
       <h1>{{ labels.buyCard }}</h1>
+
       <h3>Click to show cards on sale</h3>
+
+      <div class="buy-cards">
+        <div v-for="(card, index) in itemsOnSale" :key="index">
+          <CollectorsCard
+            :card="card"
+            :availableAction="card.available"
+            @doAction="buyCard(card)"/>
+          {{ cardCost(card) }}
+        </div>
+      </div>
+      <div>
+        <div class="buttons" v-for="(p, index) in placement" :key="index">
+          <button
+            v-if="p.playerId===null"
+            :disabled="cannotAfford(p.cost)"
+            @click="placeBottle(p)" >
+            ${{p.cost}}
+          </button>
+          <div v-if="p.playerId !== null">
+            {{p.playerId}}
+          </div>
+        </div>
+      </div>
+
+
       <div class="overlay" id="nav">
         <a href="#" class="closeButton" @click="closeNav()">&times;</a>
         <h3> Cards on sale </h3>
         <div class="buy-cards">
-          <div v-for="(card, index) in itemsOnSale" :key="index">
+          <div class="cardDiv" v-for="(card, index) in itemsOnSale" :key="index">
             <CollectorsCard
               :card="card"
               :availableAction="card.available"
@@ -29,7 +57,7 @@
         </div>
         <button href="#" class = "playerboardButton" @click="closeNav()">Back to playerboard </button>
       </div>
-    <button href="#" class = "openButton" @click="openNav()">Show cards on sale </button>
+
     </div>
 </template>
 
@@ -111,6 +139,28 @@ export default {
     grid-template-columns: repeat(auto-fill, 130px);
   }
 
+  /* Den svåra delen! Nu ska vi flytta alla kort som är till
+  höger om det kortet som är hover:ed
+  .card:hover~.card targetar all the elements that are siblings
+  that come after it (the hovered card) with the card class.
+  ~ is called the general sibling combinator and it targets
+  all the children after the element, but not the element itself
+  or any of the siblings before it
+
+  transform: translateX(130px) flyttar helt enkelt alla targeted
+  cards 130px höger (framåt i x-direction)*/
+  .cardDiv{
+    transition: 0.2s;
+  }
+
+  .cardDiv:hover~.cardDiv{
+      transform: translateX(130px);
+    }
+  .CollectorsBuyAction .openButton{
+    float: right;
+    margin: 20px;
+  }
+
   .overlay{
     position: fixed;
     width: 100%;
@@ -131,7 +181,7 @@ export default {
     margin-top: 30px;
   }
   .overlay a{
-    paddin: 10px;
+    padding: 10px;
     color: white;
     display: block;
   }
@@ -142,22 +192,7 @@ export default {
     right: 50px;
     font-size: 40px;
 
-  /* Den svåra delen! Nu ska vi flytta alla kort som är till
-  höger om det kortet som är hover:ed
-  .card:hover~.card targetar all the elements that are siblings
-  that come after it (the hovered card) with the card class.
-  ~ is called the general sibling combinator and it targets
-  all the children after the element, but not the element itself
-  or any of the siblings before it
 
-  transform: translateX(130px) flyttar helt enkelt alla targeted
-  cards 130px höger (framåt i x-direction)*/
-  .cardDiv{
-    transition: 0.2s;
-  }
-
-  .cardDiv:hover~.cardDiv{
-      transform: translateX(130px);
 
   }
 </style>

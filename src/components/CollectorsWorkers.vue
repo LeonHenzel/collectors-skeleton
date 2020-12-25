@@ -1,50 +1,53 @@
 <template>
   <div class="workersWrapper">
-
-    <button class="workerOption" type="submit" @click="buyWorkers">
-     knapp
+    <div v-for="(p,index) in placement" :key="index">
+    <button class="workerOption"
+    v-if="p.playerId===null"
+    @click="placeWorkers(p)"
+    :disabled="disablePlacement(index, p.cost)">
+     {{p.cost}}
     </button>
-
+    <div v-if="p.playerId !== null">
+      {{p.playerId}}
+    </div>
+  </div>
   </div>
 </template>
 
 <script>
   export default{
     name: 'CollectorsWorkers',
-    props:{},
-    data: function() {
-      return{
-
-        /*field1:{
-          fieldNumber: 1,
-          description: "cost: -1 Bottle, gives 1 dollar"
-        },
-
-        field2:{
-          fieldNumber: 2,
-          description: "cost: 1 bottle + 1 dollar, draw 2 cards"
-        },
-
-        field3:{
-          fieldNumber: 3,
-          description: "cost: 1 bottle, draw 1 card, get p1-token"
-        },
-
-        field4:{
-          fieldNumber: 4,
-          description: "cost: 1 bottle, draw 1 card, place 1 card on playerboard",
-        },
-
-        field5:{
-          fieldNumber: 5,
-          description: "cost: 1 bottle, weird thingy (changes through quarters)"
-        },
-
-        fields: [this.field1, this.field2, this.field3, this.field4, this.field5]
-    */}
-  },
+    props:{
+      labels: Object,
+      player: Object,
+      placement: Array,
+      round: Number
+    },
     methods:{
-      buyWorkers: function(){
+      placeWorkers: function(p){
+        console.log("CollectorsWorkers Onclick")
+        if(this.round!==4&&p.action==="quarter"){
+        this.$emit('setDiscardTwoTrue')
+      }
+        this.$emit('placeWorker', {action: p.action, cost: p.cost})
+      },
+
+      disablePlacement: function(index, cost){
+        if(this.player.money<cost){
+          return true;
+        }
+        if(index===1 && this.player.energyBottles===0){
+          return true;
+        }
+        if(this.round===4 && this.player.energyBottles===0 && index===0){
+          return true;
+        }
+        if(this.round!==4 && this.player.hand.length<2 && index===0){
+          return true;
+        }
+        if(index===4 && this.player.hand.length<1){
+          return true;
+        }
 
       }
     }

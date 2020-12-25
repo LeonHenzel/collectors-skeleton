@@ -13,20 +13,16 @@
 
     <div id = "welcomeTable">
       <h1 id="mainTitle">Collectors</h1>
-
-
-        <ul v-if="englishGotClicked">
-          <li v-for="i in 3" :key="i">
-            <a @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players</a>.
-          </li>
-        </ul>
-        <ul v-if="swedishGotClicked">
-          <li v-for="i in 3" :key="i">
-            <a @click="setupCollectors(i+1, 'se')">Spela Collectors med {{i+1}} spelare</a>.
-          </li>
-        </ul>
-
-
+      <ul v-if="englishGotClicked">
+        <li v-for="i in 3" :key="i">
+          <a class="clickableText" @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players</a>.
+        </li>
+      </ul>
+      <ul v-if="swedishGotClicked">
+        <li v-for="i in 3" :key="i">
+          <a class="clickableText" @click="setupCollectors(i+1, 'se')">Spela Collectors med {{i+1}} spelare</a>.
+        </li>
+      </ul>
     </div>
   </div>
 </template>

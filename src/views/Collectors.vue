@@ -9,10 +9,44 @@
     <main>
 
 
-      <div class="layout">
+      <div class="bajs" v-for="player in players" :key="player">
+        {{player.playerName}}
+      </div>
+    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
+
+      <div> MyTurn: {{players[playerId].myTurn}}
+        Firstplayer: {{players[playerId].firstPlayerToken}}
+        energyBottles: {{players[playerId].energyBottles}}
+        maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
+        money: {{players[playerId].money}}
+        auctionIncome: {{players[playerId].auctionIncome}}
+      </div>
+
+
+    <div class="layout">
         <div class="menuBar">
-          Menu/navbar
+          <a href="#" class="logo">Collectors</a>
+          <input class="menuButton" type="checkbox" id="menuButton">
+          <label class="burgerBarsIcon" for="menuButton">
+          <span class="barsIcon"></span>
+          </label>
+        <!--  öä -->
+          <ul class="menu">
+            <li class="item desktop">
+              <a href="#">Home</a>
+            </li>
+            <li class="item desktop">
+              <a href="#">About</a>
+            </li>
+            <li class="item buttonNav">
+              <a href="#">Help</a>
+            </li>
+            <li class="item buttonNav secondary">
+              <a href="#">Chat</a>
+            </li>
+          </ul>
         </div>
+
 
         <div class="otherPlayers">
           <h3>Stats</h3>
@@ -21,6 +55,7 @@
             <br>
             {{chosenPlacementCost}}
         </div>
+
 
       <div class="bajs" v-for="player in players" :key="player">
         {{player.playerName}}
@@ -47,6 +82,36 @@
       </div>
 
       <CollectorsBuyActions v-if="players[playerId]"
+
+
+        <div>{{players}}</div>
+
+        <br>
+        <div>My ID is {{this.$store.state.playerId}}</div>
+        <br>
+        <br>
+
+        {{buyPlacement}} {{chosenPlacementCost}}
+        <br>
+        <br>
+        It is currently round {{round}}
+        <br>
+        <br>
+        <div class="buttons">
+          <button @click="skipThisRound">
+            {{ labels.skipThisRound }}
+          </button>
+        </div>
+
+        <CollectorsWorkers v-if="players[playerId]"
+        :labels="labels"
+        :player="players[playerId]"
+        :placement="workerPlacement"
+        @placeWorker="placeWorker($event)"
+        @setDiscardTwoTrue="setDiscardTwoTrue()"/>
+
+        <!--      <CollectorsBuyActions v-if="players[playerId]"
+
         :labels="labels"
         :player="players[playerId]"
         :itemsOnSale="itemsOnSale"
@@ -55,17 +120,23 @@
         @buyCard="buyCard($event)"
         @placeBottle="placeBottle('buy', $event)"/>
 
-      <CollectorsWorkers v-if="players[playerId]"/>
 
-      <CollectorsStartAuction v-if="players[playerId]"
+        <CollectorsWorkers v-if="players[playerId]"
         :labels="labels"
         :player="players[playerId]"
-        :auctionCards="auctionCards"
-        :marketValues="marketValues"
-        :placement="auctionPlacement"
-        @startAuction="startAuction($event)"
-        @placeBottle="placeBottle('auction', $event)"/>
--->
+        :placement="workerPlacement"
+        @placeWorker="placeWorker($event)"
+        @setDiscardTwoTrue="setDiscardTwoTrue()"/>
+
+        <CollectorsStartAuction v-if="players[playerId]"
+          :labels="labels"
+          :player="players[playerId]"
+          :auctionCards="auctionCards"
+          :marketValues="marketValues"
+          :placement="auctionPlacement"
+          @startAuction="startAuction($event)"
+          @placeBottle="placeBottle('auction', $event)"/>
+       -->
 
         <div class="Items">
           <h3>Items</h3>
@@ -85,7 +156,7 @@
         </div>
 
         <div class="cardsOnSale">
-          <h3>Köp dina kort här</h3>
+          <!--<h3>Köp dina kort här</h3>-->
           <br>
           <CollectorsBuyActions v-if="players[playerId]"
             :labels="labels"
@@ -98,24 +169,50 @@
         </div>
 
         <div class="playerView" >
+          <button href="#" class = "openPlayerviewGridButton" @click="expandPlayerviewGrid()">Expand</button>
           <h3>Playerview</h3>
-          <div class="overlayPlayerView" id = "expand">
-            <a href="#" class="closeGridButton" @click="minimizeGrid()">&times;</a>
-            <div class="myHand">
+          <div class="myHand">
+            <h4>My Hand</h4>
+            <div class="cardslots" v-if="players[playerId]">
+              <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+            </div>
+          </div>
+
+          <div class="myItems">
+            <h4>My Items</h4>
+            <div class="cardslots" v-if="players[playerId]">
+              <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+            </div>
+          </div>
+
+          <div class="mySkills">
+            <h4>My Skills</h4>
+            <div class="cardslots" v-if="players[playerId]">
+              <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+            </div>
+          </div>
+          <div class="buttons">
+            <button @click="drawCard">
+              {{ labels.draw }}
+            </button>
+          </div>
+          <div class="overlayPlayerView" id = "expandPlayerview">
+            <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
+            <div class="myHandOverlay">
               <h4>My Hand</h4>
               <div class="cardslots" v-if="players[playerId]">
                 <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
               </div>
             </div>
 
-            <div class="myItems">
+            <div class="myItemsOverlay">
               <h4>My Items</h4>
               <div class="cardslots" v-if="players[playerId]">
                 <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
               </div>
             </div>
 
-            <div class="mySkills">
+            <div class="mySkillsOverlay">
               <h4>My Skills</h4>
               <div class="cardslots" v-if="players[playerId]">
                 <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
@@ -126,27 +223,124 @@
                 {{ labels.draw }}
               </button>
             </div>
-            <button href="#" class = "playerboardGridButton" @click="minimizeGrid()"> Minimize </button>
+            <button href="#" class = "playerboardGridButton" @click="minimizePlayerviewGrid()"> Minimize </button>
           </div>
-        <button href="#" class = "openGridButton" @click="expandGrid()">Expand</button>
+
         </div>
 
         <div class="Auction">
+          <button href="#" class = "openAuctionGridButton" @click="expandAuctionGrid()">Expand</button>
           <h3>Current auction</h3>
           <br>
+          <CollectorsStartAuction v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :auctionCards="auctionCards"
+            :marketValues="marketValues"
+            :placement="auctionPlacement"
+            @startAuction="startAuction($event)"
+            @placeBottle="placeBottle('auction', $event)"/>
 
-            <CollectorsStartAuction v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :auctionCards="auctionCards"
-              :marketValues="marketValues"
-              :placement="auctionPlacement"
-              @startAuction="startAuction($event)"
-              @placeBottle="placeBottle('auction', $event)"/>
+            <br>
+            <div class="auctionWrapper">
+              <div class="currentAuctionWrapper">
+                Current auction
+
+                <div class="cardslots">
+                  <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+                </div>
+              </div>
+              <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
+              <div class="currentBidWrapper">
+                <p> Current Bid </p>
+                <h3> {{ currentBid }} Coins </h3>
+                <button @click="raiseBid">Raise Bid By 1 Coin</button>
+                <button @click="skipThisBidding">Give Up Bidding</button>
+              </div>
+            </div>
+            <br>
+            <div v-bind:class="bidWinnerWrapper">
+              Choose where you want to put your won Auction-card
               <br>
+                <!-- <button class="placeholder">This is just a placeholder button</button> -->
+                <button @click="placeAuctionCardInItems">Place your newly won Auction-card in Items</button>
+                <button @click="placeAuctionCardInSkills">Place your newly won Auction-card in Skills</button>
+                <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
+            </div>
+            <br>
+            <CollectorsMarket v-if="players[playerId]"
+            :labels="labels"
+            :player="players[playerId]"
+            :placement="marketPlacement"
+            @placeBottle="placeBottle('market',$event)"
+            @changeTwoMarket="changeTwoMarket()"/>
+
+          <div class="overlayAuction" id = "expandAuction">
+            <a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a>
+
+            <div class="CollectorsStartAuctionOverlay">
+              <CollectorsStartAuction v-if="players[playerId]"
+                :labels="labels"
+                :player="players[playerId]"
+                :auctionCards="auctionCards"
+                :marketValues="marketValues"
+                :placement="auctionPlacement"
+                @startAuction="startAuction($event)"
+                @placeBottle="placeBottle('auction', $event)"/>
+            </div>
+
+
+              <div class="auctionWrapper">
+                <div class="currentAuctionWrapper">
+                  Current auction
+
+                  <div class="cardslots">
+                    <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+                  </div>
+                </div>
+                <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
+                <div class="currentBidWrapper">
+                  <p> Current Bid </p>
+                  <h3> {{ currentBid }} Coins </h3>
+                  <button @click="raiseBid">Raise Bid By 1 Coin</button>
+                  <button @click="skipThisBidding">Give Up Bidding</button>
+                </div>
               </div>
 
 
+              <!--
+              <CollectorsBuySkill v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :skillsOnSale="skillsOnSale"
+              :placement="skillPlacement"
+              @buySkill="buySkill($event)"
+              @placeBottle="placeBottle('skill',$event)"/>
+
+              <CollectorsMarket v-if="players[playerId]"
+              :labels="labels"
+              :player="players[playerId]"
+              :placement="marketPlacement"
+              @placeBottle="placeBottle('market',$event)"
+              @changeTwoMarket="changeTwoMarket()"/> -->
+              <div v-bind:class="bidWinnerWrapper">
+                Choose where you want to put your won Auction-card
+                <br>
+                  <!-- <button class="placeholder">This is just a placeholder button</button> -->
+                  <button @click="placeAuctionCardInItems">Place your newly won Auction-card in Items</button>
+                  <button @click="placeAuctionCardInSkills">Place your newly won Auction-card in Skills</button>
+                  <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
+              </div>
+
+
+              <div class="CollectorsMarketOverlay">
+                <CollectorsMarket v-if="players[playerId]"
+                :labels="labels"
+                :player="players[playerId]"
+                :placement="marketPlacement"
+                @placeBottle="placeBottle('market',$event)"
+                @changeTwoMarket="changeTwoMarket()"/>
+              </div>
 
       <CollectorsBuySkill v-if="players[playerId]"
         :labels="labels"
@@ -156,19 +350,17 @@
         @buySkill="buySkill($event)"
         @placeBottle="placeBottle('skill',$event)"/>
 
-        <CollectorsMarket v-if="players[playerId]"
-        :labels="labels"
-        :player="players[playerId]"
-        :placement="marketPlacement"
-        @placeBottle="placeBottle('market',$event)"
-        @changeTwoMarket="changeTwoMarket()"/>
+              <button href="#" class = "playerboardGridButton" @click="minimizeAuctionGrid()"> Minimize </button>
 
-        <CollectorsIncome v-if="!players[playerId].hasChoosenIncome"
-        :labels="labels"
-        :player="players[playerId]"
-        @income="income($event)"/>
+          </div>
+        </div>
 
-<!--
+            <CollectorsIncome v-if="!players[playerId].hasChoosenIncome"
+            :labels="labels"
+            :player="players[playerId]"
+            @income="income($event)"/>
+
+      <!--
       <div class="buttons">
         <button @click="drawCard">
           {{ labels.draw }}
@@ -176,8 +368,8 @@
       </div>
       My Hand
       <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
-      </div>
+          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+        </div>
       My Items
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
@@ -186,15 +378,12 @@
       <div class="cardslots" v-if="players[playerId]">
         <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
       </div>
--->
-      <div class="auctionWrapper">
-        <div class="currentAuctionWrapper">
-          Current auction
-
+      -->
+      <div>
           <div class="cardslots">
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
-        </div>
+
         <!-- Får error om jag inte kör denna extra div runt h3:n -->
         <div v-if="players[playerId]">
           <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
@@ -233,13 +422,16 @@
           <br>
           <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
           <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+          <button @click="placeAuctionCardInMarket">Place your newly in raise market</button>
           <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
       </div>
+
     </div>
 
     </main>
-    PLAYERS
-    {{players}}
+    {{players[playerId].skillVP}}
+    {{players[playerId].itemsByNumber}}
+    {{players[playerId].points}}
     <br>
     MARKET
     {{marketValues}}
@@ -315,6 +507,8 @@ export default {
       skillPlacement: [],
       auctionPlacement: [],
       marketPlacement: [],
+      workerPlacement: [],
+      quarterTiles: [],
       chosenPlacementCost: null,
       marketValues: { fastaval: 0,
                      movie: 0,
@@ -339,7 +533,8 @@ export default {
       twoMarket: false,
 
       twoMarketCounter:0,
-      round: 0
+      round: 0,
+      discardTwo: false
 
 
     }
@@ -382,10 +577,13 @@ export default {
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
+        this.workerPlacement= d.placements.workerPlacement;
         this.round=d.round;
         this.incomePhase=d.incomePhase;
         this.twoMarket=d.twoMarket;
         this.twoMarketCounter=d.twoMarketCounter;
+        this.isPlacedList=d.isPlacedList;
+        this.discardTwo=d.discardTwo;
       }.bind(this));
 
     this.$store.state.socket.on('playerJoined',
@@ -395,10 +593,11 @@ export default {
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
-        this.buyPlacement = d.buyPlacement;
-        this.skillPlacement = d.skillPlacement;
-        this.marketPlacement = d.marketPlacement;
-        this.auctionPlacement = d.auctionPlacement;
+        this.buyPlacement = d.placements.buyPlacement;
+        this.skillPlacement = d.placements.skillPlacement;
+        this.marketPlacement = d.placements.marketPlacement;
+        this.auctionPlacement = d.placements.auctionPlacement;
+        this.isPlacedList = d.isPlacedList;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -424,6 +623,7 @@ export default {
         console.log(d.playerId, "bought a card");
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
+        this.isPlacedList=d.isPlacedList;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -433,7 +633,7 @@ export default {
 
     this.$store.state.socket.on('collectorsUpdateMessages',
       function(d) {
-        console.log(this.players[this.playerId].playerName, "player name is attribute")
+        //console.log(this.players[this.playerId].playerName, "player name is attribute")
         this.messages = d.messages;
       }.bind(this)
     );
@@ -444,6 +644,7 @@ export default {
         console.log(d.playerId, "bought a Skill");
         this.players=d.players;
         this.skillsOnSale=d.skillsOnSale;
+        this.isPlacedList=d.isPlacedList;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -457,6 +658,7 @@ export default {
         this.auctionCards = d.auctionCards;
         this.currentAuction = d.currentAuction;
         this.currentBid = d.currentBid;
+        this.isPlacedList=d.isPlacedList;
         console.log("currentAuction = " + this.currentAuction);
 
       }.bind(this)
@@ -527,25 +729,37 @@ export default {
       }.bind(this)
     );
 
+    this.$store.state.socket.on('auctionCardPlacedInMarket', function(d){
+      this.currentBid = d.currentBid;
+      this.players = d.players;
+      this.currentAuction = d.currentAuction;
+      this.auctionPayment = [];
+      this.marketValues=d.market;
+      if(this.players[this.playerId].bidSkipper === false){
+        this.bidWinnerWrapper = d.bidWinnerWrapper;
+      }
+      if(this.players[this.playerId].myTurn===true){
+      this.changeTurn();
+      }
+    }.bind(this));
+
+    this.$store.state.socket.on('twoMarketChanged',function(d){
+      this.twoMarket=d.twoMarket;
+    }.bind(this));
+
     this.$store.state.socket.on('ValueRaised', function(d){
       console.log(d.playerId, "raised the market");
       this.players=d.players;
       this.marketValues=d.marketValues;
       this.skillsOnSale=d.skillsOnSale;
       this.auctionCards=d.auctionCards;
+      this.isPlacedList=d.isPlacedList;
+      this.twoMarket=d.twoMarket;
       if (this.twoMarket===true){
-        if(this.twoMarketCounter===0){
-          console.log("kör market en gång till")
-          this.twoMarketCounter +=1;
-          this.placeBottle('market',0);
-        }
-        else{
-          this.twoMarketCounter=0;
-          this.twoMarket=false;
-        }
-
+        console.log("kör market en gång till")
+        this.placeBottle('market',0);
       }
-
+      console.log(this.twoMarket);
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
@@ -557,12 +771,30 @@ export default {
   this.$store.state.socket.on('nameSet',function(d){
     this.players = d.players;
     this.playerName = d.playerName;
-    console.log(this.playerName, "from listnener in view")
+    //console.log(this.playerName, "from listnener in view")
   }.bind(this)
 );
 
+this.$store.state.socket.on('quarterWorkerPlaced',function(d){
+  this.players=d.players;
+  this.workerPlacement=d.placements.workerPlacement;
+  this.isPlacedList=d.isPlacedList;
+}.bind(this));
 
 
+this.$store.state.socket.on('workerPlaced',function(d){
+  this.players=d.players;
+  this.workerPlacement=d.placements.workerPlacement;
+  this.isPlacedList=d.isPlacedList;
+  if(this.players[this.playerId].myTurn===true&&d.action!=="cardAndIncome"){
+    this.changeTurn();
+  }
+}.bind(this));
+
+
+this.$store.state.socket.on('discardTwoIsTrue',function(d){
+  this.discardTwo=d.discardTwo;
+}.bind(this));
 
     this.$store.state.socket.on('turnChanged',function(d){
       this.players=d.players;
@@ -579,7 +811,24 @@ export default {
       this.skillPlacement=d.placements.skillPlacement;
       this.marketPlacement=d.placements.marketPlacement;
       this.auctionPlacement=d.placements.auctionPlacement;
+      this.workerPlacement=d.placements.workerPlacement;
       this.incomePhase=d.incomePhase;
+    }.bind(this));
+
+    this.$store.state.socket.on('incomeRaised',function(d){
+      this.players=d.players;
+      this.discardTwo=d.discardTwo;
+      this.isPlacedList=d.isPlacedList;
+      console.log("isPLacedList",this.isPlacedList.getIncome);
+
+      if(this.discardTwo===true){
+        console.log("kör igen")
+        this.placeWorker({action: 'quarter', cost: 0})
+      }
+      if(this.players[this.playerId].myTurn===true && this.discardTwo!==true){
+        console.log("changeTurn income")
+        this.changeTurn();
+      }
     }.bind(this));
 
 
@@ -609,12 +858,12 @@ export default {
 
     },
     submitName: function(){
-      this.fixedPlayerName = this.playerName;
+      //this.fixedPlayerName = this.playerName;
       this.gotSubmitted = true;
       this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
          playerId: this.playerId,
           playerName: this.playerName});
-      console.log(this.playerName, "from submitName")
+      //console.log(this.playerName, "from submitName")
     },
 
 /* Vad har vi gjort här med placeBottle och doAction? Jo, problemet var att när man klickade på en auctionknapp
@@ -625,23 +874,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       if(this.players[this.playerId].myTurn === false){
         return
       }
-      else if(action === "buy"){
-        this.isPlacedList.item = true
-      }
-      else if(action === "skill"){
-        this.isPlacedList.skill = true
-      }
-      else if(action === "auction"){
-        this.isPlacedList.auction = true
-      }
       else if(action ==="market"){
-        this.isPlacedList.market = true;
         this.chosenPlacementCost = cost;
         this.marketBottle(action, cost, this.twoMarket);
         return
       }
       this.chosenPlacementCost =cost ;
-
       this.$store.state.socket.emit('collectorsPlaceBottle', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -690,22 +928,25 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     doAction: function(card){
       if(this.players[this.playerId].myTurn === false){
         console.log("not my turn");
+        return
       }
       else if(this.isPlacedList.item===true){
-        this.isPlacedList.item=false;
+
         this.buyCard(card);
       }
       else if(this.isPlacedList.skill===true){
-        this.isPlacedList.skill=false;
         this.buySkill(card);
       }
       else if(this.isPlacedList.auction===true){
-        this.isPlacedList.auction=false;
+
         this.startAuction(card);
       }
       else if(this.isPlacedList.market===true){
         this.raiseMarket(card,'hand');
-        this.isPlacedList.market=false;
+
+      }
+      else if(this.isPlacedList.getIncome===true){
+        this.raiseIncome(card);
       }
       // if you won the auction, you can pay with your own cards
       if(this.bidWinnerWrapper==="bidWinnerWrapperVisible" && this.players[this.playerId].hand.indexOf(card) > -1){
@@ -743,6 +984,22 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         this.moneyPayment = this.winningBid - this.cardPayment;
       }
     },
+
+
+
+
+
+
+    raiseIncome: function(card){
+      console.log("raiseIncome")
+      this.$store.state.socket.emit('collectorsRaiseIncome', {
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          card: card
+        }
+      );
+    },
+
     // drawCard kommer inte behållas på detta vis
     drawCard: function () {
       if(this.players[this.playerId].myTurn === false){
@@ -767,6 +1024,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         }
       );
       }
+    },
+
+    setDiscardTwoTrue: function(){
+      this.$store.state.socket.emit('collectorsSetDiscardTwoTrue',{
+        roomId: this.$route.params.id})
+    },
+
+
+    placeWorker: function(d){
+      console.log("placeWorker")
+        if(d.action==="quarter"&&this.round!==4){
+          this.$store.state.socket.emit('collectorsQuarterTile',{
+          roomId: this.$route.params.id,
+          playerId: this.playerId,
+          cost: d.cost
+        });
+        }
+        else{
+          this.$store.state.socket.emit('collectorsWorkers',{
+            action: d.action,
+            cost: d.cost,
+            roomId: this.$route.params.id,
+            playerId: this.playerId
+          });
+        }
     },
 
 
@@ -842,10 +1124,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         console.log("buySkill säger myturn är false")
         return
       }
-        this.isPlacedList.skill=false;
         if(this.isPlacedList.market===true){
           this.raiseMarket(card,'skill');
-          this.isPlacedList.market=false;
 
         }
         else {
@@ -882,8 +1162,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
       );
 
-    }
-  },
+      );}
+    },
+     sendMessage: function(msg) {
+      this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id, playerName: this.players[this.playerId].playerName});
+      //console.log(this.players[this.playerId].playerName ,"från sendmessage emit")
+    },
+
   /*  startAuction: function (card){
       this.isPlacedList.auction=false;
       this.$store.state.socket.emit('collectorsStartAuction', {
@@ -894,21 +1179,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         }
       );
     },*/
-    expandGrid: function(){
-      document.getElementById('expand').style.width = "100%";
+
+    /*start för knapp tyck för att expanda de olika rutorna*/
+    expandPlayerviewGrid: function(){
+      document.getElementById('expandPlayerview').style.width = "100%";
     },
-    minimizeGrid: function(){
-      document.getElementById('expand').style.width = "0%";
+
 
     },
 
       );}
-    },
-     sendMessage: function(msg) {
-      this.$store.state.socket.emit('collectorsSendMessage', {msg: msg, playerId: this.playerId, roomId: this.$route.params.id, playerName: this.players[this.playerId].playerName});
-      console.log(this.players[this.playerId].playerName ,"från sendmessage emit")
+
+    minimizePlayerviewGrid: function(){
+      document.getElementById('expandPlayerview').style.width = "0%";
+
     },
 
+    expandAuctionGrid: function(){
+      document.getElementById('expandAuction').style.width = "100%"
+    },
+
+
+    minimizeAuctionGrid: function(){
+      document.getElementById('expandAuction').style.width = "0%";
+    },
+  /*slut för knapp tyck för att expanda de olika rutorna*/
 
     raiseBid: function (){
       if(this.players[this.playerId].myBiddingTurn === true && this.players[this.playerId].bidSkipper === false){
@@ -951,6 +1246,23 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           alert("You don't have enough money. Please choose more cards on your hand to pay with")
         }
     },
+
+    placeAuctionCardInMarket: function(){
+      if(this.players[this.playerId].money >= this.moneyPayment){
+        this.$store.state.socket.emit('collectorsPlaceInMarket', {
+        roomId: this.$route.params.id,
+        playerId: this.playerId,
+        currentAuctionCard: this.currentAuction,
+        moneyPayment: this.moneyPayment,
+        winningPlayerHand: this.players[this.playerId].hand
+        }
+        );
+      }
+      else{
+        alert("You don't have enough money. Please choose more cards on your hand to pay with")
+      }
+    },
+
     placeAuctionCardInSkills: function (){
         if(this.players[this.playerId].money >= this.moneyPayment){
           this.$store.state.socket.emit('collectorsPlaceInSkills', {
@@ -971,6 +1283,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       return
 
     }
+    console.log(action);
     console.log('raiseMarket i Collectors')
     this.$store.state.socket.emit('collectorsRaiseValue', {
         roomId: this.$route.params.id,
@@ -982,10 +1295,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   this.marketBottleDone();
 },
   changeTwoMarket: function(){
-    this.twoMarket=true;
-    this.twoMarketCounter=0;
+    this.$store.state.socket.emit('collectorsChangeTwoMarket', {roomId: this.$route.params.id});
   }
 }
+};
 
 
 </script>
@@ -997,8 +1310,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     pointer-events: none;
   }
   main {
+    width:95%;
     user-select: none;
   }
+
   footer {
     margin-top: 5em auto;
   }
@@ -1009,6 +1324,208 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   footer a:visited {
     color:ivory;
   }
+
+  /*här börjar css för navbar öä*/
+  .menuBar{
+    background-color: black;
+    box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 6;
+  }
+
+  .menuBar a{
+    color: black;
+  }
+
+  .menuBar ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .menuBar ul a{
+    display: block;
+    padding: 10px 20px;
+    border-right: 1px solid #aaa;
+    text-decoration: none;
+  }
+
+  .menuBar ul a:hover{
+    background-color: grey;
+    pointer: cursor;
+  }
+
+  .menuBar .logo{
+    float: left;
+    display: block;
+    font-size: 2em;
+    padding: 10px 20px;
+    background: white;
+    border-radius: 50em;
+
+
+  }
+  .menuBar .menu{
+    clear: both;
+    max-height: 0;
+    transition: max-height .2s ease-out;
+  }
+
+  .menuBar .burgerBarsIcon{
+    padding: 28px 20px;
+    position: relative;
+    float: right;
+    cursor: pointer;
+  }
+
+  .menuBar .burgerBarsIcon .barsIcon{
+    background: grey;
+    display: block;
+    height: 2px;
+    width: 18px;
+    position: relative;
+    transition: background .2s ease-out;
+  }
+
+  .menuBar .burgerBarsIcon .barsIcon:before{
+    background: grey;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: all .5s ease-out;
+    top: 5px;
+  }
+
+  .menuBar .burgerBarsIcon .barsIcon:after{
+    background: grey;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    transition: all .5s ease-out;
+    top: -5px;
+  }
+
+  .menuBar .menuButton{
+    display: none;
+  }
+
+  .menuBar .menuButton:checked ~ .menu{
+    max-height: 240px;
+  }
+
+  /*.menuBar .menuButton:not(:checked) ~ .menu{
+    display: none;
+  }*/
+
+  .menuBar .menuButton:checked ~ .burgerBarsIcon .barsIcon{
+    background: transparent;
+  }
+
+  .menuBar .menuButton:checked ~ .burgerBarsIcon .barsIcon:before{
+    transform: rotate(-225deg);
+    top: 0;
+  }
+
+  .menuBar .menuButton:checked ~ .burgerBarsIcon .barsIcon:after{
+    transform: rotate(225deg);
+    top: 0;
+  }
+  /*mobile menu end*/
+  /*Tablet menu start*/
+  @media all and (min-width:48em){
+
+    .menuBar li{
+    float: left;
+    }
+    .menuBar ul {
+      border-radius:50em;
+    }
+
+    .menuBar li a{
+      padding: 20px 30px;
+    }
+
+    .menuBar .menu{
+      justify-content: center;
+      clear: none;
+      float: right;
+      max-height: 0;
+    }
+
+    .menuBar .burgerBarsIcon{
+      display: none;
+    }
+
+    .menuBar .logo{
+      flex: 1;
+    }
+
+    .menuBar .item {
+      display: none;
+    }
+
+    .menuBar ul li:nth-of-type(3){
+      width: auto;
+      order: 1;
+      display: block;
+      max-height:240px;
+      background: SeaShell;
+    }
+
+    .menuBar ul li:nth-of-type(4){
+      width: auto;
+      order: 2;
+      display: block;
+      max-height:240px;
+      align-items: center;
+      background: SeaShell;
+    }
+
+    /*.menuBar .buttonNav .secondary{
+      border:0;
+    }*/
+
+    .menuBar .burgerBarsIcon{
+      order: 3;
+      display: block;
+    }
+
+    .menuBar .menuButton:not(:checked) ~ .menu{
+      max-height: 240px;
+    }
+
+    .menuBar .menuButton:checked ~ .menu li:nth-of-type(-n+4){
+      clear: both;
+      height: auto;
+      width: auto;
+      display: inline-flex;
+      flex: right;
+      transform: scale(1.2);
+    }
+  }
+  /*Tablet menu end*/
+  /*Dekstop menu start*/
+@media all and (min-width:915px){
+
+  .menuBar ul li:nth-of-type(-n+4){
+    width: auto;
+    display: block;
+    max-height:240px;
+  }
+
+  .menuBar .burgerBarsIcon{
+    display: none;
+  }
+}
+  /*Dekstop menu end*/
+  /*här slutar css för navbar*/
+
   .overlayPlayerView{
     position: fixed;
     width: 0%;
@@ -1017,8 +1534,35 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     right: 0;
     background: rgba(0,0,0,.7);
     overflow-x: hidden;
-    z-index: 5;
+    z-index: 10;
     transition: all 0.5s;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 0px;
+    grid-template-areas:
+    "myHandOverlay myItemsOverlay mySkillsOverlay";
+  }
+  .myHandOverlay{
+    border-radius: 1em;
+    grid-area: myHandOverlay;
+    border: 5px dotted #fff;
+  }
+
+  .myItemsOverlay{
+    border-radius: 1em;
+    grid-area: myItemsOverlay;
+    border: 5px dotted #fff;
+  }
+
+  .mySkillsOverlay{
+    border-radius: 1em;
+    grid-area: mySkillsOverlay;
+    border: 5px dotted #fff;
+  }
+
+  .playerView button{
+    float: right;
+    margin: 20px;
   }
 
   .overlayPlayerView__content{
@@ -1034,16 +1578,84 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: block;
   }
 
-  .overlayPlayerView .closeGridButton{
+  .overlayPlayerView .closePlayerviewGridButton{
     position: absolute;
     top: 20px;
     right: 50px;
     font-size: 40px;
   }
 
-  .layout{
+  .overlayAuction{
+    position: fixed;
+    width: 0%;
+    height:100%;
+    top: 0;
+    right: 0;
+    background: rgba(0,0,0,.7);
+    overflow-x: hidden;
+    z-index: 10;
+    transition: all 0.5s;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2,1fr);
+    gap: 0px 0px;
+    grid-template-areas:
+    "CollectorsStartAuctionOverlay auctionWrapper"
+    "CollectorsStartAuctionOverlay CollectorsMarketOverlay";
+  }
+
+  .CollectorsStartAuctionOverlay{
+    border-radius: 1em;
+    grid-area: CollectorsStartAuctionOverlay;
+    border: 5px dotted #fff;
+  }
+
+  .overlayAuction .auctionWrapper{
+    border-radius: 1em;
+    grid-area: auctionWrapper;
+    border: 5px dotted #fff;
+  }
+
+
+
+  .CollectorsMarketOverlay{
+    border-radius: 1em;
+    grid-area: CollectorsMarketOverlay;
+    border: 5px dotted #fff;
+  }
+
+  .Auction button{
+    float: right;
+    margin: 20px;
+  }
+
+  .overlayAuction__content{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .overlayAuction a{
+    paddin: 10px;
+    color: white;
+    display: block;
+  }
+
+  .overlayAuction .closeAuctionGridButton{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 40px;
+  }
+
+
+/*layout för spelet*/
+  .layout{
+    z-index:3;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
     grid-template-rows: auto 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
@@ -1053,43 +1665,48 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     "Auction cardsOnSale playerView";
   }
   .menuBar{
+    border-radius: 1em;
     grid-area: menuBar;
     border: 5px solid #fff;
-    background-color: Gold;
+    background-color: black;
   }
   .otherPlayers{
+    border-radius: 1em;
     grid-area: otherPlayers;
     border: 5px solid #fff;
     background-color: RoyalBlue;
   }
   .Auction{
+    border-radius: 1em;
     grid-area: Auction;
     border: 5px solid #fff;
     background-color: PaleVioletRed;
   }
   .Items{
+    border-radius: 1em;
     grid-area: Items;
     border: 5px solid #fff;
     background-color: Red;
   }
   .Skills{
+    border-radius: 1em;
     grid-area: Skills;
     border: 5px solid #fff;
     background-color: Green;
   }
 
   .cardsOnSale{
+    border-radius: 1em;
     grid-area: cardsOnSale;
     border: 5px solid #fff;
     background-color: Black;
   }
   .playerView{
+    border-radius: 1em;
     grid-area: playerView;
     border: 5px solid #fff;
     background-color: RoyalBlue;
   }
-
-
 
   .cardslots {
     display: grid;
@@ -1135,9 +1752,14 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: block;
   }
 
-  @media screen and (max-width: 800px) {
+/*adjust to screen sizes*/
+  /*@media screen and (max-width: 800px) {*/
+  @media screen all and (min-width: 48em){
     main {
-      width:90vw;
+      /*width:60em;*/
+
     }
+
+
   }
 </style>
