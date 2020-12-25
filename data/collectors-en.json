@@ -6,5 +6,7 @@
 	"buySkill": "Buy Skill",
 	"startAuction": "Start Auction",
 	"skipThisRound": "End Turn",
-	"raiseMarket": "Raise Market"
+	"raiseMarket": "Raise Market",
+	"currentlyitsround": "Currently it's round:",
+	"itsyourturn": "it's your turn!"
 }

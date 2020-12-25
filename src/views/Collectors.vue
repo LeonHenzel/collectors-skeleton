@@ -8,7 +8,6 @@
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
-
       <div class="bajs" v-for="player in players" :key="player">
         {{player.playerName}}
       </div>
@@ -50,39 +49,23 @@
 
         <div class="otherPlayers">
           <h3>Stats</h3>
-          <h4>Placement in current round:</h4>
-            {{buyPlacement}}
+          <h4>{{labels.currentlyitsround}} <h2>{{round}}</h2></h4>
+
+          <div v-for="playerid in players" :key="playerid">
+
+          <div v-if="players[playerId].myTurn">
+
+          <h4>{{playerId.playerName}} {{labels.itsyourturn}}</h4>
+
+
+          </div>
+          </div>
+
+            {{players}}
+            {{players.PlayerId}}
             <br>
             {{chosenPlacementCost}}
         </div>
-
-
-      <div class="bajs" v-for="player in players" :key="player">
-        {{player.playerName}}
-      </div>
-    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
-
-
-      <div>{{players}}</div>
-      <br>
-      <div>My ID is {{this.$store.state.playerId}}</div>
-      <br>
-      <br>
-
-      {{buyPlacement}} {{chosenPlacementCost}}
-      <br>
-      <br>
-      It is currently round {{round}}
-      <br>
-      <br>
-      <div class="buttons">
-        <button @click="skipThisRound">
-          {{ labels.skipThisRound }}
-        </button>
-      </div>
-
-      <CollectorsBuyActions v-if="players[playerId]"
-
 
         <div>{{players}}</div>
 
@@ -111,7 +94,6 @@
         @setDiscardTwoTrue="setDiscardTwoTrue()"/>
 
         <!--      <CollectorsBuyActions v-if="players[playerId]"
-
         :labels="labels"
         :player="players[playerId]"
         :itemsOnSale="itemsOnSale"
@@ -342,13 +324,6 @@
                 @changeTwoMarket="changeTwoMarket()"/>
               </div>
 
-      <CollectorsBuySkill v-if="players[playerId]"
-        :labels="labels"
-        :player="players[playerId]"
-        :skillsOnSale="skillsOnSale"
-        :placement="skillPlacement"
-        @buySkill="buySkill($event)"
-        @placeBottle="placeBottle('skill',$event)"/>
 
               <button href="#" class = "playerboardGridButton" @click="minimizeAuctionGrid()"> Minimize </button>
 
@@ -1160,8 +1135,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           cost: this.chosenPlacementCost
         }
 
-      );
-
       );}
     },
      sendMessage: function(msg) {
@@ -1185,20 +1158,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       document.getElementById('expandPlayerview').style.width = "100%";
     },
 
-
-    },
-
-      );}
-
     minimizePlayerviewGrid: function(){
       document.getElementById('expandPlayerview').style.width = "0%";
-
     },
 
     expandAuctionGrid: function(){
       document.getElementById('expandAuction').style.width = "100%"
     },
-
 
     minimizeAuctionGrid: function(){
       document.getElementById('expandAuction').style.width = "0%";
