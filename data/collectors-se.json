@@ -6,5 +6,6 @@
 	"buySkill": "BuySkill",
 	"startAuction": "Starta Auktion",
 	"skipThisRound": "Avsluta Runda",
-	"raiseMarket": "Öka värdet"
+	"raiseMarket": "Öka värdet",
+	"ready": "Redo?"
 }

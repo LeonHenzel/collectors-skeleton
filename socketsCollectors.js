@@ -18,12 +18,34 @@ function sockets(io, socket, data) {
             twoMarket: data.rooms[d.roomId].twoMarket,
             twoMarketCounter: data.rooms[d.roomId].twoMarketCounter,
             isPlacedList: data.rooms[d.roomId].isPlacedList,
-            discardTwo: data.rooms[d.roomId].discardTwo
+            discardTwo: data.rooms[d.roomId].discardTwo,
+            allPlayersIn: data.rooms[d.roomId].allPlayersIn,
+            allPlayersReady: data.rooms[d.roomId].allPlayersReady
           }
         );
 
       }
-      socket.emit('playerJoined',{
+    });
+
+
+    socket.on('allAreReady',function(d){
+      data.allReady(d.roomId)
+      io.to(d.roomId).emit('setUpFixed',{
+        players: data.getPlayers(d.roomId),
+        allPlayersReady: data.rooms[d.roomId].allPlayersReady
+      })
+    })
+
+    socket.on('chooseSecretCard',function(d){
+      data.setSecret(d.roomId,d.playerId,d.card)
+      io.to(d.roomId).emit('secretChoosen',{
+        players: data.getPlayers(d.roomId)
+      })
+    })
+
+    socket.on('playerIsReady',function(d){
+      data.isReady(d.roomId,d.playerId)
+      io.to(d.roomId).emit('readyStatusChanged',{
         players: data.getPlayers(d.roomId)
       })
     });

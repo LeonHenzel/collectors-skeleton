@@ -126,6 +126,8 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
                };
   room.discardTwo=false;
   room.discardCount=0;
+  room.allPlayersIn=false;
+  room.allPlayersReady=false;
 
 }
 
@@ -144,9 +146,10 @@ Data.prototype.joinGame = function (roomId, playerId) {
       console.log("Player", playerId, "joined again with info", room.players[playerId]);
       return true;
     }
+
+
     else if (Object.keys(room.players).length < room.playerCount) {
       console.log("Player", playerId, "joined for the first time");
-      if(Object.keys(room.players).length < 1){
       room.players[playerId] = { hand: [],
                                  money: 1,
                                  points: 0,
@@ -163,44 +166,6 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  randomVal: Math.random(),
                                  secret: [],
                                  playerName: "",
-                                 energyBottles: 2,
-                                 maxEnergyBottles:2,
-                                 myTurn: true,
-                                 myBiddingTurn: false,
-                                 bidSkipper: false,
-                                 playerNumberInList: room.playerNumber,
-                                 maxAuctionAffordance: 0,
-                                 firstPlayerToken: false,
-                                 hasChoosenIncome: true,
-                                 incomeToChoose: 0,
-                                 auctionIncome:0,
-                                 workerIncome:0,
-                                 workerCard:0,
-                                 skillVP:{VPAll:0,
-                                 VPmovie:0,
-                                 VPtechnology:0,
-                                 VPfastaval: 0,
-                                 VPmusic: 0,
-                                 VPfigures:0}};
-
-      }
-      else{
-      room.players[playerId] = { hand: [],
-                                 money: 1,
-                                 points: 0,
-                                 skills: [],
-                                 itemsByNumber:{
-                                   movie: 0,
-                                   technology: 0,
-                                   fastaval: 0,
-                                   music: 0,
-                                   figures:0},
-                                 items: [],
-                                 income: [],
-                                 incomeByNumber:0,
-                                 secret: [],
-                                 playerName: "",
-                                 randomVal: Math.random(),
                                  energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: false,
@@ -219,15 +184,18 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  VPtechnology:0,
                                  VPfastaval: 0,
                                  VPmusic: 0,
-                                 VPfigures:0}};
+                                 VPfigures:0},
+                                 ready: false};
 
-      }
+
+
 
       room.playerList.push(room.players[playerId]);
       room.playerNumber+=1;
-      if (room.players[playerId].playerNumberInList===1){
-        room.players[playerId].firstPlayerToken=true;
+      if(room.playerList.length===room.playerCount){
+        room.allPlayersIn=true;
       }
+      console.log("allPLaters",room.allPlayersIn)
       return true;
 
     }
@@ -238,6 +206,52 @@ Data.prototype.joinGame = function (roomId, playerId) {
   return false;
 }
 
+Data.prototype.allReady=function(roomId){
+  let room = this.rooms[roomId];
+  console.log(room.playerList);
+  if(typeof room !== "undefined"){
+    for(let n=0;n<room.playerCount-1;n+=1){
+      for(let i=0;i<room.playerCount-1;i+=1){
+        if(room.playerList[i].randomVal<room.playerList[i+1].randomVal){
+          let memory=room.playerList[i];
+          room.playerList[i]=room.playerList[i+1];
+          room.playerList[i+1]=memory;
+        }
+      }
+      for(let i=0; i<room.playerCount;i+=1){
+        room.playerList[i].playerNumberInList=i;
+      }
+    }
+
+    room.playerList[0].myTurn=true;
+    room.playerList[1].firstPlayerToken=true;
+    console.log(room.playerList)
+    room.allPlayersReady=true;
+  }
+}
+
+
+
+Data.prototype.setSecret=function(roomId,playerId,card){
+  let room = this.rooms[roomId]
+  if(typeof room !== "undefined"){
+    let player=room.players[playerId];
+    for(let i=0; i<player.hand.length;i+=1){
+      if(player.hand[i].x===card.x &&
+        player.hand[i].y===card.y){
+          player.secret.push(card);
+          player.hand.splice(i,1);
+        }
+    }
+  }
+}
+
+Data.prototype.isReady=function(roomId, playerId){
+  let room=this.rooms[roomId];
+  let player=room.players[playerId];
+  player.ready=true;
+  player.hand=room.deck.splice(0, 3);
+}
 
 Data.prototype.getPlayers = function (id) {
   let room = this.rooms[id]

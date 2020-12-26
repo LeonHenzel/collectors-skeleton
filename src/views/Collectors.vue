@@ -19,6 +19,9 @@
         maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
         money: {{players[playerId].money}}
         auctionIncome: {{players[playerId].auctionIncome}}
+        playerVal: {{players[playerId].randomVal}}
+        PlayerNumb: {{players[playerId].playerNumberInList}}
+
       </div>
 
 
@@ -278,7 +281,7 @@
               </div>
 
 
-              <!-- 
+              <!--
               <CollectorsBuySkill v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -346,7 +349,7 @@
           <div class="cardslots">
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
-        
+
         <!-- Får error om jag inte kör denna extra div runt h3:n -->
         <div v-if="players[playerId]">
           <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
@@ -362,6 +365,22 @@
           <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Give Up Bidding</button>
         </div>
       </div>
+
+
+
+      {{allPlayersIn}}
+      {{allPlayersReady}}
+      <div v-if="allPlayersIn">
+        <CollectorsStartGame v-if="!allPlayersReady"
+        :labels="labels"
+        :player="players[playerId]"
+        :allPlayers="players"
+        @isReady="isReady()"
+        @secretCardChoosen="secretCardChoosen($event)"/>
+      </div>
+
+
+
 
       <div v-bind:class="bidWinnerWrapper">
           <br>
@@ -425,6 +444,8 @@ import CollectorsBuySkill from '@/components/CollectorsBuySkill.vue'
 import CollectorsMarket from '@/components/CollectorsMarket.vue'
 import CollectorsAuctionPayment from '@/components/CollectorsAuctionPayment.vue'
 import CollectorsIncome from '@/components/CollectorsIncome.vue'
+import CollectorsStartGame from '@/components/CollectorsStartGame.vue'
+
 
 
 export default {
@@ -438,7 +459,8 @@ export default {
     CollectorsMarket,
     CollectorsAuctionPayment,
     CollectorsIncome,
-    CollectorsWorkers
+    CollectorsWorkers,
+    CollectorsStartGame
 
   },
   data: function () {
@@ -497,7 +519,9 @@ export default {
 
       twoMarketCounter:0,
       round: 0,
-      discardTwo: false
+      discardTwo: false,
+      allPlayersIn: false,
+      allPlayersReady: false,
 
 
     }
@@ -547,12 +571,11 @@ export default {
         this.twoMarketCounter=d.twoMarketCounter;
         this.isPlacedList=d.isPlacedList;
         this.discardTwo=d.discardTwo;
+        this.allPlayersIn=d.allPlayersIn;
+        this.allPlayersReady=d.allPlayersReady
       }.bind(this));
 
-    this.$store.state.socket.on('playerJoined',
-  function(d){
-    this.players=d.players;
-  }.bind(this));
+
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
@@ -689,8 +712,7 @@ export default {
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
         }
-      }.bind(this)
-    );
+      }.bind(this));
 
     this.$store.state.socket.on('auctionCardPlacedInMarket', function(d){
       this.currentBid = d.currentBid;
@@ -719,10 +741,10 @@ export default {
       this.isPlacedList=d.isPlacedList;
       this.twoMarket=d.twoMarket;
       if (this.twoMarket===true){
-        console.log("kör market en gång till")
+        //console.log("kör market en gång till")
         this.placeBottle('market',0);
       }
-      console.log(this.twoMarket);
+      //console.log(this.twoMarket);
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
@@ -813,9 +835,49 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
     }
     }.bind(this));
 
+    this.$store.state.socket.on('readyStatusChanged',function(d){
+      this.players=d.players;
+    }.bind(this));
+
+    this.$store.state.socket.on('secretChoosen', function(d){
+      console.log("secretChoosen")
+      this.players=d.players;
+      if(this.players[this.playerId].playerNumberInList===0){
+        console.log("secretChoosen111111")
+        for(let player in this.players){
+          console.log("playerrr");
+          if(this.players[player].secret.length===0){
+            return
+          }
+        }
+        console.log("ll is readyStatusChanged");
+        this.allReady();
+      }
+    }.bind(this));
+
+    this.$store.state.socket.on('setUpFixed',function(d){
+      this.players=d.Players;
+      this.allPlayersReady=d.allPlayersReady;
+    }.bind(this));
 
   },
   methods: {
+
+    allReady: function(){
+      this.$store.state.socket.emit('allAreReady',{roomId: this.$route.params.id})
+    },
+
+    secretCardChoosen: function(card){
+      this.$store.state.socket.emit('chooseSecretCard',{roomId: this.$route.params.id,
+      playerId: this.playerId,
+      card: card});
+    },
+
+    isReady: function(){
+      this.$store.state.socket.emit('playerIsReady',{roomId: this.$route.params.id,
+      playerId: this.playerId});
+    },
+
     selectAll: function (n) {
       n.target.select();
 
