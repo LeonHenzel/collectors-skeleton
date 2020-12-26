@@ -7,5 +7,15 @@
 	"startAuction": "Starta Auktion",
 	"skipThisRound": "Avsluta Runda",
 	"raiseMarket": "Öka värdet",
-	"ready": "Redo?"
+	"ready": "Redo?",
+	"currentlyitsround": "Nu är det runda:",
+	"itsyourturn": "det är din tur!",
+	"currentrankings": "Nu är ställningen följande:",
+	"hasthismanypoints": "har så här många poäng:",
+	"whosturnisit": "Vems tur är det?",
+	"its": "Det är",
+	"turn": "tur",
+	"whosbidding": "Vems tur är det att buda?"
+
+
 }

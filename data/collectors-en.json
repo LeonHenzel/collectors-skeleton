@@ -7,5 +7,15 @@
 	"startAuction": "Start Auction",
 	"skipThisRound": "End Turn",
 	"raiseMarket": "Raise Market",
-	"ready": "Ready?"
+	"ready": "Ready?",
+	"currentlyitsround": "Currently it's round:",
+	"itsyourturn": "it's your turn!",
+	"currentrankings": "The currents leaderboard is as follows:",
+	"hasthismanypoints": "has this many points:",
+	"whosturnisit": "Who's turn is it?",
+	"its": "it's",
+	"turn": "turn",
+	"whosbidding": "Who's bidding next?"
+
+
 }

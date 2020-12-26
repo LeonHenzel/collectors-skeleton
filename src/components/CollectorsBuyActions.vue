@@ -3,6 +3,9 @@
 
       <button href="#" class = "openButton" @click="openNav()">Expand</button>
       <h1>{{ labels.buyCard }}</h1>
+
+      <h3>Click to show cards on sale</h3>
+
       <div class="buy-cards">
         <div v-for="(card, index) in itemsOnSale" :key="index">
           <CollectorsCard
@@ -25,6 +28,7 @@
           </div>
         </div>
       </div>
+
 
       <div class="overlay" id="nav">
         <a href="#" class="closeButton" @click="closeNav()">&times;</a>
@@ -187,6 +191,8 @@ export default {
     top: 20px;
     right: 50px;
     font-size: 40px;
+
+
 
   }
 </style>
