@@ -1,6 +1,9 @@
 <template>
     <div class="CollectorsBuySkill">
-      <button href="#" class = "openButton" @click="openNav()">Expand</button>
+      <button href="#" class = "openButton openSkills" @click="openNav()">
+        <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
+        Skills
+      </button>
       <h1>{{ labels.buySkill }}</h1>
       <div class="buy-skills">
         <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
@@ -120,9 +123,36 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
   }
-  .CollectorsBuySkill .openButton{
-    float: right;
-    margin: 20px;
+
+
+  .openButton{
+    position: relative;
+    bottom: 18px;
+    padding: 3px;
+    cursor: pointer;
+    margin: 2px;
+    border-radius: 28px;
+    background-color: transparent;
+    -webkit-text-stroke: 1px black;
+    color: transparent;
+    Letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 23px;
+    font-family: "sans", serif;
+    padding: 5px;
+    border-color: white;
+    border-width: 2px;
+    font-weight: bold;
+    z-index: 3;
+  }
+
+  .openSkills {
+  color: rgb(17, 122, 101);
+  }
+
+  .openSkills:hover {
+    background-color: rgb(159, 223, 190);
+    border-color: black;
   }
 
   .overlay{

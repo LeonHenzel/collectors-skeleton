@@ -58,10 +58,13 @@
 
   .workersWrapper{
     display: flex;
+    background-color: rgb(255, 217, 179);
+    width: 100%;
   }
 
   .workerOption{
-    width: 200px;
-    height: 300px;
+    width: 100px;
+    height: 150px;
+    z-index: 100;
   }
 </style>
