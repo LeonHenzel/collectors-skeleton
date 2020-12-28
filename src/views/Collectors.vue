@@ -1,8 +1,8 @@
 <template>
   <div>
   <form class="nameEnter" v-if="players[playerId].playerName===''">
-    <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
-    <button type="submit" @click="submitName"></button>
+    <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
+    <button type="submit" @click="submitName">Submit</button>
   </form>
 
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
@@ -1399,6 +1399,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   footer a:visited {
     color:ivory;
   }
+  
+  .nameEnter{
+    margin-top: 45vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nameEnter button{
+    height: 30px;
+    background-color: rgb(95, 255, 220);
+    border-radius: 8px;
+  }
 
   /*här börjar css för navbar öä*/
   .menuBar{
@@ -1429,7 +1443,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .menuBar ul a:hover{
     background-color: grey;
-    pointer: cursor;
+    cursor: pointer;
   }
 
   .menuBar .logo{
@@ -1737,7 +1751,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin-top: 30px;
   }
   .overlayPlayerView a{
-    paddin: 10px;
+    padding: 10px;
     color: white;
     display: block;
   }
@@ -1802,7 +1816,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .overlayAuction a{
-    paddin: 10px;
+    padding: 10px;
     color: white;
     display: block;
   }
@@ -1904,12 +1918,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 /*adjust to screen sizes*/
   /*@media screen and (max-width: 800px) {*/
-  @media screen all and (min-width: 48em){
+  /* @media screen all and (min-width: 48em){
     main {
       /*width:60em;*/
-
+/* 
     }
 
 
-  }
+  } */
 </style>
