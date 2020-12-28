@@ -15,7 +15,32 @@
 
 
     <div class="layout">
+
       <div class="bigWrapper">
+        <div class="menuBar">
+
+          <a href="#" class="logo">Collectors</a>
+          <input class="menuButton" type="checkbox" id="menuButton">
+          <label class="burgerBarsIcon" for="menuButton">
+          <span class="barsIcon"></span>
+          </label>
+        <!--  öä -->
+          <ul class="menu">
+            <li class="item desktop">
+              <a href="#">Home</a>
+            </li>
+            <li class="item desktop">
+              <a href="#">About</a>
+            </li>
+            <li class="item buttonNav">
+              <a href="#">Help</a>
+            </li>
+            <li class="item buttonNav secondary">
+              <a href="#">Chat</a>
+            </li>
+          </ul>
+        </div>
+
         <div class="gameBoardWrapper">
           <div class="Items">
             <h3>Items</h3>
@@ -110,28 +135,6 @@
                   </div>
                 </div>
 
-          <div class="menuBar">
-            <a href="#" class="logo">Collectors</a>
-            <input class="menuButton" type="checkbox" id="menuButton">
-            <label class="burgerBarsIcon" for="menuButton">
-            <span class="barsIcon"></span>
-            </label>
-          <!--  öä -->
-            <ul class="menu">
-              <li class="item desktop">
-                <a href="#">Home</a>
-              </li>
-              <li class="item desktop">
-                <a href="#">About</a>
-              </li>
-              <li class="item buttonNav">
-                <a href="#">Help</a>
-              </li>
-              <li class="item buttonNav secondary">
-                <a href="#">Chat</a>
-              </li>
-            </ul>
-          </div>
 
 
           <div class="otherPlayers">
@@ -1578,7 +1581,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar ul li:nth-of-type(-n+4){
     width: auto;
     display: block;
-    max-height:240px;
+    max-height:30px;
   }
 
   .menuBar .burgerBarsIcon{
@@ -1590,12 +1593,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: 100vw;
     display: grid;
     grid-template-columns: 80% 20%;
+    grid-auto-rows: 5% 95%;
   }
 
   .gameBoardWrapper{
-    height: 100vh;
     width: 80vw;
     grid-column: 1;
+    grid-row: 2;
     display: grid;
     grid-template-columns: 33% 33% 34%;
     grid-template-rows: 25% 25% 25% 25%;
@@ -1604,6 +1608,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .playerInfo{
     margin-left: 5px;
     grid-column: 2;
+    grid-row: 1/ span 2;
     background-color: beige;
     color: black;
   }
@@ -1817,7 +1822,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
   .menuBar{
     border-radius: 1em;
-    grid-area: menuBar;
+    grid-row: 1;
     border: 5px solid #fff;
     background-color: black;
   }
