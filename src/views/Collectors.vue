@@ -1,5 +1,28 @@
 <template>
   <div>
+    <div class="menuBar">
+      <a href="#" class="logo">Collectors</a>
+      <input class="menuButton" type="checkbox" id="menuButton">
+      <label class="burgerBarsIcon" for="menuButton">
+      <span class="barsIcon"></span>
+      </label>
+    <!--  öä -->
+      <ul class="menu">
+        <li class="item desktop">
+          <a href="#">Home</a>
+        </li>
+        <li class="item desktop">
+          <a href="#">About</a>
+        </li>
+        <li class="item buttonNav">
+          <a href="#">Help</a>
+        </li>
+        <li class="item buttonNav secondary">
+          <a href="#">Chat</a>
+        </li>
+      </ul>
+    </div>
+
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
     <button type="submit" @click="submitName"></button>
@@ -110,28 +133,7 @@
                   </div>
                 </div>
 
-          <div class="menuBar">
-            <a href="#" class="logo">Collectors</a>
-            <input class="menuButton" type="checkbox" id="menuButton">
-            <label class="burgerBarsIcon" for="menuButton">
-            <span class="barsIcon"></span>
-            </label>
-          <!--  öä -->
-            <ul class="menu">
-              <li class="item desktop">
-                <a href="#">Home</a>
-              </li>
-              <li class="item desktop">
-                <a href="#">About</a>
-              </li>
-              <li class="item buttonNav">
-                <a href="#">Help</a>
-              </li>
-              <li class="item buttonNav secondary">
-                <a href="#">Chat</a>
-              </li>
-            </ul>
-          </div>
+
 
 
           <div class="otherPlayers">
@@ -1807,17 +1809,18 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     z-index:3;
     display: grid;
     grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
-    grid-template-rows: auto 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-    "menuBar menuBar otherPlayers"
+    /*"menuBar menuBar otherPlayers"*/
     "Auction Items otherPlayers"
     "Auction Skills playerView"
     "Auction cardsOnSale playerView";
   }
   .menuBar{
     border-radius: 1em;
-    grid-area: menuBar;
+    /*grid-area: menuBar;*/
+    height: auto;
     border: 5px solid #fff;
     background-color: black;
   }
