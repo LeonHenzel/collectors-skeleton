@@ -14,6 +14,17 @@
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
 
+      {{allPlayersIn}}
+      {{allPlayersReady}}
+      <div v-if="allPlayersIn">
+        <CollectorsStartGame v-if="!allPlayersReady"
+        :labels="labels"
+        :player="players[playerId]"
+        :allPlayers="players"
+        @isReady="isReady()"
+        @secretCardChoosen="secretCardChoosen($event)"/>
+      </div>
+
     <div class="layout">
       <div class="bigWrapper">
         <div class="gameBoardWrapper">
@@ -390,6 +401,7 @@
       </div>
       -->
       <div>
+        hej
           <div class="cardslots">
             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
           </div>
@@ -410,18 +422,6 @@
         </div>
       </div>
 
-
-
-      {{allPlayersIn}}
-      {{allPlayersReady}}
-      <div v-if="allPlayersIn">
-        <CollectorsStartGame v-if="!allPlayersReady"
-        :labels="labels"
-        :player="players[playerId]"
-        :allPlayers="players"
-        @isReady="isReady()"
-        @secretCardChoosen="secretCardChoosen($event)"/>
-      </div>
 
 
 
