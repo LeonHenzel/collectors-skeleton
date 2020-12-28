@@ -163,7 +163,7 @@ export default {
     margin-top: 30px;
   }
   .overlay a{
-    paddin: 10px;
+    padding: 10px;
     color: white;
     display: block;
   }

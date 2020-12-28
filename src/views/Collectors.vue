@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id= "wholePage">
     <main>
 
       <div class="layout">
@@ -1212,7 +1212,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .layout{
     z-index:3;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
+    grid-template-columns: repeat(3, auto);/* 1fr 1fr;*/
     grid-template-rows: auto 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
@@ -1312,6 +1312,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       /*width:60em;*/
 
     }
+
 
 
   }
