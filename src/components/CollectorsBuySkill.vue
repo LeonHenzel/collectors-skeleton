@@ -1,19 +1,18 @@
 <template>
     <div class="CollectorsBuySkill">
-      <button href="#" class = "openButton openSkills" @click="openNav()">
-        <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-        Skills
-      </button>
-      <h1>{{ labels.buySkill }}</h1>
-      <div class="buy-skills">
-        <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
-          <CollectorsCard
-            :card="card"
-            :availableAction="card.available"
-            @doAction="buySkill(card)"/>
+      <div class="tempWrapper">
+        <button href="#" class = "openButton openSkills" @click="openNav()">
+          <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
+          Skills
+        </button>
+        <div class="buy-skills">
+          <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
+            <CollectorsCard
+              :card="card"
+              :availableAction="card.available"
+              @doAction="buySkill(card)"/>
+          </div>
         </div>
-      </div>
-      <div>
         <div class="buttons" v-for="(p, index) in placement" :key="index">
           <button
             v-if="p.playerId===null"
@@ -26,10 +25,14 @@
           </div>
         </div>
       </div>
+
+      <div>
+
+      </div>
       <div class="overlay" id="nav">
           <a href="#" class="closeButton" @click="closeNav()">&times;</a>
           <div class="buy-skills">
-            <div v-for="(card, index) in skillsOnSale" :key="index">
+            <div class="cardWrapper" v-for="(card, index) in skillsOnSale" :key="index">
               <CollectorsCard
                 :card="card"
                 :availableAction="card.available"
@@ -115,19 +118,33 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .buy-skills {
+    grid-column: 2;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 125px);
+    grid-template-columns: repeat(auto-fill, 100px);
+    align-items: center;
+  }
+
+  .CollectorsBuySkill{
+    height: 25vh;
+    border-radius: 1em;
+    border: 5px solid #fff;
+    background-color: rgb(69, 179, 157);
   }
 
   .buttons{
+    grid-column: 3;
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
   }
 
+  .tempWrapper{
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+  }
+
 
   .openButton{
-    position: relative;
-    bottom: 18px;
+    grid-column: 1;
     padding: 3px;
     cursor: pointer;
     margin: 2px;
@@ -199,6 +216,7 @@ export default {
   cards 130px höger (framåt i x-direction)*/
   .cardDiv{
     transition: 0.2s;
+    height: 140px;
   }
 
   .cardDiv:hover~.cardDiv{

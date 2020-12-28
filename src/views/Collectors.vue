@@ -1621,12 +1621,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: rgb(236, 112, 99);
   }
   .Skills{
-    margin: 2px;
     grid-column: 2/ span 2;
     grid-row: 3;
-    border-radius: 1em;
-    border: 5px solid #fff;
-    background-color: rgb(69, 179, 157);
+    z-index: 100;
   }
 
   .auctionWrapper{

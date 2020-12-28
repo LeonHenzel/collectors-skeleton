@@ -25,6 +25,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .card {
+    position: relative;
+    bottom: 80px;
+    left: 30px;
     color:red;
     user-select: none;
     width:250px;
@@ -33,7 +36,7 @@ export default {
     border-radius: 10px;
     box-shadow: -1rem 0 3rem #000;
     transition: 0.2s;
-    transform: scale(0.5);
+    transform: scale(0.4);
   }
 
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
