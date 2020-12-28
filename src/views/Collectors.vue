@@ -1,27 +1,6 @@
 <template>
   <div>
-    <div class="menuBar">
-      <a href="#" class="logo">Collectors</a>
-      <input class="menuButton" type="checkbox" id="menuButton">
-      <label class="burgerBarsIcon" for="menuButton">
-      <span class="barsIcon"></span>
-      </label>
-    <!--  öä -->
-      <ul class="menu">
-        <li class="item desktop">
-          <a href="#">Home</a>
-        </li>
-        <li class="item desktop">
-          <a href="#">About</a>
-        </li>
-        <li class="item buttonNav">
-          <a href="#">Help</a>
-        </li>
-        <li class="item buttonNav secondary">
-          <a href="#">Chat</a>
-        </li>
-      </ul>
-    </div>
+
 
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
@@ -39,6 +18,28 @@
 
     <div class="layout">
       <div class="bigWrapper">
+        <div class="menuBar">
+          <a href="#" class="logo">Collectors</a>
+          <input class="menuButton" type="checkbox" id="menuButton">
+          <label class="burgerBarsIcon" for="menuButton">
+          <span class="barsIcon"></span>
+          </label>
+        <!--  öä -->
+          <ul class="menu">
+            <li class="item desktop">
+              <a href="#">Home</a>
+            </li>
+            <li class="item desktop">
+              <a href="#">About</a>
+            </li>
+            <li class="item buttonNav">
+              <a href="#">Help</a>
+            </li>
+            <li class="item buttonNav secondary">
+              <a href="#">Chat</a>
+            </li>
+          </ul>
+        </div>
         <div class="gameBoardWrapper">
           <div class="Items">
             <h3>Items</h3>
@@ -1395,6 +1396,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
     z-index: 6;
+    grid-row: 1;
   }
 
   .menuBar a{
@@ -1591,6 +1593,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     height: 100vh;
     width: 100vw;
     display: grid;
+    grid-template-rows: 10% 90%;
     grid-template-columns: 80% 20%;
   }
 
@@ -1598,6 +1601,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     height: 100vh;
     width: 80vw;
     grid-column: 1;
+    grid-row: 2;
     display: grid;
     grid-template-columns: 33% 33% 34%;
     grid-template-rows: 25% 25% 25% 25%;
@@ -1636,7 +1640,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .tempWorker{
     margin: 2px;
     grid-column: 1/ span 3;
-    grid-row: 1;
+    grid-row: 2;
     background-color: rgb(255, 217, 179);
   }
 
@@ -1806,21 +1810,21 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 /*layout för spelet*/
   .layout{
-    z-index:3;
+  /*  z-index:3;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
+    grid-template-columns: repeat(3, 1fr); 1fr 1fr;
     grid-template-rows: auto 1fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-    /*"menuBar menuBar otherPlayers"*/
+    "menuBar menuBar otherPlayers"
     "Auction Items otherPlayers"
     "Auction Skills playerView"
-    "Auction cardsOnSale playerView";
+    "Auction cardsOnSale playerView";*/
   }
   .menuBar{
     border-radius: 1em;
     /*grid-area: menuBar;*/
-    height: auto;
+    padding: 70px;
     border: 5px solid #fff;
     background-color: black;
   }
