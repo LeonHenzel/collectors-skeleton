@@ -1650,6 +1650,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px solid #fff;
     background-color: rgb(69, 179, 157);
   }
+  
 
   .auctionWrapper{
     margin: 2px;
