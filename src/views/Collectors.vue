@@ -541,6 +541,8 @@ export default {
       discardTwo: false,
       allPlayersIn: false,
       allPlayersReady: false,
+      playerList: [],
+      playerCount: 0
 
 
     }
@@ -591,7 +593,8 @@ export default {
         this.isPlacedList=d.isPlacedList;
         this.discardTwo=d.discardTwo;
         this.allPlayersIn=d.allPlayersIn;
-        this.allPlayersReady=d.allPlayersReady
+        this.allPlayersReady=d.allPlayersReady;
+        this.playerCount=d.playerCount;
       }.bind(this));
 
 
@@ -875,12 +878,22 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
     }.bind(this));
 
     this.$store.state.socket.on('setUpFixed',function(d){
-      this.players=d.Players;
+      this.players=d.players;
       this.allPlayersReady=d.allPlayersReady;
     }.bind(this));
 
   },
   methods: {
+
+    /*sortPlayerList: function(){
+      for (let id in this.players){
+        if(this.players[id].playerNumberInList!==this.players[this.playerId].playerNumberInList)
+        this.playerList.push(this.players[id])
+      }
+
+
+
+    }*/
 
     allReady: function(){
       this.$store.state.socket.emit('allAreReady',{roomId: this.$route.params.id})
