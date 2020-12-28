@@ -255,7 +255,16 @@
 
          <div class = "playerInfo">
            <h1>Player info</h1>
-           MyTurn: {{players[playerId].myTurn}}
+
+           <div v-if="players[playerId].myTurn"> {{labels.itsyourturn}}  </div>
+           <div v-else>  {{labels.itsnotyourturn}}</div><br>
+
+           <div>{{labels.youhavethismanybottles}} {{players[playerId].energyBottles}} </div><br>
+
+            <div v-if="players[playerId].money==1">{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coin}}</div>
+            <div v-else>{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coins}}</div><br>
+
+            <br><br><br>
            Firstplayer: {{players[playerId].firstPlayerToken}}
            energyBottles: {{players[playerId].energyBottles}}
            maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
@@ -263,6 +272,7 @@
            auctionIncome: {{players[playerId].auctionIncome}}
            playerVal: {{players[playerId].randomVal}}
            PlayerNumb: {{players[playerId].playerNumberInList}}
+
 
          </div>
       </div>
@@ -1399,7 +1409,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   footer a:visited {
     color:ivory;
   }
-  
+
   .nameEnter{
     margin-top: 45vh;
 
@@ -1633,6 +1643,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-column: 2;
     background-color: beige;
     color: black;
+    font-weight: bold;
   }
 
   .Items{
@@ -1921,7 +1932,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   /* @media screen all and (min-width: 48em){
     main {
       /*width:60em;*/
-/* 
+/*
     }
 
 
