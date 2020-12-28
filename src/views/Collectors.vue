@@ -406,7 +406,7 @@
           <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
           <h3 v-if="this.currentBid === -1"> No current auction </h3>
           <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
-          <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Give Up Bidding</button>
+          <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
         </div>
       </div>
 
