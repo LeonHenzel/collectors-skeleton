@@ -5,7 +5,7 @@ function sockets(io, socket, data) {
     socket.on('collectorsLoaded', function(d) {
       socket.join(d.roomId);
       if (data.joinGame(d.roomId, d.playerId)) {
-        socket.emit('collectorsInitialize', {
+        io.to(d.roomId).emit('collectorsInitialize', {
             labels: data.getUILabels(d.roomId),
             players: data.getPlayers(d.roomId),
             itemsOnSale: data.getItemsOnSale(d.roomId),
@@ -20,10 +20,10 @@ function sockets(io, socket, data) {
             isPlacedList: data.rooms[d.roomId].isPlacedList,
             discardTwo: data.rooms[d.roomId].discardTwo,
             allPlayersIn: data.rooms[d.roomId].allPlayersIn,
-            allPlayersReady: data.rooms[d.roomId].allPlayersReady
+            allPlayersReady: data.rooms[d.roomId].allPlayersReady,
+            playerCount: data.rooms[d.roomId].playerCount
           }
         );
-
       }
     });
 
@@ -34,14 +34,14 @@ function sockets(io, socket, data) {
         players: data.getPlayers(d.roomId),
         allPlayersReady: data.rooms[d.roomId].allPlayersReady
       })
-    })
+    });
 
     socket.on('chooseSecretCard',function(d){
       data.setSecret(d.roomId,d.playerId,d.card)
       io.to(d.roomId).emit('secretChoosen',{
         players: data.getPlayers(d.roomId)
       })
-    })
+    });
 
     socket.on('playerIsReady',function(d){
       data.isReady(d.roomId,d.playerId)
