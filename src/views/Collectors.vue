@@ -136,9 +136,11 @@
                     <br>
                     Confirm payment and choose where you want to put your won Auction-card
                     <br>
-                    <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
-                    <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
-                    <button @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                    <div>
+                      <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
+                      <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+                      <button @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                    </div>
                 </div>
               </div>
 
@@ -937,7 +939,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     doAction: function(card){
       if(this.players[this.playerId].myTurn === false){
         console.log("not my turn");
-        return
       }
       else if(this.isPlacedList.item===true){
 
@@ -1691,21 +1692,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayAuction{
     position: fixed;
-    width: 0%;
     height:100%;
+    width: 0%;
     top: 0;
     right: 0;
-    background: rgba(0,0,0,.7);
+    background: rgba(0,0,0,.9);
     overflow-x: hidden;
     z-index: 10;
     transition: all 0.5s;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2,1fr);
-    gap: 0px 0px;
-    grid-template-areas:
-    "CollectorsStartAuctionOverlay auctionWrapper"
-    "CollectorsStartAuctionOverlay CollectorsMarketOverlay";
+  }
+
+  .completeAuctionDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .CollectorsStartAuctionOverlay{
@@ -1714,9 +1714,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
   }
 
-  .overlayAuction .auctionWrapper{
+  .auctionWrapper{
+    margin: auto auto;
+    margin-top: 8%;
+    width: 80%;
+    padding: 1rem;
     border-radius: 1em;
-    grid-area: auctionWrapper;
     border: 5px dotted #fff;
   }
 
@@ -1736,7 +1739,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .overlayAuction__content{
     position: relative;
     top: 25%;
-    width: 100%;
+    width: 80%;
     text-align: center;
     margin-top: 30px;
   }
@@ -1839,7 +1842,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .bidWinnerWrapperVisible {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
 /*adjust to screen sizes*/
