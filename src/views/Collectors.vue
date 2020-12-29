@@ -265,15 +265,22 @@
          </div>
 
          <div class = "playerInfo">
-           <h1>Player info</h1>
-           MyTurn: {{players[playerId].myTurn}}
-           Firstplayer: {{players[playerId].firstPlayerToken}}
-           energyBottles: {{players[playerId].energyBottles}}
-           maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
-           money: {{players[playerId].money}}
-           auctionIncome: {{players[playerId].auctionIncome}}
-           playerVal: {{players[playerId].randomVal}}
-           PlayerNumb: {{players[playerId].playerNumberInList}}
+           <div id="otherPlayers">
+             <CollectorsOtherPlayers v-if="allPlayersReady"
+              :playerList="playerList" />
+           </div>
+           <div id="mePlayer">
+             <h1>Player info</h1>
+             MyTurn: {{players[playerId].myTurn}}
+             Firstplayer: {{players[playerId].firstPlayerToken}}
+             energyBottles: {{players[playerId].energyBottles}}
+             maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
+             money: {{players[playerId].money}}
+             auctionIncome: {{players[playerId].auctionIncome}}
+             playerVal: {{players[playerId].randomVal}}
+             PlayerNumb: {{players[playerId].playerNumberInList}}
+           </div>
+
 
          </div>
       </div>
@@ -491,6 +498,7 @@ import CollectorsMarket from '@/components/CollectorsMarket.vue'
 import CollectorsAuctionPayment from '@/components/CollectorsAuctionPayment.vue'
 import CollectorsIncome from '@/components/CollectorsIncome.vue'
 import CollectorsStartGame from '@/components/CollectorsStartGame.vue'
+import CollectorsOtherPlayers from '@/components/CollectorsOtherPlayers.vue'
 
 
 
@@ -506,7 +514,8 @@ export default {
     CollectorsAuctionPayment,
     CollectorsIncome,
     CollectorsWorkers,
-    CollectorsStartGame
+    CollectorsStartGame,
+    CollectorsOtherPlayers
 
   },
   data: function () {
@@ -1416,7 +1425,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   footer a:visited {
     color:ivory;
   }
-  
+
   .nameEnter{
     margin-top: 45vh;
 
@@ -1667,7 +1676,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px solid #fff;
     background-color: rgb(69, 179, 157);
   }
-  
+
 
   .auctionWrapper{
     margin: 2px;
@@ -1939,7 +1948,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   /* @media screen all and (min-width: 48em){
     main {
       /*width:60em;*/
-/* 
+/*
     }
 
 
