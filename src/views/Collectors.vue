@@ -62,72 +62,115 @@
           </div>
 
 
-          <div class="Auction">
-            <button href="#" class = "openButton openAuctionGridButton" @click="expandAuctionGrid()">
-              <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
-              Auction
-            </button>
-            <br>
-            <CollectorsStartAuction v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :auctionCards="auctionCards"
-              :marketValues="marketValues"
-              :placement="auctionPlacement"
-              @startAuction="startAuction($event)"
-              @placeBottle="placeBottle('auction', $event)"/>
 
+
+<!-- här börjar auction -->
+          <div class="Auction">
+            <!-- detta är vad som synns i overview.  -->
+            <div class="frontAuction">
+              <button href="#" class = "openButton openAuctionGridButton" @click="expandAuctionGrid()">
+                <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+                Auction
+              </button>
               <br>
-              <br>
-              <div v-bind:class="bidWinnerWrapper">
-                Choose where you want to put your won Auction-card
-                <br>
-                  <!-- <button class="placeholder">This is just a placeholder button</button> -->
-                  <button @click="placeAuctionCardInItems">Place your newly won Auction-card in Items</button>
-                  <button @click="placeAuctionCardInSkills">Place your newly won Auction-card in Skills</button>
-                  <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
-              </div>
-              <br>
+              <CollectorsStartAuction v-if="players[playerId]"
+                :labels="labels"
+                :player="players[playerId]"
+                :auctionCards="auctionCards"
+                :marketValues="marketValues"
+                :placement="auctionPlacement"
+                @startAuction="startAuction($event)"
+                @placeBottle="placeBottle('auction', $event)"/>
+
+            </div>
+
 
             <div class="overlayAuction" id = "expandAuction">
               <a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a>
 
-              <div class="CollectorsStartAuctionOverlay">
-                <CollectorsStartAuction v-if="players[playerId]"
-                  :labels="labels"
-                  :player="players[playerId]"
-                  :auctionCards="auctionCards"
-                  :marketValues="marketValues"
-                  :placement="auctionPlacement"
-                  @startAuction="startAuction($event)"
-                  @placeBottle="placeBottle('auction', $event)"/>
-              </div>
 
-
+              <div class="completeAuctionDiv">
                 <div class="auctionWrapper">
-                  <div class="currentAuctionWrapper">
-                    Current auction
-
+                  Current Auction
                     <div class="cardslots">
                       <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
                     </div>
+
+                  <!-- Får error om jag inte kör denna extra div runt h3:n -->
+                  <div v-if="players[playerId]">
+                    <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
+                      <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
+                      <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3>
+                    </div>
                   </div>
-                  <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
                   <div class="currentBidWrapper">
                     <p> Current Bid </p>
-                    <h3> {{ currentBid }} Coins </h3>
-                    <button @click="raiseBid">Raise Bid By 1 Coin</button>
-                    <button @click="skipThisBidding">Give Up Bidding</button>
+                    <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
+                    <h3 v-if="this.currentBid === -1"> No current auction </h3>
+                    <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
+                    <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
                   </div>
                 </div>
 
-          <div class="menuBar">
+
+                <div v-bind:class="bidWinnerWrapper">
+                    <br>
+                    <h3>Congratulations! You won the bidding.</h3>
+                    <br>
+                    <br>
+                    <h4>Payment</h4>
+                    <br>
+                    Click cards in your hand to use them as payment
+                    <br>
+                    These cards will be used as payment:
+                    <div id="auctionPaymentCardslot" v-if="bidWinnerWrapper === 'bidWinnerWrapperVisible'">
+                      <CollectorsAuctionPayment v-if="players[playerId]"
+                        :labels="labels"
+                        :player="players[playerId]"
+                        :auctionPayment="auctionPayment"
+                        @doAction="doAction($event)"/>
+                    </div>
+                    <br>
+                    Your payment is {{moneyPayment}} coin(s) and the chosen cards
+                    <br>
+                    <br>
+                    Confirm payment and choose where you want to put your won Auction-card
+                    <br>
+                    <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
+                    <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+                    <button @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+<!-- här slutar auction-->
+
+
+
+
+
+
+
+<!-- 
+                 <div class="CollectorsMarketOverlay">
+                   <CollectorsMarket v-if="players[playerId]"
+                   :labels="labels"
+                   :player="players[playerId]"
+                   :placement="marketPlacement"
+                   @placeBottle="placeBottle('market',$event)"
+                   @changeTwoMarket="changeTwoMarket()"/>
+                 </div> -->
+
+
+
+          <!-- <div class="menuBar">
             <a href="#" class="logo">Collectors</a>
             <input class="menuButton" type="checkbox" id="menuButton">
             <label class="burgerBarsIcon" for="menuButton">
             <span class="barsIcon"></span>
             </label>
-          <!--  öä -->
             <ul class="menu">
               <li class="item desktop">
                 <a href="#">Home</a>
@@ -144,125 +187,16 @@
             </ul>
           </div>
 
-
-          <div class="otherPlayers">
-            <h2>Stats</h2>
-            <h3>{{labels.currentlyitsround}} {{round}}</h3>
-            <br>
-
-            <h3>{{labels.currentrankings}}</h3>
-            <div v-for="player in players" :key="player">
-            <h4>{{player.playerName}} {{labels.hasthismanypoints}} {{player.points}}</h4>
-            </div>
-
-            <br>
-            <h3>{{labels.whosturnisit}}</h3>
-            <div v-for="player in players" :key="player">
-            <div v-if="player.myTurn">
-
-            <h4>{{labels.its}} {{player.playerName}}'s {{labels.turn}}</h4>
-
-            <br>
-            <h3>{{labels.whosbidding}}</h3>
-
-
-            </div>
-            </div>
-
-
-          </div>
-
-          <div>{{players}}</div>
-
-          <br>
-          <div>My ID is {{this.$store.state.playerId}}</div>
-          <br>
-          <br>
-
-          {{buyPlacement}} {{chosenPlacementCost}}
-          <br>
-          <br>
-          It is currently round {{round}}
-          <br>
-          <br>
-          <div class="buttons">
-            <button @click="skipThisRound">
-              {{ labels.skipThisRound }}
-            </button>
-          </div>
+ -->
 
 
 
-          <!--      <CollectorsBuyActions v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :itemsOnSale="itemsOnSale"
-          :marketValues="marketValues"
-          :placement="buyPlacement"
-          @buyCard="buyCard($event)"
-          @placeBottle="placeBottle('buy', $event)"/>
+        </div>
 
-
-          <CollectorsWorkers v-if="players[playerId]"
-          :labels="labels"
-          :player="players[playerId]"
-          :placement="workerPlacement"
-          @placeWorker="placeWorker($event)"
-          @setDiscardTwoTrue="setDiscardTwoTrue()"/>
-
-          <CollectorsStartAuction v-if="players[playerId]"
-            :labels="labels"
-            :player="players[playerId]"
-            :auctionCards="auctionCards"
-            :marketValues="marketValues"
-            :placement="auctionPlacement"
-            @startAuction="startAuction($event)"
-            @placeBottle="placeBottle('auction', $event)"/>
-         -->
+ 
 
 
 
-                 <!--
-                 <CollectorsBuySkill v-if="players[playerId]"
-                 :labels="labels"
-                 :player="players[playerId]"
-                 :skillsOnSale="skillsOnSale"
-                 :placement="skillPlacement"
-                 @buySkill="buySkill($event)"
-                 @placeBottle="placeBottle('skill',$event)"/>
-
-                 <CollectorsMarket v-if="players[playerId]"
-                 :labels="labels"
-                 :player="players[playerId]"
-                 :placement="marketPlacement"
-                 @placeBottle="placeBottle('market',$event)"
-                 @changeTwoMarket="changeTwoMarket()"/> -->
-                 <div v-bind:class="bidWinnerWrapper">
-                   Choose where you want to put your won Auction-card
-                   <br>
-                     <!-- <button class="placeholder">This is just a placeholder button</button> -->
-                     <button @click="placeAuctionCardInItems">Place your newly won Auction-card in Items</button>
-                     <button @click="placeAuctionCardInSkills">Place your newly won Auction-card in Skills</button>
-                     <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
-                 </div>
-
-
-                 <div class="CollectorsMarketOverlay">
-                   <CollectorsMarket v-if="players[playerId]"
-                   :labels="labels"
-                   :player="players[playerId]"
-                   :placement="marketPlacement"
-                   @placeBottle="placeBottle('market',$event)"
-                   @changeTwoMarket="changeTwoMarket()"/>
-                 </div>
-
-
-                 <button href="#" class = "playerboardGridButton" @click="minimizeAuctionGrid()"> Minimize </button>
-
-             </div>
-           </div>
-
-         </div>
 
          <div class = "playerInfo">
            <h1>Player info</h1>
@@ -277,28 +211,6 @@
 
          </div>
       </div>
-
-
-
-       <div class="auctionWrapper">
-         <div class="currentAuctionWrapper">
-           Current auction
-
-           <div class="cardslots">
-             <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
-           </div>
-         </div>
-         <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
-         <div class="currentBidWrapper">
-           <p> Current Bid </p>
-           <h3> {{ currentBid }} Coins </h3>
-           <button @click="raiseBid">Raise Bid By 1 Coin</button>
-           <button @click="skipThisBidding">Give Up Bidding</button>
-         </div>
-       </div>
-
-
-
 
 
         <div class="cardsOnSale">
@@ -400,59 +312,53 @@
         <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
       </div>
       -->
-      <div>
-        hej
-          <div class="cardslots">
-            <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
-          </div>
 
-        <!-- Får error om jag inte kör denna extra div runt h3:n -->
-        <div v-if="players[playerId]">
-          <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
-            <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
-            <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3>
-          </div>
-        </div>
-        <div class="currentBidWrapper">
-          <p> Current Bid </p>
-          <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
-          <h3 v-if="this.currentBid === -1"> No current auction </h3>
-          <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
-          <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
-        </div>
-      </div>
-
-
-
-
-
-      <div v-bind:class="bidWinnerWrapper">
-          <br>
-          Auction Payment
-          <br>
-          Click cards in your hand to use them as payment
-          <br>
-          These cards will be used as payment:
-          <div id="auctionPaymentCardslot" v-if="bidWinnerWrapper === 'bidWinnerWrapperVisible'">
-            <CollectorsAuctionPayment v-if="players[playerId]"
-              :labels="labels"
-              :player="players[playerId]"
-              :auctionPayment="auctionPayment"
-              @doAction="doAction($event)"/>
-          </div>
-          <br>
-          Your payment is {{moneyPayment}} coin(s) and the chosen cards
-          <br>
-          <br>
-          Confirm payment and choose where you want to put your won Auction-card
-          <br>
-          <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
-          <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
-          <button @click="placeAuctionCardInMarket">Place your newly in raise market</button>
-          <!-- <button @click="placeAuctionCardInRaiseValue">Place your newly won Auction-card in Raise Value</button> -->
-      </div>
 
     </div>
+
+            <div class="otherPlayers">
+              <h2>Stats</h2>
+              <h3>{{labels.currentlyitsround}} {{round}}</h3>
+              <br>
+
+              <h3>{{labels.currentrankings}}</h3>
+              <div v-for="player in players" :key="player">
+              <h4>{{player.playerName}} {{labels.hasthismanypoints}} {{player.points}}</h4>
+              </div>
+
+              <br>
+              <h3>{{labels.whosturnisit}}</h3>
+              <div v-for="player in players" :key="player">
+              <div v-if="player.myTurn">
+
+              <h4>{{labels.its}} {{player.playerName}}'s {{labels.turn}}</h4>
+
+              <br>
+              <h3>{{labels.whosbidding}}</h3>
+
+
+              </div>
+              </div>
+          </div>
+
+          <div>{{players}}</div>
+
+          <br>
+          <div>My ID is {{this.$store.state.playerId}}</div>
+          <br>
+          <br>
+
+          {{buyPlacement}} {{chosenPlacementCost}}
+          <br>
+          <br>
+          It is currently round {{round}}
+          <br>
+          <br>
+          <div class="buttons">
+            <button @click="skipThisRound">
+              {{ labels.skipThisRound }}
+            </button>
+          </div>
 
 
 
@@ -696,6 +602,8 @@ export default {
         this.currentBid = d.currentBid;
         this.isPlacedList=d.isPlacedList;
         console.log("currentAuction = " + this.currentAuction);
+
+        this.expandAuctionGrid();
 
       }.bind(this)
     );
