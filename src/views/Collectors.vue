@@ -622,6 +622,7 @@ export default {
         this.allPlayersIn=d.allPlayersIn;
         this.allPlayersReady=d.allPlayersReady;
         this.playerCount=d.playerCount;
+        this.sortPlayerList();
       }.bind(this));
 
 
@@ -907,20 +908,36 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
     this.$store.state.socket.on('setUpFixed',function(d){
       this.players=d.players;
       this.allPlayersReady=d.allPlayersReady;
+      this.sortPlayerList();
     }.bind(this));
 
   },
   methods: {
 
-    /*sortPlayerList: function(){
-      for (let id in this.players){
-        if(this.players[id].playerNumberInList!==this.players[this.playerId].playerNumberInList)
+    sortPlayerList: function(){
+      if(Object.keys(this.players).length!==this.playerCount){
+        return
+      }
+      this.playerList=[]
+      for(let id in this.players){
         this.playerList.push(this.players[id])
       }
+      for(let n=0;n<this.playerCount-1;n+=1){
+        for(let i=0;i<this.playerCount-1;i+=1){
+          if(this.playerList[i].playerNumberInList>this.playerList[i+1].playerNumberInList){
+            let memory=this.playerList[i];
+            this.playerList[i]=this.playerList[i+1];
+            this.playerList[i+1]=memory;
+          }
+        }
+      }
+      while(this.playerList[this.playerCount-1].playerNumberInList!==this.players[this.playerId].playerNumberInList){
+        let memory=this.playerList.pop();
+        this.playerList.unshift(memory);
+      }
+      this.playerList.pop();
 
-
-
-    }*/
+    },
 
     allReady: function(){
       this.$store.state.socket.emit('allAreReady',{roomId: this.$route.params.id})
