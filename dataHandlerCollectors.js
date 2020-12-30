@@ -169,6 +169,7 @@ Data.prototype.joinGame = function (roomId, playerId) {
                                  energyBottles: 2,
                                  maxEnergyBottles:2,
                                  myTurn: false,
+                                 iStartedAuction: false,
                                  myBiddingTurn: false,
                                  bidSkipper: false,
                                  playerNumberInList: room.playerNumber,
@@ -358,9 +359,14 @@ Data.prototype.buyCard = function (roomId, playerId, card, cost) {
 spelarna har flaskor kvar eller inte då detta görs. Om en spelare inte har flaskor kvar hoppas
 denna över*/
 Data.prototype.changeTurn=function(roomId,playerId){
-  //console.log('change turn');
+  console.log('change turn');
   let room = this.rooms[roomId];
   let player=room.players[playerId];
+
+  if(player.iStartedAuction===true){
+    player.iStartedAuction = false;
+  }
+
   player.myTurn=false;
   let playerNumber=player.playerNumberInList;
   for(let i=playerNumber+1;i<room.playerCount;i+=1){
@@ -1112,6 +1118,10 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
     }
     Data.prototype.auctionIncome(room);
     room.currentBid = 0;
+
+    // Jag gör en variabel som kommer ihåg vems tur det var. Och sedan sätter jag myTurn = false. 
+    room.players[playerId].myTurn = false;
+    room.players[playerId].iStartedAuction = true;
 
     // Den som auktionerar ut får börja bidda.
     room.players[playerId].myBiddingTurn = true;

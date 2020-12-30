@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="auctionPayment">
       <div class="auction-payment-cards">
         <div class="cardDiv" v-for="(card, index) in auctionPayment" :key="index" @click="doAction(card)">
           <CollectorsCard 
@@ -40,6 +40,10 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  /* .auctionPayment{
+    transform: scale(0.7);
+  } */
+
   .auction-payment-cards, .buttons {
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);

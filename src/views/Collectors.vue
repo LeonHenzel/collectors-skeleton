@@ -8,7 +8,7 @@
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
-      <div class="bajs" v-for="player in players" :key="player">
+      <div class="bajs" v-for="(player, index) in players" :key="index">
         {{player.playerName}}
       </div>
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
@@ -107,8 +107,8 @@
                     <p> Current Bid </p>
                     <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
                     <h3 v-if="this.currentBid === -1"> No current auction </h3>
-                    <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
-                    <button v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
+                    <button id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
+                    <button id="forfeitBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
                   </div>
                 </div>
 
@@ -324,13 +324,13 @@
               <br>
 
               <h3>{{labels.currentrankings}}</h3>
-              <div v-for="player in players" :key="player">
+              <div v-for="(player, index) in players" :key="index">
               <h4>{{player.playerName}} {{labels.hasthismanypoints}} {{player.points}}</h4>
               </div>
 
               <br>
               <h3>{{labels.whosturnisit}}</h3>
-              <div v-for="player in players" :key="player">
+              <div v-for="(player, index) in players" :key="index">
               <div v-if="player.myTurn">
 
               <h4>{{labels.its}} {{player.playerName}}'s {{labels.turn}}</h4>
@@ -655,8 +655,8 @@ export default {
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
-        if(this.players[this.playerId].myTurn===true){
-        this.changeTurn();
+        if(this.players[this.playerId].iStartedAuction === true){
+          this.changeTurn();
         }
       }.bind(this)
     );
@@ -669,8 +669,8 @@ export default {
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
-        if(this.players[this.playerId].myTurn===true){
-        this.changeTurn();
+        if(this.players[this.playerId].iStartedAuction === true){
+          this.changeTurn();
         }
       }.bind(this));
 
@@ -683,8 +683,8 @@ export default {
       if(this.players[this.playerId].bidSkipper === false){
         this.bidWinnerWrapper = d.bidWinnerWrapper;
       }
-      if(this.players[this.playerId].myTurn===true){
-      this.changeTurn();
+      if(this.players[this.playerId].iStartedAuction === true){
+        this.changeTurn();
       }
     }.bind(this));
 
@@ -1789,7 +1789,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 1em;
     border: 5px solid #fff;
     background-color: rgb(195, 155, 211);
-    margin: 2px;
+    margin: 0;
+    padding: 0;
   }
 
 
@@ -1837,6 +1838,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin: 0;
   }
 
+  #raiseBidButton{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    height: 80px;
+    width: 200px;
+    background: #43C6AC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F8FFAE, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F8FFAE, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  }
+
+  #forfeitBidButton{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    height: 80px;
+    width: 180px;
+    background: #ED213A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
   .bidWinnerWrapperInvisible {
     display: none;
   }
@@ -1845,6 +1871,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .bidWinnerWrapperVisible button{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    height: 80px;
+    background: #7affde;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EF629F, #ffc06d);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EF629F, #f5c27f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    /* importerat från UI-gradient */
   }
 
 /*adjust to screen sizes*/
