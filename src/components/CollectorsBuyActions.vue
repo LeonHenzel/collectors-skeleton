@@ -1,33 +1,33 @@
 <template>
     <div class="CollectorsBuyAction">
-
-      <button href="#" class = "openButton" @click="openNav()">Expand</button>
-      <h1>{{ labels.buyCard }}</h1>
-
-      <h3>Click to show cards on sale</h3>
-
-      <div class="buy-cards">
-        <div v-for="(card, index) in itemsOnSale" :key="index">
-          <CollectorsCard
-            :card="card"
-            :availableAction="card.available"
-            @doAction="buyCard(card)"/>
-          {{ cardCost(card) }}
+      <div class="gridWrapper">
+        <button href="#" class = "openButton" @click="openNav()">items
+          <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
+        </button>
+        <div class="buy-cards">
+          <div class="cardDiv" v-for="(card, index) in itemsOnSale" :key="index">
+            <CollectorsCard
+              :card="card"
+              :availableAction="card.available"
+              @doAction="buyCard(card)"/>
+            {{ cardCost(card) }}
+          </div>
         </div>
-      </div>
-      <div>
-        <div class="buttons" v-for="(p, index) in placement" :key="index">
-          <button
-            v-if="p.playerId===null"
-            :disabled="cannotAfford(p.cost)"
-            @click="placeBottle(p)" >
-            ${{p.cost}}
-          </button>
-          <div v-if="p.playerId !== null">
-            {{p.playerId}}
+        <div class="buttonWrapper">
+          <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
+            <button id="smallPurchaseButton"
+              v-if="p.playerId===null"
+              :disabled="cannotAfford(p.cost)"
+              @click="placeBottle(p)" >
+              ${{p.cost}}
+            </button>
+            <div v-if="p.playerId !== null">
+              {{p.playerId}}
+            </div>
           </div>
         </div>
       </div>
+
 
 
       <div class="overlay" id="nav">
@@ -134,9 +134,67 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .CollectorsBuyAction{
+    height: 22.5vh;
+    background-color: rgb(236, 112, 99);
+  }
+
+  .gridWrapper{
+    display: grid;
+    height: 22.5vh;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 25% 75%;
+  }
+
+  .buy-cards{
+    grid-column: 2
+  }
+
+  .buttonWrapper{
+    position: relative;
+    top: 1rem;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-radius: 1rem;
+    border: 2px solid white;
+    margin-left: 0.5rem;
+    margin-top: 0.1rem;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 33% 33% 33%;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100px;
+    height: 90px;
+    background-color:rgb(176, 58, 46);
+  }
+
+  .buttonWrapper .buttons{
+    border: 1px solid white;
+    margin: 2px;
+    background-color: green;
+    width: 20px;
+    height: 20px;
+    border-radius: 5rem;
+    transform: scale(1.4);
+    margin-bottom: 1rem;
+  }
+
+  .red{
+    background-color: red;
+  }
+
+  #smallPurchaseButton{
+    border-radius: 2rem;
+    background-color: blue;
+    border: none;
+    padding: 0.1rem;
+    color: white;
+  }
+
   .buy-cards, .buttons {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 130px);
+    grid-template-columns: repeat(auto-fill, 100px);
   }
 
   /* Den svåra delen! Nu ska vi flytta alla kort som är till
@@ -151,15 +209,53 @@ export default {
   cards 130px höger (framåt i x-direction)*/
   .cardDiv{
     transition: 0.2s;
+    height: 350px;
+    width: 250px;
+    transform: scale(0.4);
+    transform-origin: top left;
+  }
+
+  .cardDiv:hover{
+    transform: translateY(-1rem);
+    transform: scale(0.5);
+    cursor: pointer;
   }
 
   .cardDiv:hover~.cardDiv{
-      transform: translateX(130px);
-    }
-  .CollectorsBuyAction .openButton{
-    float: right;
-    margin: 20px;
+      transform: translateX(40px) scale(0.4);
   }
+
+  .openButton{
+    transform: scale(0.8);
+    transform-origin: top left;
+    max-height: 60px;
+    min-width: 100px;
+    grid-column: 1;
+    grid-row: 1;
+    padding: 3px;
+    cursor: pointer;
+    margin: 2px;
+    border-radius: 28px;
+    background-color: transparent;
+    -webkit-text-stroke: 1px black;
+    color: rgb(176, 58, 46);
+    Letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 23px;
+    font-family: "sans", serif;
+    padding: 5px;
+    border-color: white;
+    border-width: 2px;
+    font-weight: bold;
+    z-index: 3;
+  }
+
+  .openButton:hover{
+    background-color: rgb(255, 173, 153);
+    border-color: black;
+    cursor: pointer;
+  }
+
 
   .overlay{
     position: fixed;

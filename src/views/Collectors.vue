@@ -43,11 +43,19 @@
 
         <div class="gameBoardWrapper">
           <div class="Items">
-            <h3>Items</h3>
+            <div class="cardsOnSale">
+              <CollectorsBuyActions v-if="players[playerId]"
+                :labels="labels"
+                :player="players[playerId]"
+                :itemsOnSale="itemsOnSale"
+                :marketValues="marketValues"
+                :placement="buyPlacement"
+                @buyCard="buyCard($event)"
+                @placeBottle="placeBottle('buy', $event)"/>
+            </div>
           </div>
 
           <div class="Skills">
-            <br>
             <CollectorsBuySkill v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -289,22 +297,6 @@
          </div>
        </div>
 
-
-
-
-
-        <div class="cardsOnSale">
-          <!--<h3>Köp dina kort här</h3>-->
-          <br>
-          <CollectorsBuyActions v-if="players[playerId]"
-            :labels="labels"
-            :player="players[playerId]"
-            :itemsOnSale="itemsOnSale"
-            :marketValues="marketValues"
-            :placement="buyPlacement"
-            @buyCard="buyCard($event)"
-            @placeBottle="placeBottle('buy', $event)"/>
-        </div>
 
         <div class="playerView" >
           <button href="#" class = "openPlayerviewGridButton" @click="expandPlayerviewGrid()">Expand</button>
@@ -1608,7 +1600,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .playerInfo{
     margin-left: 5px;
     grid-column: 2;
-    grid-row: 1/ span 2;
+    grid-row: 2;
     background-color: beige;
     color: black;
   }
@@ -1616,11 +1608,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .Items{
     grid-column: 2/ span 2;
     grid-row: 2;
-    border-radius: 1em;
-    border: 5px solid #fff;
-    background-color: rgb(236, 112, 99);
   }
   .Skills{
+    display: inline-block;
     grid-column: 2/ span 2;
     grid-row: 3;
     z-index: 100;
@@ -1811,17 +1801,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
     grid-template-rows: auto 1fr 1fr 1fr;
     gap: 0px 0px;
-    grid-template-areas:
-    "menuBar menuBar otherPlayers"
-    "Auction Items otherPlayers"
-    "Auction Skills playerView"
-    "Auction cardsOnSale playerView";
   }
   .menuBar{
     border-radius: 1em;
+    grid-column: 1/ span 2;
     grid-row: 1;
     border: 5px solid #fff;
-    background-color: black;
+    background-color: #313639;;
   }
   .otherPlayers{
     border-radius: 1em;
@@ -1832,19 +1818,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .Auction{
     grid-column: 1;
     grid-row: 2/ span 2;
-    border-radius: 1em;
-    border: 5px solid #fff;
     background-color: rgb(195, 155, 211);
     margin: 2px;
   }
 
-
-  .cardsOnSale{
-    border-radius: 1em;
-    grid-area: cardsOnSale;
-    border: 5px solid #fff;
-    background-color: Black;
-  }
   .playerView{
     border-radius: 1em;
     grid-area: playerView;

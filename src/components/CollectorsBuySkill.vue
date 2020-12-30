@@ -1,7 +1,7 @@
 <template>
     <div class="CollectorsBuySkill">
-      <div class="tempWrapper">
-        <button href="#" class = "openButton openSkills" @click="openNav()">
+      <div class="gridWrapper">
+        <button href="#" title="go here for more info" class="openButton openSkills" @click="openNav()">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
           Skills
         </button>
@@ -13,17 +13,20 @@
               @doAction="buySkill(card)"/>
           </div>
         </div>
-        <div class="buttons" v-for="(p, index) in placement" :key="index">
-          <button
-            v-if="p.playerId===null"
-            :disabled="cannotAfford(p.cost)"
-            @click="placeBottle(p)" >
-            ${{p.cost}}
-          </button>
-          <div v-if="p.playerId !== null">
-            {{p.playerId}}
+        <div class="buttonWrapper">
+          <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
+            <button id="smallPurchaseButton"
+              v-if="p.playerId===null"
+              :disabled="cannotAfford(p.cost)"
+              @click="placeBottle(p)" >
+              ${{p.cost}}
+            </button>
+            <div v-if="p.playerId !== null">
+              {{p.playerId}}
+            </div>
           </div>
         </div>
+
       </div>
 
       <div>
@@ -41,7 +44,7 @@
           </div>
           <div>
             <div class="buttons" v-for="(p, index) in placement" :key="index">
-              <button
+              <button class="purchaseButton"
                 v-if="p.playerId===null"
                 :disabled="cannotAfford(p.cost)"
                 @click="placeBottle(p)" >
@@ -118,33 +121,84 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .buy-skills {
+    margin-top: 10px;
     grid-column: 2;
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
-    align-items: center;
   }
 
+
+
   .CollectorsBuySkill{
-    height: 25vh;
-    border-radius: 1em;
-    border: 5px solid #fff;
+    height: 23vh;
+    border: none;
     background-color: rgb(69, 179, 157);
   }
 
+
+
   .buttons{
-    grid-column: 3;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 100px);
+    border: 1px solid white;
+    margin: 2px;
+    background-color: green;
+    width: 20px;
+    height: 20px;
+    border-radius: 5rem;
+    transform: scale(1.4);
+    margin-bottom: 1rem;
   }
 
-  .tempWrapper{
+  .red{
+    background-color: red;
+  }
+
+  #smallPurchaseButton:hover{
+    cursor: pointer;
+  }
+
+
+  .buttonWrapper{
+    position: relative;
+    top: 1rem;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-radius: 1rem;
+    border: 2px solid white;
+    margin-left: 0.5rem;
+    margin-top: 0.1rem;
     display: grid;
-    grid-template-columns: 15% 70% 15%;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 33% 33% 33%;
+    grid-column: 1;
+    grid-row: 2;
+    width: 100px;
+    height: 90px;
+    background-color:rgb(17, 122, 101);
+  }
+
+  #smallPurchaseButton{
+    border-radius: 2rem;
+    background-color: transparent;
+    border: none;
+    padding: 0.1rem;
+    color: white;
+  }
+
+  .gridWrapper{
+    height: 22.5vh;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 30% 70%;
   }
 
 
   .openButton{
+    transform: scale(0.8);
+    transform-origin: top left;
+    max-height: 60px;
+    min-width: 100px;
     grid-column: 1;
+    grid-row: 1;
     padding: 3px;
     cursor: pointer;
     margin: 2px;
@@ -184,6 +238,23 @@ export default {
     transition: all 0.5s;
   }
 
+  .overlay .buy-skills{
+    background-color: green;
+    width: 70vw;
+    padding: 25px;
+    align-items: baseline;
+  }
+
+  .overlay .buy-skills .cardWrapper{
+
+    transform-origin: top left;
+    transition: 0.2s;
+  }
+
+  .overlay .buy-skills .cardWrapper:hover~.cardWrapper{
+    transform: translateX(100px);
+  }
+
   .overlay__content{
     position: relative;
     top: 25%;
@@ -192,7 +263,7 @@ export default {
     margin-top: 30px;
   }
   .overlay a{
-    paddin: 10px;
+    padding: 10px;
     color: white;
     display: block;
   }
@@ -216,11 +287,19 @@ export default {
   cards 130px höger (framåt i x-direction)*/
   .cardDiv{
     transition: 0.2s;
-    height: 140px;
+    height: 350px;
+    width: 250px;
+    transform: scale(0.4);
+    transform-origin: top left;
+  }
+
+  .cardDiv:hover{
+    transform: translateY(-1rem);
+    transform: scale(0.5);
   }
 
   .cardDiv:hover~.cardDiv{
-      transform: translateX(130px);
+      transform: scale(0.4) translateX(70px);
   }
 
 </style>
