@@ -17,14 +17,14 @@
     <div class="layout">
 
       <div class="bigWrapper">
-        <div class="menuBar">
+        <!--<div class="menuBar">
 
           <a href="#" class="logo">Collectors</a>
           <input class="menuButton" type="checkbox" id="menuButton">
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
           </label>
-        <!--  öä -->
+
           <ul class="menu">
             <li class="item desktop">
               <a href="#">Home</a>
@@ -39,7 +39,7 @@
               <a href="#">Chat</a>
             </li>
           </ul>
-        </div>
+        </div>-->
 
         <div class="gameBoardWrapper">
           <div class="Items">

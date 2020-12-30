@@ -34,6 +34,7 @@ export default {
     box-shadow: -1rem 0 3rem #000;
     transition: 0.2s;
     transform: scale(0.5);
+    transform: top left;
   }
 
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
