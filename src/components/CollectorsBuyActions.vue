@@ -180,16 +180,22 @@ export default {
     margin-bottom: 1rem;
   }
 
-  .red{
+  .buttons .red{
     background-color: red;
   }
 
   #smallPurchaseButton{
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
     border-radius: 2rem;
-    background-color: blue;
     border: none;
     padding: 0.1rem;
     color: white;
+  }
+
+  #smallPurchaseButton:hover{
+    cursor: pointer;
   }
 
   .buy-cards, .buttons {

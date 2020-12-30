@@ -33,8 +33,6 @@ export default {
     border-radius: 10px;
     box-shadow: -1rem 0 3rem #000;
     transition: 0.2s;
-
-    
   }
 
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/

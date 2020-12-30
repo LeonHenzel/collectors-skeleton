@@ -24,7 +24,7 @@
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
           </label>
-        <!--  öä -->
+
           <ul class="menu">
             <li class="item desktop">
               <a href="#">Home</a>
@@ -56,6 +56,7 @@
           </div>
 
           <div class="Skills">
+
             <CollectorsBuySkill v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -1608,12 +1609,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .Items{
     grid-column: 2/ span 2;
     grid-row: 2;
+    background-color: rgb(236, 112, 99);
   }
   .Skills{
     display: inline-block;
     grid-column: 2/ span 2;
     grid-row: 3;
-    z-index: 100;
   }
 
   .auctionWrapper{
@@ -1822,6 +1823,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin: 2px;
   }
 
+
+  .cardsOnSale{
+    border-radius: 1em;
+    grid-area: cardsOnSale;
+    border: 5px solid #fff;
+    background-color: Black;
+  }
   .playerView{
     border-radius: 1em;
     grid-area: playerView;

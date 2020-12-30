@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="auctionLayout">
       <h1>{{ labels.startAuction }}</h1>
       <div class="auction-cards">
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
@@ -10,7 +10,7 @@
           {{ cardCost(card) }}
         </div>
       </div>
-      <div>
+      <div class="buttonDiv">
         <div class="buttons" v-for="(p, index) in placement" :key="index">
           <button
             v-if="p.playerId===null"
@@ -92,14 +92,38 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .auction-cards{
-    display: grid;
-    grid-template-rows: repeat(auto-fill, 368.67px); /*368.67pxpx här avgör var nästa kort efter 1:a ligger*/
+
+  .auctionLayout{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
-  .buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 100px);
+  .auctionLayout h1{
+    margin-left:20px;
+  }
+
+  .buttonDiv{
+    margin-left: 30px;
+    margin-top: -70px;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .buttons{
+    display: flex;
+  }
+
+  .buttons button{
+    border-radius: 8px;
+    width: 80px;
+    height: 50px;
+    background: #833ab4;
+    background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
+    background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
+
   }
 
     /* Den svåra delen! Nu ska vi flytta alla kort som är till
@@ -112,11 +136,144 @@ export default {
 
   transform: translateX(130px) flyttar helt enkelt alla targeted
   cards 130px höger (framåt i x-direction)*/
+  .auction-cards{
+    margin-left: -40px;
+    margin-top: -70px;
+    display: grid;
+    grid-template-columns: 130px 130px 130px 130px 130px 130px 130px;
+    transform: scale(0.5);
+  }
+
+  /* detta funkade inte bra när man startar auction så att ett kort försvinner. Korthögen hoppade längre och längre till vänster */
+  /* .cardDiv:not(:first-child){
+    margin-left: -100px;
+  } */
+
   .cardDiv{
     transition: 0.2s;
   }
 
-  .cardDiv:hover~.cardDiv{
-      transform: translateX(130px);
+  .cardDiv:hover{
+    transform: scale(1.8) translateY(50px);
+    z-index: 20000000000;
   }
+
+  .cardDiv:hover~.cardDiv{
+      transform: translateX(100px);
+  }
+
+  @media screen and (max-width: 1400px) {
+    .auctionLayout{
+      transform: scale(0.8);
+      margin-top: -30px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .auctionLayout{
+      transform: scale(0.7);
+    }
+    .auction-cards{
+    margin-left: -20px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-width: 1100px) {
+    .auctionLayout{
+      transform: scale(0.6);
+    }
+    .auction-cards{
+    margin-left: 10px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .auctionLayout{
+      transform: scale(0.5);
+      margin-left: 10px;
+    }
+    .auction-cards{
+    margin-left: 10px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .auctionLayout{
+      transform: scale(0.4);
+      margin-left: 10px;
+    }
+    .auction-cards{
+    margin-left: 10px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+
+
+
+
+  @media screen and (max-height: 880px) {
+    .auctionLayout{
+      transform: scale(0.8);
+      margin-top: -25px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-height: 800px) {
+    .auctionLayout{
+      transform: scale(0.7);
+      margin-top: -40px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-height: 720px) {
+    .auctionLayout{
+      transform: scale(0.6);
+      margin-top: -70px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-height: 580px) {
+    .auctionLayout{
+      transform: scale(0.5);
+      margin-top: -90px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-height: 500px) {
+    .auctionLayout{
+      transform: scale(0.4);
+      margin-top: -110px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
 </style>
