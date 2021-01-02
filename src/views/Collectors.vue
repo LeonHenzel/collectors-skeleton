@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{playerList}}
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
     <button type="submit" @click="submitName"></button>
@@ -240,6 +241,8 @@
 
          </div>
 
+<!--
+
          <div class="playerInfo">
 
            <div id="theOtherPlayers">
@@ -273,7 +276,43 @@
 
 
 
+         </div> -->
+
+         <div class="playerInfo">
+
+           <div id="theOtherPlayers">
+             <CollectorsOtherPlayers v-if="players[playerId]"
+              :playerList="playerList" />
+           </div>
+           <div id="mePlayer">
+             <h1>Player info</h1>
+
+             <div v-if="players[playerId].myTurn"> {{labels.itsyourturn}}  </div>
+             <div v-else>  {{labels.itsnotyourturn}}</div><br>
+
+             <div>{{labels.youhavethismanybottles}} {{players[playerId].energyBottles}} </div><br>
+
+              <div v-if="players[playerId].money==1">{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coin}}</div>
+              <div v-else>{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coins}}</div><br>
+
+              <br><br><br>
+             Firstplayer: {{players[playerId].firstPlayerToken}}
+             energyBottles: {{players[playerId].energyBottles}}
+             maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
+             money: {{players[playerId].money}}
+             auctionIncome: {{players[playerId].auctionIncome}}
+             playerVal: {{players[playerId].randomVal}}
+             PlayerNumb: {{players[playerId].playerNumberInList}}
+           </div>
+
+
+
+
+
+
          </div>
+
+
       </div>
 
 
@@ -563,7 +602,8 @@ export default {
       discardTwo: false,
       allPlayersIn: false,
       allPlayersReady: false,
-      playerList: []
+      playerList: [],
+      playerCount: 0
 
 
     }
@@ -616,6 +656,7 @@ export default {
         this.allPlayersIn=d.allPlayersIn;
         this.allPlayersReady=d.allPlayersReady;
         this.sortPlayerList();
+        this.playerCount=d.playerCount;
       }.bind(this));
 
 

@@ -1,93 +1,93 @@
 <template>
-  <div id="collectorsOtherPlayers">
-  <div class="specificPlayer" v-for="player in playerList" :key="player">
-    <div class="otherPlayerWrapper">
-      <div v-if="player.myTurn" class="arrow">
-        <div class="arrowContainer">
-            <div class="arrow">
-            </div>
+  <div class="collectorsOtherPlayers">
+    <div class="specificPlayer" v-for="player in playerList" :key="player">
+      <div class="otherPlayerWrapper">
+        <div v-if="player.myTurn" class="arrow">
+          <div class="arrowContainer">
+              <div class="arrow">
+              </div>
+          </div>
         </div>
+
+      <div class="playerName">
+
+
+        <span v-if="player.myTurn">
+          {{player.playerName}} is playing
+        </span>
+        <span v-else>
+          Name: {{player.playerName}}
+        </span>
       </div>
-
-    <div class="playerName">
-
-
-      <span v-if="player.myTurn">
-        {{player.playerName}} is playing
-      </span>
-      <span v-else>
-        Name: {{player.playerName}}
-      </span>
-    </div>
-    <div class="playerInfoWrapper">
-      <div class="pointsSymbol">
-      </div>
-      <div class="pointsPlayer">
-
-          {{player.points}}
-
-
-      </div>
-      <div class="energySymbol">
-
-
-      </div>
-      <div class="energyPlayer">
-
-          {{player.energyBottles}}
-
-
-      </div>
-      <div class="moneySymbol">
-
-      </div>
-      <div class="playerMoney">
-        {{player.money}}
-      </div>
-
-
-    </div>
-
-
-
-
-    <div class="itemSummaryWrapper">
-      <div class="firstItem itemsBox">
-        Movie
-        <div>
-        {{player.itemsByNumber.movie}}
-      </div>
-      </div>
-      <div class="secondItem itemsBox">
-        Music
-        <div>
-          {{player.itemsByNumber.music}}
+      <div class="playerInfoWrapper">
+        <div class="pointsSymbol">
         </div>
-      </div>
-      <div class="thirdItem itemsBox">
-        technology
-        <div>
-          {{player.itemsByNumber.technology}}
+        <div class="pointsPlayer">
+
+            {{player.points}}
+
+
         </div>
-      </div>
-      <div class="fourthItem itemsBox">
-        figures
-        <div>
-        {{player.itemsByNumber.figures}}
-      </div>
-      </div>
-      <div class="fithItem itemsBox">
-        fastaval
-        <div>
-        {{player.itemsByNumber.fastaval}}
-      </div>
+        <div class="energySymbol">
+
+
+        </div>
+        <div class="energyPlayer">
+
+            {{player.energyBottles}}
+
+
+        </div>
+        <div class="moneySymbol">
+
+        </div>
+        <div class="playerMoney">
+          {{player.money}}
+        </div>
+
+
       </div>
 
 
 
+
+      <div class="itemSummaryWrapper">
+        <div class="firstItem itemsBox">
+          Movie
+          <div>
+          {{player.itemsByNumber.movie}}
+        </div>
+        </div>
+        <div class="secondItem itemsBox">
+          Music
+          <div>
+            {{player.itemsByNumber.music}}
+          </div>
+        </div>
+        <div class="thirdItem itemsBox">
+          technology
+          <div>
+            {{player.itemsByNumber.technology}}
+          </div>
+        </div>
+        <div class="fourthItem itemsBox">
+          figures
+          <div>
+          {{player.itemsByNumber.figures}}
+        </div>
+        </div>
+        <div class="fithItem itemsBox">
+          fastaval
+          <div>
+          {{player.itemsByNumber.fastaval}}
+        </div>
+        </div>
+
+
+
+      </div>
     </div>
-  </div>
-  </div>
+    </div>
 </div>
 </template>
 
@@ -104,9 +104,10 @@ export default {
 
 <style lang="css" scoped>
 
-#collectorsOtherPlayers {
+.collectorsOtherPlayers {
   width: 100%;
   height: 100%;
+  z-index: 1000;
 }
 
 .specificPlayer {
