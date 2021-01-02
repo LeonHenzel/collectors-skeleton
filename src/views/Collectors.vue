@@ -923,7 +923,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
     }.bind(this));
 
     this.$store.state.socket.on('setUpFixed',function(d){
-      this.players=d.Players;
+      this.players=d.players;
       this.allPlayersReady=d.allPlayersReady;
     }.bind(this));
 
