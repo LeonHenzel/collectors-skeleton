@@ -175,6 +175,7 @@ export default {
   @media screen and (max-width: 1200px) {
     .auctionLayout{
       transform: scale(0.7);
+      margin-right: 150px;
     }
     .auction-cards{
     margin-left: -20px;
@@ -187,6 +188,7 @@ export default {
   @media screen and (max-width: 1100px) {
     .auctionLayout{
       transform: scale(0.6);
+      margin-right: 150px;
     }
     .auction-cards{
     margin-left: 10px;
@@ -199,7 +201,7 @@ export default {
   @media screen and (max-width: 900px) {
     .auctionLayout{
       transform: scale(0.5);
-      margin-left: 10px;
+      margin-right: 150px;
     }
     .auction-cards{
     margin-left: 10px;
@@ -212,7 +214,7 @@ export default {
   @media screen and (max-width: 800px) {
     .auctionLayout{
       transform: scale(0.4);
-      margin-left: 10px;
+      margin-left: 0px;
     }
     .auction-cards{
     margin-left: 10px;

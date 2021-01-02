@@ -71,7 +71,9 @@
             <div class="frontAuction">
               <button href="#" class = "openButton openAuctionGridButton" @click="expandAuctionGrid()">
                 <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+                <span class="auctionText">
                 Auction
+                </span>
               </button>
               <br>
               <CollectorsStartAuction v-if="players[playerId]"
@@ -1797,6 +1799,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: rgb(195, 155, 211);
     margin: 0;
     padding: 0;
+  }
+
+  @media screen and (max-width: 1250px) {
+    .auctionText{
+      display: none;
+    }
   }
 
 
