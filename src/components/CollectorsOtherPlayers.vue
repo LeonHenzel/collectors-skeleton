@@ -15,8 +15,8 @@
         <span v-if="player.myTurn">
           {{player.playerName}} is playing
         </span>
-        <span v-else>
-          Name: {{player.playerName}}
+        <span>
+        {{player.playerName}}
         </span>
       </div>
       <div class="playerInfoWrapper">
@@ -77,7 +77,7 @@
         </div>
         </div>
         <div class="fithItem itemsBox">
-          fastaval
+          <img src="/images/fastavalItem.png"/>
           <div>
           {{player.itemsByNumber.fastaval}}
         </div>
