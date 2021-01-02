@@ -50,31 +50,31 @@
 
       <div class="itemSummaryWrapper">
         <div class="firstItem itemsBox">
-          Movie
+          <img src="/images/movieItem.png"  />
           <div>
           {{player.itemsByNumber.movie}}
         </div>
         </div>
         <div class="secondItem itemsBox">
-          Music
+          <img src="/images/musicItem.png" />
           <div>
             {{player.itemsByNumber.music}}
           </div>
         </div>
         <div class="thirdItem itemsBox">
-          technology
+        <img src="/images/techItem.png" />
           <div>
             {{player.itemsByNumber.technology}}
           </div>
         </div>
         <div class="fourthItem itemsBox">
-          figures
+          <img src="/images/figursItem.png" />
           <div>
           {{player.itemsByNumber.figures}}
         </div>
         </div>
         <div class="fithItem itemsBox">
-          <img src="/images/fastavalItem.png"/>
+          <img src="/images/fastavalItem.png" />
           <div>
           {{player.itemsByNumber.fastaval}}
         </div>
@@ -123,6 +123,17 @@ export default {
 
 .expandButton:hover{
   cursor: pointer;
+}
+
+.itemSummaryWrapper>div{
+  text-align: center;
+}
+
+.itemSummaryWrapper>div>img {
+  height: 72%;
+  width: 100%;
+  transform: scale(0.9);
+  transform-origin: top left;
 }
 
 .playing{

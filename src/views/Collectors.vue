@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{playerList}}
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName"></textarea>
     <button type="submit" @click="submitName"></button>
