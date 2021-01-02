@@ -243,6 +243,7 @@
          <div class="playerInfo">
 
            <div id="theOtherPlayers">
+             hejehjehje
              <CollectorsOtherPlayers v-if="allPlayersReady"
               :playerList="playerList" />
            </div>
