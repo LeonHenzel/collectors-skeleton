@@ -1,5 +1,6 @@
 <template>
   <div>
+
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
@@ -64,7 +65,7 @@
 
 
 
-<!-- här börjar auction -->
+        <!-- här börjar auction -->
           <div class="Auction">
             <!-- detta är vad som synns i overview.  -->
             <div class="frontAuction">
@@ -147,7 +148,7 @@
             </div>
           </div>
 
-<!-- här slutar auction-->
+          <!-- här slutar auction-->
 
 
 
@@ -155,7 +156,7 @@
 
 
 
-<!-- 
+            <!-- 
                  <div class="CollectorsMarketOverlay">
                    <CollectorsMarket v-if="players[playerId]"
                    :labels="labels"
@@ -189,14 +190,14 @@
             </ul>
           </div>
 
- -->
+            -->
 
 
 
-        </div>
+        
 
  
-
+          </div>  
 
 
 
@@ -212,6 +213,9 @@
            PlayerNumb: {{players[playerId].playerNumberInList}}
 
          </div>
+
+
+ 
       </div>
 
 
@@ -324,8 +328,10 @@
               <br>
 
               <h3>{{labels.currentrankings}}</h3>
+              <div>
               <div v-for="(player, index) in players" :key="index">
               <h4>{{player.playerName}} {{labels.hasthismanypoints}} {{player.points}}</h4>
+              </div>
               </div>
 
               <br>
