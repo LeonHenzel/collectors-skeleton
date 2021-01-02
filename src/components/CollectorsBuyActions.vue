@@ -2,7 +2,7 @@
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
         <button href="#" class = "openButton" @click="openNav()">items
-          <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
+          <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="30" width="30">
         </button>
         <div class="buy-cards">
           <div class="cardDiv" v-for="(card, index) in itemsOnSale" :key="index">
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="buttonWrapper">
-          <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
+          <div :class="['buttons', {'red':p.cost>0}]" v-for="(p, index) in placement" :key="index">
             <button id="smallPurchaseButton"
               v-if="p.playerId===null"
               :disabled="cannotAfford(p.cost)"
@@ -180,7 +180,7 @@ export default {
     margin-bottom: 1rem;
   }
 
-  .buttons .red{
+  .red{
     background-color: red;
   }
 
