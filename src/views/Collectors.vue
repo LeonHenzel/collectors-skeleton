@@ -265,7 +265,7 @@
          </div>
 
          <div class = "playerInfo">
-           <div id="otherPlayers">
+           <div id="theOtherPlayers">
              <CollectorsOtherPlayers v-if="allPlayersReady"
               :playerList="playerList" />
            </div>
@@ -1857,6 +1857,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 /*layout för spelet*/
+#theOtherPlayers {
+  width: 100%;
+  height: 50%;
+}
+
   .layout{
     z-index:3;
     display: grid;

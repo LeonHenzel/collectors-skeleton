@@ -1,63 +1,81 @@
 <template>
-  <div>
-  <div id="specificPlayer" v-for="player in playerList" :key="player">
-    Name: {{player.playerName}}
+  <div id="collectorsOtherPlayers">
+  <div class="specificPlayer" v-for="player in playerList" :key="player">
+    <div class="otherPlayerWrapper">
+      <div v-if="player.myTurn" class="arrow">
+        <div class="arrowContainer">
+            <div class="arrow">
+            </div>
+        </div>
+      </div>
+
+    <div class="playerName">
+
+
+      <span v-if="player.myTurn">
+        {{player.playerName}} is playing
+      </span>
+      <span v-else>
+        Name: {{player.playerName}}
+      </span>
+    </div>
     <div class="playerInfoWrapper">
-      <div class="isPlayingBox playerBox">
-        <span v-if="player.myTurn">Is playing</span>
+      <div class="pointsSymbol">
       </div>
-      <div class="moneyBox playerBox">
-        Money: {{player.money}}
+      <div class="pointsPlayer">
+
+          {{player.points}}
+
 
       </div>
-      <div class="pointsBox playerBox">
-        points: {{player.points}}
+      <div class="energySymbol">
+
 
       </div>
-      <div class="firstPlayerBox playerBox">
-        <span v-if="player.firstPlayerToken">Firstplayer next round</span>
-      </div>
-      <div class="energyBottlesBox playerBox">
-        EnergyBottles: {{player.energyBottles}}
+      <div class="energyPlayer">
+
+          {{player.energyBottles}}
+
 
       </div>
+      <div class="moneySymbol">
+
+      </div>
+      <div class="playerMoney">
+        {{player.money}}
+      </div>
+
 
     </div>
 
 
+
+
     <div class="itemSummaryWrapper">
-
-
       <div class="firstItem itemsBox">
         Movie
         <div>
         {{player.itemsByNumber.movie}}
       </div>
-
       </div>
-
       <div class="secondItem itemsBox">
         Music
         <div>
           {{player.itemsByNumber.music}}
         </div>
       </div>
-
       <div class="thirdItem itemsBox">
         technology
         <div>
           {{player.itemsByNumber.technology}}
         </div>
-
       </div>
-
       <div class="fourthItem itemsBox">
         figures
         <div>
         {{player.itemsByNumber.figures}}
       </div>
       </div>
-
       <div class="fithItem itemsBox">
         fastaval
         <div>
@@ -65,7 +83,10 @@
       </div>
       </div>
 
+
+
     </div>
+  </div>
   </div>
 </div>
 </template>
@@ -82,11 +103,70 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+#collectorsOtherPlayers {
+  width: 100%;
+  height: 100%;
+}
+
+.specificPlayer {
+  width: 100%;
+  height: 100%
+}
+
+.otherPlayerWrapper {
+  width: 100%;
+  height: 33%;
+  display: grid;
+  grid-template-columns: 1% 24% 24% 24% 24%;
+  grid-template-rows: 33% 33% 33%;
+  grid-gap: 1%;
+  background-color: black;
+  border: solid black;
+  border-radius: 1%;
+
+}
+
+.arrowContainer {
+  grid-column: 1;
+  grid-row: 1;
+  background-color: black;
+}
+
+
+
+.arrow{
+  position:  relative;
+    left: -3700%;
+    top: -10%;
+  height: 150%;
+  width: 4400%;
+  text-align: center;
+  content: url('/images/arrowSymbol.png');
+}
+
+
+
+.firstPlayer {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.playerName {
+  grid-column: 2/5;
+  grid-row: 1;
+  background-color: white;
+}
+
 .itemSummaryWrapper {
+  grid-column: 2/5;
+  grid-row: 2/4;
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
-  grid-template-rows: 50%;
+  grid-template-rows: 59%;
 }
+
+
 
 .firstItem {
   grid-column: 1;
@@ -121,43 +201,94 @@ export default {
 }
 
 .playerInfoWrapper {
+    grid-column: 5;
+    grid-row:1/4;
     display: grid;
-    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10%;
-    grid-template-rows: 49% 49%;
-    grid-gap: 1%
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 33% 33% 33%;
+    grid-gap: 1%;
+    border: solid black;
+    border-radius: 1%;
+    background-color: black;
 }
 
-.isPlayingBox {
-  grid-column: 1/4;
+.playerInfoWrapper>div {
+  background-color: white;
+}
+
+.pointsPlayer {
+  text-align: center;
+  padding: 30%;
+}
+
+.playerMoney {
+  text-align: center;
+  padding: 30%;
+}
+
+.energyPlayer {
+  text-align: center;
+  padding: 30%;
+}
+
+
+
+
+
+
+.pointsSymbol {
+  grid-column: 1;
   grid-row: 1;
+  content: url('/images/victoryPoints-Symbol.png');
+  height: 33%;
+  width: 100%;
 }
 
-.firstPlayerBox {
-  grid-column: 1/6;
+.pointsPlayer {
+  grid-column: 2;
+  grid-row: 1;
+
+}
+
+
+.energySymbol {
+  grid-column: 1;
   grid-row: 2;
+  content: url('/images/energyDrink-Symbol.png');
+  height: 33%;
+  width: 100%;
+
 }
 
-.energyBottlesBox {
-  grid-column: 6/10;
-  grid-row: 2
+.energyPlayer {
+  grid-column: 2;
+  grid-row: 2;
+
 }
 
-.pointsBox {
-  grid-column: 7/10;
-  grid-row: 1;
+.moneySymbol {
+  grid-column: 1;
+  grid-row: 3;
+  content: url('/images/moneySymbol.png');
+  height: 33%;
+  width: 100%;
+
 }
 
-.moneyBox {
-  grid-column: 4/7;
-  grid-row: 1
+.playerMoney {
+  grid-column: 2;
+  grid-row: 3;
+
+
 }
 
 .playerBox {
   width: 100%;
   height: 100%;
   border: 2px solid black;
-  background-color: white;
 }
+
+
 
 
 
