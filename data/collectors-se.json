@@ -9,13 +9,17 @@
 	"raiseMarket": "Öka värdet",
 	"ready": "Redo?",
 	"currentlyitsround": "Nu är det runda:",
-	"itsyourturn": "det är din tur!",
+	"itsyourturn": "Det är din tur!",
+	"itsnotyourturn": "Det är inte din tur!"
 	"currentrankings": "Nu är ställningen följande:",
 	"hasthismanypoints": "har så här många poäng:",
 	"whosturnisit": "Vems tur är det?",
 	"its": "Det är",
 	"turn": "tur",
-	"whosbidding": "Vems tur är det att buda?"
-
+	"whosbidding": "Vems tur är det att buda?",
+	"youhavethismanybottles": "Du har så här många energiflaskor:",
+	"yourbankcontainsthismany": "Du har så här mycket pengar:",
+	"coins": "",
+	"coin": ""
 
 }

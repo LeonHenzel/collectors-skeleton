@@ -149,6 +149,8 @@
           <div class="otherPlayers">
             <h2>Stats</h2>
             <h3>{{labels.currentlyitsround}} {{round}}</h3>
+            <CollectorsOtherPLayers v-if="allPlayersReady"
+            :playerList="playerList"/>
             <br>
 
             <h3>{{labels.currentrankings}}</h3>
@@ -265,16 +267,37 @@
 
          </div>
 
-         <div class = "playerInfo">
-           <h1>Player info</h1>
-           MyTurn: {{players[playerId].myTurn}}
-           Firstplayer: {{players[playerId].firstPlayerToken}}
-           energyBottles: {{players[playerId].energyBottles}}
-           maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
-           money: {{players[playerId].money}}
-           auctionIncome: {{players[playerId].auctionIncome}}
-           playerVal: {{players[playerId].randomVal}}
-           PlayerNumb: {{players[playerId].playerNumberInList}}
+         <div class="playerInfo">
+
+           <div id="theOtherPlayers">
+             <CollectorsOtherPlayers v-if="allPlayersReady"
+              :playerList="playerList" />
+           </div>
+           <div id="mePlayer">
+             <h1>Player info</h1>
+
+             <div v-if="players[playerId].myTurn"> {{labels.itsyourturn}}  </div>
+             <div v-else>  {{labels.itsnotyourturn}}</div><br>
+
+             <div>{{labels.youhavethismanybottles}} {{players[playerId].energyBottles}} </div><br>
+
+              <div v-if="players[playerId].money==1">{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coin}}</div>
+              <div v-else>{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coins}}</div><br>
+
+              <br><br><br>
+             Firstplayer: {{players[playerId].firstPlayerToken}}
+             energyBottles: {{players[playerId].energyBottles}}
+             maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
+             money: {{players[playerId].money}}
+             auctionIncome: {{players[playerId].auctionIncome}}
+             playerVal: {{players[playerId].randomVal}}
+             PlayerNumb: {{players[playerId].playerNumberInList}}
+           </div>
+
+
+
+
+
 
          </div>
       </div>
@@ -487,6 +510,7 @@ import CollectorsMarket from '@/components/CollectorsMarket.vue'
 import CollectorsAuctionPayment from '@/components/CollectorsAuctionPayment.vue'
 import CollectorsIncome from '@/components/CollectorsIncome.vue'
 import CollectorsStartGame from '@/components/CollectorsStartGame.vue'
+import CollectorsOtherPlayers from '@/components/CollectorsOtherPlayers.vue'
 
 
 
@@ -502,7 +526,8 @@ export default {
     CollectorsAuctionPayment,
     CollectorsIncome,
     CollectorsWorkers,
-    CollectorsStartGame
+    CollectorsStartGame,
+    CollectorsOtherPlayers
 
   },
   data: function () {
@@ -1383,6 +1408,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     color:ivory;
   }
 
+  .nameEnter{
+    margin-top: 45vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nameEnter button{
+    height: 30px;
+    background-color: rgb(95, 255, 220);
+    border-radius: 8px;
+  }
+
   /*här börjar css för navbar öä*/
   .menuBar{
     background-color: black;
@@ -1604,6 +1643,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-row: 2;
     background-color: beige;
     color: black;
+    font-weight: bold;
   }
 
   .Items{
@@ -1616,6 +1656,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-column: 2/ span 2;
     grid-row: 3;
   }
+
 
   .auctionWrapper{
     margin: 2px;
@@ -1796,6 +1837,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 /*layout för spelet*/
+#theOtherPlayers {
+  width: 100%;
+  height: 50%;
+}
+
   .layout{
     z-index:3;
     display: grid;
@@ -1878,12 +1924,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 /*adjust to screen sizes*/
   /*@media screen and (max-width: 800px) {*/
-  @media screen all and (min-width: 48em){
-    main {
-      /*width:60em;*/
-
-    }
 
 
-  }
+
+
 </style>

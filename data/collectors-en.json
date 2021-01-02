@@ -9,13 +9,18 @@
 	"raiseMarket": "Raise Market",
 	"ready": "Ready?",
 	"currentlyitsround": "Currently it's round:",
-	"itsyourturn": "it's your turn!",
+	"itsyourturn": "It's your turn!",
 	"currentrankings": "The currents leaderboard is as follows:",
 	"hasthismanypoints": "has this many points:",
 	"whosturnisit": "Who's turn is it?",
 	"its": "it's",
 	"turn": "turn",
-	"whosbidding": "Who's bidding next?"
+	"whosbidding": "Who's bidding next?",
+	"youhavethismanybottles": "You have this many energybottles:",
+	"yourbankcontainsthismany": "Your account balance is:",
+	"coins": "coins",
+	"coin": "coin",
+	"itsnotyourturn": "It's not your turn right now"
 
 
 }
