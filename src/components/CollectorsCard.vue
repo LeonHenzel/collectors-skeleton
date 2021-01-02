@@ -36,9 +36,6 @@ export default {
   }
 
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
-  .card:hover{
-
-  }
 
   .available-to-choose {
     animation: jiggle 1s ease-in-out;

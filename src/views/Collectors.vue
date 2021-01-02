@@ -212,101 +212,103 @@
 
          <div class="playerInfo">
 
-           <div id="theOtherPlayers">
-             <CollectorsOtherPlayers v-if="players[playerId]"
-              :playerList="playerList" />
-           </div>
-           <div id="mePlayer">
-             <h1>Player info</h1>
+            <div id="theOtherPlayers">
+              <CollectorsOtherPlayers v-if="players[playerId]"
+                :playerList="playerList" />
+            </div>
+            
+            <div id="mePlayer">
+                <div class="myStatus">
+                  <h2>My Status</h2>
 
-             <div v-if="players[playerId].myTurn"> {{labels.itsyourturn}}  </div>
-             <div v-else>  {{labels.itsnotyourturn}}</div><br>
-
-             <div>{{labels.youhavethismanybottles}} {{players[playerId].energyBottles}} </div><br>
-
-              <div v-if="players[playerId].money==1">{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coin}}</div>
-              <div v-else>{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coins}}</div><br>
-
-              <br><br><br>
-             Firstplayer: {{players[playerId].firstPlayerToken}}
-             energyBottles: {{players[playerId].energyBottles}}
-             maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
-             money: {{players[playerId].money}}
-             auctionIncome: {{players[playerId].auctionIncome}}
-             playerVal: {{players[playerId].randomVal}}
-             PlayerNumb: {{players[playerId].playerNumberInList}}
-           </div>
+                  <div>
+                  <CollectorsMePlayer v-if="players[playerId]"
+                    :player="players[playerId]" />
+                  </div>
 
 
+                  <button href="#" class = "openPlayerviewGridButton" @click="expandPlayerviewGrid()">Expand My Cards</button>
+
+                </div>
+
+                  <div class="myCards">
+                    <h2>My Hand</h2>
+                    <div class="myHand">
+                        <div class="cardslots" v-if="players[playerId]">
+                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                        </div>
+                    </div>
+                    
+                    <div class="itemsAndSkills">
+                      <div>
+                        <h2>My Items</h2>
+                        <div class="myItems">
+                            <div class="cardslots" v-if="players[playerId]">
+                              <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                            </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h2>My Skills</h2>
+                        <div class="mySkills">
+                            <div class="cardslots" v-if="players[playerId]">
+                              <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Firstplayer: {{players[playerId].firstPlayerToken}}
+                  energyBottles: {{players[playerId].energyBottles}}
+                  maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
+                  money: {{players[playerId].money}}
+                  auctionIncome: {{players[playerId].auctionIncome}}
+                  playerVal: {{players[playerId].randomVal}}
+                  PlayerNumb: {{players[playerId].playerNumberInList}} -->
 
 
 
+                
+                <div class="overlayPlayerView" id = "expandPlayerview">
+                  <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
+                  <div class="myHandOverlay">
+                    <h4>My Hand</h4>
+                    <div class="cardslots" v-if="players[playerId]">
+                      <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                    </div>
+                  </div>
 
-         </div>
+                  <div class="myItemsOverlay">
+                    <h4>My Items</h4>
+                    <div class="cardslots" v-if="players[playerId]">
+                      <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                    </div>
+                  </div>
+
+                  <div class="mySkillsOverlay">
+                    <h4>My Skills</h4>
+                    <div class="cardslots" v-if="players[playerId]">
+                      <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                    </div>
+                  </div>
+                  <div class="buttons">
+                    <button @click="drawCard">
+                      {{ labels.draw }}
+                    </button>
+                  </div>
+                  <button href="#" class = "playerboardGridButton" @click="minimizePlayerviewGrid()"> Minimize </button>
+                </div>
+
+            </div>
+
+          </div>
 
 
       </div>
 
 
-        <div class="playerView" >
-          <button href="#" class = "openPlayerviewGridButton" @click="expandPlayerviewGrid()">Expand</button>
-          <h3>Playerview</h3>
-          <div class="myHand">
-            <h4>My Hand</h4>
-            <div class="cardslots" v-if="players[playerId]">
-              <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
-            </div>
-          </div>
-
-          <div class="myItems">
-            <h4>My Items</h4>
-            <div class="cardslots" v-if="players[playerId]">
-              <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
-            </div>
-          </div>
-
-          <div class="mySkills">
-            <h4>My Skills</h4>
-            <div class="cardslots" v-if="players[playerId]">
-              <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
-            </div>
-          </div>
-          <div class="buttons">
-            <button @click="drawCard">
-              {{ labels.draw }}
-            </button>
-          </div>
-          <div class="overlayPlayerView" id = "expandPlayerview">
-            <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
-            <div class="myHandOverlay">
-              <h4>My Hand</h4>
-              <div class="cardslots" v-if="players[playerId]">
-                <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
-              </div>
-            </div>
-
-            <div class="myItemsOverlay">
-              <h4>My Items</h4>
-              <div class="cardslots" v-if="players[playerId]">
-                <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
-              </div>
-            </div>
-
-            <div class="mySkillsOverlay">
-              <h4>My Skills</h4>
-              <div class="cardslots" v-if="players[playerId]">
-                <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
-              </div>
-            </div>
-            <div class="buttons">
-              <button @click="drawCard">
-                {{ labels.draw }}
-              </button>
-            </div>
-            <button href="#" class = "playerboardGridButton" @click="minimizePlayerviewGrid()"> Minimize </button>
-          </div>
-
-        </div>
 
 
 
@@ -338,6 +340,13 @@
 
 
 
+
+    </div>
+
+
+
+    </main>
+
       {{allPlayersIn}}
       {{allPlayersReady}}
       <div v-if="allPlayersIn">
@@ -349,15 +358,6 @@
         @secretCardChoosen="secretCardChoosen($event)"/>
       </div>
 
-
-    </div>
-
-
-
-    </main>
-    {{players[playerId].skillVP}}
-    {{players[playerId].itemsByNumber}}
-    {{players[playerId].points}}
     <br>
     MARKET
     {{marketValues}}
@@ -390,6 +390,7 @@ import CollectorsAuctionPayment from '@/components/CollectorsAuctionPayment.vue'
 import CollectorsIncome from '@/components/CollectorsIncome.vue'
 import CollectorsStartGame from '@/components/CollectorsStartGame.vue'
 import CollectorsOtherPlayers from '@/components/CollectorsOtherPlayers.vue'
+import CollectorsMePlayer from '@/components/CollectorsMePlayer.vue'
 
 
 
@@ -406,7 +407,8 @@ export default {
     CollectorsIncome,
     CollectorsWorkers,
     CollectorsStartGame,
-    CollectorsOtherPlayers
+    CollectorsOtherPlayers,
+    CollectorsMePlayer
 
   },
   data: function () {
@@ -1558,6 +1560,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: beige;
     color: black;
     font-weight: bold;
+    height: 100%;
+    position: relative;
+    /* overflow-y: hidden; */
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 100%;
+
   }
 
   .Items{
@@ -1625,6 +1634,50 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   /*Dekstop menu end*/
   /*här slutar css för navbar*/
 
+  #mePlayer{
+    height: 100%;
+  }  
+
+  .myStatus{
+    background-color: rgb(77, 219, 219);
+    border: 6px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 20px;
+    position: relative;
+    width: 98%;
+    height: 100%;
+  }
+
+  .myCards{
+    margin-top: -72%;
+    margin-left: 5%;
+    transform: scale(0.45);
+    transform-origin: left top;
+  }
+
+  .itemsAndSkills div{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .myHand div{
+    display: grid;
+    grid-template-columns: 130px 130px 130px 130px 130px 130px 130px 130px 130px 130px 130px;
+  }
+
+  .myItems div, .mySkills div{
+    display: grid;
+    grid-template-columns: 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+  }
+
+
+  .itemsAndSkills{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 50%;
+  }
+
   .overlayPlayerView{
     position: fixed;
     width: 0%;
@@ -1673,7 +1726,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin-top: 30px;
   }
   .overlayPlayerView a{
-    paddin: 10px;
+    padding: 10px;
     color: white;
     display: block;
   }
