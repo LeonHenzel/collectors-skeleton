@@ -86,6 +86,7 @@
 
 
       </div>
+      <hr>
     </div>
     </div>
 </div>
@@ -106,8 +107,7 @@ export default {
 
 .collectorsOtherPlayers {
   width: 100%;
-  height: 100%;
-  z-index: 1000;
+  height: 33%;
 }
 
 .specificPlayer {
@@ -117,7 +117,7 @@ export default {
 
 .otherPlayerWrapper {
   width: 100%;
-  height: 33%;
+  height: 100%;
   display: grid;
   grid-template-columns: 1% 24% 24% 24% 24%;
   grid-template-rows: 33% 33% 33%;

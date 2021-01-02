@@ -655,8 +655,8 @@ export default {
         this.discardTwo=d.discardTwo;
         this.allPlayersIn=d.allPlayersIn;
         this.allPlayersReady=d.allPlayersReady;
-        this.sortPlayerList();
         this.playerCount=d.playerCount;
+        this.sortPlayerList();
       }.bind(this));
 
 
