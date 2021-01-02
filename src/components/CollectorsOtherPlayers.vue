@@ -2,21 +2,18 @@
   <div class="collectorsOtherPlayers">
     <div class="specificPlayer" v-for="player in playerList" :key="player">
       <div class="otherPlayerWrapper">
-        <div v-if="player.myTurn" class="arrow">
-          <div class="arrowContainer">
-              <div class="arrow">
-              </div>
-          </div>
-        </div>
 
       <div class="playerName">
 
 
-        <span v-if="player.myTurn">
-          {{player.playerName}} is playing
-        </span>
-        <span>
-        {{player.playerName}}
+        <span class="nameWrapper">
+          <div class="playing" v-if="player.myTurn">
+            Playing
+          </div>
+          {{player.playerName}}
+          <button class="expandButton" type="submit">
+            <img src="https://www.pinclipart.com/picdir/middle/218-2186085_click-for-full-screen-expand-icon-svg-clipart.png" height="20" width="20">
+          </button>
         </span>
       </div>
       <div class="playerInfoWrapper">
@@ -110,6 +107,38 @@ export default {
   height: 33%;
 }
 
+.nameWrapper{
+  background-color: 	#f8f8ff;
+  display: flex;
+}
+
+.expandButton{
+  display: inline-block;
+  height: 100%;
+  z-index: 5000;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.expandButton:hover{
+  cursor: pointer;
+}
+
+.playing{
+  display: inline-block;
+  border: 3px dotted yellow;
+  background-color: green;
+  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  border-radius: 3rem;
+  font-size: 10pt;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: white;
+  transform: scale(0.45);
+  transform-origin: top left;
+}
+
 .specificPlayer {
   width: 100%;
   height: 100%
@@ -154,7 +183,7 @@ export default {
 }
 
 .playerName {
-  grid-column: 2/5;
+  grid-column: 2/ span 5;
   grid-row: 1;
   background-color: white;
 }

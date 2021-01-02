@@ -2,7 +2,7 @@
     <div class="CollectorsBuySkill">
       <div class="gridWrapper">
         <button href="#" title="go here for more info" class="openButton openSkills" @click="openNav()">
-          <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
+          <img src="https://static.thenounproject.com/png/225624-200.png" width="30" height="30">
           Skills
         </button>
         <div class="buy-skills">
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="buttonWrapper">
-          <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
+          <div :class="['buttons', {'red':p.cost>0}]" v-for="(p, index) in placement" :key="index">
             <button id="smallPurchaseButton"
               v-if="p.playerId===null"
               :disabled="cannotAfford(p.cost)"
