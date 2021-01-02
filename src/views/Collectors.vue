@@ -589,6 +589,7 @@ export default {
       discardTwo: false,
       allPlayersIn: false,
       allPlayersReady: false,
+      playerList: []
 
 
     }
@@ -639,7 +640,8 @@ export default {
         this.isPlacedList=d.isPlacedList;
         this.discardTwo=d.discardTwo;
         this.allPlayersIn=d.allPlayersIn;
-        this.allPlayersReady=d.allPlayersReady
+        this.allPlayersReady=d.allPlayersReady;
+        this.sortPlayerList();
       }.bind(this));
 
 
@@ -850,6 +852,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
     this.$store.state.socket.on('turnChanged',function(d){
       this.players=d.players;
+      this.sortPlayerList();
     }.bind(this));
 
     this.$store.state.socket.on('roundChanged', function(d){
@@ -865,6 +868,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
       this.auctionPlacement=d.placements.auctionPlacement;
       this.workerPlacement=d.placements.workerPlacement;
       this.incomePhase=d.incomePhase;
+      this.sortPlayerList();
     }.bind(this));
 
     this.$store.state.socket.on('incomeRaised',function(d){
@@ -924,11 +928,38 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
     this.$store.state.socket.on('setUpFixed',function(d){
       this.players=d.players;
+      this.sortPlayerList();
       this.allPlayersReady=d.allPlayersReady;
+
     }.bind(this));
 
   },
   methods: {
+
+    sortPlayerList: function(){
+      if(Object.keys(this.players).length!==this.playerCount){
+        return
+      }
+      this.playerList=[]
+      for(let id in this.players){
+        this.playerList.push(this.players[id])
+      }
+      for(let n=0;n<this.playerCount-1;n+=1){
+        for(let i=0;i<this.playerCount-1;i+=1){
+          if(this.playerList[i].playerNumberInList>this.playerList[i+1].playerNumberInList){
+            let memory=this.playerList[i];
+            this.playerList[i]=this.playerList[i+1];
+            this.playerList[i+1]=memory;
+          }
+        }
+      }
+      while(this.playerList[this.playerCount-1].playerNumberInList!==this.players[this.playerId].playerNumberInList){
+        let memory=this.playerList.pop();
+        this.playerList.unshift(memory);
+      }
+      this.playerList.pop();
+
+    },
 
     allReady: function(){
       this.$store.state.socket.emit('allAreReady',{roomId: this.$route.params.id})
