@@ -86,7 +86,8 @@
           </div>
 
 
-        <!-- här börjar auction -->
+
+          <!-- här börjar auction -->
           <div class="Auction">
             <!-- detta är vad som synns i overview.  -->
             <div class="frontAuction">
@@ -171,44 +172,11 @@
 
           <!-- här slutar auction-->
 
-         </div>
 
-<!--
-
-         <div class="playerInfo">
-
-           <div id="theOtherPlayers">
-             hejehjehje
-             <CollectorsOtherPlayers v-if="allPlayersReady"
-              :playerList="playerList" />
-           </div>
-           <div id="mePlayer">
-             <h1>Player info</h1>
-
-             <div v-if="players[playerId].myTurn"> {{labels.itsyourturn}}  </div>
-             <div v-else>  {{labels.itsnotyourturn}}</div><br>
-
-             <div>{{labels.youhavethismanybottles}} {{players[playerId].energyBottles}} </div><br>
-
-              <div v-if="players[playerId].money==1">{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coin}}</div>
-              <div v-else>{{labels.yourbankcontainsthismany}} {{players[playerId].money}} {{labels.coins}}</div><br>
-
-              <br><br><br>
-             Firstplayer: {{players[playerId].firstPlayerToken}}
-             energyBottles: {{players[playerId].energyBottles}}
-             maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
-             money: {{players[playerId].money}}
-             auctionIncome: {{players[playerId].auctionIncome}}
-             playerVal: {{players[playerId].randomVal}}
-             PlayerNumb: {{players[playerId].playerNumberInList}}
-           </div>
+        </div>
 
 
 
-
-
-
-         </div> -->
 
           <div class="playerInfo">
 
@@ -307,26 +275,6 @@
             :labels="labels"
             :player="players[playerId]"
             @income="income($event)"/>
-
-      <!--
-      <div class="buttons">
-        <button @click="drawCard">
-          {{ labels.draw }}
-        </button>
-      </div>
-      My Hand
-      <div class="cardslots" v-if="players[playerId]">
-          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
-        </div>
-      My Items
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
-      </div>
-      My Skills
-      <div class="cardslots" v-if="players[playerId]">
-        <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
-      </div>
-      -->
 
 
 
