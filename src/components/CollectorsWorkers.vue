@@ -86,6 +86,7 @@
   .workerButtons{
     display: grid;
     grid-template-columns: 100px 100px 100px 100px 100px;
+    grid-gap: 1%;
   }
 
   .workerButtonsContent{
