@@ -21,6 +21,8 @@
 	"yourbankcontainsthismany": "Du har så här mycket pengar:",
 	"coins": "",
 	"coin": "",
-	"chooseyoursecretcard": "Välj ditt hemliga kort!"
+	"chooseyoursecretcard": "Välj ditt hemliga kort!",
+	"isready": "är redo",
+	"isnotready": "är inte redo"
 
 }

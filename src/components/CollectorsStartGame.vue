@@ -9,7 +9,7 @@
     <div class="choosecardswrapper">
 
 
-      <h1> {{labels.chooseyoursecretcard}} </h1>
+      <h1 v-if="player.secret.length===0"> {{labels.chooseyoursecretcard}} </h1>
 
     <div class="choosecards" v-if="player.secret.length===0">
 
@@ -22,10 +22,10 @@
       <ul v-for="playerr in allPlayers" :key="playerr">
         <div v-if="playerr.ready">
         {{playerr.playerName}}<span v-if="playerr.secret.length===0">Is choosing secret Item</span>
-        <span v-else>Is ready</span>
+        <span v-else> <h1>{{labels.isready}}</h1></span>
         </div>
         <div v-else>
-          {{playerr.playerName}} Is not ready
+          <h1>{{playerr.playerName}} {{labels.isnotready}} </h1>
         </div>
       </ul>
     </div>
@@ -86,10 +86,7 @@ width: 100%;
   align-items:center;
   justify-content: center;
 }
-.startbutton{
-  width: 500px;
-  height: 200px
-}
+
 .choosecards{
 
   display:flex;
@@ -108,6 +105,45 @@ width: 100%;
   left:50%;
   transform: translate(-50%,-50%);
 
+}
+.startbutton {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.startbutton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.startbutton span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.startbutton:hover span {
+  padding-right: 25px;
+}
+
+.startbutton:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 
 

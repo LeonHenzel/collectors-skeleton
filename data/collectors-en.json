@@ -21,6 +21,8 @@
 	"coins": "coins",
 	"coin": "coin",
 	"itsnotyourturn": "It's not your turn right now",
-	"chooseyoursecretcard": "Choose your secret card!"
+	"chooseyoursecretcard": "Choose your secret card!",
+	"isready": "is ready",
+	"isnotready": "is not ready"
 
 }
