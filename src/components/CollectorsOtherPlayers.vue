@@ -1,22 +1,24 @@
 <template>
   <div class="collectorsOtherPlayers">
-    <div class="specificPlayer" v-for="(player, index) in playerList" :key="index">
+    <div class="specificPlayer" v-for="player in playerList" :key="player">
       <div class="otherPlayerWrapper">
-        <div v-if="player.myTurn" class="arrow">
-          <div class="arrowContainer">
-              <div class="arrow">
-              </div>
-          </div>
-        </div>
 
       <div class="playerName">
 
 
-        <span v-if="player.myTurn">
-          {{player.playerName}} is playing
-        </span>
-        <span v-else>
-          Name: {{player.playerName}}
+        <span class="nameWrapper">
+
+
+          {{player.playerName}}
+          <div class="playing" v-if="player.myTurn">
+            Playing
+          </div>
+          <div class=firstPlayer>
+            1st
+          </div>
+          <button class="expandButton" type="submit">
+            <img src="https://www.pinclipart.com/picdir/middle/218-2186085_click-for-full-screen-expand-icon-svg-clipart.png" height="20" width="20">
+          </button>
         </span>
       </div>
       <div class="playerInfoWrapper">
@@ -53,31 +55,31 @@
 
       <div class="itemSummaryWrapper">
         <div class="firstItem itemsBox">
-          Movie
+          <img src="/images/movieItem.png"  />
           <div>
           {{player.itemsByNumber.movie}}
         </div>
         </div>
         <div class="secondItem itemsBox">
-          Music
+          <img src="/images/musicItem.png" />
           <div>
             {{player.itemsByNumber.music}}
           </div>
         </div>
         <div class="thirdItem itemsBox">
-          technology
+        <img src="/images/techItem.png" />
           <div>
             {{player.itemsByNumber.technology}}
           </div>
         </div>
         <div class="fourthItem itemsBox">
-          figures
+          <img src="/images/figursItem.png" />
           <div>
           {{player.itemsByNumber.figures}}
         </div>
         </div>
         <div class="fithItem itemsBox">
-          fastaval
+          <img src="/images/fastavalItem.png" />
           <div>
           {{player.itemsByNumber.fastaval}}
         </div>
@@ -86,6 +88,7 @@
 
 
       </div>
+      <hr>
     </div>
     </div>
 </div>
@@ -106,8 +109,66 @@ export default {
 
 .collectorsOtherPlayers {
   width: 100%;
+  height: 33%;
+}
+
+.nameWrapper{
+  background-color: 	#f8f8ff;
+  display: flex;
+}
+
+.expandButton{
+  display: inline-block;
   height: 100%;
-  z-index: 1000;
+  z-index: 5000;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.expandButton:hover{
+  cursor: pointer;
+}
+
+.itemSummaryWrapper>div{
+  text-align: center;
+}
+
+.itemSummaryWrapper>div>img {
+
+
+  height: 72%;
+  width: 100%;
+  transform: scale(0.9);
+  transform-origin: top left;
+}
+
+.playing{
+  display: inline-block;
+  border: 3px dotted yellow;
+  background-color: green;
+  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  border-radius: 3rem;
+  font-size: 10pt;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: white;
+  transform: scale(0.45);
+  transform-origin: top left;
+}
+
+.firstPlayer{
+  display: inline-block;
+  border: 3px dotted yellow;
+  background-color: brown;
+  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  border-radius: 3rem;
+  font-size: 10pt;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: white;
+  transform: scale(0.45);
+  transform-origin: top left;
 }
 
 .specificPlayer {
@@ -117,7 +178,7 @@ export default {
 
 .otherPlayerWrapper {
   width: 100%;
-  height: 33%;
+  height: 100%;
   display: grid;
   grid-template-columns: 1% 24% 24% 24% 24%;
   grid-template-rows: 33% 33% 33%;
@@ -154,7 +215,7 @@ export default {
 }
 
 .playerName {
-  grid-column: 2/5;
+  grid-column: 2/ span 5;
   grid-row: 1;
   background-color: white;
 }

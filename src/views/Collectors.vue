@@ -81,6 +81,7 @@
             :labels="labels"
             :player="players[playerId]"
             :placement="marketPlacement"
+            :marketValues="marketValues"
             @placeBottle="placeBottle('market',$event)"
             @changeTwoMarket="changeTwoMarket()"/>
           </div>
@@ -184,7 +185,7 @@
               <CollectorsOtherPlayers v-if="players[playerId]"
                 :playerList="playerList" />
             </div>
-            
+
             <div id="mePlayer">
                 <div class="myStatus">
                   <div class=myStatusContent>
@@ -201,7 +202,7 @@
                       <span>Expand My Cards</span>
                     </button>
 
-              
+
 
                     <div class="myCards">
                       <div class="myHand">
@@ -210,7 +211,7 @@
                             <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
                           </div>
                       </div>
-                      
+
                       <div class="itemsAndSkills">
                           <div class="myItems">
                               <h2>My Items</h2>
@@ -218,7 +219,7 @@
                                 <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
                               </div>
                         </div>
-                        
+
                         <div>
                           <div class="mySkills">
                             <h2>My Skills</h2>
@@ -231,7 +232,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="overlayPlayerView" id = "expandPlayerview">
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="myHandOverlay">
@@ -1582,7 +1583,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   #mePlayer{
     height: 100%;
-  }  
+  }
 
   .myStatus{
     margin-top: -5px;
@@ -1615,7 +1616,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
   /* PLAYERVIEW STYLING */
-  
+
 
   .myCards{
     margin-top: -20px;
@@ -1652,7 +1653,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   @media all and (max-height:954px){
     .myCards{
       margin-top: -9px;
-      display: grid; 
+      display: grid;
       grid-template-columns: 20% 60%;
       grid-gap: 40%;
     }
@@ -1676,10 +1677,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: grid;
       grid-template-columns: 70px 70px 70px 70px;
       grid-template-rows: 100px 100px 100px 100px;
-      
+
     }
 
-    #meCards div:hover{ 
+    #meCards div:hover{
       transform: scale(0.5)translate(-50%,-50%);
     }
   }
