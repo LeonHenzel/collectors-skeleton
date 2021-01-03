@@ -10,7 +10,7 @@
 	"ready": "Redo?",
 	"currentlyitsround": "Nu är det runda:",
 	"itsyourturn": "Det är din tur!",
-	"itsnotyourturn": "Det är inte din tur!"
+	"itsnotyourturn": "Det är inte din tur!",
 	"currentrankings": "Nu är ställningen följande:",
 	"hasthismanypoints": "har så här många poäng:",
 	"whosturnisit": "Vems tur är det?",
@@ -20,6 +20,7 @@
 	"youhavethismanybottles": "Du har så här många energiflaskor:",
 	"yourbankcontainsthismany": "Du har så här mycket pengar:",
 	"coins": "",
-	"coin": ""
+	"coin": "",
+	"chooseyoursecretcard": "Välj ditt hemliga kort!"
 
 }

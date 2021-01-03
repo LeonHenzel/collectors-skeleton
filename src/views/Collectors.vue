@@ -6,8 +6,25 @@
     <button type="submit" @click="submitName">Submit</button>
   </form>
 
+
+
+
+
+
+
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
+      
+      <div class="startgamewrapper">
+      <div v-if="allPlayersIn">
+        <CollectorsStartGame v-if="!allPlayersReady"
+        :labels="labels"
+        :player="players[playerId]"
+        :allPlayers="players"
+        @isReady="isReady()"
+        @secretCardChoosen="secretCardChoosen($event)"/>
+      </div>
+      </div>
 
       <div class="bajs" v-for="(player, index) in players" :key="index">
         {{player.playerName}}
@@ -287,16 +304,6 @@
 
     </main>
 
-      {{allPlayersIn}}
-      {{allPlayersReady}}
-      <div v-if="allPlayersIn">
-        <CollectorsStartGame v-if="!allPlayersReady"
-        :labels="labels"
-        :player="players[playerId]"
-        :allPlayers="players"
-        @isReady="isReady()"
-        @secretCardChoosen="secretCardChoosen($event)"/>
-      </div>
 
     <br>
     MARKET
@@ -760,6 +767,17 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
   },
   methods: {
+
+    openreadypage: function(){
+
+
+
+
+    },
+
+
+
+
 
     sortPlayerList: function(){
       if(Object.keys(this.players).length!==this.playerCount){
@@ -1956,5 +1974,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     /* importerat från UI-gradient */
   }
+
+
 
 </style>
