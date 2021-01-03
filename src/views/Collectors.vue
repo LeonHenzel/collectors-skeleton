@@ -210,7 +210,7 @@
 
          </div> -->
 
-         <div class="playerInfo">
+          <div class="playerInfo">
 
             <div id="theOtherPlayers">
               <CollectorsOtherPlayers v-if="players[playerId]"
@@ -219,58 +219,50 @@
             
             <div id="mePlayer">
                 <div class="myStatus">
-                  <h2>My Status</h2>
+                  <div class=myStatusContent>
+                    <h2>My Status</h2>
 
-                  <div>
-                  <CollectorsMePlayer v-if="players[playerId]"
-                    :player="players[playerId]" />
-                  </div>
-
-
-                  <button href="#" class = "openPlayerviewGridButton" @click="expandPlayerviewGrid()">Expand My Cards</button>
-
-             
-
-                  <div class="myCards">
-                    <div class="myHand">
-                        <h2>My Hand</h2>
-                        <div class="cardslots" id="meCards" v-if="players[playerId]">
-                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
-                        </div>
+                    <div>
+                    <CollectorsMePlayer v-if="players[playerId]"
+                      :player="players[playerId]" />
                     </div>
-                    
-                    <div class="itemsAndSkills">
-                        <div class="myItems">
-                            <h2>My Items</h2>
-                            <div class="cardslots" id="meCards" v-if="players[playerId]">
-                              <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
-                            </div>
+
+
+                    <button href="#" class ="openButton openPlayerviewGridButton" @click="expandPlayerviewGrid()">
+                      <img src="https://image.flaticon.com/icons/png/512/30/30565.png" width="25" height="25">
+                      <span>Expand My Cards</span>
+                    </button>
+
+              
+
+                    <div class="myCards">
+                      <div class="myHand">
+                          <h2>My Hand</h2>
+                          <div class="cardslots" id="meCards" v-if="players[playerId]">
+                            <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                          </div>
                       </div>
                       
-                      <div>
-                        <div class="mySkills">
-                          <h2>My Skills</h2>
-                            <div class="cardslots" id="meCards" v-if="players[playerId]">
-                              <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
-                            </div>
+                      <div class="itemsAndSkills">
+                          <div class="myItems">
+                              <h2>My Items</h2>
+                              <div class="cardslots" id="meCards" v-if="players[playerId]">
+                                <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                              </div>
+                        </div>
+                        
+                        <div>
+                          <div class="mySkills">
+                            <h2>My Skills</h2>
+                              <div class="cardslots" id="meCards" v-if="players[playerId]">
+                                <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                              </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-
                 </div>
-
-                  <!-- Firstplayer: {{players[playerId].firstPlayerToken}}
-                  energyBottles: {{players[playerId].energyBottles}}
-                  maxEnergyBottles: {{players[playerId].maxEnergyBottles}}
-                  money: {{players[playerId].money}}
-                  auctionIncome: {{players[playerId].auctionIncome}}
-                  playerVal: {{players[playerId].randomVal}}
-                  PlayerNumb: {{players[playerId].playerNumberInList}} -->
-
-
-
                 
                 <div class="overlayPlayerView" id = "expandPlayerview">
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
@@ -301,9 +293,7 @@
                   </div>
                   <button href="#" class = "playerboardGridButton" @click="minimizePlayerviewGrid()"> Minimize </button>
                 </div>
-
             </div>
-
           </div>
 
 
@@ -1621,6 +1611,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-width: 2px;
     font-weight: bold;
     z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .openButton img{
+    padding: 3px;
   }
 
   .openAuctionGridButton {
@@ -1640,6 +1637,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }  
 
   .myStatus{
+    margin-top: -5px;
     background-color: rgb(77, 219, 219);
     border: 6px;
     border-style: solid;
@@ -1647,6 +1645,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 20px;
     width: 98%;
     height: 100%;
+  }
+
+  .myStatusContent{
+    margin-top: -10px;
   }
 
   .myCards{
@@ -1660,9 +1662,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     flex-direction: column;
   } */
 
+
+
+
+
+  /* PLAYERVIEW STYLING */
+  
+
+  .myCards{
+    margin-top: -20px;
+  }
+
+  .openPlayerviewGridButton{
+    transform: scale(0.9);
+    font-size: 18px;
+    color: rgb(31, 145, 145);
+  }
+
+  .openPlayerviewGridButton:hover{
+    background-color: rgb(154, 255, 255);
+    border-color: black;
+  }
+
   .myHand div{
     display: grid;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px ;
+    grid-template-columns: 70px 70px 70px 70px 70px 70px 70px 70px 70px ;
   }
 
   .myItems div, .mySkills div{
@@ -1679,6 +1703,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   @media all and (max-height:954px){
     .myCards{
+      margin-top: -9px;
       display: grid; 
       grid-template-columns: 20% 60%;
       grid-gap: 40%;
@@ -1699,17 +1724,22 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
 
     #meCards:hover{
-      transform: scale(1.8);
+      transform: scale(2);
       display: grid;
-      grid-template-columns: 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+      grid-template-columns: 70px 70px 70px 70px;
+      grid-template-rows: 100px 100px 100px 100px;
       
     }
 
     #meCards div:hover{ 
       transform: scale(0.5)translate(-50%,-50%);
     }
+  }
 
-
+  @media all and (max-height:760px){
+    .myCards{
+      display: none;
+    }
   }
 
   .overlayPlayerView{
@@ -1772,6 +1802,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     font-size: 40px;
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   .overlayAuction{
     position: fixed;
     height:100%;
@@ -1804,8 +1847,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 1em;
     border: 5px dotted #fff;
   }
-
-
 
   .CollectorsMarketOverlay{
     border-radius: 1em;
