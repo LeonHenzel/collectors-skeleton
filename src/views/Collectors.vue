@@ -1469,7 +1469,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar ul li:nth-of-type(-n+4){
     width: auto;
     display: block;
-    max-height:30px;
+    max-height:50px;
   }
 
   .menuBar .burgerBarsIcon{
@@ -1510,10 +1510,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .Items{
+    display: inline-block;
     grid-column: 2/ span 2;
     grid-row: 2;
-    background-color: rgb(236, 112, 99);
   }
+
   .Skills{
     display: inline-block;
     grid-column: 2/ span 2;
@@ -1848,7 +1849,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-column: 1/ span 2;
     grid-row: 1;
     border: 5px solid #fff;
-    background-color: #313639;;
+    background-color: #313639;
   }
   .otherPlayers{
     border-radius: 1em;
