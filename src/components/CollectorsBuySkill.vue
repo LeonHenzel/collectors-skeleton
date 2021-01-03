@@ -1,5 +1,6 @@
 <template>
     <div class="CollectorsBuySkill">
+
       <div class="gridWrapper">
         <button href="#" title="go here for more info" class="openButton openSkills" @click="openNav()">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
@@ -32,7 +33,7 @@
       <div>
 
       </div>
-      <div class="overlay" id="nav">
+      <div class="overlay" id="navBuySkill">
           <a href="#" class="closeButton" @click="closeNav()">&times;</a>
           <div class="buy-skills">
             <div class="cardWrapper" v-for="(card, index) in skillsOnSale" :key="index">
@@ -109,10 +110,10 @@ export default {
     },
 
     openNav: function(){
-      document.getElementById('nav').style.height = "100%";
+      document.getElementById('navBuySkill').style.height = "100%";
     },
     closeNav: function(){
-      document.getElementById('nav').style.height = "0%";
+      document.getElementById('navBuySkill').style.height = "0%";
     }
 
   }
