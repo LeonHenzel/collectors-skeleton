@@ -1,44 +1,47 @@
 <template>
   <div class="marketWrapper">
-    <h1>{{labels.raiseMarket}}</h1>
-    <div class="buttons" v-for="(p, index) in placement" :key="index">
+
+    <div class="buttonsMarket">
+      <h1>{{labels.raiseMarket}}</h1>
+    <div  v-for="(p, index) in placement" :key="index">
       <button
         v-if="p.playerId===null"
         :disabled="cannotAfford(p.cost)"
         @click="placeBottle(p)" >
         ${{p.cost}}
-        {{p.numberOfChangedMarkets}}
       </button>
+      x {{p.numberOfChangedMarkets}}
       <div v-if="p.playerId !== null">
         {{p.playerId}}
       </div>
     </div>
+  </div>
     <div class="marketValuesWrapper">
-      <div class="firstValue">
+      <div class="firstValue marketBox">
         {{marketValues.movie}}
       </div>
       <div class="firstValueSym">
         <img src="/images/movieValue.png" />
       </div>
-      <div class="secondValue">
+      <div class="secondValue marketBox">
         {{marketValues.music}}
       </div>
       <div class="secondValueSym">
         <img src="/images/musicValue.png" />
       </div>
-      <div class="thirdValue">
+      <div class="thirdValue marketBox">
         {{marketValues.technology}}
       </div>
       <div class="thirdValueSym">
         <img src="/images/techValue.png" />
       </div>
-      <div class="fourthValue">
+      <div class="fourthValue marketBox">
         {{marketValues.figures}}
       </div>
       <div class="fourthValueSym">
         <img src="/images/figursValue.png" />
       </div>
-      <div class="fithValue">
+      <div class="fithValue marketBox">
         {{marketValues.fastaval}}
       </div>
       <div class="fithValueSym">
@@ -76,25 +79,25 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.buttons {
+.buttonsMarket {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 130px);
-  grid-row: 1;
   grid-column: 1;
+  grid-row: 1;
 }
 
 .marketWrapper {
   display: grid;;
-  grid-template-columns: 100%;
-  grid-template-rows: 20%, 60%;
+  grid-template-columns:30% 40% 30%;
+  grid-template-rows: 20% 30%;
+  text-align: center;
 }
 
-.marketValues {
+.marketValuesWrapper {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2;
   display: grid;
   grid-row: 20% 40%;
-  grid-column: 19% 19% 19% 19% 19%;
+  grid-column: 12% 12% 12% 12% 12%;
 }
 
 .firstValue {
@@ -145,6 +148,21 @@ export default {
 .fithValueSym {
   grid-column: 5;
   grid-row: 2;
+}
+
+.marketValuesWrapper>div>img {
+  width: 90%;
+  height: 100%;
+  top: 0;
+  left:0;
+
+
+
+}
+
+.marketBox {
+  border: solid white;
+  background-color: #8A2BE2;
 }
 
 

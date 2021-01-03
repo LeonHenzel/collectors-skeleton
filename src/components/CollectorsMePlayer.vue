@@ -2,20 +2,14 @@
     <div class="mePlayer" v-if="player">
 
         <div class="mePlayerWrapper">
-            <div v-if="player.myTurn" class="arrow">
-            <div class="arrowContainer">
-                <div class="arrow">
-                </div>
-            </div>
-            </div>
-
             <div class="playerName">
-                <span v-if="player.myTurn" class="textArea">
-                {{player.playerName}}, it is your turn!
-                </span>
-                <span v-else class="textArea">
-                {{player.playerName}}
-                </span>
+              {{player.playerName}}
+              <div class="playing" v-if="player.myTurn">
+                Playing
+              </div>
+              <div class=firstPlayer v-if="player.firstPlayerToken">
+                1st
+              </div>
             </div>
 
             <div class="playerInfoWrapper">
@@ -51,36 +45,36 @@
 
 
             <div class="itemSummaryWrapper">
-                <div class="firstItem itemsBox">
-                Movie
+              <div class="firstItem itemsBox">
+                <img src="/images/movieItem.png"  />
                 <div>
                 {{player.itemsByNumber.movie}}
-                </div>
-                </div>
-                <div class="secondItem itemsBox">
-                Music
+              </div>
+              </div>
+              <div class="secondItem itemsBox">
+                <img src="/images/musicItem.png" />
                 <div>
-                    {{player.itemsByNumber.music}}
+                  {{player.itemsByNumber.music}}
                 </div>
-                </div>
-                <div class="thirdItem itemsBox">
-                technology
+              </div>
+              <div class="thirdItem itemsBox">
+              <img src="/images/techItem.png" />
                 <div>
-                    {{player.itemsByNumber.technology}}
+                  {{player.itemsByNumber.technology}}
                 </div>
-                </div>
-                <div class="fourthItem itemsBox">
-                figures
+              </div>
+              <div class="fourthItem itemsBox">
+                <img src="/images/figursItem.png" />
                 <div>
                 {{player.itemsByNumber.figures}}
-                </div>
-                </div>
-                <div class="fithItem itemsBox">
-                fastaval
+              </div>
+              </div>
+              <div class="fithItem itemsBox">
+                <img src="/images/fastavalItem.png" />
                 <div>
                 {{player.itemsByNumber.fastaval}}
-                </div>
-                </div>
+              </div>
+              </div>
 
 
 
@@ -110,10 +104,10 @@ export default {
 
 .mePlayerWrapper {
   width: 100%;
-  height: 33%;
+  height: 100%;
   display: grid;
   grid-template-columns: 1% 24% 24% 24% 24%;
-  grid-template-rows: 33% 33% 33%;
+  grid-template-rows: 25% 37% 37%;
   grid-gap: 1%;
   background-color: black;
   border: solid black;
@@ -121,24 +115,42 @@ export default {
 
 }
 
-.arrowContainer {
-  grid-column: 1;
-  grid-row: 1;
-  background-color: black;
+.itemSummaryWrapper>div>img {
+
+
+  height: 72%;
+  width: 100%;
+  transform: scale(0.9);
+  transform-origin: top left;
 }
 
-
-
-.arrow{
-  position:  relative;
-    left: -3700%;
-    top: -10%;
-  height: 150%;
-  width: 4400%;
-  text-align: center;
-  content: url('/images/arrowSymbol.png');
+.playing{
+  display: inline-block;
+  border: 3px dotted yellow;
+  background-color: green;
+  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  border-radius: 3rem;
+  font-size: 10pt;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: white;
+  transform: scale(0.45);
+  transform-origin: top left;
 }
 
+.firstPlayer{
+  display: inline-block;
+  border: 3px dotted yellow;
+  background-color: brown;
+  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  border-radius: 3rem;
+  font-size: 10pt;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: white;
+  transform: scale(0.45);
+  transform-origin: top left;
+}
 
 
 .firstPlayer {
@@ -151,8 +163,7 @@ export default {
   grid-row: 1;
   background-color: white;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
 }
 
 .textArea{
@@ -199,6 +210,7 @@ export default {
   height: 160%;
   border: 2px solid black;
   background-color: red;
+  text-align: center;
 }
 
 .playerInfoWrapper {

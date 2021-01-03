@@ -2,7 +2,8 @@
 
 
 <template>
-  <div>
+  <div class="incomeOverlay">
+    <h2>Välj din inkomst</h2>
     <div>
       <label for="drawACard">Dra ett kort</label>
       <input type="checkbox" value="1" v-model="drawCardVar" name="drawACard">
@@ -69,4 +70,13 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.incomeOverlay {
+  background-color: black;
+  height: 100%;
+  width: 100%;
+  border: 5px solid white;
+  text-align: center;
+}
+
+
 </style>
