@@ -117,7 +117,6 @@
   .workerOption{
     width: 95px;
     height: 150px;
-    z-index: 100;
   }
 
   #quarter{
