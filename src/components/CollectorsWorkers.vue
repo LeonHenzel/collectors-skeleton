@@ -5,15 +5,18 @@
       <h1>Work</h1>
     </div>
     <div class="workerButtons">
-      <div v-for="(p,index) in placement" :key="index">
-        <button class="workerOption"
+      <div class="workerButtonsContent" v-for="(p, index) in placement" :key="index">
+        <button class="workerOption" :id="p.action"
           v-if="p.playerId===null"
           @click="placeWorkers(p)"
           :disabled="disablePlacement(index, p.cost)">
           {{p.cost}}
+
+        <div>{{p.action}}</div>
+
         </button>
-        <div v-if="p.playerId !== null">
-          {{p.playerId}}
+        <div class="playerIdPlaced" v-if="p.playerId !== null">
+          {{p.playerId}} PLACED HERE
         </div>
       </div>
     </div>
@@ -62,6 +65,10 @@
 
 <style>
 
+  button{
+    border-radius: 5px;
+  }
+
   .workersWrapper{
     display: flex;
     align-items: center;
@@ -77,12 +84,60 @@
   }
 
   .workerButtons{
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px;
+  }
+
+  .workerButtonsContent{
+    border: black;
+    border-style: solid;
+    border-radius: 10px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .playerIdPlaced{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: bold;
+    color: black;
+    background: #d9a7c7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #fffcdc, #aee1ff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, #fffcdc, #95f3ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
   .workerOption{
-    width: 100px;
+    width: 95px;
     height: 150px;
     z-index: 100;
   }
+
+  #quarter{
+    background-color: green;
+  }
+
+  #recycle{
+    background-color: blueviolet;
+  }
+
+  #twoCards{
+    background-color: blue;
+  }
+
+  #cardsAndfirstPlayer{
+    background-color: yellow;
+  }
+
+  #cardAndIncome{
+    background-color: tomato;
+  }
+
+
 </style>
