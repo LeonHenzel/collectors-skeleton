@@ -2,13 +2,6 @@
     <div class="mePlayer" v-if="player">
 
         <div class="mePlayerWrapper">
-            <div v-if="player.myTurn" class="arrow">
-            <div class="arrowContainer">
-                <div class="arrow">
-                </div>
-            </div>
-            </div>
-
             <div class="playerName">
                 <span v-if="player.myTurn" class="textArea">
                 {{player.playerName}}, it is your turn!
@@ -119,24 +112,6 @@ export default {
   border: solid black;
   border-radius: 1%;
 
-}
-
-.arrowContainer {
-  grid-column: 1;
-  grid-row: 1;
-  background-color: black;
-}
-
-
-
-.arrow{
-  position:  relative;
-    left: -3700%;
-    top: -10%;
-  height: 150%;
-  width: 4400%;
-  text-align: center;
-  content: url('/images/arrowSymbol.png');
 }
 
 
