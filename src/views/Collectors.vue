@@ -229,36 +229,37 @@
 
                   <button href="#" class = "openPlayerviewGridButton" @click="expandPlayerviewGrid()">Expand My Cards</button>
 
-                </div>
+             
 
                   <div class="myCards">
-                    <h2>My Hand</h2>
                     <div class="myHand">
-                        <div class="cardslots" v-if="players[playerId]">
+                        <h2>My Hand</h2>
+                        <div class="cardslots" id="meCards" v-if="players[playerId]">
                           <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
                         </div>
                     </div>
                     
                     <div class="itemsAndSkills">
-                      <div>
-                        <h2>My Items</h2>
                         <div class="myItems">
-                            <div class="cardslots" v-if="players[playerId]">
+                            <h2>My Items</h2>
+                            <div class="cardslots" id="meCards" v-if="players[playerId]">
                               <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
                             </div>
-                        </div>
                       </div>
                       
                       <div>
-                        <h2>My Skills</h2>
                         <div class="mySkills">
-                            <div class="cardslots" v-if="players[playerId]">
+                          <h2>My Skills</h2>
+                            <div class="cardslots" id="meCards" v-if="players[playerId]">
                               <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
                             </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
+
+                </div>
 
                   <!-- Firstplayer: {{players[playerId].firstPlayerToken}}
                   energyBottles: {{players[playerId].energyBottles}}
@@ -1644,26 +1645,24 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-style: solid;
     border-color: white;
     border-radius: 20px;
-    position: relative;
     width: 98%;
     height: 100%;
   }
 
   .myCards{
-    margin-top: -72%;
     margin-left: 5%;
     transform: scale(0.45);
     transform-origin: left top;
   }
 
-  .itemsAndSkills div{
+  /* .itemsAndSkills div{
     display: flex;
     flex-direction: column;
-  }
+  } */
 
   .myHand div{
     display: grid;
-    grid-template-columns: 130px 130px 130px 130px 130px 130px 130px 130px 130px 130px 130px;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px ;
   }
 
   .myItems div, .mySkills div{
@@ -1676,6 +1675,41 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: grid;
     grid-template-columns: 50% 50%;
     grid-gap: 50%;
+  }
+
+  @media all and (max-height:954px){
+    .myCards{
+      display: grid; 
+      grid-template-columns: 20% 60%;
+      grid-gap: 40%;
+    }
+
+    .myHand div{
+    display: grid;
+    grid-template-columns: 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px;
+    }
+
+    .myItems div, .mySkills div{
+    display: grid;
+    grid-template-columns: 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px 0px;
+    }
+
+    #meCards{
+      transition: 0.2s ease;
+    }
+
+    #meCards:hover{
+      transform: scale(1.8);
+      display: grid;
+      grid-template-columns: 70px 70px 70px 70px 70px 70px 70px 70px 70px;
+      
+    }
+
+    #meCards div:hover{ 
+      transform: scale(0.5)translate(-50%,-50%);
+    }
+
+
   }
 
   .overlayPlayerView{

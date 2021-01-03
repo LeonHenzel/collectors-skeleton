@@ -223,9 +223,16 @@ export default {
   }
 
 
-
-
-
+  @media screen and (max-height: 910px) {
+    .auctionLayout{
+      transform: scale(0.9);
+      margin-top: -25px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }  
+  
   @media screen and (max-height: 880px) {
     .auctionLayout{
       transform: scale(0.8);
@@ -250,6 +257,16 @@ export default {
     .auctionLayout{
       transform: scale(0.6);
       margin-top: -70px;
+    }
+    .buttonDiv{
+      margin-left:20px
+    }
+  }
+
+  @media screen and (max-height: 595px) {
+    .auctionLayout{
+      transform: scale(0.55);
+      margin-top: -75px;
     }
     .buttonDiv{
       margin-left:20px
