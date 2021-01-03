@@ -54,6 +54,13 @@
             </div>
           </div>
 
+          <div class="incomeWrapper" v-if="!players[playerId].hasChoosenIncome">
+            <CollectorsIncome
+            :labels="labels"
+            :player="players[playerId]"
+            @income="income($event)"/>
+          </div>
+
           <div class="Skills">
 
             <CollectorsBuySkill v-if="players[playerId]"
@@ -107,6 +114,8 @@
                 @placeBottle="placeBottle('auction', $event)"/>
 
             </div>
+
+
 
 
             <div class="overlayAuction" id = "expandAuction">
@@ -188,10 +197,10 @@
 
             <div id="mePlayer">
                 <div class="myStatus">
-                  <div class=myStatusContent>
+                  <div class="myStatusContent">
                     <h2>My Status</h2>
 
-                    <div>
+                    <div class="myStatusComponent">
                     <CollectorsMePlayer v-if="players[playerId]"
                       :player="players[playerId]" />
                     </div>
@@ -268,19 +277,6 @@
 
       </div>
 
-
-
-
-
-            <CollectorsIncome v-if="!players[playerId].hasChoosenIncome"
-            :labels="labels"
-            :player="players[playerId]"
-            @income="income($event)"/>
-
-
-
-
-
     </div>
 
 
@@ -298,8 +294,6 @@
       </div>
 
     <br>
-    MARKET
-    {{marketValues}}
 
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
@@ -462,8 +456,9 @@ export default {
         this.discardTwo=d.discardTwo;
         this.allPlayersIn=d.allPlayersIn;
         this.allPlayersReady=d.allPlayersReady;
-        this.sortPlayerList();
         this.playerCount=d.playerCount;
+        this.sortPlayerList();
+
       }.bind(this));
 
 
@@ -1023,17 +1018,18 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     marketBottle: function(action, cost=0, twoMarket){
       for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
         this.$set(this.players[this.playerId].hand[i], 'available', true);
-        //console.log(this.players[this.playerId].hand[i],"handen i marketbottle")
       }
-      for (let i = 0; i < this.skillsOnSale.length; i += 1){
-        if(this.skillsOnSale[i].item !== undefined){
-          this.$set(this.skillsOnSale[i], 'available', true);
+      for (let i = this.skillsOnSale.length; i > 0; i -= 1){
+        if(typeof this.skillsOnSale[i-1].item !== "undefined"){
+
+          //this.$set(this.skillsOnSale[i], 'available', true);
+          this.skillsOnSale[i-1].available=true;
           break
         }
       }
-      for (let i = 0; i < this.auctionCards.length; i += 1){
-        if(this.auctionCards[i].item !== undefined){
-          this.$set(this.auctionCards[i], 'available', true);
+      for (let i = this.auctionCards.length; i > 0; i -= 1){
+        if(typeof this.auctionCards[i-1].item !== "undefined"){
+          this.$set(this.auctionCards[i-1], 'available', true);
           break
       }
     }
@@ -1617,7 +1613,14 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myStatusContent{
+    height: 95%;
+    width: 98%;
     margin-top: -10px;
+  }
+
+  .myStatusComponent{
+    height: 30%;
+    width: 98%;
   }
 
   .myCards{
@@ -1740,6 +1743,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
   }
 
+  .incomeWrapper{
+    grid-column: 2/ span 3;
+    grid-row: 2/4;
+    z-index: 5;
+  }
+
   .mySkillsOverlay{
     border-radius: 1em;
     grid-area: mySkillsOverlay;
@@ -1853,7 +1862,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 /*layout för spelet*/
 #theOtherPlayers {
   width: 100%;
-  height: 50%;
+  height: 100%;
 }
 
   .layout{

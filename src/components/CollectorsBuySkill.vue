@@ -9,7 +9,7 @@
         <div class="buy-skills">
           <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
             <CollectorsCard
-              :card="card"
+              :card="skillsOnSale[skillsOnSale.length-1-index]"
               :availableAction="card.available"
               @doAction="buySkill(card)"/>
           </div>
@@ -111,9 +111,11 @@ export default {
 
     buySkill: function (card) {
       if (card.available) {
+
         this.$emit('buySkill', card)
         this.highlightAvailableCards()
       }
+      console.log(this.skillsOnSale);
     },
 
     openNav: function(){

@@ -4,7 +4,7 @@
       <div class="auction-cards">
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
           <CollectorsCard
-            :card="card"
+            :card="auctionCards[auctionCards.length-1-index]"
             :availableAction="card.available"
             @doAction="startAuction(card)"/>
           {{ cardCost(card) }}
