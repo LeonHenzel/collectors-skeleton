@@ -589,7 +589,7 @@ export default {
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
-        if(this.players[this.playerId].myTurn===true){
+        if(this.players[this.playerId].iStartedAuction===true){
         this.changeTurn();
         }
       }.bind(this)
@@ -876,7 +876,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     doAction: function(card){
       if(this.players[this.playerId].myTurn === false){
         console.log("not my turn");
-        return
       }
       else if(this.isPlacedList.item===true){
 
