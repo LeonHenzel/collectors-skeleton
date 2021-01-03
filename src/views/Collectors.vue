@@ -1,11 +1,12 @@
 <template>
   <div>
 
+
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
   </form>
-
+  {{isPlacedList}}
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
@@ -51,6 +52,7 @@
                 :itemsOnSale="itemsOnSale"
                 :marketValues="marketValues"
                 :placement="buyPlacement"
+                :isPlacedList="isPlacedList"
                 @buyCard="buyCard($event)"
                 @placeBottle="placeBottle('buy', $event)"/>
             </div>
@@ -63,6 +65,7 @@
               :player="players[playerId]"
               :skillsOnSale="skillsOnSale"
               :placement="skillPlacement"
+              :isPlacedList="isPlacedList"
               @buySkill="buySkill($event)"
               @placeBottle="placeBottle('skill',$event)"/>
           </div>
@@ -103,6 +106,7 @@
                 :auctionCards="auctionCards"
                 :marketValues="marketValues"
                 :placement="auctionPlacement"
+                :isPlacedList="isPlacedList"
                 @startAuction="startAuction($event)"
                 @placeBottle="placeBottle('auction', $event)"/>
 
@@ -822,6 +826,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       if(this.players[this.playerId].myTurn === false){
         return
       }
+      if(this.isPlacedList.item===true || this.isPlacedList.market===true
+        || this.isPlacedList.skill===true || this.isPlacedList.auction===true
+        || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
+          return
+        }
       else if(action ==="market"){
         this.chosenPlacementCost = cost;
         this.marketBottle(action, cost, this.twoMarket);
@@ -974,12 +983,29 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     setDiscardTwoTrue: function(){
+      if(this.players[this.playerId].myTurn===false){
+        return
+      }
+      if(this.isPlacedList.item===true || this.isPlacedList.market===true
+        || this.isPlacedList.skill===true || this.isPlacedList.auction===true
+        || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
+          return
+        }
+
       this.$store.state.socket.emit('collectorsSetDiscardTwoTrue',{
         roomId: this.$route.params.id})
     },
 
 
     placeWorker: function(d){
+      if(this.players[this.playerId].myTurn===false){
+        return
+      }
+      if(this.isPlacedList.item===true || this.isPlacedList.market===true
+        || this.isPlacedList.skill===true || this.isPlacedList.auction===true
+        || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
+          return
+        }
       console.log("placeWorker")
         if(d.action==="quarter"&&this.round!==4){
           this.$store.state.socket.emit('collectorsQuarterTile',{

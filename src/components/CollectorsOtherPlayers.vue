@@ -13,7 +13,7 @@
           <div class="playing" v-if="player.myTurn">
             Playing
           </div>
-          <div class=firstPlayer>
+          <div class=firstPlayer v-if="player.firstPlayerToken">
             1st
           </div>
           <button class="expandButton" type="submit">

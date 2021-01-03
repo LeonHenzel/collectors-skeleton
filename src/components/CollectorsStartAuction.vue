@@ -39,7 +39,8 @@ export default {
     player: Object,
     auctionCards: Array,
     marketValues: Object,
-    placement: Array
+    placement: Array,
+    isPlacedList: Object
   },
   methods: {
     cannotAfford: function (cost) {
@@ -54,8 +55,14 @@ export default {
       return this.marketValues[card.market];
     },
     placeBottle: function (p) {
+      if(this.isPlacedList.item===true || this.isPlacedList.market===true
+        || this.isPlacedList.skill===true || this.isPlacedList.auction===true
+        || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
+          return
+        }
       this.$emit('placeBottle', p.cost);
       this.highlightAvailableCards(p.cost);
+
     },
     highlightAvailableCards: function (cost=100) {
       if(this.player.myTurn === true && this.player.energyBottles > 0){
@@ -231,8 +238,8 @@ export default {
     .buttonDiv{
       margin-left:20px
     }
-  }  
-  
+  }
+
   @media screen and (max-height: 880px) {
     .auctionLayout{
       transform: scale(0.8);
