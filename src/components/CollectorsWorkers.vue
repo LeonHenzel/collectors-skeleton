@@ -1,16 +1,22 @@
 <template>
   <div class="workersWrapper">
-    <div v-for="(p,index) in placement" :key="index">
-    <button class="workerOption"
-    v-if="p.playerId===null"
-    @click="placeWorkers(p)"
-    :disabled="disablePlacement(index, p.cost)">
-     {{p.cost}}
-    </button>
-    <div v-if="p.playerId !== null">
-      {{p.playerId}}
+    <div class="workersTitle">
+      <img src="https://cdn1.iconfinder.com/data/icons/worker-icons/100/01-1User-512.png" alt="workerImg" width="160px" height="160px">
+      <h1>Work</h1>
     </div>
-  </div>
+    <div class="workerButtons">
+      <div v-for="(p,index) in placement" :key="index">
+        <button class="workerOption"
+          v-if="p.playerId===null"
+          @click="placeWorkers(p)"
+          :disabled="disablePlacement(index, p.cost)">
+          {{p.cost}}
+        </button>
+        <div v-if="p.playerId !== null">
+          {{p.playerId}}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -58,8 +64,20 @@
 
   .workersWrapper{
     display: flex;
+    align-items: center;
+    justify-content: space-evenly;
     background-color: rgb(255, 217, 179);
     width: 100%;
+  }
+
+  .workersTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .workerButtons{
+    display: flex;
   }
 
   .workerOption{
