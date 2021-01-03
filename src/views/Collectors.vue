@@ -6,13 +6,9 @@
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
   </form>
-  {{isPlacedList}}
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
-      <div class="bajs" v-for="(player, index) in players" :key="index">
-        {{player.playerName}}
-      </div>
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
 
@@ -291,8 +287,7 @@
 
     </main>
 
-      {{allPlayersIn}}
-      {{allPlayersReady}}
+
       <div v-if="allPlayersIn">
         <CollectorsStartGame v-if="!allPlayersReady"
         :labels="labels"
