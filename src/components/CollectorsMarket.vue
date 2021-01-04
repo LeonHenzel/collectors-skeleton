@@ -9,8 +9,8 @@
         :disabled="cannotAfford(p.cost)"
         @click="placeBottle(p)" >
         ${{p.cost}}
-        {{p.numberOfChangedMarkets}}
       </button>
+      x {{p.numberOfChangedMarkets}}
       <div v-if="p.playerId !== null">
         {{p.playerId}}
       </div>

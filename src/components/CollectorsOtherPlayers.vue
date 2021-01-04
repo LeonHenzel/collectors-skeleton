@@ -120,7 +120,7 @@ export default {
 .expandButton{
   display: inline-block;
   height: 100%;
-  z-index: 5000;
+  z-index: 2;
   background-color: transparent;
   outline: none;
   border: none;
