@@ -98,6 +98,7 @@
             :labels="labels"
             :player="players[playerId]"
             :placement="workerPlacement"
+            :round="round"
             @placeWorker="placeWorker($event)"
             @setDiscardTwoTrue="setDiscardTwoTrue()"/>
           </div>

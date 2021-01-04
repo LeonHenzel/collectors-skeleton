@@ -6,13 +6,20 @@
     </div>
     <div class="workerButtons">
       <div class="workerButtonsContent" v-for="(p, index) in placement" :key="index">
-        <button class="workerOption" :id="p.action"
+        <button class="workerOption"
           v-if="p.playerId===null"
           @click="placeWorkers(p)"
           :disabled="disablePlacement(index, p.cost)">
-          {{p.cost}}
+          
+        <div v-if="p.action!=='quarter'" :id="p.action"></div>
 
-        <div>{{p.action}}</div>
+        <div v-if="round===1 && p.action==='quarter'" id="quarterRound1"></div>
+        <div v-if="round===2 && p.action==='quarter'" id="quarterRound2"></div>
+        <div v-if="round===3 && p.action==='quarter'" id="quarterRound3"></div>
+        <div v-if="round===4 && p.action==='quarter'" id="quarterRound4"></div>
+
+        <br>
+        {{p.cost}}
 
         </button>
         <div class="playerIdPlaced" v-if="p.playerId !== null">
@@ -85,11 +92,13 @@
 
   .workerButtons{
     display: grid;
-    grid-template-columns: 100px 100px 100px 100px 100px;
+    grid-template-columns: 175px 175px 175px 175px 175px;
     grid-gap: 1%;
   }
 
   .workerButtonsContent{
+    width: 170px;
+    height: 95px;
     border: black;
     border-style: solid;
     border-radius: 10px;
@@ -103,7 +112,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 130px;
+    text-align: center;
+    height: 75px;
+    width: 150px;
     border-radius: 5px;
     text-transform: uppercase;
     font-style: italic;
@@ -115,28 +126,77 @@
   }
 
   .workerOption{
-    width: 95px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
   }
 
-  #quarter{
-    background-color: green;
+  #quarterRound1{
+    content:url("/images/1.1.png");
+    margin-left: -8px;
+    margin-top: -3px;
+    width: 110%;
+    height: 105.5%;
+    border-radius: 5px;
+  }
+
+  #quarterRound2{
+    content:url("/images/1.2.png");
+    margin-left: -8px;
+    margin-top: -3px;
+    width: 110%;
+    height: 105.5%;
+    border-radius: 5px;
+  }
+
+  #quarterRound3{
+    content:url("/images/1.3.png");
+    margin-left: -8px;
+    margin-top: -3px;
+    width: 110%;
+    height: 105.5%;
+    border-radius: 5px;
+  }
+
+  #quarterRound4{
+    content:url("/images/1.4.png");
+    margin-left: -8px;
+    margin-top: -3px;
+    width: 110%;
+    height: 105.5%;
+    border-radius: 5px;
   }
 
   #recycle{
-    background-color: blueviolet;
+    content:url("/images/2.png");
+    margin-left: -5px;
+    width: 107%;
+    height: 101%;
+    border-radius: 5px;
   }
 
   #twoCards{
-    background-color: blue;
+    content:url("/images/3.png");
+    margin-left: -5px;
+    width: 107%;
+    height: 101%;
+    border-radius: 5px;
   }
 
   #cardsAndfirstPlayer{
-    background-color: yellow;
+    content:url("/images/4.png");
+    margin-left: -5px;
+    width: 107%;
+    height: 101%;
+    border-radius: 5px;
   }
 
   #cardAndIncome{
-    background-color: tomato;
+    content:url("/images/5.png");
+    margin-left: -8px;
+    margin-top: -3px;
+    width: 110%;
+    height: 105.5%;
+    border-radius: 5px;
   }
 
 

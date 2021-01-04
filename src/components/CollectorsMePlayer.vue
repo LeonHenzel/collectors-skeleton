@@ -86,7 +86,7 @@
 
 <script>
 export default {
-  name: 'CollectorsOtherPlayers'
+  name: 'CollectorsMePlayer'
 ,
   props: {
     player: Object
@@ -164,6 +164,8 @@ export default {
   background-color: white;
   display: flex;
   align-items: left;
+  justify-content: center;
+
 }
 
 .textArea{
