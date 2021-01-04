@@ -3,6 +3,7 @@
 
 
   <form class="nameEnter" v-if="players[playerId].playerName===''">
+    <h1>ENTER NAME</h1>
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
   </form>
