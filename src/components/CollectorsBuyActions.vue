@@ -2,7 +2,7 @@
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
         <button href="#" class = "openButton openItems" @click="openNav()">Items
-          <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
+          <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" >
         </button>
         <div class="buy-cards">
           <div class="cardDiv" v-for="(card, index) in itemsOnSale" :key="index">
@@ -261,6 +261,11 @@ export default {
 
   .openItems{
     color: rgb(17, 122, 101);
+    }
+
+    .openItems>img {
+      height: 98%;
+      width: auto;
     }
 
   .openItems:hover {

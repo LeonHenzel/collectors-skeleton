@@ -120,7 +120,7 @@
             <!-- detta är vad som synns i overview.  -->
             <div class="frontAuction">
               <button href="#" class = "openButton openAuctionGridButton" @click="expandAuctionGrid()">
-                <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+                <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
                 Auction
               </button>
               <br>
@@ -237,7 +237,7 @@
 
 
                     <button href="#" class ="openButton openPlayerviewGridButton" @click="expandPlayerviewGrid()">
-                      <img src="https://image.flaticon.com/icons/png/512/30/30565.png" width="25" height="25">
+                      <img src="https://image.flaticon.com/icons/png/512/30/30565.png">
                       <span>Expand My Cards</span>
                     </button>
 
@@ -1645,8 +1645,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .openAuctionGridButton {
-  color: rgb(155, 89, 182)
+  color: rgb(155, 89, 182);
   }
+
 
   .openAuctionGridButton:hover {
     background-color: rgb(230, 204, 255);
@@ -1708,6 +1709,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     transform: scale(0.9);
     font-size: 18px;
     color: rgb(31, 145, 145);
+  }
+
+  .openPlayerviewGridButton>img{
+    height: 30px;
+    width: 40px;
   }
 
   .openPlayerviewGridButton:hover{

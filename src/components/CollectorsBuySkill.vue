@@ -250,6 +250,11 @@ export default {
   color: rgb(17, 122, 101);
   }
 
+  .openSkills>img {
+    height: 98%;
+    width: auto;
+  }
+
   .openSkills:hover {
     background-color: rgb(159, 223, 190);
     border-color: black;
