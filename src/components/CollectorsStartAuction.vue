@@ -1,5 +1,6 @@
 <template>
     <div class="auctionLayout">
+      
       <h1>{{ labels.startAuction }}</h1>
       <div class="auction-cards">
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">

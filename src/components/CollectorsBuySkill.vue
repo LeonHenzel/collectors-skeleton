@@ -1,8 +1,7 @@
 <template>
     <div class="CollectorsBuySkill">
-
       <div class="gridWrapper">
-        <button href="#" title="go here for more info" class="openButton openSkills" @click="openNav()">
+        <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
           Skills
         </button>
@@ -16,7 +15,7 @@
         </div>
         <div class="buttonWrapper">
           <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
-            <button id="smallPurchaseButton"
+            <button id="smallPurchaseButtonBuySkill"
               v-if="p.playerId===null"
               :disabled="cannotAfford(p.cost)"
               @click="placeBottle(p)" >
@@ -35,6 +34,15 @@
       </div>
       <div class="overlay" id="navBuySkill">
           <a href="#" class="closeButton" @click="closeNav()">&times;</a>
+          <div class="overlayLayout">
+            <div class="openButtonWrapper">
+              <button href="#" class = "openButton openSkills" @click="closeNav()">
+                <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
+                Skills
+              </button>
+            </div>
+            <div class="buy-skillsWrapper">
+              <h1>These cards are available!</h1>
           <div class="buy-skills">
             <div class="cardWrapper" v-for="(card, index) in skillsOnSale" :key="index">
               <CollectorsCard
@@ -42,8 +50,10 @@
                 :availableAction="card.available"
                 @doAction="buySkill(card)"/>
             </div>
+            </div>
           </div>
-          <div>
+          <div class="buttonsWrapper">
+              <h2>Choose your payment.</h2>
             <div class="buttons" v-for="(p, index) in placement" :key="index">
               <button class="purchaseButton"
                 v-if="p.playerId===null"
@@ -56,9 +66,11 @@
               </div>
             </div>
           </div>
-        <button href="#" class = "playerboardButton" @click="closeNav()">Back to playerboard </button>
+          <div class="backToBoard">
+            <button href="#" class = "playerboardButton" @click="closeNav()">Back to playerboard </button>
+          </div>
+        </div>
       </div>
-
     </div>
 </template>
 
@@ -135,32 +147,39 @@ export default {
     grid-template-columns: repeat(auto-fill, 100px);
   }
 
-
-
   .CollectorsBuySkill{
     height: 23vh;
     border: none;
     background-color: rgb(69, 179, 157);
   }
 
-
-
   .buttons{
     border: 1px solid white;
-    margin: 2px;
+    margin: 5px;
     background-color: green;
     width: 20px;
     height: 20px;
     border-radius: 5rem;
     transform: scale(1.4);
     margin-bottom: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);
   }
+
+  .buttons button{
+    border-radius: 2em;
+    padding: 10px;
+  }
+  .buttons button:hover{
+    background-color: rgb(220, 220, 220);
+  }
+
 
   .red{
     background-color: red;
   }
 
-  #smallPurchaseButton:hover{
+  #smallPurchaseButtonBuySkill:hover{
     cursor: pointer;
   }
 
@@ -184,7 +203,7 @@ export default {
     background-color:rgb(17, 122, 101);
   }
 
-  #smallPurchaseButton{
+  #smallPurchaseButtonBuySkill{
     border-radius: 2rem;
     background-color: transparent;
     border: none;
@@ -242,15 +261,87 @@ export default {
     left: 0;
     background: rgba(0,0,0,.7);
     overflow-x: hidden;
-    z-index: 5;
+    z-index: 6;
     transition: all 0.5s;
   }
 
-  .overlay .buy-skills{
-    background-color: green;
-    width: 70vw;
-    padding: 25px;
-    align-items: baseline;
+  .overlayLayout{
+    background-color: rgb(69, 179, 157);
+    margin: 10%;
+    border-radius: 2em;
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    grid-template-rows: 90% 10%;
+    grid-template-areas:
+    "button cards buyaction"
+    "button backToBoard buyaction";
+  }
+
+  .overlay .buy-skillsWrapper{
+    grid-area: cards;
+    border-right: dotted white;
+    grid-template-rows: 5% 95%;
+    grid-template-areas:
+    "text"
+    "availableCards";
+  }
+  .overlay .buy-skillsWrapper h1{
+    grid-area: text;
+    text-align: center;
+  }
+  .overlay .buy-skillsWrapper .buy-skills{
+    grid-area: availableCards;
+    align-items:center;
+  }
+
+  .overlay .openButtonWrapper{
+    grid-area: button;
+    grid-template-rows: 5% 95%;
+    grid-template-areas:
+    "topLeft"
+    "bottomLeft";
+  }
+
+  .overlay .openButtonWrapper .openButton{
+    grid-area: "topLeft";
+    margin-left:10px;
+    margin-top:10px;
+  }
+
+  .overlay .buttonsWrapper{
+    grid-area: buyaction;
+    grid-template-rows: 5% 95%;
+    grid-template-areas:
+    "textPayment"
+    "payment";
+  }
+  .overlay .buttonsWrapper h2{
+    grid-area: textPayment;
+    text-align: center;
+  }
+
+  .overlay .buttonsWrapper .buttons{
+    grid-area: payment;
+    margin-left: 15%;
+    margin-bottom: 15%;
+  }
+
+  .overlay .backToBoard{
+    right: 50%;
+    border-right: dotted white;
+    transform: bottom;
+    grid-area: backToBoard;
+  }
+  .overlay .backToBoard button{
+    right: 50%;
+    transform: bottom;
+    border-radius: 2em;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-left: 45%;
+  }
+  .overlay .backToBoard button:hover{
+    background-color: rgb(220, 220, 220);
   }
 
   .overlay .buy-skills .cardWrapper{
