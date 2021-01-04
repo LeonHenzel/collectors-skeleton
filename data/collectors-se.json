@@ -23,6 +23,7 @@
 	"coin": "",
 	"chooseyoursecretcard": "Välj ditt hemliga kort!",
 	"isready": "är redo",
-	"isnotready": "är inte redo"
+	"isnotready": "är inte redo",
+	"ischoosingsecretitem": "väljer sitt hemliga kort"
 
 }
