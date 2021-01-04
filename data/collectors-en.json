@@ -24,6 +24,7 @@
 	"chooseyoursecretcard": "Choose your secret card!",
 	"isready": "is ready",
 	"isnotready": "is not ready",
-	"ischoosingsecretitem": "is choosing the secret item."
+	"ischoosingsecretitem": "is choosing the secret item.",
+	"entername": "Enter Name"
 
 }

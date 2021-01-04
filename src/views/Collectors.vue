@@ -1,18 +1,18 @@
 <template>
+
   <div>
 
-
-  <form class="nameEnter" v-if="players[playerId].playerName===''">
+  <div v-if="players[playerId].playerName===''">
+  <form class="nameEnter">
+    <h1>{{labels.entername}}</h1>
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
-  </form>
-
-
-
-
-
-
-
+    </form>
+    <p class="foter">
+          {{ labels.invite }}
+          <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+        </p>
+</div>
 
 
 
@@ -20,7 +20,7 @@
     <main>
 
       <div class="startgamewrapper">
-      <div v-if="allPlayersIn">
+      <div>
         <CollectorsStartGame v-if="!allPlayersReady"
         :labels="labels"
         :player="players[playerId]"
@@ -319,12 +319,7 @@
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
     </button>
-    <footer>
-        <p>
-          {{ labels.invite }}
-          <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-        </p>
-    </footer>
+
   </div>
   </div>
 </template>
@@ -1320,17 +1315,41 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .nameEnter{
-    margin-top: 45vh;
-
-    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
     justify-content: center;
     align-items: center;
   }
 
+  #nameArea{
+    resize: none;
+    margin-bottom: 1rem;
+    outline: none;
+    font-size: 13pt;
+    height: 18pt;
+    text-align: center;
+  }
+
   .nameEnter button{
+    outline: none;
+    color: #313639;
+    border: 1px solid #e60000;
+    letter-spacing: 0.1rem;
+    font-weight: bold;
     height: 30px;
-    background-color: rgb(95, 255, 220);
-    border-radius: 8px;
+    background-color:	#f8f8ff;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.2rem black;
+    transition: 200ms;
+  }
+
+  .nameEnter button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0.4rem 0.38rem 0.28rem black;
   }
 
   /*här börjar css för navbar öä*/
@@ -2059,6 +2078,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     /* importerat från UI-gradient */
   }
+  .foter{
+    bottom: 0;
+    left:0;
+    position: absolute;
+  }
+
 
 
 
