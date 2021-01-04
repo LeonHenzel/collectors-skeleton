@@ -9,8 +9,8 @@
           <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
             <CollectorsCard
               :card="skillsOnSale[skillsOnSale.length-1-index]"
-              :availableAction="card.available"
-              @doAction="buySkill(card)"/>
+              :availableAction="skillsOnSale[skillsOnSale.length-1-index].available"
+              @doAction="buySkill(skillsOnSale[skillsOnSale.length-1-index])"/>
           </div>
         </div>
         <div class="buttonWrapper">
@@ -46,9 +46,9 @@
           <div class="buy-skills">
             <div class="cardWrapper" v-for="(card, index) in skillsOnSale" :key="index">
               <CollectorsCard
-                :card="card"
-                :availableAction="card.available"
-                @doAction="buySkill(card)"/>
+              :card="skillsOnSale[skillsOnSale.length-1-index]"
+              :availableAction="skillsOnSale[skillsOnSale.length-1-index].available"
+              @doAction="buySkill(skillsOnSale[skillsOnSale.length-1-index])"/>
             </div>
             </div>
           </div>
@@ -126,8 +126,8 @@ export default {
 
         this.$emit('buySkill', card)
         this.highlightAvailableCards()
-      }
-      console.log(this.skillsOnSale);
+      }console.log(this.skillsOnSale);
+      console.log(card.item);
     },
 
     openNav: function(){

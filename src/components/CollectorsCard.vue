@@ -4,6 +4,8 @@
       {{card.item}}
       {{card.skill}}
       {{card.market}}
+      <br>
+      {{card.available}}
     </div>
 </template>
 
@@ -38,15 +40,15 @@ export default {
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
 
   .available-to-choose {
-    animation: jiggle 1s ease-in-out;
+    animation: jiggle 10s ease-in-out;
     animation-iteration-count:infinite;
-    box-shadow: 0 0 10px yellow;
+    box-shadow: 0 0 30px yellow;
   }
 
   @keyframes jiggle {
-    0% {transform:rotate(0.5deg);}
-    50% {transform:rotate(-0.5deg);}
-    100% {transform:rotate(0.5deg);}
+    0% {transform:rotate(360deg);}
+    50% {transform:rotate(-360deg);}
+    100% {transform:rotate(360deg);}
   }
 
 

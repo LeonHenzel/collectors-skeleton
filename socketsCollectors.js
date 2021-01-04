@@ -91,7 +91,11 @@ function sockets(io, socket, data) {
       data.placeBottle(d.roomId, d.playerId, d.action, d.cost, d.twoMarket);
       io.to(d.roomId).emit('collectorsBottlePlaced',{
       placements: data.getPlacements(d.roomId),
-      isPlacedList: data.rooms[d.roomId].isPlacedList}
+      isPlacedList: data.rooms[d.roomId].isPlacedList,
+      skillsOnSale: data.rooms[d.roomId].skillsOnSale,
+      auctionCards: data.rooms[d.roomId].auctionCards,
+      players: data.getPlayers(d.roomId),
+      itemsOnSale: data.rooms[d.roomId].itemsOnSale}
       );
     });
 
