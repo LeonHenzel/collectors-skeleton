@@ -1,19 +1,18 @@
 <template>
+
   <div>
 
-
-  <form class="nameEnter" v-if="players[playerId].playerName===''">
-    <h1>ENTER NAME</h1>
+  <div v-if="players[playerId].playerName===''">
+  <form class="nameEnter">
+    <h1>{{labels.entername}}</h1>
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
-  </form>
-
-
-
-
-
-
-
+    </form>
+    <p class="foter">
+          {{ labels.invite }}
+          <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+        </p>
+</div>
 
 
 
@@ -21,7 +20,7 @@
     <main>
 
       <div class="startgamewrapper">
-      <div v-if="allPlayersIn">
+      <div>
         <CollectorsStartGame v-if="!allPlayersReady"
         :labels="labels"
         :player="players[playerId]"
@@ -319,12 +318,7 @@
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
     </button>
-    <footer>
-        <p>
-          {{ labels.invite }}
-          <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-        </p>
-    </footer>
+
   </div>
   </div>
 </template>
@@ -2076,6 +2070,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     /* importerat från UI-gradient */
   }
+  .foter{
+    bottom: 0;
+    left:0;
+    position: absolute;
+  }
+
 
 
 

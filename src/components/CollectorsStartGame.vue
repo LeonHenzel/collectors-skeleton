@@ -3,15 +3,14 @@
   <div class="readyoverlay" id="readyoverlay"  v-if="!player.ready">
 
       <button class="startbutton" @click="isReady()">{{labels.ready}}</button>
-    </div>
 
-  <div class="readyoverlay" v-else>
+    </div>
+    <div class="readyoverlay" v-else>
     <div class="choosecardswrapper">
 
 
       <h1 v-if="player.secret.length===0"> {{labels.chooseyoursecretcard}} </h1>
-
-    <div class="choosecards" v-if="player.secret.length===0">
+      <div class="choosecards" v-if="player.secret.length===0">
 
         <CollectorsCard class="carddiv" v-for="(card, index) in player.hand" :key="index"
           :card="card"
@@ -21,7 +20,7 @@
     <div v-else >
       <ul v-for="playerr in allPlayers" :key="playerr">
         <div v-if="playerr.ready">
-        
+
           <div v-if="playerr.secret.length===0"><h1>{{playerr.playerName}}{{labels.ischoosingsecretitem}}</h1></div>
         <div v-else> <h1>{{playerr.playerName}}{{labels.isready}}</h1></div>
         </div>
@@ -30,7 +29,11 @@
         </div>
       </ul>
     </div>
+
   </div>
+
+    
+
   </div>
 
 </template>
@@ -49,7 +52,16 @@ export default {
     player: Object,
     allPlayers: Object
 
+
   },
+  data: function () {
+    return {
+      publicPath: "localhost:8080/#", //"collectors-groupxx.herokuapp.com/#",
+
+
+    }
+  },
+
   methods: {
     isReady: function(){
       console.log("StartGame")
@@ -145,6 +157,12 @@ width: 100%;
 .startbutton:hover span:after {
   opacity: 1;
   right: 0;
+}
+.footer{
+  bottom: 0;
+  left: 0;
+  position: absolute;
+
 }
 
 
