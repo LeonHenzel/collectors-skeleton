@@ -10,16 +10,17 @@
           v-if="p.playerId===null"
           @click="placeWorkers(p)"
           :disabled="disablePlacement(index, p.cost)">
-          
-        <div v-if="p.action!=='quarter'" :id="p.action"></div>
 
-        <div v-if="round===1 && p.action==='quarter'" id="quarterRound1"></div>
-        <div v-if="round===2 && p.action==='quarter'" id="quarterRound2"></div>
-        <div v-if="round===3 && p.action==='quarter'" id="quarterRound3"></div>
-        <div v-if="round===4 && p.action==='quarter'" id="quarterRound4"></div>
+          <div v-if="p.action!=='quarter'" :id="p.action"></div>
 
-        <br>
-        {{p.cost}}
+          <div v-if="round===1 && p.action==='quarter'" id="quarterRound1"></div>
+          <div v-if="round===2 && p.action==='quarter'" id="quarterRound2"></div>
+          <div v-if="round===3 && p.action==='quarter'" id="quarterRound3"></div>
+          <div v-if="round===4 && p.action==='quarter'" id="quarterRound4"></div>
+
+          <br>
+          Den här jäveln kostar {{p.cost}}
+
 
         </button>
         <div class="playerIdPlaced" v-if="p.playerId !== null">
@@ -50,18 +51,23 @@
 
       disablePlacement: function(index, cost){
         if(this.player.money<cost){
+          // document.getElementsByClassName("workerImage").style.backgroundColor="green";
           return true;
         }
         if(index===1 && this.player.energyBottles===0){
+          // document.getElementsByClassName("workerImage").style.backgroundColor="green";
           return true;
         }
         if(this.round===4 && this.player.energyBottles===0 && index===0){
+          // document.getElementsByClassName("workerImage").style.backgroundColor="green";
           return true;
         }
         if(this.round!==4 && this.player.hand.length<2 && index===0){
+          // document.getElementsByClassName("workerImage").style.backgroundColor="green";
           return true;
         }
         if(index===4 && this.player.hand.length<1){
+          // document.getElementsByClassName("workerImage").style.backgroundColor="green";
           return true;
         }
 
@@ -95,6 +101,10 @@
     display: grid;
     grid-template-columns: 175px 175px 175px 175px 175px;
     grid-gap: 1%;
+  }
+
+  button:disabled{
+    opacity: 0.5;
   }
 
   .workerButtonsContent{
