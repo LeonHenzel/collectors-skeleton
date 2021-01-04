@@ -57,7 +57,6 @@
           </div>
 
           <div class="Skills">
-
             <CollectorsBuySkill v-if="players[playerId]"
               :labels="labels"
               :player="players[playerId]"
@@ -111,11 +110,9 @@
 
             <div class="overlayAuction" id = "expandAuction">
               <a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a>
-
-
-              <div class="completeAuctionDiv">
+              <!--<div class="completeAuctionDiv">-->
                 <div class="auctionWrapper">
-                  Current Auction
+                  <h1>Current Auction</h1>
                     <div class="cardslots">
                       <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
                     </div>
@@ -128,11 +125,17 @@
                     </div>
                   </div>
                   <div class="currentBidWrapper">
-                    <p> Current Bid </p>
-                    <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
-                    <h3 v-if="this.currentBid === -1"> No current auction </h3>
-                    <button id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
-                    <button id="forfeitBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
+                    <div class="currentBidTextWrapper">
+                      <p> Current Bid </p>
+                      <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
+                      <h3 v-if="this.currentBid === -1"> No current auction </h3>
+                    </div>
+                    <div class="raiseBidButtonWrapper">
+                      <button  class="raiseBidButton" id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
+                    </div>
+                    <div class="forfeitBidButtonWrapper">
+                      <button class="forfeitBidButton" id="forfeitBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
+                    </div>
                   </div>
                 </div>
 
@@ -166,7 +169,7 @@
                       <button @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
                     </div>
                 </div>
-              </div>
+              <!--</div>-->
 
             </div>
           </div>
@@ -1752,19 +1755,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     font-size: 40px;
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   .overlayAuction{
     position: fixed;
     height:100%;
@@ -1777,11 +1767,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     transition: all 0.5s;
   }
 
-  .completeAuctionDiv{
+  /*.completeAuctionDiv{
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+
+  }*/
 
   .CollectorsStartAuctionOverlay{
     border-radius: 1em;
@@ -1790,12 +1781,90 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .auctionWrapper{
-    margin: auto auto;
-    margin-top: 8%;
-    width: 80%;
-    padding: 1rem;
-    border-radius: 1em;
-    border: 5px dotted #fff;
+    background-color: rgb(195, 155, 211);
+    margin:10%;
+    border-radius: 2em;
+    display: grid;
+    z-index: 8;
+    grid-template-columns: 20% 60% 20%;
+    grid-template-rows: 33% 33% 34%;
+    grid-template-areas:
+    "auctionLeft  auctionTopMiddle auctionRight"
+    "auctionLeft  auctionMiddle auctionRight"
+    "auctionLeft  auctionMiddle auctionRight";
+  }
+
+  .auctionWrapper h1{
+    text-align: center;
+    grid-area: auctionTopMiddle;
+
+  }
+
+  .auctionWrapper .cardslots{
+    grid-area: auctionMiddle;
+  }
+
+  .currentBidWrapper{
+    align-items: center;
+    border-left: dotted white;
+    grid-area: auctionRight;
+    padding-left: 10%;
+    display: grid;
+    grid-template-rows: 50% 25% 25%;
+    grid-template-areas:
+    "auctionRightTop"
+    "auctionRightMiddle"
+    "auctionRightBottom";
+  }
+
+  .currentBidTextWrapper{
+    grid-area: auctionRightTop;
+
+  }
+
+  .raiseBidButtonWrapper{
+    grid-area: auctionRightMiddle;
+    margin: 5%;
+  }
+
+  .raiseBidButton:hover{
+    cursor: pointer;
+  }
+
+
+  .forfeitBidButtonWrapper{
+    grid-area: auctionRightBottom;
+    margin: 5%;
+  }
+
+  .forfeitBidButton{
+    cursor: pointer;
+  }
+
+  #raiseBidButton{
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    padding: 10%;
+    height: 70%;
+    width: 100%;
+    background: #43C6AC;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #F8FFAE, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #F8FFAE, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+  #forfeitBidButton{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    padding: 10%;
+    height: 70%;
+    width: 100%;
+    background: #ED213A;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 
   .CollectorsMarketOverlay{
@@ -1901,40 +1970,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
 
-  .currentBidWrapper{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .currentBidWrapper p {
-    margin: 0;
-  }
-
-  #raiseBidButton{
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 6px;
-    height: 80px;
-    width: 200px;
-    background: #43C6AC;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #F8FFAE, #43C6AC);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #F8FFAE, #43C6AC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-  }
-
-  #forfeitBidButton{
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 6px;
-    height: 80px;
-    width: 180px;
-    background: #ED213A;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  }
 
   .bidWinnerWrapperInvisible {
     display: none;

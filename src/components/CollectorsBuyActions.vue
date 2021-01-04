@@ -15,7 +15,7 @@
         </div>
         <div class="buttonWrapper">
           <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
-            <button id="smallPurchaseButton"
+            <button id="smallPurchaseButtonBuyActions"
               v-if="p.playerId===null"
               :disabled="cannotAfford(p.cost)"
               @click="placeBottle(p)" >
@@ -187,7 +187,7 @@ export default {
     background-color: rgb(220, 220, 220);
   }
 
-  #smallPurchaseButton{
+  #smallPurchaseButtonBuyActions{
     height: 20px;
     width: 20px;
     background-color: transparent;
@@ -197,7 +197,7 @@ export default {
     color: white;
   }
 
-  #smallPurchaseButton:hover{
+  #smallPurchaseButtonBuyActions:hover{
     cursor: pointer;
   }
 
@@ -275,7 +275,7 @@ export default {
 
   .overlayLayout{
     background-color: rgb(236, 112, 99);
-    margin: 100px;
+    margin: 10%;
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;

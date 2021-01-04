@@ -1,5 +1,6 @@
 <template>
     <div class="auctionLayout">
+      
       <h1>{{ labels.startAuction }}</h1>
       <div class="auction-cards">
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
@@ -231,8 +232,8 @@ export default {
     .buttonDiv{
       margin-left:20px
     }
-  }  
-  
+  }
+
   @media screen and (max-height: 880px) {
     .auctionLayout{
       transform: scale(0.8);
