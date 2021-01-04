@@ -8,7 +8,6 @@
   </form>
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
-
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
 
@@ -417,8 +416,8 @@ export default {
       console.log(newP, oldP)
       for (let p in this.players) {
         for(let c = 0; c < this.players[p].hand.length; c += 1) {
-          if (typeof this.players[p].hand[c].item !== "undefined")
-          this.$set(this.players[p].hand[c], "available", false);
+          /*if (typeof this.players[p].hand[c].item !== "undefined")
+          this.$set(this.players[p].hand[c], "available", false);*/
         }
       }
     }
@@ -465,11 +464,16 @@ export default {
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
+        this.players = d.players;
+        console.log(this.players[this.playerId].hand);
         this.buyPlacement = d.placements.buyPlacement;
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
         this.isPlacedList = d.isPlacedList;
+        this.skillsOnSale=d.skillsOnSale;
+        this.auctionCards=d.auctionCards;
+        this.itemsOnSale=d.itemsOnSale;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -630,7 +634,7 @@ export default {
       this.twoMarket=d.twoMarket;
       if (this.twoMarket===true){
         //console.log("kör market en gång till")
-        this.placeBottle('market',0);
+        //this.placeBottle('market',0);
       }
       //console.log(this.twoMarket);
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
@@ -1019,17 +1023,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
         this.$set(this.players[this.playerId].hand[i], 'available', true);
       }
-      for (let i = this.skillsOnSale.length; i > 0; i -= 1){
-        if(typeof this.skillsOnSale[i-1].item !== "undefined"){
+      for (let i = 0; i<this.skillsOnSale.length; i += 1){
+        console.log(this.skillsOnSale[i]);
+        if(this.skillsOnSale[i].item !== undefined){
 
           //this.$set(this.skillsOnSale[i], 'available', true);
-          this.skillsOnSale[i-1].available=true;
+          this.$set(this.skillsOnSale[i],'available',true);
           break
         }
       }
-      for (let i = this.auctionCards.length; i > 0; i -= 1){
-        if(typeof this.auctionCards[i-1].item !== "undefined"){
-          this.$set(this.auctionCards[i-1], 'available', true);
+      for (let i = 0;i<this.auctionCards.length; i += 1){
+        if(this.auctionCards[i].item !== undefined){
+          this.$set(this.auctionCards[i], 'available', true);
+          console.log(this.skillsOnSale[i]);
           break
       }
     }
@@ -1051,15 +1057,16 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
         this.$set(this.players[this.playerId].hand[i], 'available', false);
       }
-      for (let i = 0; i < this.skillsOnSale.length; i += 1){
-        if(this.skillsOnSale[i] !== 'undefined'){
-          //this.$set(this.skillsOnSale[i], 'available', false);
-          //this.skillsOnSale[i].availableAction=true;
+      for (let i = 0; i<this.skillsOnSale.length; i += 1){
+        if(this.skillsOnSale[i].item !== undefined){
+
+          //this.$set(this.skillsOnSale[i], 'available', true);
+          this.$set(this.skillsOnSale[i],'available',false);
           break
         }
       }
-      for (let i = 0; i < this.auctionCards.length; i += 1){
-        if(this.auctionCards[i] !== 'undefined'){
+      for (let i = 0;i<this.auctionCards.length; i += 1){
+        if(this.auctionCards[i].item !== undefined){
           this.$set(this.auctionCards[i], 'available', false);
           break
       }
@@ -1116,7 +1123,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         this.isPlacedList.market=false;
       }
         else{
-          this.isPlacedList.auction=false;
           this.$store.state.socket.emit('collectorsStartAuction', {
           roomId: this.$route.params.id,
           playerId: this.playerId,

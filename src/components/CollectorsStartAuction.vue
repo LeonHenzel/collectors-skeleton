@@ -5,8 +5,8 @@
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
           <CollectorsCard
             :card="auctionCards[auctionCards.length-1-index]"
-            :availableAction="card.available"
-            @doAction="startAuction(card)"/>
+            :availableAction="auctionCards[auctionCards.length-1-index].available"
+            @doAction="startAuction(auctionCards[auctionCards.length-1-index])"/>
           {{ cardCost(card) }}
         </div>
       </div>
@@ -88,6 +88,7 @@ export default {
       }
     },
     startAuction: function (card) {
+      console.log(card.item);
       if (card.available) {
         this.$emit('startAuction', card)
         this.highlightAvailableCards()
