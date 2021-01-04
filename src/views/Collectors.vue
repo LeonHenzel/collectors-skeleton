@@ -144,6 +144,11 @@
                     <br>
                     <h3>Congratulations! You won the bidding.</h3>
                     <br>
+                    <h4>Här är min hand yo </h4>
+                    <div class="cardslots" v-if="players[playerId]">
+                      <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                    </div>
+
                     <br>
                     <h4>Payment</h4>
                     <br>
