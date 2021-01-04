@@ -1,6 +1,8 @@
 <template>
   <div>
 
+  
+
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
@@ -14,13 +16,19 @@
       </div>
     <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
+<img id="logo" src="/images/CollectorsLogo01.png" height="450">
 
     <div class="layout">
 
+
+
       <div class="bigWrapper">
+
         <div class="menuBar">
 
-          <a href="#" class="logo">Collectors</a>
+
+
+          <a href="#" class="logo"></a>
           <input class="menuButton" type="checkbox" id="menuButton">
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
@@ -28,18 +36,19 @@
 
           <ul class="menu">
             <li class="item desktop">
-              <a href="#">Home</a>
-            </li>
-            <li class="item desktop">
-              <a href="#">About</a>
-            </li>
-            <li class="item buttonNav">
               <a href="#">Help</a>
             </li>
-            <li class="item buttonNav secondary">
+            <li class="item desktop">
               <a href="#">Chat</a>
             </li>
+            <li class="item buttonNav">
+              <a href="#">About</a>
+            </li>
+            <li class="item buttonNav secondary">
+              <a id ="ExitGame" href="#">Exit Game</a>
+            </li>
           </ul>
+
         </div>
 
         <div class="gameBoardWrapper">
@@ -1283,11 +1292,15 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: black;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
-    z-index: 6;
+    z-index: 6px;
   }
 
   .menuBar a{
     color: black;
+  }
+
+  #ExitGame{
+    color: darkred;
   }
 
   .menuBar ul{
@@ -1314,12 +1327,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     float: left;
     display: block;
     font-size: 2em;
-    padding: 10px 20px;
-    background: white;
+    padding: 5px 20px;
     border-radius: 50em;
 
 
   }
+
+  #logo{
+   margin-left: 30%;
+   margin-right:30%;
+   margin-top: 0%;
+   margin-bottom: 0%;
+}
+
   .menuBar .menu{
     clear: both;
     max-height: 0;
@@ -1334,7 +1354,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon .barsIcon{
-    background: grey;
+    background: white;
     display: block;
     height: 2px;
     width: 18px;
@@ -1343,7 +1363,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon .barsIcon:before{
-    background: grey;
+    background: white;
     content: "";
     display: block;
     height: 100%;
@@ -1354,7 +1374,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon .barsIcon:after{
-    background: grey;
+    background: white;
     content: "";
     display: block;
     height: 100%;
@@ -1401,7 +1421,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
 
     .menuBar li a{
-      padding: 20px 30px;
+      padding: 5px 30px;
     }
 
     .menuBar .menu{
@@ -1423,7 +1443,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: none;
     }
 
-    .menuBar ul li:nth-of-type(3){
+    .menuBar ul li:nth-of-type(1){
       width: auto;
       order: 1;
       display: block;
@@ -1431,13 +1451,14 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       background: SeaShell;
     }
 
-    .menuBar ul li:nth-of-type(4){
+    .menuBar ul li:nth-of-type(2){
       width: auto;
       order: 2;
       display: block;
       max-height:240px;
       align-items: center;
       background: SeaShell;
+
     }
 
     /*.menuBar .buttonNav .secondary{
