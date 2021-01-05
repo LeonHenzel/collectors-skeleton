@@ -168,7 +168,7 @@ export default {
     grid-column:1;
     margin-top: 5%;
     margin-left: 5%;
-    margin-right: 10%%;
+    margin-right: 10%;
     margin-bottom: 5%;
     display: grid;
     grid-template-columns: 20% 20% 20% 20%;
