@@ -56,7 +56,6 @@
             <li class="item desktop">
               <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
             </li>
-
             <li class="item buttonNav">
               <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">About</a>
             </li>
