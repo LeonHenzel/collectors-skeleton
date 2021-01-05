@@ -1,9 +1,12 @@
 <template>
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
-        <button href="#" class = "openButton openItems" @click="openNav()">Items
-          <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" >
-        </button>
+        <div class="openButtonWrapper">
+          <button href="#" class = "openButton openItems" @click="openNav()">
+            <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
+            Items
+          </button>
+        </div>
         <div class="buy-cards">
           <div class="cardDiv" v-for="(card, index) in itemsOnSale" :key="index">
             <CollectorsCard
@@ -35,8 +38,9 @@
 
         <div class="overlayLayout">
           <div class="openButtonWrapper">
-            <button href="#" class = "openButton openItems" @click="closeNav()">Items
+            <button href="#" class = "openButton openItems" @click="closeNav()">
               <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
+              Items
             </button>
           </div>
           <div class="buy-cardsWrapper">
@@ -241,9 +245,8 @@ export default {
     min-width: 100px;
     grid-column: 1;
     grid-row: 1;
-    padding: 3px;
     cursor: pointer;
-    margin: 2px;
+    margin: 3%;
     border-radius: 28px;
     background-color: transparent;
     -webkit-text-stroke: 1px black;
@@ -252,11 +255,19 @@ export default {
     text-transform: uppercase;
     font-size: 23px;
     font-family: "sans", serif;
-    padding: 5px;
+    padding: 5%;
     border-color: white;
     border-width: 2px;
     font-weight: bold;
     z-index: 3;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .openButton img{
+    padding: 5%;
   }
 
   .openItems{
