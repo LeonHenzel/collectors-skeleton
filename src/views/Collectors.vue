@@ -2,17 +2,11 @@
   <div>
 
 
+
   <form class="nameEnter" v-if="players[playerId].playerName===''">
     <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
     <button type="submit" @click="submitName">Submit</button>
   </form>
-
-
-
-
-
-
-
 
 
 
@@ -35,10 +29,15 @@
 
     <div class="layout">
 
+
+
       <div class="bigWrapper">
+
         <div class="menuBar">
 
-          <a href="#" class="logo">Collectors</a>
+
+
+          <a href="#" class="logo"></a>
           <input class="menuButton" type="checkbox" id="menuButton">
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
@@ -46,18 +45,17 @@
 
           <ul class="menu">
             <li class="item desktop">
-              <a href="#">Home</a>
+              <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
             </li>
-            <li class="item desktop">
-              <a href="#">About</a>
-            </li>
+
             <li class="item buttonNav">
-              <a href="#">Help</a>
+              <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">About</a>
             </li>
             <li class="item buttonNav secondary">
-              <a href="#">Chat</a>
+              <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">Exit Game</a>
             </li>
           </ul>
+
         </div>
 
         <div class="gameBoardWrapper">
@@ -271,6 +269,52 @@
                   </div>
                 </div>
 
+                <div class="aboutOverlay" id = "expandAbout">
+                  <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
+                  <div class="aboutInfoOverlay">
+                    <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h2>Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.
+                    </h2>
+                    <h2>This digital version of the game has been developed as a school project in interface programming</h2>
+                    <h2>Its contributors are:</h2>
+                    <h3>Adam Bergman</h3>
+                    <h3>Anton Dahl</h3>
+                    <h3>Leon Henzel</h3>
+                    <h3>Oskar Jonsson</h3>
+                    <h3>Fredrik Nilsson</h3>
+                    <h3>Kalle Rosengren</h3>
+                  </div>
+                </div>
+
+                <div class="exitOverlay" id = "expandExit">
+                  <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
+                  <div class="exitInfoOverlay">
+                    <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1>This action will end the current game session, are you sure that you want to Exit the game?</h1>
+                    <a href="http://localhost:8080/#/" class="exitForReal" >Exit Game!</a>
+
+                  </div>
+                </div>
+
+                <div class="helpOverlay" id = "expandHelp">
+                  <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
+                  <div class="helpInfoOverlay">
+                    <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1>Rulebook</h1>
+                    <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.44.32.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.02.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.26.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.41.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.12.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.22.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.35.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.44.png">
+                  </div>
+                </div>
+
                 <div class="overlayPlayerView" id = "expandPlayerview">
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="myHandOverlay">
@@ -326,6 +370,7 @@
     </footer>
   </div>
   </div>
+
 </template>
 
 
@@ -1189,6 +1234,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     minimizeAuctionGrid: function(){
       document.getElementById('expandAuction').style.width = "0%";
     },
+
+    expandAboutGrid: function(){
+      document.getElementById('expandAbout').style.width = "100%";
+    },
+
+    minimizeAboutGrid: function(){
+      document.getElementById('expandAbout').style.width = "0%";
+    },
+
+    expandExitGrid: function(){
+      document.getElementById('expandExit').style.width = "100%";
+    },
+
+    minimizeExitGrid: function(){
+      document.getElementById('expandExit').style.width = "0%";
+    },
+
+    expandHelpGrid: function(){
+      document.getElementById('expandHelp').style.width = "100%";
+    },
+
+    minimizeHelpGrid: function(){
+      document.getElementById('expandHelp').style.width = "0%";
+    },
+
   /*slut för knapp tyck för att expanda de olika rutorna*/
 
     raiseBid: function (){
@@ -1330,11 +1400,15 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: black;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
-    z-index: 6;
+    z-index: 6px;
   }
 
   .menuBar a{
     color: black;
+  }
+
+  #ExitGame{
+    color: darkred;
   }
 
   .menuBar ul{
@@ -1361,12 +1435,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     float: left;
     display: block;
     font-size: 2em;
-    padding: 10px 20px;
-    background: white;
+    padding: 5px 20px;
     border-radius: 50em;
 
 
   }
+
+  #logo{
+   margin-left: 30%;
+   margin-right:30%;
+   margin-top: 0%;
+   margin-bottom: 0%;
+}
+
   .menuBar .menu{
     clear: both;
     max-height: 0;
@@ -1381,7 +1462,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon .barsIcon{
-    background: grey;
+    background: white;
     display: block;
     height: 2px;
     width: 18px;
@@ -1390,7 +1471,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon .barsIcon:before{
-    background: grey;
+    background: white;
     content: "";
     display: block;
     height: 100%;
@@ -1401,7 +1482,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon .barsIcon:after{
-    background: grey;
+    background: white;
     content: "";
     display: block;
     height: 100%;
@@ -1440,6 +1521,99 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   /*Tablet menu start*/
   @media all and (min-width:48em){
 
+    .aboutOverlay{
+
+      position: fixed;
+      width: 0%;
+      height:100%;
+      top: 0;
+      right: 0;
+      background: rgba(0,0,0,.7);
+      overflow-x: hidden;
+      z-index: 10;
+      transition: all 0.5s;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0px 0px;
+      grid-template-areas:
+
+    }
+
+    .exitOverlay{
+
+      position: fixed;
+      width: 0%;
+      height:100%;
+      top: 0;
+      right: 0;
+      background: rgba(0,0,0,.7);
+      overflow-x: hidden;
+      z-index: 10;
+      transition: all 0.5s;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0px 0px;
+      grid-template-areas:
+
+
+    }
+
+    .helpOverlay{
+
+      position: fixed;
+      width: 0%;
+      height:100%;
+      top: 0;
+      right: 0;
+      background: rgba(0,0,0,.7);
+      overflow-x: hidden;
+      z-index: 10;
+      transition: all 0.5s;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0px 0px;
+      grid-template-areas:
+
+
+    }
+
+    .aboutInfoOverlay{
+      color: white;
+      margin-left: 30%;
+      margin-top: -5%;
+    }
+
+    .exitInfoOverlay{
+      color: white;
+      margin-left: 30%;
+      margin-top: -5%;
+    }
+
+    .helpInfoOverlay{
+      color: white;
+
+      margin-top: -5%;
+    }
+
+    .exitForReal {
+
+      border-radius: 70em;
+
+      color:darkred;
+      font-style: bold;
+      background-color: white;
+      display: block;
+      max-width: 100px;
+      margin-left: 45%;
+    }
+
+
+  @media (max-width: 920px){
+     .exitForReal:hover{
+        .hide { display:none !important; }
+     }
+  }
+
     .menuBar li{
     float: left;
     }
@@ -1448,7 +1622,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
 
     .menuBar li a{
-      padding: 20px 30px;
+      padding: 5px 30px;
     }
 
     .menuBar .menu{
@@ -1470,7 +1644,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: none;
     }
 
-    .menuBar ul li:nth-of-type(3){
+    .menuBar ul li:nth-of-type(1){
       width: auto;
       order: 1;
       display: block;
@@ -1478,13 +1652,14 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       background: SeaShell;
     }
 
-    .menuBar ul li:nth-of-type(4){
+    .menuBar ul li:nth-of-type(2){
       width: auto;
       order: 2;
       display: block;
       max-height:240px;
       align-items: center;
       background: SeaShell;
+
     }
 
     /*.menuBar .buttonNav .secondary{
@@ -1517,6 +1692,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: auto;
     display: block;
     max-height:50px;
+
   }
 
   .menuBar .burgerBarsIcon{
@@ -1811,6 +1987,33 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     right: 50px;
     font-size: 40px;
   }
+
+  .aboutOverlay .closeAboutGridButton{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 40px;
+    color: white;
+  }
+
+  .exitOverlay .closeExitGridButton{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 40px;
+    color: white;
+
+  }
+
+  .helpOverlay .closeHelpGridButton{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    font-size: 40px;
+    color: white;
+
+  }
+
 
   .overlayAuction{
     position: fixed;
