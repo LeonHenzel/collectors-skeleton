@@ -164,8 +164,15 @@
                   <!-- Får error om jag inte kör denna extra div runt h3:n -->
                   <div v-if="players[playerId]">
                     <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
-                      <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
-                      <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3>
+                      <div class="yourTurnToPoorWrapper">
+                        <div class="yourTurnWrapper">
+                          <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
+                        </div>
+                        <div class="toPoorWrapper">
+                          <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                   <div class="currentBidWrapper">
@@ -2362,6 +2369,24 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .auctionBigWrapper .auctionWrapper .auctionLogoWrapper{
     grid-area: auctionTopLeft;
   }
+
+  .auctionBigWrapper .auctionWrapper .yourTurnToPoorWrapper{
+    grid-area: auctionLeft;
+    display: grid;
+    grid-template-rows: 40% 60%;
+    grid-template-areas:
+    "yourTurnToPoorWrapperTop"
+    "yourTurnToPoorWrapperBottom";
+  }
+
+  .auctionBigWrapper .auctionWrapper .yourTurnToPoorWrapper .yourTurnWrapper{
+    grid-area: yourTurnToPoorWrapperTop;
+  }
+
+  .auctionBigWrapper .auctionWrapper .yourTurnToPoorWrapper .toPoorWrapper{
+    grid-area: yourTurnToPoorWrapperBottom;
+  }
+
 
   .auctionWrapper .cardslots{
     grid-area: auctionMiddle;
