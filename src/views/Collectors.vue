@@ -646,8 +646,10 @@ export default {
         this.players = d.players;
         this.currentAuction = d.currentAuction;
         this.auctionPayment = [];
+        this.minimizeAuctionGrid()
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
+
         }
         if(this.players[this.playerId].iStartedAuction===true){
         this.changeTurn();
@@ -660,6 +662,7 @@ export default {
         this.players = d.players;
         this.currentAuction = d.currentAuction;
         this.auctionPayment = [];
+        this.minimizeAuctionGrid()
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
@@ -674,6 +677,7 @@ export default {
       this.currentAuction = d.currentAuction;
       this.auctionPayment = [];
       this.marketValues=d.market;
+      this.minimizeAuctionGrid()
       if(this.players[this.playerId].bidSkipper === false){
         this.bidWinnerWrapper = d.bidWinnerWrapper;
       }

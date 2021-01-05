@@ -1202,7 +1202,13 @@ let room=this.rooms[roomId];
   room.players[playerId].money -= moneyPayment;
 
 
+
+
   room.players[playerId].hand = winningPlayerHand;
+
+  for(let i=0; i<room.players[playerId].hand.length;i+=1){
+    room.players[playerId].hand[i].available=false;
+  }
 
   room.currentAuction = [];
   room.currentBid = -1;
@@ -1611,8 +1617,14 @@ Data.prototype.placeInItems = function (roomId, playerId, currentAuctionCard, mo
     Data.prototype.raiseItem(currentAuctionCard, room, playerId);
     //room.players[playerId].money -= cardCost;
 
+
+
     //room.players = players;
     room.players[playerId].hand = winningPlayerHand;
+
+    for(let i=0; i<room.players[playerId].hand.length;i+=1){
+      room.players[playerId].hand[i].available=false;
+    }
 
     room.currentAuction = [];
     room.currentBid = -1;
@@ -1631,6 +1643,10 @@ Data.prototype.placeInSkills = function (roomId, playerId, currentAuctionCard, m
     //room.players[playerId].money -= cardCost;
 
     room.players[playerId].hand = winningPlayerHand;
+
+    for(let i=0; i<room.players[playerId].hand.length;i+=1){
+      room.players[playerId].hand[i].available=false;
+    }
 
     room.currentAuction = [];
     room.currentBid = -1;
