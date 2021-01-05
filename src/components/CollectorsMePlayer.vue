@@ -104,8 +104,8 @@ export default {
 }
 
 .mePlayerWrapper {
-  width: 99%;
-  height: 100%;
+  width: 98%;
+  height: 97%;
   display: grid;
   grid-template-columns: 0% 24% 24% 24% 24%;
   grid-template-rows: 25% 37% 37%;

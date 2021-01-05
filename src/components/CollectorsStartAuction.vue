@@ -120,7 +120,7 @@ export default {
 
   .auctionLayout h3{
     color: transparent;
-    
+
     grid-row:1;
     grid-column:1;
     margin-left:20px;
@@ -192,10 +192,10 @@ export default {
     position: absolute;
   }
 
-  .cardDiv:hover{
+  /*.cardDiv:hover{
     transform: scale(1.2) translateY(2rem);
     z-index: 20000000000;
-  }
+  }*/
 
   /*.cardDiv:hover~.cardDiv{
       transform: translateX(2rem);

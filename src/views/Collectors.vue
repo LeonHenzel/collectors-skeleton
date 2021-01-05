@@ -350,7 +350,7 @@
                           </div>
                       </div>
 
-                      <div class="itemsAndSkills">
+                      <!--  <div class="itemsAndSkills">
                           <div class="myItems">
                               <h2>My Items</h2>
                               <div class="cardslots" id="meCards" v-if="players[playerId]">
@@ -366,7 +366,7 @@
                               </div>
                           </div>
                         </div>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                 </div>
@@ -421,12 +421,12 @@
 
     </main>
 
-
+<!--
     <br>
 
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
-    </button>
+    </button>-->
 
   </div>
   </div>
@@ -1912,7 +1912,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .marketWrapperr{
-    margin: 2px;
+    height: 100%;
+    width: 100%;
+    margin: 0px;
     background-color: #4169E1;
     grid-row: 4;
     grid-column: 1/3;
@@ -1994,32 +1996,35 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-style: solid;
     border-color: white;
     border-radius: 20px;
-    width: 98%;
-    height: 100%;
+    width: 95.8%;
+    height: 98%;
   }
 
   .myStatusContent{
-    display: flex;
+
+    grid-template-rows:8% 36% 8% 48%;
+    grid-template-columns: 100%;
+    display: grid;
     flex-direction: column;
     text-align: center;
-    height: 95%;
+    height: 98%;
     width: 98%;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
   }
 
   .myStatusComponent{
-    height: 30%;
+    height: 100%;
     width: 100%;
     padding: 1%;
     margin-left: -1%;
   }
 
-  .myCards{
+  /*.myCards{
     margin-left: 5%;
     transform: scale(0.45);
     transform-origin: left top;
     text-align: left;
-  }
+  }*/
 
   /* .itemsAndSkills div{
     display: flex;
@@ -2032,7 +2037,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   /* PLAYERVIEW STYLING */
   .openPlayerviewGridButton{
-    height: 10%;
+    margin-top: 20%;
+    height: 100%;
     width: 100%;
     transform: scale(0.9);
     font-size: 1.8vh;
@@ -2110,17 +2116,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       transition: 0.2s ease;
     }
 
-    #meCards:hover{
+    /*#meCards:hover{
       transform: scale(2);
       display: grid;
       grid-template-columns: 70px 70px 70px 70px;
       grid-template-rows: 100px 100px 100px 100px;
 
-    }
+    }*/
 
-    #meCards div:hover{
+    /*#meCards div:hover{
       transform: scale(0.5)translate(-50%,-50%);
-    }
+    }*/
   }
 
   /* @media all and (max-height:30em){
@@ -2607,20 +2613,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-columns: repeat(auto-fill, 130px);
     grid-template-rows: repeat(auto-fill, 180px);
   }
-  .cardslots div {
-    /* transform: scale(0.5)translate(-50%,-50%); */
+  /*.cardslots div {
+    transform: scale(0.5)translate(-50%,-50%);
     transition:0.2s;
     transition-timing-function: ease-out;
     z-index: 0;
-  }
-  .cardslots div:hover {
+  }*/
+  /*.cardslots div:hover {
     transform: scale(1)translate(-25%,0);
     z-index: 1;
-  }
+  }*/
 
-  .auctionPaymentCards{
+  /*.auctionPaymentCards{
     transform: scale(0.4)translate(-50%,-50%);
-  }
+  }*/
 
 
 

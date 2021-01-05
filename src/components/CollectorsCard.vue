@@ -40,6 +40,13 @@ export default {
     transform-origin: top left;
   }
 
+  .card:hover{
+    transform: scale(0.6) translateY(2rem);
+    z-index: 20;
+  }
+
+
+
   @media all and (max-width:1500px){
     .card{
       transform: scale(0.47);
@@ -179,6 +186,8 @@ export default {
 
     /* När man hovrar ett kort så ska det åka upp lite. 1rem ≈ 15px atm*/
 
+
+
   .available-to-choose {
     animation: jiggle 10s ease-in-out;
     animation-iteration-count:infinite;
@@ -186,9 +195,9 @@ export default {
   }
 
   @keyframes jiggle {
-    0% {transform:rotate(360deg);}
-    50% {transform:rotate(-360deg);}
-    100% {transform:rotate(360deg);}
+    0% {transform:rotate(0.1deg);}
+    50% {transform:rotate(-0.1deg);}
+    100% {transform:rotate(0.1deg);}
   }
 
 

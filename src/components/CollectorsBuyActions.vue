@@ -163,11 +163,20 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-  .buy-cards {
+  /*.buy-cards {
     margin-top: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fill, 100px);
     grid-column: 2;
+  }*/
+
+  .buy-cards{
+    grid-row: 1;
+    grid-column: 2;
+    display:grid;
+    grid-template-columns: 19% 19% 19% 19% 19%;
+    grid-template-rows:100%;
+
   }
 
   .CollectorsBuyAction {
@@ -379,10 +388,10 @@ export default {
     cursor: pointer;
   }
 
-  .overlay .buy-cards .cardWrapper{
+  /*.overlay .buy-cards .cardWrapper{
     transform-origin: top left;
     transition: 0.2s;
-  }
+  }*/
 
   .overlay .buy-cards .cardWrapper:hover~.cardWrapper{
     transform: translateX(100px);
@@ -460,22 +469,22 @@ export default {
   transform: translateX(130px) flyttar helt enkelt alla targeted
   cards 130px höger (framåt i x-direction)*/
 
-  .cardDiv{
+  /*.cardDiv{
     transition: 0.2s;
     height: 350px;
     width: 250px;
     transform: scale(0.4);
     transform-origin: top left;
-  }
+  }*/
 
-  .cardDiv:hover{
+  /*.cardDiv:hover{
     transform: translateY(-1rem);
     transform: scale(0.5);
     cursor: pointer;
-  }
+  }*/
 
   .cardDiv:hover~.cardDiv{
-      transform: translateX(40px) scale(0.4);
+      transform: translateX(-10%) scale(1.2);
   }
 
   @media all and (max-width:500px){
@@ -498,20 +507,14 @@ export default {
       visibility: hidden;
     }
 
-    .buy-cards{
 
-      grid-column: 2;
-      display:grid;
-      grid-template-columns: repeat(auto-fill, 19%);
-
-    }
-.cardDiv{
+/*.cardDiv{
     transition: 0.2s;
     height: 80%;
     width: 100%;
     transform: scale(0.1);
 
-  }
+  }*/
 
   .buttonWrapper {
     height: 100%;

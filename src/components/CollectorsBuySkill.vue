@@ -143,10 +143,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .buy-skills {
-    margin-top: 10px;
+    grid-row: 1;
     grid-column: 2;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 100px);
+    display:grid;
+    grid-template-columns: 19% 19% 19% 19% 19%;
+    grid-template-rows:100%;
   }
 
   .CollectorsBuySkill{
@@ -367,15 +368,15 @@ export default {
     background-color: rgb(220, 220, 220);
   }
 
-  .overlay .buy-skills .cardWrapper{
+  /*.overlay .buy-skills .cardWrapper{
 
     transform-origin: top left;
     transition: 0.2s;
-  }
+  }*/
 
-  .overlay .buy-skills .cardWrapper:hover~.cardWrapper{
+  /*.overlay .buy-skills .cardWrapper:hover~.cardWrapper{
     transform: translateX(100px);
-  }
+  }*/
 
   .overlay__content{
     position: relative;
@@ -407,7 +408,7 @@ export default {
 
   transform: translateX(130px) flyttar helt enkelt alla targeted
   cards 130px höger (framåt i x-direction)*/
-  .cardDiv{
+  /*.cardDiv{
     transition: 0.2s;
     height: 350px;
     width: 250px;
@@ -418,10 +419,10 @@ export default {
   .cardDiv:hover{
     transform: translateY(-1rem);
     transform: scale(0.5);
-  }
+  }*/
 
-  .cardDiv:hover~.cardDiv{
+  /*.cardDiv:hover~.cardDiv{
       transform: scale(0.4) translateX(70px);
-  }
+  }*/
 
 </style>

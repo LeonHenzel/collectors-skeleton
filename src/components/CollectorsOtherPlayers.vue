@@ -177,7 +177,7 @@ export default {
 }
 
 .otherPlayerWrapper {
-  width: 100%;
+  width: 97%;
   height: 100%;
   display: grid;
   grid-template-columns: 1% 24% 24% 24% 24%;
