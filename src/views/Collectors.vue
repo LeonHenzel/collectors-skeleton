@@ -106,7 +106,7 @@
             @setDiscardTwoTrue="setDiscardTwoTrue()"/>
           </div>
 
-          <div class="marketWrapper">
+          <div class="marketWrapperr">
             <CollectorsMarket v-if="players[playerId]"
             :labels="labels"
             :player="players[playerId]"
@@ -1295,6 +1295,24 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 </script>
 <style scoped>
+#app>div{
+  height: 100%;
+  width: 100%;
+}
+
+#megaWrapper {
+
+  height: 100%;
+  width: 100%;
+}
+
+.startgamewrapper{
+  grid-row: 1;
+  grid-column: 1;
+  height: 100%;
+  width: 100%;
+}
+
   header {
     user-select: none;
     position: fixed;
@@ -1302,7 +1320,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     pointer-events: none;
   }
   main {
-    width:95%;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
     user-select: none;
   }
 
@@ -1355,8 +1377,15 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     box-shadow: 0.4rem 0.38rem 0.28rem black;
   }
 
+  .theOtherPlayers{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   /*här börjar css för navbar öä*/
   .menuBar{
+    grid-column: 1/3;
+    grid-row: 1;
     background-color: black;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
@@ -1555,21 +1584,26 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: none;
   }
 }*/
+
   .bigWrapper{
-    height: 100vh;
-    width: 100vw;
+    grid-row: 1;
+    grid-column: 1;
     display: grid;
-    grid-template-columns: 80% 20%;
-    grid-auto-rows: 5% 95%;
+    grid-template-columns: 72% 28%;
+    grid-template-rows: 7% 93%;
+    height: 100%;
+    width: 100%;
+
   }
 
   .gameBoardWrapper{
-    width: 80vw;
-    grid-column: 1;
+    height: 100%;
+    width: 100%;
     grid-row: 2;
+    grid-column: 1;
     display: grid;
-    grid-template-columns: 33% 33% 34%;
-    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-rows: 20% 30% 30% 20%;
+    grid-template-columns: 33% 66%
   }
 
   .playerInfo{
@@ -1590,14 +1624,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .Items{
     display: inline-block;
-    grid-column: 2/ span 2;
+    height: 100%;
+    width: 100%;
     grid-row: 2;
+    grid-column: 2;
+
   }
 
   .Skills{
     display: inline-block;
-    grid-column: 2/ span 2;
     grid-row: 3;
+    grid-column: 2;
   }
 
 
@@ -1610,16 +1647,16 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .tempWorker{
     margin: 2px;
-    grid-column: 1/ span 3;
     grid-row: 1;
+    grid-column: 1/3;
     background-color: rgb(255, 217, 179);
   }
 
-  .marketWrapper{
+  .marketWrapperr{
     margin: 2px;
     background-color: #4169E1;
-    grid-column: 1/ span 3;
     grid-row: 4;
+    grid-column: 1/3;
   }
 
   .openButton{
@@ -1645,13 +1682,34 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     justify-content: center;
   }
 
+  .frontAuction {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 90%;
+  }
+
+
+
+
   .openButton img{
     padding: 3px;
   }
 
   .openAuctionGridButton {
   color: rgb(155, 89, 182);
+  grid-row: 1;
+  grid-column: 1;
+  height: 100%;
+  width: 60%;
+  text-align: center;
   }
+.openAuctionGridButton>img{
+  height: 80%;
+  width: 10%;
+}
+
 
 
   .openAuctionGridButton:hover {
@@ -1664,6 +1722,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   #mePlayer{
     height: 100%;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .myStatus{
@@ -1970,7 +2030,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .Auction button{
     float: right;
-    margin: 20px;
+    margin-top:  5%;
   }
 
   .overlayAuction__content{
@@ -2003,11 +2063,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .layout{
     z-index:3;
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
-    grid-template-rows: auto 1fr 1fr 1fr;
-    gap: 0px 0px;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
   }
+
+
+
   .menuBar{
     border-radius: 1em;
     grid-column: 1/ span 2;
@@ -2022,8 +2088,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: RoyalBlue;
   }
   .Auction{
+    height: 100%;
+    width: 100%;
+    grid-row: 2/4;
     grid-column: 1;
-    grid-row: 2/ span 2;
     border-radius: 1em;
     border: 5px solid #fff;
     background-color: rgb(195, 155, 211);
@@ -2031,7 +2099,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     padding: 0;
   }
 
+
+
+
   .cardsOnSale{
+    height: 100%;
+    width: 100%;
     border-radius: 1em;
     grid-area: cardsOnSale;
     border: 5px solid #fff;
@@ -2097,168 +2170,47 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   @media all and (max-width:500px){
 
-    #app>div{
-      height: 100%;
-      width: 100%;
-    }
-
-    #megaWrapper {
-      height: 100%;
-      width: 100%;
-
-    }
-
-    .startgamewrapper{
-      grid-row: 1;
-      grid-column: 1;
-      height: 100%;
-      width: 100%;
-    }
-
-
-
-    .layout{
-      grid-column: 1;
-      grid-row: 1;
-      height: 100%;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 100%;
-      grid-template-rows: 100%;
-
-    }
-
-    main {
-      height: 100%;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 100%;
-      grid-template-rows: 100%;
-    }
-
-    .bigWrapper{
-      grid-row: 1;
-      grid-column: 1;
-      display: grid;
-      grid-template-columns: 72% 22%;
-      grid-template-rows: 7% 93%;
-      height: 100%;
-      width: 100%;
-
-    }
-
-    .menuBar {
-      grid-column: 1/3;
-      grid-row: 1;
-    }
-
-    .gameBoardWrapper{
-      grid-row: 2;
-      grid-column: 1;
-      display: grid;
-      grid-template-rows: 20% 30% 30% 20%;
-      grid-template-columns: 33% 66%
-    }
-
-
     .playerInfo{
-      grid-row: 2;
-      grid-column: 2;
-      display: grid;
-      grid-template-rows: 50% 50%;
-      grid-template-columns: 100%;
-    }
-
-    .theOtherPlayers{
-      grid-column: 1;
-      grid-row: 1;
-    }
-
-    #mePlayer{
-      grid-column: 1;
-      grid-row: 2;
+      margin-left: 0px;
     }
 
 
 
-    .Items{
-      height: 100%;
-      width: 100%;
-      grid-row: 2;
-      grid-column: 2;
-    }
 
-    .Skills{
-      grid-row: 3;
-      grid-column: 2;
-    }
+
+
+
+
+
 
     .tempWorker {
-      grid-row: 1;
-      grid-column: 1/3;
+
     }
 
-    .marketWrapper{
-      grid-row: 4;
-      grid-column: 1/3;
+    .marketWrapperr{
+
     }
 
     .Auction {
-      grid-row: 2/4;
-      grid-column: 1;
-      height: 100%;
-      width: 100%;
+
     }
 
-    .openAuctionGridButton{
-      grid-row: 1;
-      grid-column: 1;
-      height: 100%;
-      width: 100%;
-      text-align: center;
-      left: 0px;
-    }
 
     .openButton{
-      position: relative;
-      top: 0;
-      cursor: pointer;
-      margin: 0px;
-      border-radius: 10px;
-      background-color: transparent;
-      -webkit-text-stroke: 1px black;
-      color: transparent;
-      Letter-spacing: 1px;
-      text-transform: uppercase;
-      font-size: 75%;
-      font-family: "sans", serif;
-      padding: 0px;
-      border-color: white;
-      border-width: 2px;
-      font-weight: bold;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    font-size: 75%;
+    margin: 0px;
+    border-radius: 10px;
+  }
+
 
     .openButton img{
       visibility: hidden;
     }
 
-    .frontAuction {
-      height: 100%;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 100%;
-      grid-template-rows: 30% 70%;
-    }
 
 
-    .cardsOnSale{
-      height: 100%;
-      width: 100%;
-    }
+
+
 
     .buttonWrapper{
       display: none;

@@ -1,14 +1,13 @@
 <template>
     <div class="auctionLayout">
 
-      <h1>{{ labels.startAuction }}</h1>
+      <h3>{{ labels.startAuction }}</h3>
       <div class="auction-cards">
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
           <CollectorsCard
             :card="auctionCards[auctionCards.length-1-index]"
             :availableAction="auctionCards[auctionCards.length-1-index].available"
             @doAction="startAuction(auctionCards[auctionCards.length-1-index])"/>
-          {{ cardCost(card) }}
         </div>
       </div>
       <div class="buttonDiv">
@@ -103,22 +102,41 @@ export default {
 <style scoped>
 
   .auctionLayout{
+    width: 100%;
+    height: 100%;
+    grid-row: 2;
+    grid-column: 1;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows:15% 60% 25%;
   }
 
-  .auctionLayout h1{
+
+
+  .auctionLayout h3{
+    color: transparent;
+    
+    grid-row:1;
+    grid-column:1;
     margin-left:20px;
+
   }
 
   .buttonDiv{
-    margin-left: 30px;
-    margin-top: -70px;
+    grid-row:3;
+    grid-column:1;
+
+    margin-left: 0px;
+    margin-top: 0px;
     display: flex;
     flex-direction: row;
+
+
   }
 
   .buttons{
@@ -146,11 +164,16 @@ export default {
   transform: translateX(130px) flyttar helt enkelt alla targeted
   cards 130px höger (framåt i x-direction)*/
   .auction-cards{
-    margin-left: -40px;
-    margin-top: -70px;
+    grid-row:2;
+    grid-column:1;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 10%%;
+    margin-bottom: 5%;
     display: grid;
-    grid-template-columns: 130px 130px 130px 130px 130px 130px 130px;
-    transform: scale(0.5);
+    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-rows: 90%;
+
   }
 
   /* detta funkade inte bra när man startar auction så att ett kort försvinner. Korthögen hoppade längre och längre till vänster */
@@ -159,19 +182,26 @@ export default {
   } */
 
   .cardDiv{
+    height: 100%;
+    width: 100%;
     transition: 0.2s;
+
+  }
+
+  .cardDiv>div{
+    position: absolute;
   }
 
   .cardDiv:hover{
-    transform: scale(1.8) translateY(50px);
+    transform: scale(1.2) translateY(2rem);
     z-index: 20000000000;
   }
 
-  .cardDiv:hover~.cardDiv{
-      transform: translateX(100px);
-  }
+  /*.cardDiv:hover~.cardDiv{
+      transform: translateX(2rem);
+  }*/
 
-  @media screen and (max-width: 1400px) {
+  /*@media screen and (max-width: 1400px) {
     .auctionLayout{
       transform: scale(0.8);
       margin-top: -30px;
@@ -300,21 +330,12 @@ export default {
     .buttonDiv{
       margin-left:20px
     }
-  }
+  }*/
 
     @media all and (max-width:500px){
-      .auctionLayout{
-        width: 100%;
-        height: 100%;
-        grid-row: 2;
-        grid-column: 1;
-        display: grid;
-        grid-template-rows: 75% 25%;
-        transform: scale(0.5);
-        margin-top: -150px;
-      }
 
-      .auctionLayout>h1{
+
+      .auctionLayout>h3{
         color: transparent;
         user-select: none;
       }
