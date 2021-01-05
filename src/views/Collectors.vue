@@ -374,7 +374,17 @@
                 <div class="overlayPlayerView" id = "expandPlayerview">
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
-                    <div class="overlayPlayerView_content">
+                    <div class="overlayPlayerView_leftContent">
+                      <div>
+                        player 1
+                        total points
+                      </div>
+                      <div>
+                        <CollectorsMePlayerOverlay v-if="players[playerId]"
+                        :player="players[playerId]" />
+                      </div>
+                    </div>
+                    <div class="overlayPlayerView_rightContent">
                       <div class="myHandOverlay">
                         <h4>My Hand</h4>
                         <div class="cardslots" v-if="players[playerId]">
@@ -398,6 +408,7 @@
                     </div>
                   </div>
                 </div>
+
             </div>
           </div>
 
@@ -438,6 +449,7 @@ import CollectorsIncome from '@/components/CollectorsIncome.vue'
 import CollectorsStartGame from '@/components/CollectorsStartGame.vue'
 import CollectorsOtherPlayers from '@/components/CollectorsOtherPlayers.vue'
 import CollectorsMePlayer from '@/components/CollectorsMePlayer.vue'
+import CollectorsMePlayerOverlay from '@/components/CollectorsMePlayerOverlay.vue'
 
 
 
@@ -455,7 +467,8 @@ export default {
     CollectorsWorkers,
     CollectorsStartGame,
     CollectorsOtherPlayers,
-    CollectorsMePlayer
+    CollectorsMePlayer,
+    CollectorsMePlayerOverlay
 
   },
   data: function () {
@@ -2167,11 +2180,30 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background: #672d75;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: grid;
+    grid-template-columns: 60% 40%;
   }
 
-  .overlayPlayerView_content{
+
+
+  .overlayPlayerView_leftContent{
     display: grid;
-    grid-template-columns: 33% 33% 33%
+    grid-template-rows: 10% 90%
+    /* position: relative;
+    top: 25%;
+    width: 80%;
+    text-align: center;
+    margin-top: 30px; */
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 0px;
+    grid-template-areas:
+    "myHandOverlay myItemsOverlay mySkillsOverlay"; */
+  }
+
+  .overlayPlayerView_rightContent{
+    display: grid;
+    grid-template-rows: 33% 33% 33%
     /* position: relative;
     top: 25%;
     width: 80%;
@@ -2349,9 +2381,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-area: paymentAuctionWrapperBottomRight;
   }
 
-  #auctionOver{
+  /* #auctionOver{
 
-  }
+  } */
 
 
 
@@ -2619,7 +2651,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 
-
+/* 
     .tempWorker {
 
     }
@@ -2631,7 +2663,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     .Auction {
 
     }
-
+ */
 
     .openButton{
     font-size: 75%;

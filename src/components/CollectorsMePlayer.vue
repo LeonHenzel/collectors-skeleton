@@ -75,9 +75,6 @@
                 {{player.itemsByNumber.fastaval}}
               </div>
               </div>
-
-
-
             </div>
         </div>
     </div>
@@ -107,10 +104,10 @@ export default {
 }
 
 .mePlayerWrapper {
-  width: 100%;
+  width: 99%;
   height: 100%;
   display: grid;
-  grid-template-columns: 1% 24% 24% 24% 24%;
+  grid-template-columns: 0% 24% 24% 24% 24%;
   grid-template-rows: 25% 37% 37%;
   grid-gap: 1%;
   background-color: black;
@@ -223,8 +220,8 @@ export default {
     grid-column: 5;
     grid-row:1/4;
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 33% 33% 33%;
+    grid-template-columns: 49% 49%;
+    grid-template-rows: 32% 32% 32%;
     grid-gap: 1%;
     border: solid black;
     border-radius: 1%;
@@ -250,16 +247,11 @@ export default {
   padding: 30%;
 }
 
-
-
-
-
-
 .pointsSymbol {
   grid-column: 1;
   grid-row: 1;
   content: url('/images/victoryPoints-Symbol.png');
-  height: 33%;
+  height: 32%;
   width: 100%;
 }
 
@@ -274,7 +266,7 @@ export default {
   grid-column: 1;
   grid-row: 2;
   content: url('/images/energyDrink-Symbol.png');
-  height: 33%;
+  height: 32%;
   width: 100%;
 
 }
@@ -289,7 +281,7 @@ export default {
   grid-column: 1;
   grid-row: 3;
   content: url('/images/moneySymbol.png');
-  height: 33%;
+  height: 32%;
   width: 100%;
 
 }

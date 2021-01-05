@@ -94,7 +94,7 @@ width: 100%;
 
 }
 #readyoverlay{
-  align-text:center;
+  text-align: center;
   display: flex;
   align-items:center;
   justify-content: center;
