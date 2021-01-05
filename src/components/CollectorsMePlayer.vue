@@ -96,6 +96,10 @@ export default {
 
 <style lang="css" scoped>
 
+*{
+  font-size: 1.6vh;
+}
+
 
 .mePlayer {
   width: 100%;
@@ -126,7 +130,7 @@ export default {
 
 .playing{
   display: inline-block;
-  border: 3px dotted yellow;
+  border: 3% dotted yellow;
   background-color: green;
   padding: 1.8rem 0.6rem 1.8rem 0.6rem;
   border-radius: 3rem;
@@ -140,11 +144,11 @@ export default {
 
 .firstPlayer{
   display: inline-block;
-  border: 3px dotted yellow;
+  border: 3% dotted yellow;
   background-color: brown;
   padding: 1.8rem 0.6rem 1.8rem 0.6rem;
   border-radius: 3rem;
-  font-size: 10pt;
+  font-size: 100%;
   letter-spacing: 0.1rem;
   font-weight: bold;
   color: white;
