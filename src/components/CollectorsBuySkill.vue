@@ -244,6 +244,14 @@ export default {
     border-width: 2px;
     font-weight: bold;
     z-index: 3;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .openButton img{
+    padding: 5%;
   }
 
   .openSkills {

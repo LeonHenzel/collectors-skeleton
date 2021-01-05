@@ -8,14 +8,6 @@
   </form>
 
 
-
-
-
-
-
-
-
-
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
@@ -132,17 +124,23 @@
                 :isPlacedList="isPlacedList"
                 @startAuction="startAuction($event)"
                 @placeBottle="placeBottle('auction', $event)"/>
-
             </div>
-
-
-
 
             <div class="overlayAuction" id = "expandAuction">
               <a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a>
               <!--<div class="completeAuctionDiv">-->
+              <div class="auctionBigWrapper">
                 <div class="auctionWrapper">
-                  <h1>Current Auction</h1>
+                  <div class="auctionLogoWrapper">
+                    <button href="#" class = "openButton openAuctionGridButton" @click="minimizeAuctionGrid()">
+                      <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+                      Auction
+                    </button>
+                  </div>
+                  <div class="auctionTitleWrapper">
+                    <h1>Current Auction</h1>
+                  </div>
+
                     <div class="cardslots">
                       <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
                     </div>
@@ -168,41 +166,63 @@
                     </div>
                   </div>
                 </div>
+                </div>
 
 
                 <div v-bind:class="bidWinnerWrapper">
-                    <br>
-                    <h3>Congratulations! You won the bidding.</h3>
-                    <br>
-                    <h4>Här är min hand yo </h4>
-                    <div class="cardslots" v-if="players[playerId]">
-                      <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                    <div class="congratsWrapper">
+                      <h1>Congratulations! You won the bidding.</h1>
+                    </div>
+                    <div class="cardslotsWrapper">
+                      <div class="cardslotsTextWrapper">
+                        <h3>Här är min hand yo! </h3>
+                      </div>
+                      <div class="cardslotsCardsWrapper">
+                        <div class="cardslots" v-if="players[playerId]">
+                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                        </div>
+                      </div>
                     </div>
 
-                    <br>
-                    <h4>Payment</h4>
-                    <br>
-                    Click cards in your hand to use them as payment
-                    <br>
-                    These cards will be used as payment:
-                    <div id="auctionPaymentCardslot" v-if="bidWinnerWrapper === 'bidWinnerWrapperVisible'">
-                      <CollectorsAuctionPayment v-if="players[playerId]"
-                        :labels="labels"
-                        :player="players[playerId]"
-                        :auctionPayment="auctionPayment"
-                        @doAction="doAction($event)"/>
+                  <div class="paymentAuctionWrapper">
+                    <div class="paymentAuctionAllTextWrapper">
+                      <div class="paymentAuctionTextWrapper">
+                        <h3>Payment</h3>
+                        <br>
+                        Click cards in your hand to use them as payment
+                        <br>
+                        These cards will be used as payment:
+
+                      </div>
+                      <div class="paymentAuctionPaymentWrapper">
+                        <div id="auctionPaymentCardslot" v-if="bidWinnerWrapper === 'bidWinnerWrapperVisible'">
+                          <CollectorsAuctionPayment v-if="players[playerId]"
+                            :labels="labels"
+                            :player="players[playerId]"
+                            :auctionPayment="auctionPayment"
+                            @doAction="doAction($event)"/>
+                        </div>
+                        <div class="paymentAuctionPaymentTextWrapper">
+                          <br>
+                          Your payment is {{moneyPayment}} coin(s) and the chosen cards
+                          <br>
+                          Confirm payment by choosing where you want to put your won Auction-card
+                        </div>
+                      </div>
                     </div>
-                    <br>
-                    Your payment is {{moneyPayment}} coin(s) and the chosen cards
-                    <br>
-                    <br>
-                    Confirm payment and choose where you want to put your won Auction-card
-                    <br>
-                    <div>
-                      <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
-                      <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
-                      <button @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
-                    </div>
+                      <div class="placeAuctionCardWrapper">
+                        <div class="placeInItems">
+                          <button  @click="placeAuctionCardInItems">Place your newly won card in Items</button>
+                        </div>
+                        <div class="placeInSkills">
+                          <button  @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+                        </div>
+                        <div class="placeInMarket">
+                          <button  @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                        </div>
+                      </div>
+                  </div>
+
                 </div>
               <!--</div>-->
 
@@ -1569,12 +1589,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
 
-  .auctionWrapper{
+  /*.auctionWrapper{
     margin: 2px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-  }
+  }*/
 
   .tempWorker{
     margin: 2px;
@@ -1614,7 +1634,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .openButton img{
-    padding: 3px;
+    padding: 5%;
   }
 
   .openAuctionGridButton {
@@ -1822,6 +1842,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     overflow-x: hidden;
     z-index: 10;
     transition: all 0.5s;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    grid-template-areas:
+    "auctionTop"
+    "auctionBottom";
   }
 
   /*.completeAuctionDiv{
@@ -1830,6 +1855,82 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     align-items: center;
 
   }*/
+  .bidWinnerWrapperVisible {
+    grid-area: auctionBottom;
+    display: grid;
+    margin-left: 5%;
+    margin-right: 5%;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 15% 85%;
+    grid-template-areas:
+    "bidWinnerWrapperTop bidWinnerWrapperTop"
+    "bidWinnerWrapperBottomLeft bidWinnerWrapperBottomRight";
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;*/
+  }
+
+  .bidWinnerWrapperVisible button{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    height: 80px;
+    background: #7affde;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EF629F, #ffc06d);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EF629F, #f5c27f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    /* importerat från UI-gradient */
+  }
+  .bidWinnerWrapperVisible button:hover{
+    cursor:pointer;
+  }
+
+  .bidWinnerWrapperVisible .congratsWrapper{
+    grid-area: bidWinnerWrapperTop;
+    text-align: center;
+  }
+
+  .bidWinnerWrapperVisible .cardslotsWrapper{
+    grid-area: bidWinnerWrapperBottomLeft;
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper{
+    grid-area: bidWinnerWrapperBottomRight;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    grid-template-areas:
+    "paymentAuctionWrapperTop"
+    "paymentAuctionWrapperBottom";
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .paymentAuctionAllTextWrapper{
+    grid-area: paymentAuctionWrapperTop;
+    margin-bottom:5%;
+  }
+
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper{
+    grid-area:paymentAuctionWrapperBottom;
+    display: grid;
+    grid-template-columns: 33% 33% 34%;
+    grid-template-areas:
+    "paymentAuctionWrapperBottomLeft paymentAuctionWrapperBottomMid paymentAuctionWrapperBottomRight";
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInItems{
+    grid-area: paymentAuctionWrapperBottomLeft;
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInSkills{
+    grid-area: paymentAuctionWrapperBottomMid;
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInMarket{
+    grid-area: paymentAuctionWrapperBottomRight;
+  }
+
+
 
   .CollectorsStartAuctionOverlay{
     border-radius: 1em;
@@ -1837,24 +1938,33 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
   }
 
-  .auctionWrapper{
+  .auctionBigWrapper{
+    grid-area: auctionTop;
+  }
+
+  .auctionBigWrapper .auctionWrapper{
     background-color: rgb(195, 155, 211);
-    margin:10%;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 2%;
     border-radius: 2em;
     display: grid;
-    z-index: 8;
     grid-template-columns: 20% 60% 20%;
-    grid-template-rows: 33% 33% 34%;
+    grid-template-rows: 20% 50% 30%;
     grid-template-areas:
-    "auctionLeft  auctionTopMiddle auctionRight"
+    "auctionTopLeft  auctionTopMiddle auctionRight"
     "auctionLeft  auctionMiddle auctionRight"
     "auctionLeft  auctionMiddle auctionRight";
   }
 
-  .auctionWrapper h1{
+  .auctionBigWrapper .auctionWrapper .auctionTitleWrapper{
     text-align: center;
     grid-area: auctionTopMiddle;
+  }
 
+  .auctionBigWrapper .auctionWrapper .auctionLogoWrapper{
+    grid-area: auctionTopLeft;
   }
 
   .auctionWrapper .cardslots{
@@ -2033,24 +2143,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: none;
   }
 
-  .bidWinnerWrapperVisible {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
-  .bidWinnerWrapperVisible button{
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 6px;
-    height: 80px;
-    background: #7affde;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #EF629F, #ffc06d);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #EF629F, #f5c27f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    /* importerat från UI-gradient */
-  }
 
 
 
