@@ -237,7 +237,7 @@
 
                 </div>
 
-                <div v-if="players[playerId].bidSkipper===true" id="auctionOver">
+                <div v-if="players[playerId].bidSkipper===true && currentAuction.length!==0" id="auctionOver">
                   du förlorade auction din sopa
                 </div>
               <!--</div>-->
