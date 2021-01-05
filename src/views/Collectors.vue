@@ -51,7 +51,7 @@
 
             <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
-
+          
           <ul class="menu">
             <li class="item desktop">
               <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
@@ -372,34 +372,30 @@
                 </div>
 
                 <div class="overlayPlayerView" id = "expandPlayerview">
-                  <div class="overlayPlayerView_content">
-                    <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
-                    <div class="myHandOverlay">
-                      <h4>My Hand</h4>
-                      <div class="cardslots" v-if="players[playerId]">
-                        <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                  <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
+                  <div class="overlayPlayerViewWrapper">
+                    <div class="overlayPlayerView_content">
+                      <div class="myHandOverlay">
+                        <h4>My Hand</h4>
+                        <div class="cardslots" v-if="players[playerId]">
+                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="myItemsOverlay">
-                      <h4>My Items</h4>
-                      <div class="cardslots" v-if="players[playerId]">
-                        <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                      <div class="myItemsOverlay">
+                        <h4>My Items</h4>
+                        <div class="cardslots" v-if="players[playerId]">
+                          <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="mySkillsOverlay">
-                      <h4>My Skills</h4>
-                      <div class="cardslots" v-if="players[playerId]">
-                        <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                      <div class="mySkillsOverlay">
+                        <h4>My Skills</h4>
+                        <div class="cardslots" v-if="players[playerId]">
+                          <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                        </div>
                       </div>
                     </div>
-                    <div class="buttons">
-                      <button @click="drawCard">
-                        {{ labels.draw }}
-                      </button>
-                    </div>
-                    <button href="#" class = "playerboardGridButton" @click="minimizePlayerviewGrid()"> Minimize </button>
                   </div>
                 </div>
             </div>
@@ -1978,7 +1974,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .myStatus{
     margin-top: -5px;
-    background-color: rgb(77, 219, 219);
+    background: #672d75;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: 6px;
     border-style: solid;
     border-color: white;
@@ -2025,7 +2023,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: 100%;
     transform: scale(0.9);
     font-size: 1.8vh;
-    color: rgb(31, 145, 145);
     position: relative;
     top: 0;
     cursor: pointer;
@@ -2046,11 +2043,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: flex;
     align-items: center;
     justify-content: center;
-    color: rgb(53, 124, 124);
+    color: #4c1958;
   }
 
   .openPlayerviewGridButton>img{
     height: 100%;
+    margin-right: 2%;
     /* width: 20%; */
   }
 
@@ -2128,17 +2126,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     overflow-x: hidden;
     z-index: 10;
     transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .myHandOverlay{
     border-radius: 1em;
-    grid-area: myHandOverlay;
+    /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
   }
 
   .myItemsOverlay{
     border-radius: 1em;
-    grid-area: myItemsOverlay;
+    /* grid-area: myItemsOverlay; */
     border: 5px dotted #fff;
   }
 
@@ -2150,7 +2151,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .mySkillsOverlay{
     border-radius: 1em;
-    grid-area: mySkillsOverlay;
+    /* grid-area: mySkillsOverlay; */
     border: 5px dotted #fff;
   }
 
@@ -2159,9 +2160,18 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin: 20px;
   }
 
-  .overlayPlayerView__content{
-    display: flex;
-    flex-direction: row;
+  .overlayPlayerViewWrapper{
+    border-radius: 1%;
+    height: 95%;
+    width: 95%;
+    background: #672d75;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
+
+  .overlayPlayerView_content{
+    display: grid;
+    grid-template-columns: 33% 33% 33%
     /* position: relative;
     top: 25%;
     width: 80%;
