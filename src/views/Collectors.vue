@@ -122,7 +122,7 @@
           <div class="Auction">
             <!-- detta är vad som synns i overview.  -->
             <div class="frontAuction">
-              <button href="#" class = "openButton openAuctionGridButton" @click="expandAuctionGrid()">
+              <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
                 <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
                 Auction
               </button>
@@ -139,12 +139,12 @@
             </div>
 
             <div class="overlayAuction" id = "expandAuction">
-              <a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a>
+              <!--<a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a> kryss knapp auction-->
               <!--<div class="completeAuctionDiv">-->
               <div class="auctionBigWrapper">
                 <div class="auctionWrapper">
                   <div class="auctionLogoWrapper">
-                    <button href="#" class = "openButton openAuctionGridButton" @click="minimizeAuctionGrid()">
+                    <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
                       <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
                       Auction
                     </button>
@@ -237,8 +237,17 @@
 
                 </div>
 
-                <div v-if="players[playerId].bidSkipper===true && currentAuction.length!==0" id="auctionOver">
-                  du förlorade auction din sopa
+                <div class="auctionOver" v-if="players[playerId].bidSkipper===true && currentAuction.length!==0"  id="auctionOver">
+                  <div class="auctionOverWrapper">
+                    <div class="auctionOverTitle">
+                      <h1>Auction is over!</h1>
+                    </div>
+                    <div class="auctionOverContent">
+                      <h3>The auction is over.</h3>
+                      <h4>Please wait for the auction winner to place their newly won card.</h4>
+                    </div>
+                  </div>
+
                 </div>
               <!--</div>-->
 
@@ -1253,7 +1262,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         currentAuctionCard: this.currentAuction,
         bidWinnerWrapper: this.bidWinnerWrapper
 
-        
+
         }
       );
       // document.getElementById('auctionOver').style.display = "block"
@@ -1665,7 +1674,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .openButton{
     position: relative;
     top: 0;
-    cursor: pointer;
+    /*cursor: pointer;*/
     margin: 2px;
     border-radius: 28px;
     background-color: transparent;
@@ -1939,6 +1948,33 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     align-items: center;
 
   }*/
+  .auctionOver{
+    grid-area: auctionBottom;
+
+  }
+
+  .auctionOver .auctionOverWrapper{
+    align-items: center;
+    display: grid;
+    grid-template-rows: 30% 70%;
+    grid-template-areas:
+    "auctionOverTop"
+    "auctionOverbottom";
+    text-align: center;
+  }
+
+  .auctionOver .auctionOverWrapper .auctionOverTitle{
+    grid-area: auctionOverTop;
+
+
+  }
+
+  .auctionOver .auctionOverWrapper .auctionOverbottom{
+      grid-area: auctionOverbottom;
+
+  }
+
+
   .bidWinnerWrapperVisible {
     grid-area: auctionBottom;
     display: grid;
@@ -2015,7 +2051,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   #auctionOver{
-    
+
   }
 
 
@@ -2366,7 +2402,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     .openButton{
       position: relative;
       top: 0;
-      cursor: pointer;
+      /*cursor: pointer;*/
       margin: 0px;
       border-radius: 10px;
       background-color: transparent;
