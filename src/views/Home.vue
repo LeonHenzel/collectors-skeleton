@@ -12,7 +12,7 @@
     </button>
 
     <div id = "welcomeTable">
-      <h1 id="mainTitle">Collectors</h1>
+      <h1 id="mainTitle"><img src="/images/CollectorsLogo01.png" height="600"></h1>
       <ul v-if="englishGotClicked">
         <li v-for="i in 3" :key="i">
           <a class="clickableText" @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players</a>.
@@ -76,6 +76,11 @@ export default {
     transform: translate(-50%, -50%);*/
   }
 
+  #mainTitle{
+    margin-left: 18%;
+    margin-right: 30%;
+  }
+
   .switchLanguage{
     position: absolute;
     right: 0%;
@@ -105,5 +110,9 @@ export default {
   .clickableText:hover{
     Color: cyan;
     cursor: pointer;
+  }
+
+  .clickableText{
+    margin-left: 39%;
   }
 </style>
