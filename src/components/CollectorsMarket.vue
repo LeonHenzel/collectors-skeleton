@@ -3,6 +3,7 @@
 
     <div class="buttonsMarket">
       <h1>{{labels.raiseMarket}}</h1>
+      <div class="theButtons">
     <div  v-for="(p, index) in placement" :key="index">
       <button
         v-if="p.playerId===null"
@@ -10,11 +11,14 @@
         @click="placeBottle(p)" >
         ${{p.cost}}
       </button>
+      <span v-if="p.playerId===null">
       x {{p.numberOfChangedMarkets}}
+    </span>
       <div v-if="p.playerId !== null">
         {{p.playerId}}
       </div>
     </div>
+  </div>
   </div>
     <div class="marketValuesWrapper">
       <div class="firstValue marketBox">
@@ -80,24 +84,38 @@ export default {
 
 <style lang="css" scoped>
 .buttonsMarket {
+  height: 100%;
+  width: 100%;
   display: grid;
   grid-column: 1;
   grid-row: 1;
 }
 
+.theButtons {
+  grid-column: 1;
+  grid-row: 2;
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+  grid-template-columns: 100%;
+}
+
 .marketWrapper {
-  display: grid;;
+  height: 100%;
+  width: 100%;
+  display: grid;
   grid-template-columns:30% 40% 30%;
-  grid-template-rows: 20% 30%;
+  grid-template-rows: 20% 80%;
   text-align: center;
 }
 
 .marketValuesWrapper {
+  width: 100%;
+  height: 100%;
   grid-column: 2;
   grid-row: 2;
   display: grid;
-  grid-row: 20% 40%;
-  grid-column: 12% 12% 12% 12% 12%;
+  grid-template-rows:  30% 70%;
+  grid-template-columns:  20% 20% 20% 20% 20%;
 }
 
 .firstValue {

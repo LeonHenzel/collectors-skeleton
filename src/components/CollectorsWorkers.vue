@@ -18,9 +18,6 @@
           <div v-if="round===3 && p.action==='quarter'" id="quarterRound3"></div>
           <div v-if="round===4 && p.action==='quarter'" id="quarterRound4"></div>
 
-          <br>
-          Den här jäveln kostar {{p.cost}}
-
 
         </button>
         <div class="playerIdPlaced" v-if="p.playerId !== null">
@@ -83,23 +80,55 @@
   }
 
   .workersWrapper{
+    height: 99%;
     margin-top: 1%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     background-color: rgb(255, 217, 179);
     width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: 100%;
   }
 
   .workersTitle{
+    height: 100%;
+    width: 100%;
+    grid-column: 1;
+    grid-row: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 30% 70%;
   }
 
+  .workersTitle>h1{
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+  }
+
+  .workersTitle>img{
+    grid-row: 2;
+    grid-column: 1;
+    height: 100%;
+    width: 100%;
+  }
+
+
+
   .workerButtons{
+    height: 100%;
+    width: 100%;
+    grid-column: 2;
+    grid-row: 1;
     display: grid;
-    grid-template-columns: 175px 175px 175px 175px 175px;
+    grid-template-columns: 19% 19% 19% 19% 19%;
     grid-gap: 1%;
   }
 
@@ -108,8 +137,10 @@
   }
 
   .workerButtonsContent{
-    width: 170px;
-    height: 95px;
+    display: grid;
+    grid-template-rows: 80% 20%;
+    width: 99%;
+    height: 90%;
     border: black;
     border-style: solid;
     border-radius: 10px;
@@ -117,6 +148,7 @@
     justify-content: center;
     align-items: center;
   }
+
 
   .playerIdPlaced{
     padding: 10px;
@@ -210,7 +242,7 @@
     border-radius: 5px;
   }
 
-  @media screen and (max-width: 1590px){
+  /*@media screen and (max-width: 1590px){
     .workersWrapper{
       transform: scale(0.9);
     }
@@ -271,7 +303,7 @@
       transform: scale(0.4);
       margin-top: -2%;
     }
-  }
+  }*/
 
 
 </style>
