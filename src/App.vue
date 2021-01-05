@@ -8,7 +8,7 @@
 
 html {
 	height: 100%;
-	scroll-behavior: smooth; 
+	scroll-behavior: smooth;
 }
 body {
     font-family: 'Gill Sans', Helvetica, Arial, sans-serif;
@@ -35,6 +35,21 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background: #ff8177;
   border-radius: 10px;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+/*#app>div{
+  height: 100%;
+  width: 100%;
+}*/
+
+body{
+  width: 100%;
+  height: 100%;
 }
 
 </style>

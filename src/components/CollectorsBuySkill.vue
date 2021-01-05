@@ -14,8 +14,8 @@
           </div>
         </div>
         <div class="buttonWrapper">
-          <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
-            <button id="smallPurchaseButtonBuySkill"
+          <div  v-for="(p, index) in placement" :key="index">
+            <button :class="['buttons', {'red':p.cost!==0}]"
               v-if="p.playerId===null"
               :disabled="cannotAfford(p.cost)"
               @click="placeBottle(p)" >
@@ -164,13 +164,21 @@ export default {
     border-radius: 5rem;
     transform: scale(1.4);
     margin-bottom: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 100px);
+    text-align: center;
+
+
+    /*display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);*/
   }
 
   .buttons button{
+    height: 80%;
+    width: 80%;
     border-radius: 2em;
     padding: 10px;
+
+
+
   }
   .buttons button:hover{
     background-color: rgb(220, 220, 220);
@@ -181,7 +189,7 @@ export default {
     background-color: red;
   }
 
-  #smallPurchaseButtonBuySkill:hover{
+  .smallPurchaseButtonBuySkill:hover{
     cursor: pointer;
   }
 
@@ -205,7 +213,7 @@ export default {
     background-color:rgb(17, 122, 101);
   }
 
-  #smallPurchaseButtonBuySkill{
+  .smallPurchaseButtonBuySkill{
     border-radius: 2rem;
     background-color: transparent;
     border: none;

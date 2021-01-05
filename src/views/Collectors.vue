@@ -30,7 +30,7 @@
       </div>
       </div>
 
-    <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
+
 
 
     <div class="layout">
@@ -43,6 +43,9 @@
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
           </label>
+
+            <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
+
 
           <ul class="menu">
             <li class="item desktop">
@@ -1360,6 +1363,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     z-index: 6;
   }
 
+
+
   .menuBar a{
     color: black;
   }
@@ -1538,7 +1543,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
   /*Tablet menu end*/
   /*Dekstop menu start*/
-@media all and (min-width:915px){
+/*@media all and (min-width:30em){
 
   .menuBar ul li:nth-of-type(-n+4){
     width: auto;
@@ -1549,7 +1554,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar .burgerBarsIcon{
     display: none;
   }
-}
+}*/
   .bigWrapper{
     height: 100vh;
     width: 100vw;
@@ -1738,7 +1743,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-gap: 50%;
   }
 
-  @media all and (max-height:954px){
+  @media all and (max-height:40em){
     .myCards{
       margin-top: -9px;
       display: grid;
@@ -1773,7 +1778,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
   }
 
-  @media all and (max-height:760px){
+  @media all and (max-height:30em){
     .myCards{
       display: none;
     }
@@ -2088,6 +2093,179 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     bottom: 0;
     left:0;
     position: absolute;
+  }
+
+  @media all and (max-width:500px){
+
+    #app>div{
+      height: 100%;
+      width: 100%;
+    }
+
+    #megaWrapper {
+      height: 100%;
+      width: 100%;
+
+    }
+
+    .startgamewrapper{
+      grid-row: 1;
+      grid-column: 1;
+      height: 100%;
+      width: 100%;
+    }
+
+
+
+    .layout{
+      grid-column: 1;
+      grid-row: 1;
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+
+    }
+
+    main {
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+    }
+
+    .bigWrapper{
+      grid-row: 1;
+      grid-column: 1;
+      display: grid;
+      grid-template-columns: 72% 22%;
+      grid-template-rows: 7% 93%;
+      height: 100%;
+      width: 100%;
+
+    }
+
+    .menuBar {
+      grid-column: 1/3;
+      grid-row: 1;
+    }
+
+    .gameBoardWrapper{
+      grid-row: 2;
+      grid-column: 1;
+      display: grid;
+      grid-template-rows: 20% 30% 30% 20%;
+      grid-template-columns: 33% 66%
+    }
+
+
+    .playerInfo{
+      grid-row: 2;
+      grid-column: 2;
+      display: grid;
+      grid-template-rows: 50% 50%;
+      grid-template-columns: 100%;
+    }
+
+    .theOtherPlayers{
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    #mePlayer{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+
+
+    .Items{
+      height: 100%;
+      width: 100%;
+      grid-row: 2;
+      grid-column: 2;
+    }
+
+    .Skills{
+      grid-row: 3;
+      grid-column: 2;
+    }
+
+    .tempWorker {
+      grid-row: 1;
+      grid-column: 1/3;
+    }
+
+    .marketWrapper{
+      grid-row: 4;
+      grid-column: 1/3;
+    }
+
+    .Auction {
+      grid-row: 2/4;
+      grid-column: 1;
+      height: 100%;
+      width: 100%;
+    }
+
+    .openAuctionGridButton{
+      grid-row: 1;
+      grid-column: 1;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      left: 0px;
+    }
+
+    .openButton{
+      position: relative;
+      top: 0;
+      cursor: pointer;
+      margin: 0px;
+      border-radius: 10px;
+      background-color: transparent;
+      -webkit-text-stroke: 1px black;
+      color: transparent;
+      Letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 75%;
+      font-family: "sans", serif;
+      padding: 0px;
+      border-color: white;
+      border-width: 2px;
+      font-weight: bold;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .openButton img{
+      visibility: hidden;
+    }
+
+    .frontAuction {
+      height: 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: 30% 70%;
+    }
+
+
+    .cardsOnSale{
+      height: 100%;
+      width: 100%;
+    }
+
+    .buttonWrapper{
+      display: none;
+    }
+
+
+
   }
 
 

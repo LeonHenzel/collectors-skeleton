@@ -1,6 +1,6 @@
 <template>
     <div class="auctionLayout">
-      
+
       <h1>{{ labels.startAuction }}</h1>
       <div class="auction-cards">
         <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
@@ -301,5 +301,39 @@ export default {
       margin-left:20px
     }
   }
+
+    @media all and (max-width:500px){
+      .auctionLayout{
+        width: 100%;
+        height: 100%;
+        grid-row: 2;
+        grid-column: 1;
+        display: grid;
+        grid-template-rows: 75% 25%;
+        transform: scale(0.5);
+        margin-top: -150px;
+      }
+
+      .auctionLayout>h1{
+        color: transparent;
+        user-select: none;
+      }
+
+      .auction-cards{
+        margin-left: 0px;
+        margin-top: 0px;
+        grid-row: 1;
+        height: 100%;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-columns: 50% 50%;
+      }
+
+      /*.cardDiv{
+        transition: 0.2s;
+        transform: scale(0.2);
+      }*/
+    }
 
 </style>

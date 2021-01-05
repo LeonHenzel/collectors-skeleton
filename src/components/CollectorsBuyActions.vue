@@ -181,8 +181,8 @@ export default {
     border-radius: 5rem;
     transform: scale(1.4);
     margin-bottom: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 100px);
+    /*display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);*/
   }
 
   .buttons button{
@@ -464,6 +464,75 @@ export default {
 
   .cardDiv:hover~.cardDiv{
       transform: translateX(40px) scale(0.4);
+  }
+
+  @media all and (max-width:500px){
+    .gridWrapper{
+      display: grid;
+      grid-template-columns: 27% 73%;
+      grid-template-rows: 30% 70%;
+    }
+
+    .openButton{
+      top:0px;
+      left:0px;
+      height: 90%;
+      width: 75%;
+
+      font-size: 75%;
+    }
+
+    .openButton>img{
+      visibility: hidden;
+    }
+
+    .buy-cards{
+
+      grid-column: 2;
+      display:grid;
+      grid-template-columns: repeat(auto-fill, 19%);
+
+    }
+.cardDiv{
+    transition: 0.2s;
+    height: 80%;
+    width: 100%;
+    transform: scale(0.1);
+
+  }
+
+  .buttonWrapper {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 33% 33% 33%;
+    position: relative;
+    top: 0px;
+    padding-left: 0px;
+    padding-top: 0px;
+    border-radius: 1rem;
+    border: 0.01rem solid white;
+    margin-left: 0rem;
+    margin-top: 0rem;
+    align-items: center;
+
+  }
+  .buttons {
+    border: 0.01rem solid white;
+    background-color: green;
+    width: 100%;
+    height: 100%;
+    border-radius: 5rem;
+    transform: scale(1);
+    margin-bottom: rem;
+    /*display: grid;
+    grid-template-columns: repeat(auto-fill, 100px);*/
+    top:0px;
+    left:-2px;
+    font-size: 75%;
+  }
+
   }
 
 </style>
