@@ -43,14 +43,14 @@ export default {
   @media all and (max-width:1500px){
     .card{
       transform: scale(0.47);
-      transform-origin: top left;
+
     }
   }
 
   @media all and (max-width:1450px){
     .card{
       transform: scale(0.45);
-      transform-origin: top left;
+
     }
   }
 
@@ -58,28 +58,28 @@ export default {
   @media all and (max-width:1400px){
     .card{
       transform: scale(0.43);
-      transform-origin: top left;
+
     }
   }
 
   @media all and (max-width:1350px){
     .card{
       transform: scale(0.42);
-      transform-origin: top left;
+
     }
   }
 
   @media all and (max-width:1300px){
     .card{
       transform: scale(0.41);
-      transform-origin: top left;
+
     }
   }
 
   @media all and (max-width:1250px){
     .card{
       transform: scale(0.40);
-      transform-origin: top left;
+
     }
   }
 
@@ -87,7 +87,7 @@ export default {
   @media all and (max-width:1200px){
     .card{
       transform: scale(0.38);
-      transform-origin: top left;
+
     }
   }
 
@@ -95,7 +95,7 @@ export default {
   @media all and (max-width:1150px){
     .card{
       transform: scale(0.37);
-      transform-origin: top left;
+
     }
   }
 
@@ -103,7 +103,7 @@ export default {
   @media all and (max-width:1050px){
     .card{
       transform: scale(0.35);
-      transform-origin: top left;
+
     }
   }
 
@@ -111,7 +111,7 @@ export default {
   @media all and (max-width:1000px){
     .card{
       transform: scale(0.33);
-      transform-origin: top left;
+
     }
   }
 
@@ -119,7 +119,7 @@ export default {
   @media all and (max-width:900px){
     .card{
       transform: scale(0.30);
-      transform-origin: top left;
+
     }
   }
 
@@ -128,7 +128,7 @@ export default {
   @media all and (max-width:800px){
     .card{
       transform: scale(0.27);
-      transform-origin: top left;
+
     }
   }
 
@@ -137,21 +137,21 @@ export default {
   @media all and (max-width:700px){
     .card{
       transform: scale(0.25);
-      transform-origin: top left;
+
     }
   }
 
   @media all and (max-width:600px){
     .card{
       transform: scale(0.23);
-      transform-origin: top left;
+
     }
   }
 
   @media all and (max-width:50){
     .card{
       transform: scale(0.20);
-      transform-origin: top left;
+      
     }
   }
 
