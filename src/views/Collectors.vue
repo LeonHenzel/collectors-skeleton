@@ -2566,7 +2566,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-rows: repeat(auto-fill, 180px);
   }
   .cardslots div {
-    transform: scale(0.5)translate(-50%,-50%);
+    /* transform: scale(0.5)translate(-50%,-50%); */
     transition:0.2s;
     transition-timing-function: ease-out;
     z-index: 0;
