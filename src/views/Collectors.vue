@@ -236,6 +236,10 @@
                   </div>
 
                 </div>
+
+                <div v-if="players[playerId].bidSkipper===true" id="auctionOver">
+                  du förlorade auction din sopa
+                </div>
               <!--</div>-->
 
             </div>
@@ -1248,8 +1252,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         currentBid: this.currentBid,
         currentAuctionCard: this.currentAuction,
         bidWinnerWrapper: this.bidWinnerWrapper
+
+        
         }
       );
+      // document.getElementById('auctionOver').style.display = "block"
       }
     },
     placeAuctionCardInItems: function (){
@@ -2005,6 +2012,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInMarket{
     grid-area: paymentAuctionWrapperBottomRight;
+  }
+
+  #auctionOver{
+    
   }
 
 
