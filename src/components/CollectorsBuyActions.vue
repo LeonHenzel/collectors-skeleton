@@ -267,6 +267,7 @@ export default {
   }
 
   .openButton img{
+    /* height: 1vh; */
     padding: 5%;
   }
 
@@ -275,8 +276,8 @@ export default {
     }
 
     .openItems>img {
-      height: 98%;
-      width: auto;
+      height: 10%;
+      /* width: auto; */
     }
 
   .openItems:hover {
