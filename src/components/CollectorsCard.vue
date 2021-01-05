@@ -41,7 +41,7 @@ export default {
   }
 
   .card:hover{
-    transform: scale(0.6) translateY(2rem);
+    transform: scale(0.6) translateY(-2rem);
     z-index: 20;
   }
 
