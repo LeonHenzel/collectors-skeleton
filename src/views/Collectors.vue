@@ -1,12 +1,18 @@
 <template>
+
   <div>
 
-
-
-  <form class="nameEnter" v-if="players[playerId].playerName===''">
-    <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
-    <button type="submit" @click="submitName">Submit</button>
-  </form>
+  <div v-if="players[playerId].playerName===''">
+    <form class="nameEnter">
+      <h1>{{labels.entername}}</h1>
+      <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
+      <button type="submit" @click="submitName">Submit</button>
+    </form>
+    <p class="foter">
+      {{ labels.invite }}
+      <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+    </p>
+  </div>
 
 
 
@@ -14,7 +20,7 @@
     <main>
 
       <div class="startgamewrapper">
-      <div v-if="allPlayersIn">
+      <div>
         <CollectorsStartGame v-if="!allPlayersReady"
         :labels="labels"
         :player="players[playerId]"
@@ -30,12 +36,10 @@
     <div class="layout">
 
 
+
       <div class="bigWrapper">
 
         <div class="menuBar">
-
-
-          <CollectorsChat class="messageButton" :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
 
 
@@ -45,11 +49,13 @@
           <span class="barsIcon"></span>
           </label>
 
+            <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
+
+          
           <ul class="menu">
             <li class="item desktop">
               <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
             </li>
-
             <li class="item buttonNav">
               <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">About</a>
             </li>
@@ -57,6 +63,52 @@
               <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">Exit Game</a>
             </li>
           </ul>
+
+                <div class="aboutOverlay" id = "expandAbout">
+                  <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
+                  <div class="aboutInfoOverlay">
+                    <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h2>Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.
+                    </h2>
+                    <h2>This digital version of the game has been developed as a school project in interface programming</h2>
+                    <h2>Its contributors are:</h2>
+                    <h3>Adam Bergman</h3>
+                    <h3>Anton Dahl</h3>
+                    <h3>Leon Henzel</h3>
+                    <h3>Oskar Jonsson</h3>
+                    <h3>Fredrik Nilsson</h3>
+                    <h3>Kalle Rosengren</h3>
+                  </div>
+                </div>
+
+                <div class="exitOverlay" id = "expandExit">
+                  <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
+                  <div class="exitInfoOverlay">
+                    <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1>This action will end the current game session, are you sure that you want to Exit the game?</h1>
+                    <a href="http://localhost:8080/#/" class="exitForReal" >Exit Game!</a>
+
+                  </div>
+                </div>
+
+                <div class="helpOverlay" id = "expandHelp">
+                  <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
+                  <div class="helpInfoOverlay">
+                    <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1>Rulebook</h1>
+                    <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.44.32.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.02.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.26.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.41.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.12.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.22.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.35.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.44.png">
+                  </div>
+                </div>
 
         </div>
 
@@ -98,11 +150,12 @@
             :labels="labels"
             :player="players[playerId]"
             :placement="workerPlacement"
+            :round="round"
             @placeWorker="placeWorker($event)"
             @setDiscardTwoTrue="setDiscardTwoTrue()"/>
           </div>
 
-          <div class="marketWrapper">
+          <div class="marketWrapperr">
             <CollectorsMarket v-if="players[playerId]"
             :labels="labels"
             :player="players[playerId]"
@@ -118,8 +171,8 @@
           <div class="Auction">
             <!-- detta är vad som synns i overview.  -->
             <div class="frontAuction">
-              <button href="#" class = "openButton openAuctionGridButton" @click="expandAuctionGrid()">
-                <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+              <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
+                <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
                 Auction
               </button>
               <br>
@@ -132,17 +185,23 @@
                 :isPlacedList="isPlacedList"
                 @startAuction="startAuction($event)"
                 @placeBottle="placeBottle('auction', $event)"/>
-
             </div>
 
-
-
-
             <div class="overlayAuction" id = "expandAuction">
-              <a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a>
+              <!--<a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a> kryss knapp auction-->
               <!--<div class="completeAuctionDiv">-->
+              <div class="auctionBigWrapper">
                 <div class="auctionWrapper">
-                  <h1>Current Auction</h1>
+                  <div class="auctionLogoWrapper">
+                    <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
+                      <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+                      Auction
+                    </button>
+                  </div>
+                  <div class="auctionTitleWrapper">
+                    <h1>Current Auction</h1>
+                  </div>
+
                     <div class="cardslots">
                       <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
                     </div>
@@ -175,41 +234,76 @@
                     </div>
                   </div>
                 </div>
+                </div>
 
 
                 <div v-bind:class="bidWinnerWrapper">
-                    <br>
-                    <h3>Congratulations! You won the bidding.</h3>
-                    <br>
-                    <h4>Här är min hand yo </h4>
-                    <div class="cardslots" v-if="players[playerId]">
-                      <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                    <div class="congratsWrapper">
+                      <h1>Congratulations! You won the bidding.</h1>
+                    </div>
+                    <div class="cardslotsWrapper">
+                      <div class="cardslotsTextWrapper">
+                        <h3>Här är min hand yo! </h3>
+                      </div>
+                      <div class="cardslotsCardsWrapper">
+                        <div class="cardslots" v-if="players[playerId]">
+                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                        </div>
+                      </div>
                     </div>
 
-                    <br>
-                    <h4>Payment</h4>
-                    <br>
-                    Click cards in your hand to use them as payment
-                    <br>
-                    These cards will be used as payment:
-                    <div id="auctionPaymentCardslot" v-if="bidWinnerWrapper === 'bidWinnerWrapperVisible'">
-                      <CollectorsAuctionPayment v-if="players[playerId]"
-                        :labels="labels"
-                        :player="players[playerId]"
-                        :auctionPayment="auctionPayment"
-                        @doAction="doAction($event)"/>
+                  <div class="paymentAuctionWrapper">
+                    <div class="paymentAuctionAllTextWrapper">
+                      <div class="paymentAuctionTextWrapper">
+                        <h3>Payment</h3>
+                        <br>
+                        Click cards in your hand to use them as payment
+                        <br>
+                        These cards will be used as payment:
+
+                      </div>
+                      <div class="paymentAuctionPaymentWrapper">
+                        <div id="auctionPaymentCardslot" v-if="bidWinnerWrapper === 'bidWinnerWrapperVisible'">
+                          <CollectorsAuctionPayment v-if="players[playerId]"
+                            :labels="labels"
+                            :player="players[playerId]"
+                            :auctionPayment="auctionPayment"
+                            @doAction="doAction($event)"/>
+                        </div>
+                        <div class="paymentAuctionPaymentTextWrapper">
+                          <br>
+                          Your payment is {{moneyPayment}} coin(s) and the chosen cards
+                          <br>
+                          Confirm payment by choosing where you want to put your won Auction-card
+                        </div>
+                      </div>
                     </div>
-                    <br>
-                    Your payment is {{moneyPayment}} coin(s) and the chosen cards
-                    <br>
-                    <br>
-                    Confirm payment and choose where you want to put your won Auction-card
-                    <br>
-                    <div>
-                      <button @click="placeAuctionCardInItems">Place your newly won card in Items</button>
-                      <button @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
-                      <button @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                      <div class="placeAuctionCardWrapper">
+                        <div class="placeInItems">
+                          <button  @click="placeAuctionCardInItems">Place your newly won card in Items</button>
+                        </div>
+                        <div class="placeInSkills">
+                          <button  @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+                        </div>
+                        <div class="placeInMarket">
+                          <button  @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                        </div>
+                      </div>
+                  </div>
+
+                </div>
+
+                <div class="auctionOver" v-if="players[playerId].bidSkipper===true && currentAuction.length!==0"  id="auctionOver">
+                  <div class="auctionOverWrapper">
+                    <div class="auctionOverTitle">
+                      <h1>Auction is over!</h1>
                     </div>
+                    <div class="auctionOverContent">
+                      <h3>The auction is over.</h3>
+                      <h4>Please wait for the auction winner to place their newly won card.</h4>
+                    </div>
+                  </div>
+
                 </div>
               <!--</div>-->
 
@@ -241,10 +335,9 @@
                       :player="players[playerId]" />
                     </div>
 
-
-                    <button href="#" class ="openButton openPlayerviewGridButton" @click="expandPlayerviewGrid()">
-                      <img src="https://image.flaticon.com/icons/png/512/30/30565.png" width="25" height="25">
-                      <span>Expand My Cards</span>
+                    <button href="#" class ="openPlayerviewGridButton" @click="expandPlayerviewGrid()">
+                      <img src="https://image.flaticon.com/icons/png/512/30/30565.png">
+                      <span>Expand My Status</span>
                     </button>
 
 
@@ -278,52 +371,6 @@
                   </div>
                 </div>
 
-                <div class="aboutOverlay" id = "expandAbout">
-                  <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
-                  <div class="aboutInfoOverlay">
-                    <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h2>Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.
-                    </h2>
-                    <h2>This digital version of the game has been developed as a school project in interface programming.</h2>
-                    <h2>Its contributors are:</h2>
-                    <h3>Adam Bergman</h3>
-                    <h3>Anton Dahl</h3>
-                    <h3>Leon Henzel</h3>
-                    <h3>Oskar Jonsson</h3>
-                    <h3>Fredrik Nilsson</h3>
-                    <h3>Kalle Rosengren</h3>
-                  </div>
-                </div>
-
-                <div class="exitOverlay" id = "expandExit">
-                  <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
-                  <div class="exitInfoOverlay">
-                    <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>This action will end the current game session, are you sure that you want to Exit the game?</h1>
-                    <a href="http://localhost:8080/#/" class="exitForReal" >Exit Game!</a>
-
-                  </div>
-                </div>
-
-                <div class="helpOverlay" id = "expandHelp">
-                  <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
-                  <div class="helpInfoOverlay">
-                    <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>Rulebook</h1>
-                    <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.44.32.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.45.02.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.45.26.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.45.41.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.12.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.22.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.35.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.44.png">
-                  </div>
-                </div>
-
                 <div class="overlayPlayerView" id = "expandPlayerview">
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
@@ -350,12 +397,6 @@
                       </div>
                     </div>
                   </div>
-                  <div class="buttons">
-                    <button @click="drawCard">
-                      {{ labels.draw }}
-                    </button>
-                  </div>
-                  <button href="#" class = "playerboardGridButton" @click="minimizePlayerviewGrid()"> Minimize </button>
                 </div>
             </div>
           </div>
@@ -375,12 +416,7 @@
     <button v-if="players[playerId]" @click="players[playerId].money += 1">
       fake more money
     </button>
-    <footer>
-        <p>
-          {{ labels.invite }}
-          <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
-        </p>
-    </footer>
+
   </div>
   </div>
 
@@ -495,8 +531,8 @@ export default {
       console.log(newP, oldP)
       for (let p in this.players) {
         for(let c = 0; c < this.players[p].hand.length; c += 1) {
-          if (typeof this.players[p].hand[c].item !== "undefined")
-          this.$set(this.players[p].hand[c], "available", false);
+          /*if (typeof this.players[p].hand[c].item !== "undefined")
+          this.$set(this.players[p].hand[c], "available", false);*/
         }
       }
     }
@@ -543,11 +579,16 @@ export default {
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
+        this.players = d.players;
+        console.log(this.players[this.playerId].hand);
         this.buyPlacement = d.placements.buyPlacement;
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
         this.isPlacedList = d.isPlacedList;
+        this.skillsOnSale=d.skillsOnSale;
+        this.auctionCards=d.auctionCards;
+        this.itemsOnSale=d.itemsOnSale;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -658,8 +699,10 @@ export default {
         this.players = d.players;
         this.currentAuction = d.currentAuction;
         this.auctionPayment = [];
+        this.minimizeAuctionGrid()
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
+
         }
         if(this.players[this.playerId].iStartedAuction===true){
         this.changeTurn();
@@ -672,6 +715,7 @@ export default {
         this.players = d.players;
         this.currentAuction = d.currentAuction;
         this.auctionPayment = [];
+        this.minimizeAuctionGrid()
         if(this.players[this.playerId].bidSkipper === false){
           this.bidWinnerWrapper = d.bidWinnerWrapper;
         }
@@ -686,6 +730,7 @@ export default {
       this.currentAuction = d.currentAuction;
       this.auctionPayment = [];
       this.marketValues=d.market;
+      this.minimizeAuctionGrid()
       if(this.players[this.playerId].bidSkipper === false){
         this.bidWinnerWrapper = d.bidWinnerWrapper;
       }
@@ -708,7 +753,7 @@ export default {
       this.twoMarket=d.twoMarket;
       if (this.twoMarket===true){
         //console.log("kör market en gång till")
-        this.placeBottle('market',0);
+        //this.placeBottle('market',0);
       }
       //console.log(this.twoMarket);
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
@@ -1108,17 +1153,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
         this.$set(this.players[this.playerId].hand[i], 'available', true);
       }
-      for (let i = this.skillsOnSale.length; i > 0; i -= 1){
-        if(typeof this.skillsOnSale[i-1].item !== "undefined"){
+      for (let i = 0; i<this.skillsOnSale.length; i += 1){
+        console.log(this.skillsOnSale[i]);
+        if(this.skillsOnSale[i].item !== undefined){
 
           //this.$set(this.skillsOnSale[i], 'available', true);
-          this.skillsOnSale[i-1].available=true;
+          this.$set(this.skillsOnSale[i],'available',true);
           break
         }
       }
-      for (let i = this.auctionCards.length; i > 0; i -= 1){
-        if(typeof this.auctionCards[i-1].item !== "undefined"){
-          this.$set(this.auctionCards[i-1], 'available', true);
+      for (let i = 0;i<this.auctionCards.length; i += 1){
+        if(this.auctionCards[i].item !== undefined){
+          this.$set(this.auctionCards[i], 'available', true);
+          console.log(this.skillsOnSale[i]);
           break
       }
     }
@@ -1140,15 +1187,16 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       for (let i = 0; i < this.players[this.playerId].hand.length; i += 1){
         this.$set(this.players[this.playerId].hand[i], 'available', false);
       }
-      for (let i = 0; i < this.skillsOnSale.length; i += 1){
-        if(this.skillsOnSale[i] !== 'undefined'){
-          //this.$set(this.skillsOnSale[i], 'available', false);
-          //this.skillsOnSale[i].availableAction=true;
+      for (let i = 0; i<this.skillsOnSale.length; i += 1){
+        if(this.skillsOnSale[i].item !== undefined){
+
+          //this.$set(this.skillsOnSale[i], 'available', true);
+          this.$set(this.skillsOnSale[i],'available',false);
           break
         }
       }
-      for (let i = 0; i < this.auctionCards.length; i += 1){
-        if(this.auctionCards[i] !== 'undefined'){
+      for (let i = 0;i<this.auctionCards.length; i += 1){
+        if(this.auctionCards[i].item !== undefined){
           this.$set(this.auctionCards[i], 'available', false);
           break
       }
@@ -1205,7 +1253,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         this.isPlacedList.market=false;
       }
         else{
-          this.isPlacedList.auction=false;
           this.$store.state.socket.emit('collectorsStartAuction', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -1296,8 +1343,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         currentBid: this.currentBid,
         currentAuctionCard: this.currentAuction,
         bidWinnerWrapper: this.bidWinnerWrapper
+
+
         }
       );
+      // document.getElementById('auctionOver').style.display = "block"
       }
     },
     placeAuctionCardInItems: function (){
@@ -1372,6 +1422,27 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 </script>
 <style scoped>
+  *{
+    font-size: 1.8vh;
+  }
+#app>div{
+  height: 100%;
+  width: 100%;
+}
+
+#megaWrapper {
+
+  height: 100%;
+  width: 100%;
+}
+
+.startgamewrapper{
+  grid-row: 1;
+  grid-column: 1;
+  height: 100%;
+  width: 100%;
+}
+
   header {
     user-select: none;
     position: fixed;
@@ -1379,7 +1450,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     pointer-events: none;
   }
   main {
-    width:95%;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
     user-select: none;
   }
 
@@ -1395,26 +1470,59 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .nameEnter{
-    margin-top: 45vh;
-
-    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
     justify-content: center;
     align-items: center;
   }
 
+  #nameArea{
+    resize: none;
+    margin-bottom: 1rem;
+    outline: none;
+    font-size: 13pt;
+    height: 18pt;
+    text-align: center;
+  }
+
   .nameEnter button{
+    outline: none;
+    color: #313639;
+    border: 1px solid #e60000;
+    letter-spacing: 0.1rem;
+    font-weight: bold;
     height: 30px;
-    background-color: rgb(95, 255, 220);
-    border-radius: 8px;
+    background-color:	#f8f8ff;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.2rem black;
+    transition: 200ms;
+  }
+
+  .nameEnter button:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0.4rem 0.38rem 0.28rem black;
+  }
+
+  .theOtherPlayers{
+    grid-column: 1;
+    grid-row: 1;
   }
 
   /*här börjar css för navbar öä*/
   .menuBar{
+    grid-column: 1/3;
+    grid-row: 1;
     background-color: black;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
     z-index: 6px;
   }
+
+
 
   .menuBar a{
     color: black;
@@ -1425,13 +1533,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar ul{
-    margin: -1.35%;
-    margin-right: 0.12%;
+    margin: 0;
     padding: 0;
     list-style: none;
     overflow: hidden;
     background-color: white;
-    position: relative;
   }
 
   .menuBar ul a{
@@ -1454,10 +1560,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 50em;
 
 
-  }
-
-  .messageButton{
-    margin-top: 0.5%;
   }
 
   #logo{
@@ -1538,7 +1640,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
   /*mobile menu end*/
   /*Tablet menu start*/
-  /* @media all and (min-width:48em){ */
+
 
     .aboutOverlay{
 
@@ -1626,9 +1728,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       margin-left: 45%;
     }
 
-
-    @media (max-width: 920px){
-
+    /* } */
+    /* @media (max-width: 920px){
+      .exitForReal:hover{
+          .hide { display:none !important; }
+      }
+    } */
+    @media all and (min-width:900px){
 
     .menuBar li{
     float: left;
@@ -1638,7 +1744,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
 
     .menuBar li a{
-      padding: 10px 30px;
+      padding: 5px 30px;
     }
 
     .menuBar .menu{
@@ -1677,21 +1783,30 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       background: SeaShell;
 
     }
+    .menuBar ul li:nth-of-type(3){
+      width: auto;
+      order: 3;
+      display: block;
+      max-height:240px;
+      align-items: center;
+      background: SeaShell;
+
+    }
 
     /*.menuBar .buttonNav .secondary{
       border:0;
     }*/
 
-    .menuBar .burgerBarsIcon{
+    /* .menuBar .burgerBarsIcon{
       order: 3;
       display: block;
-    }
+    } */
 
     .menuBar .menuButton:not(:checked) ~ .menu{
       max-height: 240px;
     }
 
-    .menuBar .menuButton:checked ~ .menu li:nth-of-type(-n+4){
+    .menuBar .menuButton:checked ~ .menu li:nth-of-type(-n+3){
       clear: both;
       height: auto;
       width: auto;
@@ -1702,7 +1817,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
   /*Tablet menu end*/
   /*Dekstop menu start*/
-@media all and (min-width:915px){
+/*@media all and (min-width:30em){
 
   .menuBar ul li:nth-of-type(-n+4){
     width: auto;
@@ -1714,22 +1829,27 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar .burgerBarsIcon{
     display: none;
   }
-}
+}*/
+
   .bigWrapper{
-    height: 100vh;
-    width: 100vw;
+    grid-row: 1;
+    grid-column: 1;
     display: grid;
-    grid-template-columns: 80% 20%;
-    grid-auto-rows: 5% 95%;
+    grid-template-columns: 72% 28%;
+    grid-template-rows: 7% 93%;
+    height: 100%;
+    width: 100%;
+
   }
 
   .gameBoardWrapper{
-    width: 80vw;
-    grid-column: 1;
+    height: 100%;
+    width: 100%;
     grid-row: 2;
+    grid-column: 1;
     display: grid;
-    grid-template-columns: 33% 33% 34%;
-    grid-template-rows: 25% 25% 25% 25%;
+    grid-template-rows: 20% 30% 30% 20%;
+    grid-template-columns: 33% 66%
   }
 
   .playerInfo{
@@ -1750,42 +1870,45 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .Items{
     display: inline-block;
-    grid-column: 2/ span 2;
+    height: 100%;
+    width: 100%;
     grid-row: 2;
+    grid-column: 2;
+
   }
 
   .Skills{
     display: inline-block;
-    grid-column: 2/ span 2;
     grid-row: 3;
+    grid-column: 2;
   }
 
 
-  .auctionWrapper{
+  /*.auctionWrapper{
     margin: 2px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-  }
+  }*/
 
   .tempWorker{
     margin: 2px;
-    grid-column: 1/ span 3;
     grid-row: 1;
+    grid-column: 1/3;
     background-color: rgb(255, 217, 179);
   }
 
-  .marketWrapper{
+  .marketWrapperr{
     margin: 2px;
     background-color: #4169E1;
-    grid-column: 1/ span 3;
     grid-row: 4;
+    grid-column: 1/3;
   }
 
   .openButton{
     position: relative;
     top: 0;
-    cursor: pointer;
+    /*cursor: pointer;*/
     margin: 2px;
     border-radius: 28px;
     background-color: transparent;
@@ -1793,7 +1916,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     color: transparent;
     Letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 23px;
+    font-size: 120%;
     font-family: "sans", serif;
     padding: 5px;
     border-color: white;
@@ -1805,13 +1928,35 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     justify-content: center;
   }
 
+  .frontAuction {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 90%;
+  }
+
+
+
+
   .openButton img{
-    padding: 3px;
+    padding: 5%;
   }
 
   .openAuctionGridButton {
-  color: rgb(155, 89, 182)
+  color: rgb(155, 89, 182);
+  grid-row: 1;
+  grid-column: 1;
+  height: 100%;
+  width: 60%;
+  text-align: center;
   }
+.openAuctionGridButton>img{
+  height: 80%;
+  width: 10%;
+}
+
+
 
   .openAuctionGridButton:hover {
     background-color: rgb(230, 204, 255);
@@ -1823,6 +1968,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   #mePlayer{
     height: 100%;
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .myStatus{
@@ -1839,6 +1986,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myStatusContent{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
     height: 95%;
     width: 98%;
     margin-top: -10px;
@@ -1846,13 +1996,16 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .myStatusComponent{
     height: 30%;
-    width: 98%;
+    width: 100%;
+    padding: 1%;
+    margin-left: -1%;
   }
 
   .myCards{
     margin-left: 5%;
     transform: scale(0.45);
     transform-origin: left top;
+    text-align: left;
   }
 
   /* .itemsAndSkills div{
@@ -1865,13 +2018,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
   /* PLAYERVIEW STYLING */
-
-
-  .myCards{
-    margin-top: -20px;
-  }
-
   .openPlayerviewGridButton{
+    height: 10%;
+    width: 100%;
     transform: scale(0.9);
     font-size: 1.8vh;
     position: relative;
@@ -1925,9 +2074,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-gap: 50%;
   }
 
-  @media all and (max-height:954px){
+  @media all and (max-height:40em){
     .myCards{
-      margin-top: -9px;
+      font-size: 200%;
+      margin-top: 0px;
       display: grid;
       grid-template-columns: 20% 60%;
       grid-gap: 40%;
@@ -1960,11 +2110,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
   }
 
-  @media all and (max-height:760px){
+  /* @media all and (max-height:30em){
     .myCards{
       display: none;
     }
-  }
+  } */
 
   .overlayPlayerView{
     position: fixed;
@@ -2021,12 +2171,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayPlayerView_content{
     display: grid;
-    grid-template-columns: 33% 33% 33%;
-    position: relative;
+    grid-template-columns: 33% 33% 33%
+    /* position: relative;
     top: 25%;
-    width: 100%;
+    width: 80%;
     text-align: center;
-    margin-top: 30px;
+    margin-top: 30px; */
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px 0px;
+    grid-template-areas:
+    "myHandOverlay myItemsOverlay mySkillsOverlay"; */
   }
   .overlayPlayerView a{
     padding: 10px;
@@ -2042,6 +2197,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .aboutOverlay .closeAboutGridButton{
+    width: 0;
     position: absolute;
     top: 20px;
     right: 50px;
@@ -2078,6 +2234,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     overflow-x: hidden;
     z-index: 10;
     transition: all 0.5s;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    grid-template-areas:
+    "auctionTop"
+    "auctionBottom";
   }
 
   /*.completeAuctionDiv{
@@ -2086,6 +2247,113 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     align-items: center;
 
   }*/
+  .auctionOver{
+    grid-area: auctionBottom;
+
+  }
+
+  .auctionOver .auctionOverWrapper{
+    align-items: center;
+    display: grid;
+    grid-template-rows: 30% 70%;
+    grid-template-areas:
+    "auctionOverTop"
+    "auctionOverbottom";
+    text-align: center;
+  }
+
+  .auctionOver .auctionOverWrapper .auctionOverTitle{
+    grid-area: auctionOverTop;
+
+
+  }
+
+  .auctionOver .auctionOverWrapper .auctionOverbottom{
+      grid-area: auctionOverbottom;
+
+  }
+
+
+  .bidWinnerWrapperVisible {
+    grid-area: auctionBottom;
+    display: grid;
+    margin-left: 5%;
+    margin-right: 5%;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 15% 85%;
+    grid-template-areas:
+    "bidWinnerWrapperTop bidWinnerWrapperTop"
+    "bidWinnerWrapperBottomLeft bidWinnerWrapperBottomRight";
+    /*display: flex;
+    flex-direction: column;
+    align-items: center;*/
+  }
+
+  .bidWinnerWrapperVisible button{
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    height: 80px;
+    background: #7affde;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #EF629F, #ffc06d);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #EF629F, #f5c27f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    /* importerat från UI-gradient */
+  }
+  .bidWinnerWrapperVisible button:hover{
+    cursor:pointer;
+  }
+
+  .bidWinnerWrapperVisible .congratsWrapper{
+    grid-area: bidWinnerWrapperTop;
+    text-align: center;
+  }
+
+  .bidWinnerWrapperVisible .cardslotsWrapper{
+    grid-area: bidWinnerWrapperBottomLeft;
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper{
+    grid-area: bidWinnerWrapperBottomRight;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    grid-template-areas:
+    "paymentAuctionWrapperTop"
+    "paymentAuctionWrapperBottom";
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .paymentAuctionAllTextWrapper{
+    grid-area: paymentAuctionWrapperTop;
+    margin-bottom:5%;
+  }
+
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper{
+    grid-area:paymentAuctionWrapperBottom;
+    display: grid;
+    grid-template-columns: 33% 33% 34%;
+    grid-template-areas:
+    "paymentAuctionWrapperBottomLeft paymentAuctionWrapperBottomMid paymentAuctionWrapperBottomRight";
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInItems{
+    grid-area: paymentAuctionWrapperBottomLeft;
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInSkills{
+    grid-area: paymentAuctionWrapperBottomMid;
+  }
+
+  .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInMarket{
+    grid-area: paymentAuctionWrapperBottomRight;
+  }
+
+  #auctionOver{
+
+  }
+
+
 
   .CollectorsStartAuctionOverlay{
     border-radius: 1em;
@@ -2093,24 +2361,33 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
   }
 
-  .auctionWrapper{
+  .auctionBigWrapper{
+    grid-area: auctionTop;
+  }
+
+  .auctionBigWrapper .auctionWrapper{
     background-color: rgb(195, 155, 211);
-    margin:10%;
+    margin-top: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 2%;
     border-radius: 2em;
     display: grid;
-    z-index: 8;
     grid-template-columns: 20% 60% 20%;
-    grid-template-rows: 33% 33% 34%;
+    grid-template-rows: 20% 50% 30%;
     grid-template-areas:
-    "auctionLeft  auctionTopMiddle auctionRight"
+    "auctionTopLeft  auctionTopMiddle auctionRight"
     "auctionLeft  auctionMiddle auctionRight"
     "auctionLeft  auctionMiddle auctionRight";
   }
 
-  .auctionWrapper h1{
+  .auctionBigWrapper .auctionWrapper .auctionTitleWrapper{
     text-align: center;
     grid-area: auctionTopMiddle;
+  }
 
+  .auctionBigWrapper .auctionWrapper .auctionLogoWrapper{
+    grid-area: auctionTopLeft;
   }
 
   .auctionBigWrapper .auctionWrapper .yourTurnToPoorWrapper{
@@ -2206,7 +2483,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .Auction button{
     float: right;
-    margin: 20px;
+    margin-top:  5%;
   }
 
   .overlayAuction__content{
@@ -2239,11 +2516,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .layout{
     z-index:3;
+    grid-column: 1;
+    grid-row: 1;
+    height: 100%;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);/* 1fr 1fr;*/
-    grid-template-rows: auto 1fr 1fr 1fr;
-    gap: 0px 0px;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
   }
+
+
+
   .menuBar{
     border-radius: 1em;
     grid-column: 1/ span 2;
@@ -2258,8 +2541,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: RoyalBlue;
   }
   .Auction{
+    height: 100%;
+    width: 100%;
+    grid-row: 2/4;
     grid-column: 1;
-    grid-row: 2/ span 2;
     border-radius: 1em;
     border: 5px solid #fff;
     background-color: rgb(195, 155, 211);
@@ -2267,7 +2552,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     padding: 0;
   }
 
+
+
+
   .cardsOnSale{
+    height: 100%;
+    width: 100%;
     border-radius: 1em;
     grid-area: cardsOnSale;
     border: 5px solid #fff;
@@ -2307,24 +2597,66 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     display: none;
   }
 
-  .bidWinnerWrapperVisible {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .bidWinnerWrapperVisible button{
-    color: rgb(255, 255, 255);
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 6px;
-    height: 80px;
-    background: #7affde;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #EF629F, #ffc06d);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #EF629F, #f5c27f); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     /* importerat från UI-gradient */
+  .foter{
+    bottom: 0;
+    left:0;
+    position: absolute;
   }
+
+  @media all and (max-width:500px){
+
+    .playerInfo{
+      margin-left: 0px;
+    }
+
+
+
+
+
+
+
+
+
+
+    .tempWorker {
+
+    }
+
+    .marketWrapperr{
+
+    }
+
+    .Auction {
+
+    }
+
+
+    .openButton{
+    font-size: 75%;
+    margin: 0px;
+    border-radius: 10px;
+    }
+
+
+    .openButton img{
+      visibility: hidden;
+    }
+
+
+
+
+
+
+    .buttonWrapper{
+      display: none;
+    }
+
+
+
+  }
+
 
 
 
