@@ -165,5 +165,10 @@ export default {
   background-color: #8A2BE2;
 }
 
+@media all and (max-width:500px){
+
+
+}
+
 
 </style>
