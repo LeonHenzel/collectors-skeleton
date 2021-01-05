@@ -64,6 +64,52 @@
             </li>
           </ul>
 
+                <div class="aboutOverlay" id = "expandAbout">
+                  <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
+                  <div class="aboutInfoOverlay">
+                    <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h2>Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.
+                    </h2>
+                    <h2>This digital version of the game has been developed as a school project in interface programming</h2>
+                    <h2>Its contributors are:</h2>
+                    <h3>Adam Bergman</h3>
+                    <h3>Anton Dahl</h3>
+                    <h3>Leon Henzel</h3>
+                    <h3>Oskar Jonsson</h3>
+                    <h3>Fredrik Nilsson</h3>
+                    <h3>Kalle Rosengren</h3>
+                  </div>
+                </div>
+
+                <div class="exitOverlay" id = "expandExit">
+                  <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
+                  <div class="exitInfoOverlay">
+                    <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1>This action will end the current game session, are you sure that you want to Exit the game?</h1>
+                    <a href="http://localhost:8080/#/" class="exitForReal" >Exit Game!</a>
+
+                  </div>
+                </div>
+
+                <div class="helpOverlay" id = "expandHelp">
+                  <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
+                  <div class="helpInfoOverlay">
+                    <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1>Rulebook</h1>
+                    <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.44.32.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.02.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.26.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.45.41.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.12.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.22.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.35.png">
+                    <img src="/images/Screenshot 2021-01-05 at 14.48.44.png">
+                  </div>
+                </div>
+
         </div>
 
         <div class="gameBoardWrapper">
@@ -315,52 +361,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div class="aboutOverlay" id = "expandAbout">
-                  <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
-                  <div class="aboutInfoOverlay">
-                    <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h2>Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.
-                    </h2>
-                    <h2>This digital version of the game has been developed as a school project in interface programming</h2>
-                    <h2>Its contributors are:</h2>
-                    <h3>Adam Bergman</h3>
-                    <h3>Anton Dahl</h3>
-                    <h3>Leon Henzel</h3>
-                    <h3>Oskar Jonsson</h3>
-                    <h3>Fredrik Nilsson</h3>
-                    <h3>Kalle Rosengren</h3>
-                  </div>
-                </div>
-
-                <div class="exitOverlay" id = "expandExit">
-                  <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
-                  <div class="exitInfoOverlay">
-                    <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>This action will end the current game session, are you sure that you want to Exit the game?</h1>
-                    <a href="http://localhost:8080/#/" class="exitForReal" >Exit Game!</a>
-
-                  </div>
-                </div>
-
-                <div class="helpOverlay" id = "expandHelp">
-                  <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
-                  <div class="helpInfoOverlay">
-                    <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>Rulebook</h1>
-                    <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.44.32.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.45.02.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.45.26.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.45.41.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.12.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.22.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.35.png">
-                    <img src="/images/Screenshot 2021-01-05 at 14.48.44.png">
                   </div>
                 </div>
 
@@ -1637,7 +1637,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
   /*mobile menu end*/
   /*Tablet menu start*/
-  @media all and (min-width:48em){
+
 
     .aboutOverlay{
 
@@ -1731,6 +1731,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           .hide { display:none !important; }
       }
     } */
+    @media all and (min-width:900px){
 
     .menuBar li{
     float: left;
@@ -1779,21 +1780,30 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       background: SeaShell;
 
     }
+    .menuBar ul li:nth-of-type(3){
+      width: auto;
+      order: 3;
+      display: block;
+      max-height:240px;
+      align-items: center;
+      background: SeaShell;
+
+    }
 
     /*.menuBar .buttonNav .secondary{
       border:0;
     }*/
 
-    .menuBar .burgerBarsIcon{
+    /* .menuBar .burgerBarsIcon{
       order: 3;
       display: block;
-    }
+    } */
 
     .menuBar .menuButton:not(:checked) ~ .menu{
       max-height: 240px;
     }
 
-    .menuBar .menuButton:checked ~ .menu li:nth-of-type(-n+4){
+    .menuBar .menuButton:checked ~ .menu li:nth-of-type(-n+3){
       clear: both;
       height: auto;
       width: auto;
@@ -2170,6 +2180,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .aboutOverlay .closeAboutGridButton{
+    width: 0;
     position: absolute;
     top: 20px;
     right: 50px;
