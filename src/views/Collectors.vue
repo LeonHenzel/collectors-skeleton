@@ -2087,8 +2087,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     color: #4c1958;
   }
 
-  .openPlayerviewGridButton>img{
-    height: 100%;
+  .openPlayerviewGridButton img{
+    height: 6vh;
     margin-right: 2%;
     /* width: 20%; */
   }
