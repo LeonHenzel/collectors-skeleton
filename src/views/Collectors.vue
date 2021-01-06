@@ -195,7 +195,7 @@
                   <div class="auctionLogoWrapper">
                     <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
                       <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png">
-                      Auction jalalalal
+                      Auction
                     </button>
                   </div>
                   <div class="auctionTitleWrapper">
@@ -1986,8 +1986,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   text-align: center;
   }
 .openAuctionGridButton img{
-  height: 50px;
-  width: 50px;
+  height: 6vh;
+  width: 6vh;
 }
 
 

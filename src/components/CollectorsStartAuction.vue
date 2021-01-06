@@ -132,6 +132,7 @@ export default {
 
 
   .auctionLayoutTitleWrapper {
+    padding: 5%;
     color: transparent;
     grid-area: auctionLayoutTop;
     margin-left:10%;
@@ -166,14 +167,14 @@ export default {
 
   .openAuctionGridButton {
   color: rgb(155, 89, 182);
-  height: 100%;
-  width: 60%;
+  height: 7vh;
+  width: 70%;
   text-align: center;
   }
 
   .openAuctionGridButton img{
-  height: 80%;
-  width: 10%;
+  height: 5vh;
+  width: 5vh;
   }
 
   .auctionLayoutContentWrapper{
