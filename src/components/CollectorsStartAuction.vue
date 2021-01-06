@@ -399,16 +399,16 @@ export default {
         user-select: none;
       }
 
-      .auction-cards{
+      /*.auction-cards{
         margin-left: 0px;
         margin-top: 0px;
-        grid-row: 1;
+        grid-row: 2;
         height: 100%;
         width: 100%;
         display: grid;
         grid-template-columns: 50% 50%;
-        grid-template-columns: 50% 50%;
-      }
+        grid-template-rows: 50% 50%;
+      }*/
 
       /*.cardDiv{
         transition: 0.2s;

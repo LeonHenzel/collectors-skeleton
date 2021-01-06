@@ -180,20 +180,20 @@ export default {
   }
 
   .CollectorsBuyAction {
-    height: 22.5vh;
+    height: 100%;
+    width: 100%;
     border: none;
     background-color: rgb(236, 112, 99);
   }
 
   .buttons {
     border: 1px solid white;
-    margin: 5px;
     background-color: green;
-    width: 20px;
-    height: 20px;
+    width: 80%;
+    height: 80%;
     border-radius: 5rem;
-    transform: scale(1.4);
-    margin-bottom: 1rem;
+    /*transform: scale(1.4);*/
+    /*margin-bottom: 1rem;*/
     /*display: grid;
     grid-template-columns: repeat(auto-fill, 100px);*/
   }
@@ -208,12 +208,14 @@ export default {
   }
 
   #smallPurchaseButtonBuyActions{
-    height: 20px;
-    width: 20px;
+    height: 100%;
+    width: 100%;
     background-color: transparent;
-    border-radius: 2rem;
+    border-radius: 5rem;
     border: none;
-    padding: 0.1rem;
+    text-align: center;
+
+    padding: 0.1%;
     color: white;
   }
 
@@ -221,7 +223,7 @@ export default {
     cursor: pointer;
   }
 
-  .buttonWrapper{
+  /*.buttonWrapper{
     position: relative;
     top: 1rem;
     padding-left: 5px;
@@ -237,21 +239,41 @@ export default {
     grid-row: 2;
     width: 100px;
     height: 90px;
-    background-color:rgb(17, 122, 101);
+
+  }*/
+
+  .buttonWrapper {
+    height: 85%;
+    width: 85%;
+    display: grid;
+    grid-template-rows: 50% 50%;
+    grid-template-columns: 33% 33% 33%;
+    position: relative;
+    border-radius: 1rem;
+    border: 0.01rem solid white;
+    margin-left: 5%;
+    margin-top: 5%;
+    align-items: center;
+    background-color:rgb(176, 58, 46);
+
+
   }
+
+
+
+
 
   .gridWrapper{
     display: grid;
-    height: 22.5vh;
+    width: 100%;
+    height: 100%;
     grid-template-columns: 25% 75%;
     grid-template-rows: 25% 75%;
   }
 
   .openButton{
-    transform: scale(0.8);
-    transform-origin: top left;
-    max-height: 60px;
-    min-width: 100px;
+    height: 100%;
+    width: 80%;
     grid-column: 1;
     grid-row: 1;
     cursor: pointer;
@@ -262,7 +284,6 @@ export default {
     color: rgb(176, 58, 46);
     Letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 23px;
     font-family: "sans", serif;
     padding: 5%;
     border-color: white;
@@ -270,7 +291,7 @@ export default {
     font-weight: bold;
     z-index: 3;
     position: relative;
-    align-items: center;
+    text-align: center;
     justify-content: center;
     display: flex;
   }
@@ -278,16 +299,18 @@ export default {
   .openButton img{
     /* height: 1vh; */
     padding: 5%;
+    height: 100%;
+    width: 30%;
   }
 
   .openItems{
     color: rgb(17, 122, 101);
     }
 
-    .openItems>img {
+  /*  .openItems>img {
       height: 10%;
-      /* width: auto; */
-    }
+      width: auto;
+    }*/
 
   .openItems:hover {
     background-color: rgb(159, 223, 190);
@@ -418,33 +441,15 @@ export default {
     font-size: 40px;
   }
 
-  .buttonWrapper{
-    position: relative;
-    top: 1rem;
-    padding-left: 5px;
-    padding-top: 5px;
-    border-radius: 1rem;
-    border: 2px solid white;
-    margin-left: 0.5rem;
-    margin-top: 0.1rem;
-    display: grid;
-    grid-template-rows: 50% 50%;
-    grid-template-columns: 33% 33% 33%;
-    grid-column: 1;
-    grid-row: 2;
-    width: 100px;
-    height: 90px;
-    background-color:rgb(176, 58, 46);
-  }
+
 
   .buttonsWrapper .buttons{
     border: 1px solid white;
-    margin: 2px;
     background-color: green;
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: 100%;
     border-radius: 5rem;
-    transform: scale(1.4);
+    /*transform: scale(1.4);*/
     margin-bottom: 1rem;
   }
 
@@ -487,10 +492,17 @@ export default {
       transform: translateX(-10%) scale(1.2);
   }
 
+
+  @media all and (max-width:1200px){
+    .openButton>img{
+      visibility: hidden;
+    }
+  }
+
   @media all and (max-width:500px){
     .gridWrapper{
       display: grid;
-      grid-template-columns: 27% 73%;
+      grid-template-columns: 33% 67%;
       grid-template-rows: 30% 70%;
     }
 
@@ -498,9 +510,8 @@ export default {
       top:0px;
       left:0px;
       height: 90%;
-      width: 75%;
+      width: 90%;
 
-      font-size: 75%;
     }
 
     .openButton>img{
@@ -516,9 +527,7 @@ export default {
 
   }*/
 
-  .buttonWrapper {
-    height: 100%;
-    width: 100%;
+  /*.buttonWrapper {
     display: grid;
     grid-template-rows: 50% 50%;
     grid-template-columns: 33% 33% 33%;
@@ -532,19 +541,16 @@ export default {
     margin-top: 0rem;
     align-items: center;
 
-  }
+  }*/
+
   .buttons {
     border: 0.01rem solid white;
     background-color: green;
-    width: 100%;
-    height: 100%;
     border-radius: 5rem;
-    transform: scale(1);
+    /*transform: scale(1);*/
     margin-bottom: rem;
     /*display: grid;
     grid-template-columns: repeat(auto-fill, 100px);*/
-    top:0px;
-    left:-2px;
     font-size: 75%;
   }
 

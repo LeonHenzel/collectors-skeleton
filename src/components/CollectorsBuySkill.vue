@@ -151,20 +151,19 @@ export default {
   }
 
   .CollectorsBuySkill{
-    height: 23vh;
-    border: none;
+    height: 100%;
+    width: 100%;
+    border-radius: 1em;
+    border: 5px solid #fff;
     background-color: rgb(69, 179, 157);
   }
 
   .buttons{
     border: 1px solid white;
-    margin: 5px;
     background-color: green;
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: 100%;
     border-radius: 5rem;
-    transform: scale(1.4);
-    margin-bottom: 1rem;
     text-align: center;
 
 
@@ -197,20 +196,15 @@ export default {
 
   .buttonWrapper{
     position: relative;
-    top: 1rem;
-    padding-left: 5px;
-    padding-top: 5px;
     border-radius: 1rem;
     border: 2px solid white;
-    margin-left: 0.5rem;
-    margin-top: 0.1rem;
     display: grid;
     grid-template-rows: 50% 50%;
     grid-template-columns: 33% 33% 33%;
     grid-column: 1;
     grid-row: 2;
-    width: 100px;
-    height: 90px;
+    width: 85%;
+    height: 85%;
     background-color:rgb(17, 122, 101);
   }
 
@@ -223,7 +217,8 @@ export default {
   }
 
   .gridWrapper{
-    height: 22.5vh;
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 30% 70%;
@@ -231,10 +226,8 @@ export default {
 
 
   .openButton{
-    transform: scale(0.8);
-    transform-origin: top left;
-    max-height: 60px;
-    min-width: 100px;
+    max-height: 100%;
+    min-width: 90%;
     grid-column: 1;
     grid-row: 1;
     padding: 3px;
@@ -246,7 +239,6 @@ export default {
     color: transparent;
     Letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 23px;
     font-family: "sans", serif;
     padding: 5px;
     border-color: white;
@@ -254,7 +246,6 @@ export default {
     font-weight: bold;
     z-index: 3;
     position: relative;
-    align-items: center;
     justify-content: center;
     display: flex;
   }
@@ -269,7 +260,7 @@ export default {
 
   .openSkills>img {
     height: 98%;
-    width: auto;
+    width: 30%;
   }
 
   .openSkills:hover {
@@ -391,12 +382,24 @@ export default {
     display: block;
   }
 
+  .buttonWrapper>div{
+    height: 100%;
+    width: 100%;
+  }
+
   .overlay .closeButton{
     position: absolute;
     top: 20px;
     right: 50px;
     font-size: 40px;
   }
+
+  @media all and (max-width:1200px){
+    .openButton>img{
+      visibility: hidden;
+    }
+  }
+
 
   /* Den svåra delen! Nu ska vi flytta alla kort som är till
   höger om det kortet som är hover:ed
@@ -424,5 +427,13 @@ export default {
   /*.cardDiv:hover~.cardDiv{
       transform: scale(0.4) translateX(70px);
   }*/
+
+  @media all and (max-width:500px){
+    .gridWrapper{
+      display: grid;
+      grid-template-columns: 33% 67%;
+      grid-template-rows: 30% 70%;
+    }
+  }
 
 </style>
