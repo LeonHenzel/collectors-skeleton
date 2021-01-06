@@ -219,8 +219,9 @@ export default {
     width: 100%;
     height: 50%;
     background: #833ab4;
-    background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
-    background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
+    background: green;
+    /*background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
+    background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);*/
 
   }
 

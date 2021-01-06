@@ -1553,6 +1553,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
     z-index: 6px;
+    /*display: grid;
+    grid-template-columns: 10% 40% 50%;*/
+    /*grid-template-rows: 100%;*/
+    height: 100%;
+    width: 100%;
   }
 
 
@@ -1602,7 +1607,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
    margin-bottom: 0%;
 }
 
-  .menuBar .menu{
+   .menu{
+     grid-column: 3;
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
@@ -2205,8 +2211,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 1%;
     height: 90vh;
     width: 90vw;
-    /* background: #672d75; 
-    background: -webkit-linear-gradient(to left, #C6426E, #642B73); 
+    /* background: #672d75;
+    background: -webkit-linear-gradient(to left, #C6426E, #642B73);
     background: linear-gradient(to left, #C6426E, #642B73); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+; */
 
     background: repeating-conic-gradient(#933, #bf4040 1%);

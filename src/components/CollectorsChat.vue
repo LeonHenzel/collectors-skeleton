@@ -82,6 +82,7 @@
 
 <style>
 .mainWrapper{
+  grid-column: 1;
   margin-left: 5px;
 }
 #senderName{

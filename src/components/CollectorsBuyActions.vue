@@ -29,7 +29,24 @@
             </div>
           </div>
         </div>
+        <div class="arrowAndCostGrid">
+          <div class="cardCosts">
+          <div  v-for="(card, index) in itemsOnSale" :key="index">
+            {{ cardCost(card) }}
+          </div>
+        </div>
+        <div class="arrows">
+          <div  v-for="(card, index) in itemsOnSale" :key="index">
+            <div class="arrow down" v-if="index===0">
+            </div>
+            <div class="arrow left" v-else>
+            </div>
+          </div>
+          </div>
+        </div>
       </div>
+
+
 
 
 
@@ -170,6 +187,24 @@ export default {
     grid-column: 2;
   }*/
 
+  .arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
   .buy-cards{
     grid-row: 1;
     grid-column: 2;
@@ -242,6 +277,8 @@ export default {
   }*/
 
   .buttonWrapper {
+    grid-column: 1;
+    grid-row: 2/4;
     height: 85%;
     width: 85%;
     display: grid;
@@ -261,7 +298,35 @@ export default {
     width: 100%;
     height: 100%;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 25% 75%;
+    grid-template-rows: 25% 40% 35%;
+  }
+
+  .arrowAndCostGrid{
+    grid-column: 2;
+    grid-row: 3;
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 50% 50%;
+  }
+
+  .cardCosts{
+    height: 100%;
+    width: 100%;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    text-align: center;
+  }
+
+  .arrows{
+    height: 100%;
+    width: 100%;
+    grid-row: 2;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    text-align: center;
   }
 
   .openButton{
