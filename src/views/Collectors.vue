@@ -51,7 +51,7 @@
 
             <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
-          
+
           <ul class="menu">
             <li class="item desktop">
               <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
@@ -342,6 +342,8 @@
 
 
 
+                    <!--
+
                     <div class="myCards">
                       <div class="myHand">
                           <h2>My Hand</h2>
@@ -350,7 +352,11 @@
                           </div>
                       </div>
 
-                      <!--  <div class="itemsAndSkills">
+
+
+
+
+                        <div class="itemsAndSkills">
                           <div class="myItems">
                               <h2>My Items</h2>
                               <div class="cardslots" id="meCards" v-if="players[playerId]">
@@ -366,8 +372,8 @@
                               </div>
                           </div>
                         </div>
-                      </div>-->
-                    </div>
+                      </div>
+                    </div> -->
                   </div>
                 </div>
 
@@ -1909,15 +1915,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-row: 1;
     grid-column: 1/3;
     background-color: rgb(255, 217, 179);
+    border-radius: 1em;
+    border: 5px solid #fff;
   }
 
   .marketWrapperr{
-    height: 100%;
+    height: 94%;
     width: 100%;
     margin: 0px;
     background-color: #4169E1;
     grid-row: 4;
     grid-column: 1/3;
+    border-radius: 1em;
+    border: 5px solid #fff;
   }
 
   .openButton{
@@ -2002,7 +2012,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .myStatusContent{
 
-    grid-template-rows:8% 36% 8% 48%;
+    grid-template-rows:8% 36% 48%;
     grid-template-columns: 100%;
     display: grid;
     flex-direction: column;
@@ -2596,8 +2606,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .cardsOnSale{
     height: 100%;
     width: 100%;
-    border-radius: 1em;
     grid-area: cardsOnSale;
+    border-radius: 1em;
     border: 5px solid #fff;
     background-color: Black;
   }
@@ -2657,7 +2667,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 
-/* 
+/*
     .tempWorker {
 
     }
