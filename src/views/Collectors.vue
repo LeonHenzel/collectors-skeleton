@@ -380,35 +380,37 @@
                 <div class="overlayPlayerView" id = "expandPlayerview">
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
-                    <div class="overlayPlayerView_leftContent">
-                      <div>
-                        player 1
-                        total points
-                      </div>
-                      <div>
-                        <CollectorsMePlayerOverlay v-if="players[playerId]"
-                        :player="players[playerId]" />
-                      </div>
+                    <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
+                      {{players[playerId].playerName}}
                     </div>
-                    <div class="overlayPlayerView_rightContent">
-                      <div class="myHandOverlay">
-                        <h4>My Hand</h4>
-                        <div class="cardslots" v-if="players[playerId]">
-                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+
+                    <div class="overlayPlayerViewWrapperBottom">
+                      <div class="overlayPlayerView_leftContent">
+                        <div>
+                          <CollectorsMePlayerOverlay v-if="players[playerId]"
+                          :player="players[playerId]" />
                         </div>
                       </div>
-
-                      <div class="myItemsOverlay">
-                        <h4>My Items</h4>
-                        <div class="cardslots" v-if="players[playerId]">
-                          <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                      <div class="overlayPlayerView_rightContent">
+                        <div class="myHandOverlay">
+                          <h4>My Hand</h4>
+                          <div class="cardslots" v-if="players[playerId]">
+                            <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="mySkillsOverlay">
-                        <h4>My Skills</h4>
-                        <div class="cardslots" v-if="players[playerId]">
-                          <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                        <div class="myItemsOverlay">
+                          <h4>My Items</h4>
+                          <div class="cardslots" v-if="players[playerId]">
+                            <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
+                          </div>
+                        </div>
+
+                        <div class="mySkillsOverlay">
+                          <h4>My Skills</h4>
+                          <div class="cardslots" v-if="players[playerId]">
+                            <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2195,24 +2197,22 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-rows: 20% 80%;
+  }
+
+  .overlayPlayerViewWrapperTop{
+  }
+
+  .overlayPlayerViewWrapperBottom{
+    display: grid;
+    grid-template-columns: 55% 45%;
   }
 
 
 
   .overlayPlayerView_leftContent{
-    display: grid;
-    grid-template-rows: 10% 90%
-    /* position: relative;
-    top: 25%;
-    width: 80%;
-    text-align: center;
-    margin-top: 30px; */
     /* display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0px 0px;
-    grid-template-areas:
-    "myHandOverlay myItemsOverlay mySkillsOverlay"; */
+    grid-template-rows: 10% 90% */
   }
 
   .overlayPlayerView_rightContent{
