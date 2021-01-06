@@ -1,14 +1,5 @@
 <template>
     <div class="mePlayer" v-if="player">
-        <div class="playerName">
-            {{player.playerName}}
-            <div class="playing" v-if="player.myTurn">
-            Playing
-            </div>
-            <div class=firstPlayer v-if="player.firstPlayerToken">
-            1st
-            </div>
-        </div>
 
         <div class="playerInfoWrapper">
             <div class="pointsSymbol">

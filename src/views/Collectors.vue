@@ -194,7 +194,7 @@
                 <div class="auctionWrapper">
                   <div class="auctionLogoWrapper">
                     <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
-                      <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png" width="40" height="40">
+                      <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png">
                       Auction
                     </button>
                   </div>
@@ -387,7 +387,8 @@
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
-                      <h1>{{players[playerId].playerName}} <span v-if="players[playerId].myTurn"> ,it is your turn! </span></h1>  
+                      <h1>{{players[playerId].playerName}}<span v-if="players[playerId].myTurn">, it is your turn! </span></h1>
+                      <h2 v-if="players[playerId].firstPlayerToken">Next round you will be the first player.</h2>  
                     </div>
 
                     <div class="overlayPlayerViewWrapperBottom">
@@ -1986,9 +1987,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   width: 60%;
   text-align: center;
   }
-.openAuctionGridButton>img{
-  height: 80%;
-  width: 10%;
+.openAuctionGridButton img{
+  height: 6vh;
+  width: 6vh;
 }
 
 
@@ -2210,7 +2211,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-rows: 20% 80%;
   }
 
-  .overlayPlayerViewWrapperTop{
+  .overlayPlayerViewWrapperTop h1{
+    text-transform: capitalize;
   }
 
   .overlayPlayerViewWrapperBottom{
@@ -2247,9 +2249,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayPlayerView .closePlayerviewGridButton{
     position: absolute;
-    top: 20px;
-    right: 50px;
-    font-size: 40px;
+    top: 5vh;
+    right: 10vh;
+    font-size: 6vh;
   }
 
   .aboutOverlay .closeAboutGridButton{
