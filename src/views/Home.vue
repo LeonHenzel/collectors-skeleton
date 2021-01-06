@@ -30,17 +30,19 @@
       </button>
 
       <div id = "welcomeTable">
-        <h1 id="mainTitle"><img src="/images/CollectorsLogo01.png" height="600"></h1>
-        <ul v-if="englishGotClicked">
-          <li v-for="i in 3" :key="i">
-            <a class="clickableText" @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players</a>.
-          </li>
-        </ul>
-        <ul v-if="swedishGotClicked">
-          <li v-for="i in 3" :key="i">
-            <a class="clickableText" @click="setupCollectors(i+1, 'se')">Spela Collectors med {{i+1}} spelare</a>.
-          </li>
-        </ul>
+        <div id="mainTitle"><img src="/images/CollectorsLogo01.png"></div>
+        <div class="startGameLinks">
+          <ul v-if="englishGotClicked">
+            <li v-for="i in 3" :key="i">
+              <a class="clickableText" @click="setupCollectors(i+1, 'en')">Set up a game of Collectors for {{i+1}} players.</a>
+            </li>
+          </ul>
+          <ul v-if="swedishGotClicked">
+            <li v-for="i in 3" :key="i">
+              <a class="clickableText" @click="setupCollectors(i+1, 'se')">Spela Collectors med {{i+1}} spelare.</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -78,6 +80,12 @@ export default {
 </script>
 
 <style scoped>
+  @import url('https://fonts.googleapis.com/css?family=Arima+Madurai:300');
+
+  *{
+    font-family: 'Arima Madurai', cursive;
+    /* color: black; */
+  }
 
   li{
     list-style: none;
@@ -88,7 +96,7 @@ export default {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 1em;
+    /* padding: 1em; */
 
   }
 
@@ -105,15 +113,15 @@ export default {
     margin-right: 30%;
   } */
 
-  .switchLanguage{
-    position: absolute;
-    right: 0%;
-    top: 0%;
-    margin: 5px;
-    background-color: transparent;
-    outline: none;
-    border: none;
+  #mainTitle img{
+    height: 55vh;
+    margin-top: 5%;
   }
+
+  .startGameLinks{
+    margin-top: 5%;
+  }
+
   .switchLanguage:hover{
     cursor: pointer;
   }
@@ -122,7 +130,7 @@ export default {
     position: absolute;
     right: 0%;
     top: 0%;
-    margin: 5px;
+    margin: 1%;
     background-color: transparent;
     outline: none;
     border: none;
@@ -132,35 +140,39 @@ export default {
   }
 
   .clickableText{
-    font-size: 1.8vh;
-    margin-left: -10%;
+    font-size: 2.3vh;
+    margin-left: -2%;
+    font-weight: bolder;
   }
 
   .clickableText:hover{
-    Color: cyan;
+    color: rgb(124, 246, 255);
     cursor: pointer;
-    font-weight: bold;
+    background: rgb(120, 25, 197);
+    box-shadow: 0px 0px 0.5vh 0.5vh rgb(130, 23, 192);
   }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+  padding: 0px;
 }
 
 .container {
+  height: 100vh;
   z-index: 1;
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 35rem;
+  /* min-height: 35rem; */
   background-image: linear-gradient(to bottom, rgba(255, 168, 76, 0.6) 0%, rgba(255, 123, 13, 0.6) 100%), url("https://images.unsplash.com/photo-1446824505046-e43605ffb17f");
   background-blend-mode: soft-light;
   background-size: cover;
   background-position: center center;
-  padding: 2rem;
+  padding: 0px;
 }
 
 .bird {
@@ -273,5 +285,9 @@ export default {
   100% {
     transform: translateY(0vh) translateX(110vw) scale(0.45);
   }
+}
+
+*{
+  padding: 0px;
 }
 </style>
