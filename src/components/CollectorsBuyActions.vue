@@ -174,7 +174,7 @@ export default {
     grid-row: 1;
     grid-column: 2;
     display:grid;
-    grid-template-columns: 19% 19% 19% 19% 19%;
+    grid-template-columns: repeat(5, 20%); /*19% 19% 19% 19% 19%;*/
     grid-template-rows:100%;
 
   }
@@ -187,7 +187,7 @@ export default {
   }
 
   .buttons {
-    border: 1px solid white;
+    border: 0.1em solid white;
     background-color: green;
     width: 80%;
     height: 80%;
@@ -200,7 +200,7 @@ export default {
 
   .buttons button{
     border-radius: 2em;
-    padding: 10px;
+    padding: 2%;
   }
 
   .buttons button:hover{
@@ -214,7 +214,6 @@ export default {
     border-radius: 5rem;
     border: none;
     text-align: center;
-
     padding: 0.1%;
     color: white;
   }
@@ -255,13 +254,7 @@ export default {
     margin-top: 5%;
     align-items: center;
     background-color:rgb(176, 58, 46);
-
-
   }
-
-
-
-
 
   .gridWrapper{
     display: grid;
@@ -278,16 +271,16 @@ export default {
     grid-row: 1;
     cursor: pointer;
     margin: 3%;
-    border-radius: 28px;
+    border-radius: 2em;
     background-color: transparent;
     -webkit-text-stroke: 1px black;
     color: rgb(176, 58, 46);
-    Letter-spacing: 1px;
+    Letter-spacing: 10%;
     text-transform: uppercase;
     font-family: "sans", serif;
     padding: 5%;
     border-color: white;
-    border-width: 2px;
+    border-width: 0.2em;
     font-weight: bold;
     z-index: 3;
     position: relative;
@@ -334,7 +327,7 @@ export default {
     margin: 10%;
     border-radius: 2em;
     display: grid;
-    grid-template-columns: 15% 60% 25%;
+    grid-template-columns: 15% 65% 25%;
     grid-template-rows: 90% 10%;
     grid-template-areas:
     "button cards buyaction"
@@ -343,8 +336,10 @@ export default {
 
   .overlay .buy-cardsWrapper{
     grid-area: cards;
-    border-right: dotted white;
-    grid-template-rows: 5% 95%;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 15% 85%;
     grid-template-areas:
     "text"
     "availableCards";
@@ -355,25 +350,31 @@ export default {
   }
   .overlay .buy-cardsWrapper .buy-cards{
     grid-area: availableCards;
-    align-items:center;
+    width:100%;
+    align-items: center;
+    display: grid;
+
   }
 
   .overlay .openButtonWrapper{
     grid-area: button;
-    grid-template-rows: 5% 95%;
+    display: grid;
+    grid-template-rows: 10% 90%;
     grid-template-areas:
-    "topLeft"
-    "bottomLeft";
+    "openButtonWrappertopLeft"
+    "openButtonWrapperbottomLeft";
   }
   .overlay .openButtonWrapper .openButton{
-    grid-area: "topLeft";
-    margin-left:10%;
-    margin-top:10%;
+    grid-area: "openButtonWrappertopLeft";
+    margin-left: 10%;
+    margin-top: 10%;
   }
 
   .overlay .paymentWrapper{
     grid-area: buyaction;
-    grid-template-rows: 5% 95%;
+    border-left: dotted white;
+    display:grid;
+    grid-template-rows: 15% 85%;
     grid-template-areas:
     "textPayment"
     "payment";
@@ -385,16 +386,25 @@ export default {
 
   .overlay .paymentWrapper .buttonsWrapper{
     grid-area: payment;
+    display:grid;
+    margin-left: 10%;
+    grid-template-rows: repeat(5,20%);
   }
 
   .overlay .paymentWrapper .buttonsWrapper .buttons{
-    margin-left: 15%;
-    margin-bottom: 15%;
+    width: 80%;
+    height: 60%;
   }
+  .overlay .paymentWrapper .buttonsWrapper .buttons button{
+    height: 100%;
+    width: 100%;
+  }
+
 
   .overlay .backToBoard{
     right: 50%;
-    border-right: dotted white;
+    margin-bottom: 10%;
+
     transform: bottom;
     grid-area: backToBoard;
   }
@@ -402,8 +412,8 @@ export default {
     right: 50%;
     transform: bottom;
     border-radius: 2em;
-    padding: 10px;
-    margin-bottom: 5px;
+    padding: 3%;
+    margin-bottom: 3%;
     margin-left: 45%;
   }
   .overlay .backToBoard button:hover{
@@ -416,8 +426,8 @@ export default {
     transition: 0.2s;
   }*/
 
-  .overlay .buy-cards .cardWrapper:hover~.cardWrapper{
-    transform: translateX(100px);
+  .overlay .buy-cards:hover~.buy-cards{
+    transform: translateX(10%);
   }
 
   .overlay__content{
@@ -425,32 +435,32 @@ export default {
     top: 25%;
     width: 100%;
     text-align: center;
-    margin-top: 30px;
+    /*margin-top: 30px;*/
   }
 
   .overlay a{
-    padding: 10px;
+    padding: 3%;
     color: white;
     display: block;
   }
 
   .overlay .closeButton{
     position: absolute;
-    top: 20px;
-    right: 50px;
-    font-size: 40px;
+    top: 2%;
+    right: 3%;
+    font-size: 300%;
   }
 
 
 
   .buttonsWrapper .buttons{
-    border: 1px solid white;
+    border: 0.1em solid white;
     background-color: green;
     width: 100%;
     height: 100%;
     border-radius: 5rem;
     /*transform: scale(1.4);*/
-    margin-bottom: 1rem;
+    /*margin-bottom: 1rem;*/
   }
 
   .buttons .red{
@@ -495,7 +505,8 @@ export default {
 
   @media all and (max-width:1200px){
     .openButton>img{
-      visibility: hidden;
+      display:none;
+      /*visibility: hidden;*/
     }
   }
 
@@ -507,15 +518,16 @@ export default {
     }
 
     .openButton{
-      top:0px;
-      left:0px;
+      top:0%;
+      left:0%;
       height: 90%;
       width: 90%;
 
     }
 
     .openButton>img{
-      visibility: hidden;
+      display: none;
+      /*visibility: hidden;*/
     }
 
 
