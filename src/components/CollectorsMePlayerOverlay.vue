@@ -2,32 +2,18 @@
     <div class="mePlayer" v-if="player">
 
         <div class="playerInfoWrapper">
-            <div class="pointsSymbol">
-            </div>
+            <div class="pointsSymbol"></div>
             <div class="pointsPlayer">
-
                 {{player.points}}
-
-
             </div>
-            <div class="energySymbol">
-
-
-            </div>
+            <div class="energySymbol"></div>
             <div class="energyPlayer">
-
                 {{player.energyBottles}}
-
-
             </div>
-            <div class="moneySymbol">
-
-            </div>
+            <div class="moneySymbol"></div>
             <div class="playerMoney">
             {{player.money}}
             </div>
-
-
         </div>
 
 

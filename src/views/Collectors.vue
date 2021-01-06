@@ -2205,9 +2205,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 1%;
     height: 90vh;
     width: 90vw;
-    background: #672d75;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: #672d75; 
+    background: -webkit-linear-gradient(to left, #C6426E, #642B73); 
+    background: linear-gradient(to left, #C6426E, #642B73); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+; */
+
+    background: repeating-conic-gradient(#933, #bf4040 1%);
+
     display: grid;
     grid-template-rows: 20% 80%;
   }
