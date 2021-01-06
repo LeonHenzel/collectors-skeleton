@@ -190,7 +190,7 @@
             <div class="overlayAuction" id = "expandAuction">
               <!--<a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a> kryss knapp auction-->
               <!--<div class="completeAuctionDiv">-->
-              <div class="auctionBigWrapper">
+              <div class="auctionBigWrapper" v-if="players[playerId].bidSkipper===false">
                 <div class="auctionWrapper">
                   <div class="auctionLogoWrapper">
                     <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
@@ -234,7 +234,7 @@
                     </div>
                   </div>
                 </div>
-                </div>
+              </div>
 
 
                 <div v-bind:class="bidWinnerWrapper">
@@ -296,7 +296,13 @@
                 <div class="auctionOver" v-if="players[playerId].bidSkipper===true && currentAuction.length!==0"  id="auctionOver">
                   <div class="auctionOverWrapper">
                     <div class="auctionOverTitle">
-                      <h1>Auction is over!</h1>
+                      <h1>Unfortunately, you lost the auction.</h1>
+                    </div>
+                    <div class="sadEmojiDiv">
+                      <div id="sadEmoji">
+                        <CollectorsSadEmoji v-if="players[playerId]"
+                        :player="players[playerId]" />
+                      </div>
                     </div>
                     <div class="auctionOverContent">
                       <h3>The auction is over.</h3>
@@ -450,6 +456,7 @@ import CollectorsStartGame from '@/components/CollectorsStartGame.vue'
 import CollectorsOtherPlayers from '@/components/CollectorsOtherPlayers.vue'
 import CollectorsMePlayer from '@/components/CollectorsMePlayer.vue'
 import CollectorsMePlayerOverlay from '@/components/CollectorsMePlayerOverlay.vue'
+import CollectorsSadEmoji from '@/components/CollectorsSadEmoji.vue'
 
 
 
@@ -468,7 +475,8 @@ export default {
     CollectorsStartGame,
     CollectorsOtherPlayers,
     CollectorsMePlayer,
-    CollectorsMePlayerOverlay
+    CollectorsMePlayerOverlay,
+    CollectorsSadEmoji
 
   },
   data: function () {
@@ -2286,30 +2294,44 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   }*/
   .auctionOver{
-    grid-area: auctionBottom;
-
-  }
-
-  .auctionOver .auctionOverWrapper{
+    /* grid-area: auctionBottom; */
+    height: 100vh;
+    display: flex;
     align-items: center;
-    display: grid;
-    grid-template-rows: 30% 70%;
-    grid-template-areas:
-    "auctionOverTop"
-    "auctionOverbottom";
+    justify-content: center;
     text-align: center;
   }
 
-  .auctionOver .auctionOverWrapper .auctionOverTitle{
-    grid-area: auctionOverTop;
-
-
+  .auctionOverWrapper{
+    border-radius: 5%;
+    box-shadow: 0px 0px 100px 20px rgb(199, 5, 5);
+    width: 90%;
+    height: 60vh;
+    background: black;
+    display: grid;
+    grid-template-rows: 34% 36% 15%;
   }
 
-  .auctionOver .auctionOverWrapper .auctionOverbottom{
-      grid-area: auctionOverbottom;
-
+  .auctionOverTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
+  .auctionOverTitle h1{
+    font-size: 4vh;
+  }
+
+  .sadEmojiDiv{
+    height: 1vh;
+  }
+
+  #sadEmoji{
+    z-index: 99999;
+  }
+
+
+
 
 
   .bidWinnerWrapperVisible {

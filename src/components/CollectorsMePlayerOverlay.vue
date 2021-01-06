@@ -80,7 +80,7 @@
 
 <script>
 export default {
-  name: 'CollectorsMePlayer'
+  name: 'CollectorsMePlayerOverlay'
 ,
   props: {
     player: Object
