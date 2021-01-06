@@ -103,6 +103,8 @@ export default {
 
 *{
   font-family: 'Bangers', cursive;
+  font-size: 2vh;
+  letter-spacing: 0.2vh;
 }
 
 .pointsSymbol {
