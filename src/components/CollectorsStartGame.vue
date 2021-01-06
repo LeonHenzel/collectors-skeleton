@@ -2,10 +2,22 @@
 
   <div class="readyoverlay" id="readyoverlay"  v-if="!player.ready">
 
+
+
+
       <button class="startbutton" @click="isReady()">{{labels.ready}}</button>
 
+      <p id="foter">
+        {{labels.invite}}
+        <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+      </p>
     </div>
     <div class="readyoverlay" v-else>
+
+      <p id="foter">
+        {{labels.invite}}
+        <input type="text" :value="publicPath + $route.path" @click="selectAll" readonly="readonly">
+      </p>
     <div class="choosecardswrapper">
 
 
@@ -32,7 +44,7 @@
 
   </div>
 
-    
+
 
   </div>
 
@@ -84,7 +96,7 @@ width: 100%;
 height: 1000px;
 background: rgba(0, 0, 0, 0.7);
 z-index: 10;
-position: fixed;
+position: relative;
 
 }
 .readyoverlay__content{
@@ -99,6 +111,15 @@ width: 100%;
   align-items:center;
   justify-content: center;
 }
+
+#foter{
+ position: fixed;
+ bottom: 0;
+ left:0 ;
+}
+
+
+
 
 .choosecards{
 
@@ -119,8 +140,25 @@ width: 100%;
   transform: translate(-50%,-50%);
 
 }
+
+#startbutton1{
+
+  z-index:11;
+  border-radius: 70em;
+  color:darkred;
+  font-style: bold;
+  background-color: white;
+  display: block;
+  max-width: 100px;
+  margin-left: 45%;
+
+}
+
+
+
+
 .startbutton {
-  display: inline-block;
+
   border-radius: 4px;
   background-color: #f4511e;
   border: none;
@@ -158,12 +196,7 @@ width: 100%;
   opacity: 1;
   right: 0;
 }
-.footer{
-  bottom: 0;
-  left: 0;
-  position: absolute;
 
-}
 
 
 </style>
