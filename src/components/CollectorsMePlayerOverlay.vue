@@ -1,34 +1,55 @@
 <template>
     <div class="mePlayer" v-if="player">
       <div class="mePlayerContent">
-
-        <div class="mySkillTokens">
-          My Skill Tokens
-          <div>
-            <img src="/images/skillsVP.png">
-            <span></span>
-          </div>
-          <div>
-            <img src="/images/skillsFastavalVP.png">
-            <span></span>
-            <img src="/images/skillsfiguresVP.png">
-            <span></span>
-            <img src="/images/skillsmovieVP.png">
-            <span></span>
-            <img src="/images/skillsMusicVp.png">
-            <span></span>
-            <img src="/images/skillsTechVP.png">
-            <span></span>
-          </div>
-          <div>
-            <img src="/images/skillsAuctionIncome.png">
-            <span></span>
-            <img src="/images/skillsGainBottle.png">
-            <span></span>
-            <img src="/images/skillswork2.png">
-            <span></span>
-            <img src="/images/skillsWorkCard.png">
-            <span></span>
+        <div class="mySkillTokensDiv">
+          My Skills
+          <div class="mySkillTokens">
+            <div id="skillsFirstRow">
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsVP.png"></div>
+                <div>{{player.skillVP.VPAll}}</div> 
+              </h1>
+            </div>
+            <div id="skillsSecondRow">
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
+                <div>{{player.skillVP.VPfastaval}}</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
+                <div>{{player.skillVP.VPfigures}}</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
+                <div>{{player.skillVP.VPmovie}}</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
+                <div>{{player.skillVP.VPmusic}}</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
+                <div>{{player.skillVP.VPtechnology}}</div>
+              </h1>
+            </div>
+            <div id="skillsThirdRow">
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
+                <div>{{player.auctionIncome}}</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
+                <div>?</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillswork2.png"></div>
+                <div>{{player.workerIncome}}</div>
+              </h1>
+              <h1 class="badge">
+                <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
+                <div>{{player.workerCard}}</div>
+              </h1>
+            </div>
           </div>
         </div>
 
@@ -105,6 +126,69 @@ export default {
   font-family: 'Bangers', cursive;
   font-size: 2vh;
   letter-spacing: 0.2vh;
+}
+
+.imageContainer{
+  height: 7vh;
+  width: 4vw;
+}
+
+.imageContainer img{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#skillsFirstRow{
+  display: flex;
+}
+
+#skillsSecondRow{
+  display: flex;
+}
+
+#skillsThirdRow{
+  display: flex;
+}
+
+#skillsFirstRow h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#skillsSecondRow h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#skillsThirdRow h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.badge{
+  background: rgb(42, 61, 5);
+}
+
+.badge *{
+  color: aliceblue;
+}
+
+
+.mySkillTokensDiv{
+  font-size: 2.5vh;
+  text-align: center;
+  height: 30vh;
+}
+
+.mySkillTokens{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .pointsSymbol {

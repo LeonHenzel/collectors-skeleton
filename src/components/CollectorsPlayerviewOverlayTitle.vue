@@ -2,7 +2,7 @@
 
     <div class="playerName" v-if="player">
         <div class="coolTitle">
-            <h1 v-if="player.myTurn===false">{{player.playerName}}'s status</h1>
+            <h1 v-if="player.myTurn===false">{{player.playerName}}'s status </h1>
             <h1 v-if="player.myTurn">{{player.playerName}}<span>, it is your turn! </span></h1>
         </div>
         <!-- <h3 v-if="player.firstPlayerToken">In the next round you will be the first player.</h3>   -->
