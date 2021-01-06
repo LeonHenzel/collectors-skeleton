@@ -2,9 +2,10 @@
 
     <div class="playerName" v-if="player">
         <div class="coolTitle">
-            <h1>{{player.playerName}}<span v-if="player.myTurn">, it is your turn! </span></h1>
+            <h1 v-if="player.myTurn===false">{{player.playerName}}'s status</h1>
+            <h1 v-if="player.myTurn">{{player.playerName}}<span>, it is your turn! </span></h1>
         </div>
-        <h3 v-if="player.firstPlayerToken">In the next round you will be the first player.</h3>  
+        <!-- <h3 v-if="player.firstPlayerToken">In the next round you will be the first player.</h3>   -->
     </div>
 </template>
 
@@ -54,7 +55,7 @@ h1 {
     font-size: 5vh;
     letter-spacing: 1vh;
     text-transform: uppercase;
-    transform: rotate(-5deg);
+    transform: rotate(-4deg);
     text-shadow: 1px 1px #ac9939, 2px 2px #983, 3px 3px #86772d, 4px 4px #82742b, 5px 5px #7e702a, 6px 6px #7a6d29, 7px 7px #776928, 8px 8px #736626, 9px 9px #6f6325, 10px 10px #6b5f24, 10px 10px 30px rgba(0, 0, 0, 0.7);
 }
 

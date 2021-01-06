@@ -1,5 +1,36 @@
 <template>
     <div class="mePlayer" v-if="player">
+      <div class="mePlayerContent">
+
+        <div class="mySkillTokens">
+          My Skill Tokens
+          <div>
+            <img src="/images/skillsVP.png">
+            <span></span>
+          </div>
+          <div>
+            <img src="/images/skillsFastavalVP.png">
+            <span></span>
+            <img src="/images/skillsfiguresVP.png">
+            <span></span>
+            <img src="/images/skillsmovieVP.png">
+            <span></span>
+            <img src="/images/skillsMusicVp.png">
+            <span></span>
+            <img src="/images/skillsTechVP.png">
+            <span></span>
+          </div>
+          <div>
+            <img src="/images/skillsAuctionIncome.png">
+            <span></span>
+            <img src="/images/skillsGainBottle.png">
+            <span></span>
+            <img src="/images/skillswork2.png">
+            <span></span>
+            <img src="/images/skillsWorkCard.png">
+            <span></span>
+          </div>
+        </div>
 
         <div class="playerInfoWrapper">
             <div class="pointsSymbol"></div>
@@ -51,6 +82,7 @@
             </div>
             </div>
         </div>
+      </div>
     </div>
 </template>
 
@@ -66,6 +98,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+@import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
+
+*{
+  font-family: 'Bangers', cursive;
+}
 
 .pointsSymbol {
   content: url('/images/victoryPoints-Symbol.png');
