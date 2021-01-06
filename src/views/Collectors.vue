@@ -387,7 +387,7 @@
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
-                      {{players[playerId].playerName}}
+                      <h1>{{players[playerId].playerName}} <span v-if="players[playerId].myTurn"> ,it is your turn! </span></h1>  
                     </div>
 
                     <div class="overlayPlayerViewWrapperBottom">
@@ -2201,8 +2201,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayPlayerViewWrapper{
     border-radius: 1%;
-    height: 95%;
-    width: 95%;
+    height: 90vh;
+    width: 90vw;
     background: #672d75;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
