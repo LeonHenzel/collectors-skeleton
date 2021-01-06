@@ -51,7 +51,7 @@
 
             <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
-          
+
           <ul class="menu">
             <li class="item desktop">
               <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
@@ -171,11 +171,11 @@
           <div class="Auction">
             <!-- detta är vad som synns i overview.  -->
             <div class="frontAuction">
-              <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
+              <!--<button href="#" class = "openButton openAuctionGridButton" > @click="expandAuctionGrid()" öppna auction vid klick
                 <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
                 Auction
               </button>
-              <br>
+              <br>kan nog tas bort-->
               <CollectorsStartAuction v-if="players[playerId]"
                 :labels="labels"
                 :player="players[playerId]"
@@ -1956,9 +1956,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .frontAuction {
     height: 100%;
     width: 100%;
-    display: grid;
+    /*display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 10% 90%; kan nog tas bort*/
   }
 
 
@@ -1983,10 +1983,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 
-  .openAuctionGridButton:hover {
+  /*.openAuctionGridButton:hover {
     background-color: rgb(230, 204, 255);
     border-color: black;
-  }
+  } behövs inte längre då den ej är clickable*/
 
   /*Dekstop menu end*/
   /*här slutar css för navbar*/
@@ -2679,7 +2679,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 
-/* 
+/*
     .tempWorker {
 
     }
