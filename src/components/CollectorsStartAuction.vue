@@ -1,25 +1,36 @@
 <template>
     <div class="auctionLayout">
-
-      <h3>{{ labels.startAuction }}</h3>
-      <div class="auction-cards">
-        <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
-          <CollectorsCard
-            :card="auctionCards[auctionCards.length-1-index]"
-            :availableAction="auctionCards[auctionCards.length-1-index].available"
-            @doAction="startAuction(auctionCards[auctionCards.length-1-index])"/>
-        </div>
+      <div class="auctionLayoutTitleWrapper">
+        <!--<h3>{{ labels.startAuction }}</h3>-->
+        <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
+          <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
+          Auction
+        </button>
       </div>
-      <div class="buttonDiv">
-        <div class="buttons" v-for="(p, index) in placement" :key="index">
-          <button
-            v-if="p.playerId===null"
-            :disabled="cannotAfford(p.cost)"
-            @click="placeBottle(p)" >
-            ${{p.cost}}
-          </button>
-          <div v-if="p.playerId !== null">
-            {{p.playerId}}
+      <div class="auctionLayoutContentWrapper">
+        <div class="auction-cards">
+          <div class="cardDiv" v-for="(card, index) in auctionCards" :key="index">
+            <CollectorsCard
+              :card="auctionCards[auctionCards.length-1-index]"
+              :availableAction="auctionCards[auctionCards.length-1-index].available"
+              @doAction="startAuction(auctionCards[auctionCards.length-1-index])"/>
+          </div>
+        </div>
+
+        <div class="bu">
+
+        </div>
+        <div class="buttonDiv">
+          <div class="buttons" v-for="(p, index) in placement" :key="index">
+            <button
+              v-if="p.playerId===null"
+              :disabled="cannotAfford(p.cost)"
+              @click="placeBottle(p)" >
+              ${{p.cost}}
+            </button>
+            <div v-if="p.playerId !== null">
+              {{p.playerId}}
+            </div>
           </div>
         </div>
       </div>
@@ -104,49 +115,108 @@ export default {
   .auctionLayout{
     width: 100%;
     height: 100%;
-    grid-row: 2;
+    /*grid-row: 2;
     grid-column: 1;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: flex-start; kan nog tas bort*/
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows:15% 60% 25%;
+    grid-template-rows: 20% 80%;
+    grid-template-areas:
+    "auctionLayoutTop"
+    "auctionLayoutBottom";
   }
 
 
-
-  .auctionLayout h3{
+  .auctionLayoutTitleWrapper {
     color: transparent;
+    grid-area: auctionLayoutTop;
+    margin-left:10%;
+  }
 
-    grid-row:1;
-    grid-column:1;
-    margin-left:20px;
+  .openButton{
+    position: relative;
+    top: 0;
+    /*cursor: pointer;*/
+    margin: 2px;
+    border-radius: 28px;
+    background-color: transparent;
+    -webkit-text-stroke: 1px black;
+    color: transparent;
+    Letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 120%;
+    font-family: "sans", serif;
+    padding: 5px;
+    border-color: white;
+    border-width: 2px;
+    font-weight: bold;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .openButton img{
+    padding: 5%;
+  }
+
+  .openAuctionGridButton {
+  color: rgb(155, 89, 182);
+  height: 100%;
+  width: 60%;
+  text-align: center;
+  }
+
+  .openAuctionGridButton img{
+  height: 80%;
+  width: 10%;
+  }
+
+  .auctionLayoutContentWrapper{
+    grid-area: auctionLayoutBottom;
+    display: grid;
+    grid-template-rows: 60% 40%;
+    grid-template-areas:
+    "auctionLayoutContentWrapperTop"
+    "auctionLayoutContentWrapperBottom";
+  }
+
+  .auction-cards{
+    grid-area: auctionLayoutContentWrapperTop;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 10%;
+    margin-bottom: 5%;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-rows: 90%;
 
   }
 
   .buttonDiv{
-    grid-row:3;
-    grid-column:1;
-
-    margin-left: 0px;
-    margin-top: 0px;
-    display: flex;
+    grid-area: auctionLayoutContentWrapperBottom;
+    display: grid;
     flex-direction: row;
-
+    grid-template-columns: repeat(4,25%);
+    grid-template-rows: 100%;
 
   }
 
-  .buttons{
-    display: flex;
+  .buttonDiv .buttons{
+    width: 80%;
+    height: 80%;
+
   }
 
   .buttons button{
-    border-radius: 8px;
-    width: 80px;
-    height: 50px;
+    border-radius: 2em;
+    /*padding: 100%;*/
+    width: 100%;
+    height: 50%;
     background: #833ab4;
     background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
     background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);
@@ -163,18 +233,7 @@ export default {
 
   transform: translateX(130px) flyttar helt enkelt alla targeted
   cards 130px höger (framåt i x-direction)*/
-  .auction-cards{
-    grid-row:2;
-    grid-column:1;
-    margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 10%;
-    margin-bottom: 5%;
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
-    grid-template-rows: 90%;
 
-  }
 
   /* detta funkade inte bra när man startar auction så att ett kort försvinner. Korthögen hoppade längre och längre till vänster */
   /* .cardDiv:not(:first-child){
@@ -188,7 +247,7 @@ export default {
 
   }
 
-  .cardDiv>div{
+  .cardDiv div{
     position: absolute;
   }
 
@@ -355,6 +414,17 @@ export default {
         transition: 0.2s;
         transform: scale(0.2);
       }*/
+
+      .openButton{
+      font-size: 75%;
+      margin: 0px;
+      border-radius: 10px;
+      }
+
+
+      .openButton img{
+        visibility: hidden;
+      }
     }
 
 </style>
