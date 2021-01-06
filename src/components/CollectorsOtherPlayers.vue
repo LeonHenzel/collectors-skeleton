@@ -1,6 +1,6 @@
 <template>
   <div class="collectorsOtherPlayers">
-    <div class="specificPlayer" v-for="player in playerList" :key="player">
+    <div class="specificPlayer" v-for="(player, index) in playerList" :key="index">
       <div class="otherPlayerWrapper">
 
       <div class="playerName">

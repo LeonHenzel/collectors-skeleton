@@ -387,8 +387,8 @@
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
-                      <h1>{{players[playerId].playerName}}<span v-if="players[playerId].myTurn">, it is your turn! </span></h1>
-                      <h2 v-if="players[playerId].firstPlayerToken">Next round you will be the first player.</h2>  
+                        <CollectorsPlayerviewOverlayTitle v-if="players[playerId]"
+                        :player="players[playerId]" />
                     </div>
 
                     <div class="overlayPlayerViewWrapperBottom">
@@ -466,6 +466,8 @@ import CollectorsOtherPlayers from '@/components/CollectorsOtherPlayers.vue'
 import CollectorsMePlayer from '@/components/CollectorsMePlayer.vue'
 import CollectorsMePlayerOverlay from '@/components/CollectorsMePlayerOverlay.vue'
 import CollectorsSadEmoji from '@/components/CollectorsSadEmoji.vue'
+import CollectorsPlayerviewOverlayTitle from '@/components/CollectorsPlayerviewOverlayTitle.vue'
+
 
 
 
@@ -485,7 +487,8 @@ export default {
     CollectorsOtherPlayers,
     CollectorsMePlayer,
     CollectorsMePlayerOverlay,
-    CollectorsSadEmoji
+    CollectorsSadEmoji,
+    CollectorsPlayerviewOverlayTitle
 
   },
   data: function () {
@@ -2207,10 +2210,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     display: grid;
     grid-template-rows: 20% 80%;
-  }
-
-  .overlayPlayerViewWrapperTop h1{
-    text-transform: capitalize;
   }
 
   .overlayPlayerViewWrapperBottom{

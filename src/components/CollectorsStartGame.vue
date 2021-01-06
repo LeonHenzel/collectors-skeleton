@@ -18,7 +18,7 @@
           @doAction="secretCardChoosen(card)"/>
     </div>
     <div v-else >
-      <ul v-for="playerr in allPlayers" :key="playerr">
+      <ul v-for="(playerr, index) in allPlayers" :key="index">
         <div v-if="playerr.ready">
 
           <div v-if="playerr.secret.length===0"><h1>{{playerr.playerName}}{{labels.ischoosingsecretitem}}</h1></div>
