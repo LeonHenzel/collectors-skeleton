@@ -6,48 +6,68 @@
           <div class="mySkillTokens">
             <div id="skillsFirstRow">
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsVP.png"></div>
-                <div>{{player.skillVP.VPAll}}</div> 
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsVP.png"></div>
+                  <div class="skillPoints">{{player.skillVP.VPAll}}</div> 
+                </div>
               </h1>
             </div>
             <div id="skillsSecondRow">
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
-                <div>{{player.skillVP.VPfastaval}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
+                  <div class="skillPoints">{{player.skillVP.VPfastaval}}</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
-                <div>{{player.skillVP.VPfigures}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
+                  <div class="skillPoints">{{player.skillVP.VPfigures}}</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
-                <div>{{player.skillVP.VPmovie}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
+                  <div class="skillPoints">{{player.skillVP.VPmovie}}</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
-                <div>{{player.skillVP.VPmusic}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
+                  <div class="skillPoints">{{player.skillVP.VPmusic}}</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
-                <div>{{player.skillVP.VPtechnology}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
+                  <div class="skillPoints">{{player.skillVP.VPtechnology}}</div>
+                </div>
               </h1>
             </div>
             <div id="skillsThirdRow">
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
-                <div>{{player.auctionIncome}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
+                  <div class="skillPoints">{{player.auctionIncome}}</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
-                <div>?</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
+                  <div class="skillPoints">?</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillswork2.png"></div>
-                <div>{{player.workerIncome}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillswork2.png"></div>
+                  <div class="skillPoints">{{player.workerIncome}}</div>
+                </div>
               </h1>
               <h1 class="badge">
-                <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
-                <div>{{player.workerCard}}</div>
+                <div class="badgeContent">
+                  <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
+                  <div class="skillPoints">{{player.workerCard}}</div>
+                </div>
               </h1>
             </div>
           </div>
@@ -129,7 +149,7 @@ export default {
 }
 
 .imageContainer{
-  height: 7vh;
+  height: 4.7vh;
   width: 4vw;
 }
 
@@ -170,23 +190,37 @@ export default {
 
 
 .badge{
+  display: flex;
   background: rgb(42, 61, 5);
   border-radius: 5%;
   margin: 1% 1%;
+  padding: 1vh;
 }
 
 .badge *{
   color: aliceblue;
 }
 
+.badgeContent{
+  display: flex;
+  align-items: center;
+}
+
+.skillPoints{
+  padding: 10%;
+}
+
 
 .mySkillTokensDiv{
   font-size: 2.5vh;
   text-align: center;
-  height: 30vh;
+  background: url("/images/greenBanner.png");
+  background-size: 100% 120%;
+  width: 90%;
 }
 
 .mySkillTokens{
+  padding: 4vh;
   display: flex;
   flex-direction: column;
   align-items: center;
