@@ -195,7 +195,7 @@
                   <div class="auctionLogoWrapper">
                     <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
                       <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png">
-                      Auction
+                      <p>Auction</p>
                     </button>
                   </div>
                   <div class="auctionTitleWrapper">
@@ -1944,28 +1944,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px solid #fff;
   }
 
-  .openButton{
-    position: relative;
-    top: 0;
-    /*cursor: pointer;*/
-    margin: 2px;
-    border-radius: 28px;
-    background-color: transparent;
-    -webkit-text-stroke: 1px black;
-    color: transparent;
-    Letter-spacing: 1px;
-    text-transform: uppercase;
-    font-size: 120%;
-    font-family: "sans", serif;
-    padding: 5px;
-    border-color: white;
-    border-width: 2px;
-    font-weight: bold;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+
 
   .frontAuction {
     height: 100%;
@@ -1978,27 +1957,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
 
-  .openButton img{
-    padding: 5%;
-  }
 
-  .openAuctionGridButton {
-  color: rgb(155, 89, 182);
-  height: 100%;
-  width: 60%;
-  text-align: center;
-  }
-.openAuctionGridButton img{
-  height: 6vh;
-  width: 6vh;
-}
-
-
-
-  /*.openAuctionGridButton:hover {
-    background-color: rgb(230, 204, 255);
-    border-color: black;
-  } behövs inte längre då den ej är clickable*/
 
   /*Dekstop menu end*/
   /*här slutar css för navbar*/
@@ -2205,8 +2164,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 1%;
     height: 90vh;
     width: 90vw;
-    /* background: #672d75; 
-    background: -webkit-linear-gradient(to left, #C6426E, #642B73); 
+    /* background: #672d75;
+    background: -webkit-linear-gradient(to left, #C6426E, #642B73);
     background: linear-gradient(to left, #C6426E, #642B73); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+; */
 
     background: repeating-conic-gradient(#933, #bf4040 1%);
@@ -2462,8 +2421,82 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-area: auctionTopLeft;
   }
 
+  .Auction .openButton{
+   /*position: relative;
+   top: 0;
+   cursor: pointer;*/
+   height:100%;
+   width: 100%;
+   margin: 3%;
+   border-radius: 2em;
+   background-color: transparent;
+   -webkit-text-stroke: 1px black;
+   color: transparent;
+   Letter-spacing: 1px;
+   text-transform: uppercase;
+   font-size: 120%;
+   font-family: "sans", serif;
+   padding: 5%;
+   border-color: white;
+   border-width: 0.2em;
+   font-weight: bold;
+   z-index: 3;
+   align-items: center;
+   justify-content: center;
+   display: grid;
+   grid-template-columns: 40% 60%;
+   grid-template-areas:
+   "openButtonLeft openButtonRight";
+ }
+
+ .auctionBigWrapper .auctionWrapper .auctionLogoWrapper .openButton{
+   /*float: right;*/
+   margin-left: 10%;
+   margin-top: 10%;
+ }
+
+ .Auction .openButton img{
+   /* height: 1vh; */
+   grid-area: openButtonLeft;
+   padding: 5%;
+   height: 100%;
+   width:100%;
+   /*height: 100%;
+   width: 30%; kan tas bort*/
+ }
+
+ .Auction .openButton p{
+   grid-area: openButtonRight;
+   text-align: center;
+ }
+
+
+  .Auction .openAuctionGridButton {
+  color: rgb(155, 89, 182);
+  height: 100%;
+  width: 60%;
+  text-align: center;
+  }
+
+  /*.Auction .auctionLogoWrapper .openAuctionGridButton img{
+  height: 60%;
+  width: 60%;
+  }*/
+
+
+
+  /*.openAuctionGridButton:hover {
+    background-color: rgb(230, 204, 255);
+    border-color: black;
+  } behövs inte längre då den ej är clickable*/
+
   .auctionBigWrapper .auctionWrapper .yourTurnToPoorWrapper{
     grid-area: auctionLeft;
+    margin-top:10%;
+    margin-left: 10%;
+
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-rows: 40% 60%;
     grid-template-areas:
@@ -2553,10 +2586,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
   }
 
-  .Auction button{
-    float: right;
-    margin-top:  5%;
-  }
+
 
   .overlayAuction__content{
     position: relative;

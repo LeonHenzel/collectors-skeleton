@@ -4,7 +4,7 @@
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-            Items
+            <p>Items</p>
           </button>
         </div>
         <div class="buy-cards">
@@ -40,7 +40,7 @@
           <div class="openButtonWrapper">
             <button href="#" class = "openButton openItems" @click="closeNav()">
               <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-              Items
+              <p>Items</p>
             </button>
           </div>
           <div class="buy-cardsWrapper">
@@ -58,7 +58,7 @@
 
           <div class="paymentWrapper">
             <h2>Choose your payment.</h2>
-            <div class="buttonsWrapper">
+            <div class="buttonsOverlayWrapper">
             <div class="buttons" v-for="(p, index) in placement" :key="index">
               <button
                 v-if="p.playerId===null"
@@ -192,6 +192,7 @@ export default {
     width: 80%;
     height: 80%;
     border-radius: 5rem;
+    text-align:center;
     /*transform: scale(1.4);*/
     /*margin-bottom: 1rem;*/
     /*display: grid;
@@ -284,16 +285,24 @@ export default {
     font-weight: bold;
     z-index: 3;
     position: relative;
-    text-align: center;
     justify-content: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-areas:
+    "openButtonLeft openButtonRight";
   }
 
   .openButton img{
     /* height: 1vh; */
+    grid-area: openButtonLeft;
     padding: 5%;
-    height: 100%;
-    width: 30%;
+    /*height: 100%;
+    width: 30%; kan tas bort*/
+  }
+
+  .openButton p{
+    grid-area: openButtonRight;
+    text-align: center;
   }
 
   .openItems{
@@ -327,7 +336,7 @@ export default {
     margin: 10%;
     border-radius: 2em;
     display: grid;
-    grid-template-columns: 15% 65% 25%;
+    grid-template-columns: 15% 60% 25%;
     grid-template-rows: 90% 10%;
     grid-template-areas:
     "button cards buyaction"
@@ -336,8 +345,6 @@ export default {
 
   .overlay .buy-cardsWrapper{
     grid-area: cards;
-    height: 100%;
-    width: 100%;
     display: grid;
     grid-template-rows: 15% 85%;
     grid-template-areas:
@@ -352,8 +359,6 @@ export default {
     grid-area: availableCards;
     width:100%;
     align-items: center;
-    display: grid;
-
   }
 
   .overlay .openButtonWrapper{
@@ -365,9 +370,10 @@ export default {
     "openButtonWrapperbottomLeft";
   }
   .overlay .openButtonWrapper .openButton{
-    grid-area: "openButtonWrappertopLeft";
+    grid-area: openButtonWrappertopLeft;
     margin-left: 10%;
     margin-top: 10%;
+    font-size: 125%;
   }
 
   .overlay .paymentWrapper{
@@ -384,18 +390,18 @@ export default {
     text-align: center;
   }
 
-  .overlay .paymentWrapper .buttonsWrapper{
+  .overlay .paymentWrapper .buttonsOverlayWrapper{
     grid-area: payment;
     display:grid;
     margin-left: 10%;
     grid-template-rows: repeat(5,20%);
   }
 
-  .overlay .paymentWrapper .buttonsWrapper .buttons{
+  .overlay .paymentWrapper .buttonsOverlayWrapper .buttons{
     width: 80%;
     height: 60%;
   }
-  .overlay .paymentWrapper .buttonsWrapper .buttons button{
+  .overlay .paymentWrapper .buttonsOverlayWrapper .buttons button{
     height: 100%;
     width: 100%;
   }
@@ -404,7 +410,6 @@ export default {
   .overlay .backToBoard{
     right: 50%;
     margin-bottom: 10%;
-
     transform: bottom;
     grid-area: backToBoard;
   }
@@ -453,7 +458,7 @@ export default {
 
 
 
-  .buttonsWrapper .buttons{
+  .buttonsOverlayWrapper .buttons{
     border: 0.1em solid white;
     background-color: green;
     width: 100%;
