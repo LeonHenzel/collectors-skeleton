@@ -171,6 +171,8 @@ export default {
 
 .badge{
   background: rgb(42, 61, 5);
+  border-radius: 5%;
+  margin: 1% 1%;
 }
 
 .badge *{
