@@ -30,9 +30,9 @@
           </div>
         </div>
         <div class="arrowAndCostGrid">
-          <div class="cardCosts">
+          <div class="cardCostsDiv">
           <div  v-for="(card, index) in itemsOnSale" :key="index">
-            {{ cardCost(card) }}
+            <span class="cardCost">Market cost {{ cardCost(card) }}</span>
           </div>
         </div>
         <div class="arrows">
@@ -278,7 +278,7 @@ export default {
 
   .buttonWrapper {
     grid-column: 1;
-    grid-row: 2/4;
+    grid-row: 2/5;
     height: 85%;
     width: 85%;
     display: grid;
@@ -298,18 +298,18 @@ export default {
     width: 100%;
     height: 100%;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 25% 40% 35%;
+    grid-template-rows: 30% 45% 10% 15%;
   }
 
   .arrowAndCostGrid{
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 3/5;
     display: grid;
     grid-template-columns:100%;
     grid-template-rows: 50% 50%;
   }
 
-  .cardCosts{
+  .cardCostsDiv{
     height: 100%;
     width: 100%;
     grid-row: 1;
@@ -317,7 +317,10 @@ export default {
     grid-template-rows: 100%;
     grid-template-columns: 20% 20% 20% 20% 20%;
     text-align: center;
+    bottom: 0;
+    z-index: 4;
   }
+
 
   .arrows{
     height: 100%;
@@ -363,6 +366,11 @@ export default {
 
   .openItems{
     color: rgb(17, 122, 101);
+    }
+
+    .cardCost{
+
+      color: black;
     }
 
   /*  .openItems>img {
@@ -562,10 +570,13 @@ export default {
     transform: scale(0.5);
     cursor: pointer;
   }*/
-
-  .cardDiv:hover~.cardDiv{
-      transform: translateX(-10%) scale(1.2);
+  .cardDiv:hover{
+    z-index: 2;
   }
+
+/*  .cardDiv:hover~.cardDiv{
+      transform: translateX(-10%) scale(1.2);
+  }*/
 
 
   @media all and (max-width:1200px){

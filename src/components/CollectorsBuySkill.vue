@@ -359,6 +359,10 @@ export default {
     background-color: rgb(220, 220, 220);
   }
 
+  .cardDiv:hover{
+    z-index: 2;
+  }
+
   /*.overlay .buy-skills .cardWrapper{
 
     transform-origin: top left;
