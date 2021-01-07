@@ -402,43 +402,56 @@ export default {
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;
-    grid-template-rows: 90% 10%;
+    grid-template-rows: 15% 75% 10%;
     grid-template-areas:
-    "button cards buyaction"
-    "button backToBoard buyaction";
+    "button cardstext buyaction"
+    "cards cards buyaction"
+    "empty backToBoard buyaction";
   }
 
-  .overlay .buy-cardsWrapper{
+  /*kan nog tas bort
+    .overlay .buy-cardsWrapper{
     grid-area: cards;
     display: grid;
     grid-template-rows: 15% 85%;
     grid-template-areas:
     "text"
     "availableCards";
-  }
+  }*/
+
   .overlay .buy-cardsWrapper h1{
-    grid-area: text;
+    grid-area: cardstext;
     text-align: center;
   }
   .overlay .buy-cardsWrapper .buy-cards{
-    grid-area: availableCards;
+    grid-area: cards;
     width:100%;
     align-items: center;
   }
 
-  .overlay .openButtonWrapper{
+  /* kan nog tas bort
+    .overlay .openButtonWrapper{
     grid-area: button;
     display: grid;
     grid-template-rows: 10% 90%;
     grid-template-areas:
     "openButtonWrappertopLeft"
     "openButtonWrapperbottomLeft";
-  }
+  }*/
+
   .overlay .openButtonWrapper .openButton{
-    grid-area: openButtonWrappertopLeft;
+    /*grid-area: openButtonWrappertopLeft;*/
     margin-left: 10%;
     margin-top: 10%;
-    font-size: 125%;
+    width: 80%;
+    height:80%;
+    align-items: center;
+  }
+
+
+  .overlay .openButtonWrapper .openButton button{
+    /*grid-area: openButtonWrappertopLeft;*/
+    grid-area: button;
   }
 
   .overlay .paymentWrapper{

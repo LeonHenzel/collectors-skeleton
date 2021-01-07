@@ -135,7 +135,6 @@ export default {
     padding: 5%;
     color: transparent;
     grid-area: auctionLayoutTop;
-    margin-left:10%;
   }
 
   .openButton{
