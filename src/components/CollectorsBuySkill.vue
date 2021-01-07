@@ -3,7 +3,7 @@
       <div class="gridWrapper">
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-          Skills
+          <p>Skills</p>
         </button>
         <div class="buy-skills">
           <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
@@ -38,7 +38,7 @@
             <div class="openButtonWrapper">
               <button href="#" class = "openButton openSkills" @click="closeNav()">
                 <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-                Skills
+                <p>Skills</p>
               </button>
             </div>
             <div class="buy-skillsWrapper">
@@ -52,17 +52,19 @@
             </div>
             </div>
           </div>
-          <div class="buttonsWrapper">
-              <h2>Choose your payment.</h2>
-            <div class="buttons" v-for="(p, index) in placement" :key="index">
-              <button class="purchaseButton"
-                v-if="p.playerId===null"
-                :disabled="cannotAfford(p.cost)"
-                @click="placeBottle(p)" >
-                ${{p.cost}}
-              </button>
-              <div v-if="p.playerId !== null">
-                {{p.playerId}}
+          <div class="paymentWrapper">
+            <h2>Choose your payment.</h2>
+            <div class="buttonsOverlayWrapper">
+              <div class="buttons" v-for="(p, index) in placement" :key="index">
+                <button class="purchaseButton"
+                  v-if="p.playerId===null"
+                  :disabled="cannotAfford(p.cost)"
+                  @click="placeBottle(p)" >
+                  ${{p.cost}}
+                </button>
+                <div v-if="p.playerId !== null">
+                  {{p.playerId}}
+                </div>
               </div>
             </div>
           </div>
@@ -146,7 +148,7 @@ export default {
     grid-row: 1;
     grid-column: 2;
     display:grid;
-    grid-template-columns: 19% 19% 19% 19% 19%;
+    grid-template-columns: repeat(5, 20%);
     grid-template-rows:100%;
   }
 
@@ -159,10 +161,10 @@ export default {
   }
 
   .buttons{
-    border: 1px solid white;
+    border: 0.1em solid white;
     background-color: green;
-    width: 100%;
-    height: 100%;
+    width: 80%;
+    height: 80%;
     border-radius: 5rem;
     text-align: center;
 
@@ -175,7 +177,7 @@ export default {
     height: 80%;
     width: 80%;
     border-radius: 2em;
-    padding: 10px;
+    padding: 2%;
 
 
 
@@ -197,7 +199,7 @@ export default {
   .buttonWrapper{
     position: relative;
     border-radius: 1rem;
-    border: 2px solid white;
+    border: 0.01rem solid white;
     display: grid;
     grid-template-rows: 50% 50%;
     grid-template-columns: 33% 33% 33%;
@@ -230,38 +232,49 @@ export default {
     min-width: 90%;
     grid-column: 1;
     grid-row: 1;
-    padding: 3px;
+    padding: 5%;
     cursor: pointer;
-    margin: 2px;
-    border-radius: 28px;
+    margin: 3%;
+    border-radius: 2em;
     background-color: transparent;
     -webkit-text-stroke: 1px black;
     color: transparent;
-    Letter-spacing: 1px;
+    Letter-spacing: 10%;
     text-transform: uppercase;
     font-family: "sans", serif;
-    padding: 5px;
+    padding: 5%;
     border-color: white;
-    border-width: 2px;
+    border-width: 0.2em;
     font-weight: bold;
     z-index: 3;
     position: relative;
     justify-content: center;
-    display: flex;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-areas:
+    "openButtonLeft openButtonRight";
   }
 
   .openButton img{
+    grid-area: openButtonLeft;
     padding: 5%;
+    /*height: 100%;
+    width: 30%;kan tas bort*/
   }
+  .openButton p{
+    grid-area: openButtonRight;
+    text-align: center;
+  }
+
 
   .openSkills {
   color: rgb(17, 122, 101);
   }
 
-  .openSkills>img {
+  /*.openSkills>img {
     height: 98%;
     width: 30%;
-  }
+  }*/
 
   .openSkills:hover {
     background-color: rgb(159, 223, 190);
@@ -294,8 +307,8 @@ export default {
 
   .overlay .buy-skillsWrapper{
     grid-area: cards;
-    border-right: dotted white;
-    grid-template-rows: 5% 95%;
+    display: grid;
+    grid-template-rows: 15% 85%;
     grid-template-areas:
     "text"
     "availableCards";
@@ -311,39 +324,53 @@ export default {
 
   .overlay .openButtonWrapper{
     grid-area: button;
-    grid-template-rows: 5% 95%;
+    display: grid;
+    grid-template-rows: 15% 85%;
     grid-template-areas:
     "topLeft"
     "bottomLeft";
   }
 
   .overlay .openButtonWrapper .openButton{
-    grid-area: "topLeft";
-    margin-left:10px;
-    margin-top:10px;
+    grid-area: topLeft;
+    margin-left: 10%;
+    margin-top: 10%;
+    font-size: 125%;
   }
 
-  .overlay .buttonsWrapper{
+  .overlay .paymentWrapper{
     grid-area: buyaction;
-    grid-template-rows: 5% 95%;
+    border-left: dotted white;
+    display: grid;
+    grid-template-rows: 15% 85%;
     grid-template-areas:
     "textPayment"
     "payment";
   }
-  .overlay .buttonsWrapper h2{
+  .overlay .paymentWrapper h2{
     grid-area: textPayment;
     text-align: center;
   }
-
-  .overlay .buttonsWrapper .buttons{
+  .overlay .paymentWrapper .buttonsOverlayWrapper{
     grid-area: payment;
-    margin-left: 15%;
-    margin-bottom: 15%;
+    display: grid;
+    margin-left: 10%;
+    grid-template-rows: repeat(5,20%);
+  }
+
+  .overlay .paymentWrapper .buttonsOverlayWrapper .buttons{
+    width: 80%;
+    height: 60%;
+  }
+
+  .overlay .paymentWrapper .buttonsOverlayWrapper .buttons button{
+    height: 100%;
+    width: 100%;
   }
 
   .overlay .backToBoard{
     right: 50%;
-    border-right: dotted white;
+    margin-bottom: 10%;
     transform: bottom;
     grid-area: backToBoard;
   }
@@ -351,8 +378,8 @@ export default {
     right: 50%;
     transform: bottom;
     border-radius: 2em;
-    padding: 10px;
-    margin-bottom: 5px;
+    padding: 3%;
+    margin-bottom: 3%;
     margin-left: 45%;
   }
   .overlay .backToBoard button:hover{
@@ -374,10 +401,10 @@ export default {
     top: 25%;
     width: 100%;
     text-align: center;
-    margin-top: 30px;
+  /*  margin-top: 30px;*/
   }
   .overlay a{
-    padding: 10px;
+    padding: 3%;
     color: white;
     display: block;
   }
@@ -389,14 +416,15 @@ export default {
 
   .overlay .closeButton{
     position: absolute;
-    top: 20px;
-    right: 50px;
-    font-size: 40px;
+    top: 2%;
+    right: 3%;
+    font-size: 300%;
   }
 
   @media all and (max-width:1200px){
     .openButton>img{
-      visibility: hidden;
+      display: none;
+      /*visibility: hidden;*/
     }
   }
 
