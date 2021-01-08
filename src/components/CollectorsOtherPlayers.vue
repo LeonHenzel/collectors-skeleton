@@ -6,20 +6,23 @@
       <div class="playerName">
 
 
-        <span class="nameWrapper">
+        <div class="nameWrapper">
 
-
+          <span class="theName">
           {{player.playerName}}
+        </span>
+        <div class="tokenGrid">
           <div class="playing" v-if="player.myTurn">
-            Playing
+            P
           </div>
-          <div class=firstPlayer v-if="player.firstPlayerToken">
+          <div class="firstPlayer" v-if="player.firstPlayerToken">
             1st
           </div>
+        </div>
           <button class="expandButton" type="submit">
             <img src="https://www.pinclipart.com/picdir/middle/218-2186085_click-for-full-screen-expand-icon-svg-clipart.png" height="20" width="20">
           </button>
-        </span>
+        </div>
       </div>
       <div class="playerInfoWrapper">
         <div class="pointsSymbol">
@@ -113,8 +116,29 @@ export default {
 }
 
 .nameWrapper{
+  height: 100%;
+  width: 100%;
   background-color: 	#f8f8ff;
-  display: flex;
+  display: grid;
+  grid-template-columns: 50% 35% 15%;
+  grid-template-rows: 100%;
+}
+
+.theName{
+  height: 100%;
+  width: 100%;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.tokenGrid{
+  grid-column: 2;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 100%;
 }
 
 .expandButton{
@@ -124,6 +148,7 @@ export default {
   background-color: transparent;
   outline: none;
   border: none;
+  grid-column: 3;
 }
 
 .expandButton:hover{
@@ -144,31 +169,43 @@ export default {
 }
 
 .playing{
+
+  width: 70%;
   display: inline-block;
   border: 3px dotted yellow;
   background-color: green;
-  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  padding: 15% 5% 15% 5%;
+  margin-right: 5%;
   border-radius: 3rem;
-  font-size: 10pt;
+  font-size: 100%;
   letter-spacing: 0.1rem;
   font-weight: bold;
   color: white;
-  transform: scale(0.45);
-  transform-origin: top left;
+  /*: scale(0.45);
+  transform-origin: top left;*/
+  grid-column: 1;
+  grid-row: 1;
+  text-align: center;
 }
 
 .firstPlayer{
+
+  width: 70%;
   display: inline-block;
   border: 3px dotted yellow;
   background-color: brown;
-  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
+  padding: 15% 5% 15% 5%;
+  margin-right: 5%;
   border-radius: 3rem;
-  font-size: 10pt;
+  font-size: 100%;
   letter-spacing: 0.1rem;
   font-weight: bold;
   color: white;
-  transform: scale(0.45);
-  transform-origin: top left;
+  /*transform: scale(0.45);
+  transform-origin: top left;*/
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
 }
 
 .specificPlayer {
@@ -178,7 +215,7 @@ export default {
 
 .otherPlayerWrapper {
   width: 97%;
-  height: 100%;
+  height: 97.5%;
   display: grid;
   grid-template-columns: 1% 24% 24% 24% 24%;
   grid-template-rows: 33% 33% 33%;
@@ -208,14 +245,8 @@ export default {
 }
 
 
-
-.firstPlayer {
-  grid-column: 1;
-  grid-row: 2;
-}
-
 .playerName {
-  grid-column: 2/ span 5;
+  grid-column: 2/ 5;
   grid-row: 1;
   background-color: white;
 }

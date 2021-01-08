@@ -2,8 +2,10 @@
     <div class="CollectorsBuySkill">
       <div class="gridWrapper">
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
+          <div class="theButton">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-          <p>Skills</p>
+          <span>Skills</span>
+        </div>
         </button>
         <div class="buy-skills">
           <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
@@ -11,6 +13,14 @@
               :card="skillsOnSale[skillsOnSale.length-1-index]"
               :availableAction="skillsOnSale[skillsOnSale.length-1-index].available"
               @doAction="buySkill(skillsOnSale[skillsOnSale.length-1-index])"/>
+          </div>
+        </div>
+        <div class="arrowGrid">
+          <div v-for="(card, index) in skillsOnSale" :key="index">
+            <div v-if="index===playerCount" class="arrow down">
+            </div>
+            <div v-else class="arrow right">
+            </div>
           </div>
         </div>
         <div class="buttonWrapper">
@@ -89,7 +99,8 @@ export default {
     player: Object,
     skillsOnSale: Array,
     placement: Array,
-    isPlacedList: Object
+    isPlacedList: Object,
+    playerCount: Object
   },
 
   methods: {
@@ -144,6 +155,33 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.arrowGrid{
+  grid-column: 2;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 100%;
+  text-align: center;
+}
+
+.arrow {
+border: solid black;
+border-width: 0 3px 3px 0;
+display: inline-block;
+padding: 3px;
+}
+
+.down {
+transform: rotate(45deg);
+-webkit-transform: rotate(45deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+
   .buy-skills {
     grid-row: 1;
     grid-column: 2;
@@ -197,6 +235,7 @@ export default {
 
 
   .buttonWrapper{
+    margin-left: 5%;
     position: relative;
     border-radius: 1rem;
     border: 0.01rem solid white;
@@ -204,7 +243,7 @@ export default {
     grid-template-rows: 50% 50%;
     grid-template-columns: 33% 33% 33%;
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 2/4;
     width: 85%;
     height: 85%;
     background-color:rgb(17, 122, 101);
@@ -223,7 +262,7 @@ export default {
     width: 100%;
     display: grid;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 30% 70%;
+    grid-template-rows: 30% 55% 15%;
   }
 
 
@@ -249,19 +288,15 @@ export default {
     z-index: 3;
     position: relative;
     justify-content: center;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-areas:
-    "openButtonLeft openButtonRight";
   }
 
   .openButton img{
     grid-area: openButtonLeft;
-    padding: 5%;
-    /*height: 100%;
-    width: 30%;kan tas bort*/
+    /*padding: 5%;*/
+    height: 100%;
+    width: 100%
   }
-  .openButton p{
+  .openButton span{
     grid-area: openButtonRight;
     text-align: center;
   }
@@ -294,8 +329,13 @@ export default {
   }
 
   .overlayLayout{
+    height: 80%;
+    width: 80%;
     background-color: rgb(69, 179, 157);
-    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;
@@ -306,9 +346,12 @@ export default {
   }
 
   .overlay .buy-skillsWrapper{
+    height: 100%;
+    width: 100%;
     grid-area: cards;
     display: grid;
     grid-template-rows: 15% 85%;
+    grid-template-columns: 100%;
     grid-template-areas:
     "text"
     "availableCards";
@@ -319,7 +362,6 @@ export default {
   }
   .overlay .buy-skillsWrapper .buy-skills{
     grid-area: availableCards;
-    align-items:center;
   }
 
   .overlay .openButtonWrapper{
@@ -386,6 +428,10 @@ export default {
     background-color: rgb(220, 220, 220);
   }
 
+  .cardDiv:hover{
+    z-index: 2;
+  }
+
   /*.overlay .buy-skills .cardWrapper{
 
     transform-origin: top left;
@@ -421,11 +467,33 @@ export default {
     font-size: 300%;
   }
 
+  .theButton{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "openButtonLeft openButtonRight";
+  }
+
+
   @media all and (max-width:1200px){
-    .openButton>img{
-      display: none;
-      /*visibility: hidden;*/
+    .theButton{
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+      grid-template-areas:
+      "openButtonLeft openButtonRight";
     }
+
+    .theButton>img{
+      display: none;
+    }
+
+    .theButton>span{
+      grid-column: 1;
+    }
+      /*visibility: hidden;*/
   }
 
 

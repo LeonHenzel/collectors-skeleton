@@ -1,23 +1,34 @@
 <template>
   <div class="marketWrapper">
-
+<h1>{{labels.raiseMarket}}</h1>
     <div class="buttonsMarket">
-      <h1>{{labels.raiseMarket}}</h1>
+
       <div class="theButtons">
+
     <div  v-for="(p, index) in placement" :key="index">
-      <button
+      <div class="buttonGrid">
+      <button class="buttons"
         v-if="p.playerId===null"
         :disabled="cannotAfford(p.cost)"
         @click="placeBottle(p)" >
         ${{p.cost}}
+
+
+
       </button>
       <span v-if="p.playerId===null">
       x {{p.numberOfChangedMarkets}}
     </span>
-      <div v-if="p.playerId !== null">
-        {{p.playerId}}
-      </div>
+
+
+    <div v-if="p.playerId !== null">
+      {{p.playerId}}
     </div>
+
+
+
+    </div>
+  </div>
   </div>
   </div>
     <div class="marketValuesWrapper">
@@ -82,21 +93,55 @@ export default {
 }
 </script>
 
+
+
+
 <style lang="css" scoped>
+
+.buttonGrid>div{
+  grid-column: 1;
+}
+
+.buttonGrid>span{
+  margin-top: 49%;
+  margin-bottom: 49%;
+  text-align: center;
+  grid-column: 2;
+}
+
+.buttons{
+  border: 0.1em solid white;
+  background-color: green;
+  width: 80%;
+  height: 80%;
+  border-radius: 5rem;
+  text-align: center;
+  grid-column: 1;
+}
+
+
+.buttonGrid {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 100%;
+}
+
 .buttonsMarket {
   height: 100%;
   width: 100%;
   display: grid;
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2;
 }
 
 .theButtons {
   grid-column: 1;
   grid-row: 2;
   display: grid;
-  grid-template-rows: 33% 33% 33%;
-  grid-template-columns: 100%;
+  grid-template-rows: 100%;
+  grid-template-columns: 33% 33% 33%;
 }
 
 .marketWrapper {
@@ -106,6 +151,11 @@ export default {
   grid-template-columns:30% 40% 30%;
   grid-template-rows: 20% 80%;
   text-align: center;
+}
+
+.marketWrapper>h1{
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .marketValuesWrapper {
