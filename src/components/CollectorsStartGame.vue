@@ -22,7 +22,7 @@
         <div v-if="playerr.ready">
 
           <div v-if="playerr.secret.length===0"><h1>{{playerr.playerName}}{{labels.ischoosingsecretitem}}</h1></div>
-        <div v-else> <h1>{{playerr.playerName}}{{labels.isready}}</h1></div>
+        <div v-else> <h1>{{playerr.playerName}} {{labels.isready}}</h1></div>
         </div>
         <div v-else>
           <h1>{{playerr.playerName}} {{labels.isnotready}} </h1>

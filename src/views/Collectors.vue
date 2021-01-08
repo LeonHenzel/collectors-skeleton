@@ -5,7 +5,7 @@
   <div v-if="players[playerId].playerName===''">
     <form class="nameEnter">
       <h1>{{labels.entername}}</h1>
-      <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName"></textarea>
+      <textarea placeholder="Enter name" id="nameArea" v-model="playerName" v-on:keyup.enter="submitName2"></textarea>
       <button type="submit" @click="submitName">Submit</button>
     </form>
     <p class="foter">
@@ -967,13 +967,25 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
     },
     submitName: function(){
-      //this.fixedPlayerName = this.playerName;
+
       this.gotSubmitted = true;
-      this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
-         playerId: this.playerId,
-          playerName: this.playerName});
-      //console.log(this.playerName, "from submitName")
+
+        this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
+        playerId: this.playerId,
+        playerName: this.playerName}); 
+
     },
+    submitName2: function(){
+
+      this.gotSubmitted = true;
+
+        this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
+        playerId: this.playerId,
+        playerName: this.playerName.slice(0, -1)}); 
+
+    },
+
+
 
 /* Vad har vi gjort här med placeBottle och doAction? Jo, problemet var att när man klickade på en auctionknapp
 och ville aktionera ut ngt man hade på handen så lades det i item och inte i currentAuction. Det löstes genom att

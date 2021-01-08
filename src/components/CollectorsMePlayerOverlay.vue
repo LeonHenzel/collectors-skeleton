@@ -2,73 +2,75 @@
     <div class="mePlayer" v-if="player">
       <div class="mePlayerContent">
         <div class="mySkillTokensDiv">
-          My Skills
-          <div class="mySkillTokens">
-            <div id="skillsFirstRow">
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsVP.png"></div>
-                  <div class="skillPoints">{{player.skillVP.VPAll}}</div> 
-                </div>
-              </h1>
-            </div>
-            <div id="skillsSecondRow">
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
-                  <div class="skillPoints">{{player.skillVP.VPfastaval}}</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
-                  <div class="skillPoints">{{player.skillVP.VPfigures}}</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
-                  <div class="skillPoints">{{player.skillVP.VPmovie}}</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
-                  <div class="skillPoints">{{player.skillVP.VPmusic}}</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
-                  <div class="skillPoints">{{player.skillVP.VPtechnology}}</div>
-                </div>
-              </h1>
-            </div>
-            <div id="skillsThirdRow">
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
-                  <div class="skillPoints">{{player.auctionIncome}}</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
-                  <div class="skillPoints">?</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillswork2.png"></div>
-                  <div class="skillPoints">{{player.workerIncome}}</div>
-                </div>
-              </h1>
-              <h1 class="badge">
-                <div class="badgeContent">
-                  <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
-                  <div class="skillPoints">{{player.workerCard}}</div>
-                </div>
-              </h1>
+          <div class="glow">
+            <div class="mySkillTokens">
+              <h2>My Skills</h2>  
+              <div id="skillsFirstRow">
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsVP.png"></div>
+                    <div class="skillPoints">{{player.skillVP.VPAll}}</div> 
+                  </div>
+                </h1>
+              </div>
+              <div id="skillsSecondRow">
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
+                    <div class="skillPoints">{{player.skillVP.VPfastaval}}</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
+                    <div class="skillPoints">{{player.skillVP.VPfigures}}</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
+                    <div class="skillPoints">{{player.skillVP.VPmovie}}</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
+                    <div class="skillPoints">{{player.skillVP.VPmusic}}</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
+                    <div class="skillPoints">{{player.skillVP.VPtechnology}}</div>
+                  </div>
+                </h1>
+              </div>
+              <div id="skillsThirdRow">
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
+                    <div class="skillPoints">{{player.auctionIncome}}</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
+                    <div class="skillPoints">?</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillswork2.png"></div>
+                    <div class="skillPoints">{{player.workerIncome}}</div>
+                  </div>
+                </h1>
+                <h1 class="badge">
+                  <div class="badgeContent">
+                    <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
+                    <div class="skillPoints">{{player.workerCard}}</div>
+                  </div>
+                </h1>
+              </div>
             </div>
           </div>
         </div>
@@ -146,6 +148,7 @@ export default {
   font-family: 'Bangers', cursive;
   font-size: 2vh;
   letter-spacing: 0.2vh;
+  z-index: 500;
 }
 
 .imageContainer{
@@ -160,14 +163,17 @@ export default {
 
 #skillsFirstRow{
   display: flex;
+  justify-content: center;
 }
 
 #skillsSecondRow{
   display: flex;
+  justify-content: center;
 }
 
 #skillsThirdRow{
   display: flex;
+  justify-content: center;
 }
 
 #skillsFirstRow h1{
@@ -191,6 +197,7 @@ export default {
 
 .badge{
   display: flex;
+  align-items: center;
   background: rgb(42, 61, 5);
   border-radius: 5%;
   margin: 1% 1%;
@@ -212,19 +219,65 @@ export default {
 
 
 .mySkillTokensDiv{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   font-size: 2.5vh;
   text-align: center;
-  background: url("/images/greenBanner.png");
-  background-size: 100% 120%;
-  width: 90%;
+  z-index: 5;
 }
 
 .mySkillTokens{
-  padding: 4vh;
-  display: flex;
+  padding: 0.8vh 2vw;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  background: green;
+  border-radius: 5%;
+  /* box-shadow: 0px 0px 1.5vh 1vw rgb(199, 5, 5); */
+  position: relative;
+  /* z-index: 5; */
+}
+
+.glow{
+  position: relative;
+}
+
+.glow::before, .glow::after{
+	content: '';
+	position: absolute;
+	left: -2px;
+	top: -2px;
+	background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, 
+		#0000ff, #00ff00,#ffff00, #ff0000);
+	background-size: 400%;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	animation: steam 20s linear infinite;
+  z-index: -1;
+  border-radius: 5%;
+}
+
+@keyframes steam {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.glow::after {
+	filter: blur(4vh);
+}
+
+.mySkillTokens h2{
+  margin: 0;
+  font-size: 2.5vh;
 }
 
 .pointsSymbol {
