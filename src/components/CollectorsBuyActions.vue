@@ -3,8 +3,10 @@
       <div class="gridWrapper">
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
+            <div class="theButton">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-            <p>Items</p>
+            <span>Items</span>
+          </div>
           </button>
         </div>
         <div class="buy-cards">
@@ -187,6 +189,8 @@ export default {
     grid-column: 2;
   }*/
 
+
+
   .arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
@@ -203,6 +207,16 @@ export default {
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
+}
+
+.theButton{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 100%;
+  grid-template-areas:
+  "openButtonLeft openButtonRight";
 }
 
   .buy-cards{
@@ -354,21 +368,17 @@ export default {
     z-index: 3;
     position: relative;
     justify-content: center;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-areas:
-    "openButtonLeft openButtonRight";
   }
 
-  .openButton img{
+  .theButton img{
     /* height: 1vh; */
     grid-area: openButtonLeft;
     padding: 5%;
-    /*height: 100%;
-    width: 30%; kan tas bort*/
+    height: 100%;
+    width: 100%;
   }
 
-  .openButton p{
+  .openButton span{
     grid-area: openButtonRight;
     text-align: center;
   }
@@ -395,7 +405,7 @@ export default {
   .overlay{
     position: fixed;
     width: 100%;
-    height:0%;
+    height:100%;
     top: 0;
     left: 0;
     background: rgba(0,0,0,.7);
@@ -405,8 +415,13 @@ export default {
   }
 
   .overlayLayout{
+    height: 80%;
+    width: 80%;
     background-color: rgb(236, 112, 99);
-    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;
@@ -417,9 +432,12 @@ export default {
   }
 
   .overlay .buy-cardsWrapper{
+    height: 100%;
+    width: 100%;
     grid-area: cards;
     display: grid;
     grid-template-rows: 15% 85%;
+    grid-template-columns: 100%;
     grid-template-areas:
     "text"
     "availableCards";
@@ -431,7 +449,6 @@ export default {
   .overlay .buy-cardsWrapper .buy-cards{
     grid-area: availableCards;
     width:100%;
-    align-items: center;
   }
 
   .overlay .openButtonWrapper{
@@ -585,9 +602,27 @@ export default {
 
 
   @media all and (max-width:1200px){
-    .openButton>img{
-      display:none;
-      /*visibility: hidden;*/
+    .openButton{
+      top:0%;
+      left:0%;
+      height: 90%;
+      width: 90%;
+
+    }
+
+    .theButton{
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+      grid-template-areas:
+      "openButtonLeft openButtonRight";
+    }
+
+    .theButton>img{
+      display: none;
+    }
+
+    .theButton>span{
+      grid-column: 1;
     }
   }
 
@@ -598,18 +633,8 @@ export default {
       grid-template-rows: 30% 70%;
     }
 
-    .openButton{
-      top:0%;
-      left:0%;
-      height: 90%;
-      width: 90%;
 
-    }
 
-    .openButton>img{
-      display: none;
-      /*visibility: hidden;*/
-    }
 
 
 /*.cardDiv{

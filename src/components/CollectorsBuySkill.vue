@@ -2,8 +2,10 @@
     <div class="CollectorsBuySkill">
       <div class="gridWrapper">
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
+          <div class="theButton">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-          <p>Skills</p>
+          <span>Skills</span>
+        </div>
         </button>
         <div class="buy-skills">
           <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
@@ -197,6 +199,7 @@ export default {
 
 
   .buttonWrapper{
+    margin-left: 5%;
     position: relative;
     border-radius: 1rem;
     border: 0.01rem solid white;
@@ -249,19 +252,15 @@ export default {
     z-index: 3;
     position: relative;
     justify-content: center;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-areas:
-    "openButtonLeft openButtonRight";
   }
 
   .openButton img{
     grid-area: openButtonLeft;
-    padding: 5%;
-    /*height: 100%;
-    width: 30%;kan tas bort*/
+    /*padding: 5%;*/
+    height: 100%;
+    width: 100%
   }
-  .openButton p{
+  .openButton span{
     grid-area: openButtonRight;
     text-align: center;
   }
@@ -294,8 +293,13 @@ export default {
   }
 
   .overlayLayout{
+    height: 80%;
+    width: 80%;
     background-color: rgb(69, 179, 157);
-    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;
@@ -306,9 +310,12 @@ export default {
   }
 
   .overlay .buy-skillsWrapper{
+    height: 100%;
+    width: 100%;
     grid-area: cards;
     display: grid;
     grid-template-rows: 15% 85%;
+    grid-template-columns: 100%;
     grid-template-areas:
     "text"
     "availableCards";
@@ -319,7 +326,6 @@ export default {
   }
   .overlay .buy-skillsWrapper .buy-skills{
     grid-area: availableCards;
-    align-items:center;
   }
 
   .overlay .openButtonWrapper{
@@ -425,11 +431,33 @@ export default {
     font-size: 300%;
   }
 
+  .theButton{
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 100%;
+    grid-template-areas:
+    "openButtonLeft openButtonRight";
+  }
+
+
   @media all and (max-width:1200px){
-    .openButton>img{
-      display: none;
-      /*visibility: hidden;*/
+    .theButton{
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+      grid-template-areas:
+      "openButtonLeft openButtonRight";
     }
+
+    .theButton>img{
+      display: none;
+    }
+
+    .theButton>span{
+      grid-column: 1;
+    }
+      /*visibility: hidden;*/
   }
 
 
