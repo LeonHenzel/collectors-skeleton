@@ -121,6 +121,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+
   .arrowGrid{
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;

@@ -1,6 +1,7 @@
 <template>
     <div class="CollectorsBuySkill">
       <div class="gridWrapper">
+        <button type="submit" class="cancelButton" v-if="isPlacedList.skill" @click="cancelAction()"></button>
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <div class="theButton">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
@@ -148,6 +149,9 @@ export default {
     },
     closeNav: function(){
       document.getElementById('navBuySkill').style.height = "0%";
+    },
+    cancelAction: function(){
+      this.$emit('cancelAction')
     }
 
   }
@@ -155,6 +159,13 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.cancelButton{
+  position: fixed;
+  height: 6vh;
+  width: 6vh;
+  z-index: 100;
+}
+
 .arrowGrid{
   grid-column: 2;
   grid-row: 3;

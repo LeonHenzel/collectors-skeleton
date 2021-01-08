@@ -111,7 +111,16 @@ function sockets(io, socket, data) {
     });
 
     socket.on("cancelAction", function(d){
-      data.cancelAction(d.roomId, d.playerId, d.placementInfo, d.isPlacedList);
+      data.cancelAction(d.roomId, d.playerId, d.placementInfo, d.isPlacedList)
+      io.to(d.roomId).emit('collectorsActionCanceld',{
+        placements: data.getPlacements(d.roomId),
+        isPlacedList: data.rooms[d.roomId].isPlacedList,
+        placementInfo: data.rooms[d.roomId].placementInfo,
+        skillsOnSale: data.rooms[d.roomId].skillsOnSale,
+        itemsOnSale: data.rooms[d.roomId].itemsOnSale,
+        auctionCards: data.rooms[d.roomId].auctionCards,
+        players: data.getPlayers(d.roomId)
+      })
     });
 
     socket.on('collectorsStartAuction', function(d) {

@@ -1,6 +1,7 @@
 <template>
   <div class="marketWrapper">
 <h1>{{labels.raiseMarket}}</h1>
+
     <div class="buttonsMarket">
 
       <div class="theButtons">
@@ -97,6 +98,7 @@ export default {
 
 
 <style lang="css" scoped>
+
 
 .buttonGrid>div{
   grid-column: 1;

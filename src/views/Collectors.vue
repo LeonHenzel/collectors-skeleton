@@ -146,6 +146,7 @@
               :placement="skillPlacement"
               :isPlacedList="isPlacedList"
               :playerCount="playerCount"
+              @cancelAction="cancelAction()"
               @buySkill="buySkill($event)"
               @placeBottle="placeBottle('skill',$event)"/>
           </div>
@@ -616,12 +617,23 @@ export default {
 
       }.bind(this));
 
-
+      this.$store.state.socket.on('collectorsActionCanceld',
+    function(d){
+      this.players=d.players;
+      this.buyPlacement = d.placements.buyPlacement;
+      this.skillPlacement = d.placements.skillPlacement;
+      this.marketPlacement = d.placements.marketPlacement;
+      this.auctionPlacement = d.placements.auctionPlacement;
+      this.isPlacedList = d.isPlacedList;
+      this.skillsOnSale=d.skillsOnSale;
+      this.auctionCards=d.auctionCards;
+      this.itemsOnSale=d.itemsOnSale;
+      this.placementInfo=d.placementInfo;
+    }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
       function(d) {
         this.players = d.players;
-        console.log(this.players[this.playerId].hand);
         this.buyPlacement = d.placements.buyPlacement;
         this.skillPlacement = d.placements.skillPlacement;
         this.marketPlacement = d.placements.marketPlacement;
@@ -920,12 +932,12 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
   },
   methods: {
     cancelAction: function(){
-      his.$store.state.socket.emit("cancelAction", {
+      this.$store.state.socket.emit("cancelAction", {
       roomId: this.$route.params.id,
       playerId: this.playerId,
       placementInfo: this.placementInfo,
       isPlacedList: this.isPlacedList})
-    }
+    },
 
 
 
