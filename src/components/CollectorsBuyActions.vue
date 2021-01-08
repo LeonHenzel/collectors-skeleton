@@ -34,7 +34,7 @@
         <div class="arrowAndCostGrid">
           <div class="cardCostsDiv">
           <div  v-for="(card, index) in itemsOnSale" :key="index">
-            <span class="cardCost">Market cost {{ cardCost(card) }}</span>
+            <span class="cardCost" v-if="cardCost(card)!==false">Market cost {{ cardCost(card) }}</span>
           </div>
         </div>
         <div class="arrows">
@@ -127,6 +127,9 @@ export default {
       return (this.player.money < minCost);
     },
     cardCost: function (card) {
+      if(this.marketValues[card.market]===undefined){
+        return false;
+      }
       return this.marketValues[card.market];
     },
     placeBottle: function (p) {
@@ -313,7 +316,7 @@ export default {
     width: 100%;
     height: 100%;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 30% 45% 10% 15%;
+    grid-template-rows: 30% 40% 15% 15%;
   }
 
   .arrowAndCostGrid{

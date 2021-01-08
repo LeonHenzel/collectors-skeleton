@@ -141,6 +141,7 @@
               :skillsOnSale="skillsOnSale"
               :placement="skillPlacement"
               :isPlacedList="isPlacedList"
+              :playerCount="playerCount"
               @buySkill="buySkill($event)"
               @placeBottle="placeBottle('skill',$event)"/>
           </div>
@@ -400,21 +401,21 @@
                       </div>
                       <div class="overlayPlayerView_rightContent">
                         <div class="myHandOverlay">
-                          <h4>My Hand</h4>
+                          <span>My Hand</span>
                           <div class="cardslots" v-if="players[playerId]">
                             <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
                           </div>
                         </div>
 
                         <div class="myItemsOverlay">
-                          <h4>My Items</h4>
+                          <span>My Items</span>
                           <div class="cardslots" v-if="players[playerId]">
                             <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
                           </div>
                         </div>
 
                         <div class="mySkillsOverlay">
-                          <h4>My Skills</h4>
+                          <span>My Skills</span>
                           <div class="cardslots" v-if="players[playerId]">
                             <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
                           </div>
@@ -1557,7 +1558,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-columns: 10% 40% 50%;*/
     /*grid-template-rows: 100%;*/
     height: 100%;
-    width: 100%;
+    width: 99%;
+    margin-right: 1%;
   }
 
 
@@ -1898,7 +1900,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: beige;
     color: black;
     font-weight: bold;
-    height: 100%;
+    height: 98%;
+    margin-top: 2%;
     position: relative;
     /* overflow-y: hidden; */
     display: grid;
@@ -1993,10 +1996,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-columns: 100%;
     display: grid;
     flex-direction: column;
-    text-align: center;
     height: 98%;
     width: 98%;
     /*margin-top: -10px;*/
+  }
+
+  .myStatusContent>h2{
+    text-align: center;
   }
 
   .myStatusComponent{
@@ -2141,13 +2147,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border-radius: 1em;
     /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 85%;
   }
+
+  .myHandOverlay>span{
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+
 
   .myItemsOverlay{
     border-radius: 1em;
-    /* grid-area: myItemsOverlay; */
+    /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 85%;
   }
+
+.myItemsOverlay>span{
+  grid-row: 1;
+  grid-column: 1;
+}
 
   .incomeWrapper{
     grid-column: 2/ span 3;
@@ -2157,8 +2181,16 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .mySkillsOverlay{
     border-radius: 1em;
-    /* grid-area: mySkillsOverlay; */
+    /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 15% 85%;
+  }
+
+  .mySkillsOverlay>span{
+    grid-row: 1;
+    grid-column: 1;
   }
 
   .playerView button{
@@ -2183,6 +2215,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .overlayPlayerViewWrapperBottom{
     display: grid;
     grid-template-columns: 55% 45%;
+    grid-template-rows: 100%;
   }
 
 
@@ -2193,6 +2226,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .overlayPlayerView_rightContent{
+    grid-column: 2;
+    grid-row: 1;
     display: grid;
     grid-template-rows: 33% 33% 33%
     /* position: relative;
@@ -2678,11 +2713,30 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: RoyalBlue;
   }
 
-  .cardslots {
+  .myHandOverlay .cardslots {
+    grid-row: 2;
+    grid-column: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 130px);
-    grid-template-rows: repeat(auto-fill, 180px);
+    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+    grid-template-rows: 100%
   }
+
+  .myItemsOverlay .cardslots {
+    grid-row: 2;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 10% 10% 10% 10% 10% 10%;
+    grid-template-rows: 100%
+  }
+
+  .mySkillsOverlay .cardslots {
+    grid-row: 2;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: 15% 15% 15% 15% 15% 15%;
+    grid-template-rows: 100%
+  }
+
   /*.cardslots div {
     transform: scale(0.5)translate(-50%,-50%);
     transition:0.2s;

@@ -15,6 +15,14 @@
               @doAction="buySkill(skillsOnSale[skillsOnSale.length-1-index])"/>
           </div>
         </div>
+        <div class="arrowGrid">
+          <div v-for="(card, index) in skillsOnSale" :key="index">
+            <div v-if="index===playerCount" class="arrow down">
+            </div>
+            <div v-else class="arrow right">
+            </div>
+          </div>
+        </div>
         <div class="buttonWrapper">
           <div  v-for="(p, index) in placement" :key="index">
             <button :class="['buttons', {'red':p.cost!==0}]"
@@ -91,7 +99,8 @@ export default {
     player: Object,
     skillsOnSale: Array,
     placement: Array,
-    isPlacedList: Object
+    isPlacedList: Object,
+    playerCount: Object
   },
 
   methods: {
@@ -146,6 +155,33 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.arrowGrid{
+  grid-column: 2;
+  grid-row: 3;
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 100%;
+  text-align: center;
+}
+
+.arrow {
+border: solid black;
+border-width: 0 3px 3px 0;
+display: inline-block;
+padding: 3px;
+}
+
+.down {
+transform: rotate(45deg);
+-webkit-transform: rotate(45deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+
   .buy-skills {
     grid-row: 1;
     grid-column: 2;
@@ -207,7 +243,7 @@ export default {
     grid-template-rows: 50% 50%;
     grid-template-columns: 33% 33% 33%;
     grid-column: 1;
-    grid-row: 2;
+    grid-row: 2/4;
     width: 85%;
     height: 85%;
     background-color:rgb(17, 122, 101);
@@ -226,7 +262,7 @@ export default {
     width: 100%;
     display: grid;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 30% 70%;
+    grid-template-rows: 30% 55% 15%;
   }
 
 
