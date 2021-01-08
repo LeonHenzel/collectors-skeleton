@@ -145,26 +145,26 @@ export default {
 
 .playing{
   display: inline-block;
-  border: 3px dotted yellow;
+  border: 3% dotted yellow;
   background-color: green;
-  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
-  border-radius: 3rem;
-  font-size: 10pt;
+  padding: 3vh 1.5vh 3vh 1.5vh;
+  border-radius: 40%;
+  font-size: 1.5vh;
   letter-spacing: 0.1rem;
   font-weight: bold;
   color: white;
   transform: scale(0.45);
-  transform-origin: top left;
+  transform-origin: center;
 }
 
 .firstPlayer{
   display: inline-block;
-  border: 3px dotted yellow;
+  border: 3% dotted yellow;
   background-color: brown;
-  padding: 1.8rem 0.6rem 1.8rem 0.6rem;
-  border-radius: 3rem;
-  font-size: 10pt;
-  letter-spacing: 0.1rem;
+  padding: 3vh 1.5vh 3vh 1.5vh;
+  border-radius: 40%;
+  font-size: 1.5vh;
+  letter-spacing: 5%;
   font-weight: bold;
   color: white;
   transform: scale(0.45);

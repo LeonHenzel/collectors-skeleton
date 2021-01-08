@@ -336,7 +336,7 @@
             <div id="mePlayer">
                 <div class="myStatus">
                   <div class="myStatusContent">
-                    <h2>My Status</h2>
+                    <h2 id="myStatusTitle">My Status</h2>
 
                     <div class="myStatusComponent">
                     <CollectorsMePlayer v-if="players[playerId]"
@@ -2009,9 +2009,13 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     height: 98%;
   }
 
+  #myStatusTitle{
+    font-size: 2.3vh;
+  }
+
   .myStatusContent{
 
-    grid-template-rows:8% 36% 48%;
+    grid-template-rows:12% 36% 48%;
     grid-template-columns: 100%;
     display: grid;
     flex-direction: column;
@@ -2061,7 +2065,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     color: transparent;
     Letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 100%;
     font-family: "sans", serif;
     padding: 5px;
     border-color: white;
@@ -2075,7 +2078,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .openPlayerviewGridButton img{
-    height: 6vh;
+    height: 10vh;
     margin-right: 2%;
     /* width: 20%; */
   }
