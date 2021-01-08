@@ -91,6 +91,9 @@ export default {
       this.$emit('choosecard')
 
     },
+    selectAll: function (n) {
+      n.target.select();
+    },
 }
 }
 </script>
