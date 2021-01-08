@@ -387,7 +387,7 @@
                   <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
                   <div class="overlayPlayerViewWrapper">
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
-                      <h1>{{players[playerId].playerName}} <span v-if="players[playerId].myTurn"> ,it is your turn! </span></h1>  
+                      <h1>{{players[playerId].playerName}} <span v-if="players[playerId].myTurn"> ,it is your turn! </span></h1>
                     </div>
 
                     <div class="overlayPlayerViewWrapperBottom">
@@ -1551,6 +1551,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     z-index: 6px;
   }
 
+  .openHelpGridButton{
+
+
+  }
+
 
 
   .menuBar a{
@@ -1602,6 +1607,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
+    top: 0;
+    right: 0;
+    position: absolute;
   }
 
   .menuBar .burgerBarsIcon{

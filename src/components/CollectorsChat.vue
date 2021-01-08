@@ -101,13 +101,14 @@
   width: 70%;
   border-radius: 5px;
   outline: none;
+
 }
 
 
 #messages{
   position:absolute;
-  height: 500px;
-  max-height: 490px;
+  height: 65vh;
+  max-height: 50vh;
   width:100%;
   overflow:auto;
   background-color: #313639;
@@ -151,8 +152,8 @@
   #chatWrapper{
   border-radius: 10px;
   position: fixed;
-  width: 400px;
-  height: 600px;
+  width: 25vw;
+  height: 70vh;
   background-color: #f8f8ff;
   z-index:100;
   }
