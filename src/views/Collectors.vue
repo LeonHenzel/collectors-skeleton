@@ -25,6 +25,8 @@
         :labels="labels"
         :player="players[playerId]"
         :allPlayers="players"
+        :allPlayersIn="allPlayersIn"
+        :inviteLink="publicPath + $route.path"
         @isReady="isReady()"
         @secretCardChoosen="secretCardChoosen($event)"/>
       </div>

@@ -1,8 +1,21 @@
 <template>
 
-  <div class="readyoverlay" id="readyoverlay"  v-if="!player.ready">
+    <div class="readyoverlay" id="readyoverlay"  v-if="!player.ready">
 
-      <button class="startbutton" @click="isReady()">{{labels.ready}}</button>
+      <div class="waitingPlayers" v-if="allPlayersIn===false">
+
+        <div class="waitingPlayersContent">
+          <div>Waiting for more players to join...</div>  
+          <div class="inviteContent">
+            <div>Use the link to invite more players:</div>
+            <div><input class="inviteLinkContainer" type="text" :value="inviteLink" @click="selectAll" readonly="readonly"></div>
+          </div>
+        </div>
+          
+      </div>
+
+      <button class="startbutton" v-if="allPlayersIn" @click="isReady()">{{labels.ready}}</button>
+
 
     </div>
     <div class="readyoverlay" v-else>
@@ -50,7 +63,9 @@ export default {
   props: {
     labels: Object,
     player: Object,
-    allPlayers: Object
+    allPlayers: Object,
+    allPlayersIn: Boolean,
+    inviteLink: String
 
 
   },
@@ -64,8 +79,11 @@ export default {
 
   methods: {
     isReady: function(){
-      console.log("StartGame")
-      this.$emit('isReady')
+      if (this.allPlayersIn) {
+        console.log("StartGame")
+        this.$emit('isReady')
+      }
+
 
     },
     secretCardChoosen: function(card){
@@ -80,9 +98,9 @@ export default {
 <style lang="css" scoped>
 
 .readyoverlay{
-width: 100%;
-height: 1000px;
-background: rgba(0, 0, 0, 0.7);
+width: 100vw;
+height: 100vh;
+background: rgba(0, 0, 0, 0.8);
 z-index: 10;
 position: fixed;
 
@@ -98,6 +116,38 @@ width: 100%;
   display: flex;
   align-items:center;
   justify-content: center;
+}
+
+.waitingPlayersContent{
+  font-size: 2.4vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* background: black; */
+  width: 50vw;
+  height: 50vh;
+}
+
+.inviteContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inviteContent div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.inviteLinkContainer{
+  background: rgb(255, 126, 152);
+  border-radius: 5%;
+  text-align: center;
+  width: 20vw;
 }
 
 .choosecards{
