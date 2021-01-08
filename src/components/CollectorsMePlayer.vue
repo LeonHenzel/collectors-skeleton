@@ -139,6 +139,11 @@ export default {
   transform-origin: center;
 }
 
+.firstPlayer {
+  grid-column: 1;
+  grid-row: 2;
+}
+
 .firstPlayer{
   display: inline-block;
   border: 3% dotted yellow;
@@ -154,10 +159,7 @@ export default {
 }
 
 
-.firstPlayer {
-  grid-column: 1;
-  grid-row: 2;
-}
+
 
 .playerName {
   grid-column: 2/5;
