@@ -3,7 +3,7 @@
       <div class="gridWrapper">
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-          <p>Skills</p>
+          <p>{{labels.skills}}</p>
         </button>
         <div class="buy-skills">
           <div class="cardDiv" v-for="(card, index) in skillsOnSale" :key="index">
@@ -38,11 +38,11 @@
             <div class="openButtonWrapper">
               <button href="#" class = "openButton openSkills" @click="closeNav()">
                 <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
-                <p>Skills</p>
+                <p>{{labels.skills}}</p>
               </button>
             </div>
             <div class="buy-skillsWrapper">
-              <h1>These cards are available!</h1>
+              <h1>{{labels.availableCards}}</h1>
           <div class="buy-skills">
             <div class="cardWrapper" v-for="(card, index) in skillsOnSale" :key="index">
               <CollectorsCard
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="paymentWrapper">
-            <h2>Choose your payment.</h2>
+            <h2>{{labels.choosepayment}}</h2>
             <div class="buttonsOverlayWrapper">
               <div class="buttons" v-for="(p, index) in placement" :key="index">
                 <button class="purchaseButton"
@@ -69,7 +69,7 @@
             </div>
           </div>
           <div class="backToBoard">
-            <button href="#" class = "playerboardButton" @click="closeNav()">Back to playerboard </button>
+            <button href="#" class = "playerboardButton" @click="closeNav()">{{labels.backplayerboard}}</button>
           </div>
         </div>
       </div>

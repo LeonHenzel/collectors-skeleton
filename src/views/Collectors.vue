@@ -56,13 +56,13 @@
 
           <ul class="menu">
             <li class="item desktop">
-              <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">Help</a>
+              <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">{{labels.help}}</a>
             </li>
             <li class="item buttonNav">
-              <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">About</a>
+              <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">{{labels.about}}</a>
             </li>
             <li class="item buttonNav secondary">
-              <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">Exit Game</a>
+              <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">{{labels.exitgame}}</a>
             </li>
           </ul>
 
@@ -70,10 +70,10 @@
                   <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
                   <div class="aboutInfoOverlay">
                     <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h2>Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.
+                    <h2>{{labels.collectors}}
                     </h2>
-                    <h2>This digital version of the game has been developed as a school project in interface programming</h2>
-                    <h2>Its contributors are:</h2>
+                    <h2>{{labels.collectors2}}</h2>
+                    <h2>{{labels.collectors3}}</h2>
                     <h3>Adam Bergman</h3>
                     <h3>Anton Dahl</h3>
                     <h3>Leon Henzel</h3>
@@ -87,8 +87,8 @@
                   <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
                   <div class="exitInfoOverlay">
                     <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>This action will end the current game session, are you sure that you want to Exit the game?</h1>
-                    <a href="http://localhost:8080/#/" class="exitForReal" >Exit Game!</a>
+                    <h1>{labels.endgame}</h1>
+                    <a href="http://localhost:8080/#/" class="exitForReal" >{{labels.exitgamee}}</a>
 
                   </div>
                 </div>
@@ -97,7 +97,7 @@
                   <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
                   <div class="helpInfoOverlay">
                     <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>Rulebook</h1>
+                    <h1>{{labels.rulebook}}</h1>
                     <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
                     <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
                     <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
@@ -197,11 +197,11 @@
                   <div class="auctionLogoWrapper">
                     <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
                       <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png">
-                      <p>Auction</p>
+                      <p>{{labels.auction}}</p>
                     </button>
                   </div>
                   <div class="auctionTitleWrapper">
-                    <h1>Current Auction</h1>
+                    <h1>{{labels.currentauction}}</h1>
                   </div>
 
                     <div class="cardslots">
@@ -213,10 +213,10 @@
                     <div v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'">
                       <div class="yourTurnToPoorWrapper">
                         <div class="yourTurnWrapper">
-                          <h3 v-if="players[playerId].myBiddingTurn">YOUR TURN</h3>
+                          <h3 v-if="players[playerId].myBiddingTurn">{{labels.yourturn}}</h3>
                         </div>
                         <div class="toPoorWrapper">
-                          <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">You cannot afford to raise the bid.</h3>
+                          <h3 v-if="players[playerId].maxAuctionAffordance <= this.currentBid">{{labels.cantaffordbid}}.</h3>
                         </div>
                       </div>
 
@@ -224,15 +224,15 @@
                   </div>
                   <div class="currentBidWrapper">
                     <div class="currentBidTextWrapper">
-                      <p> Current Bid </p>
-                      <h3 v-if="this.currentBid !== -1"> {{ currentBid }} Coins </h3>
-                      <h3 v-if="this.currentBid === -1"> No current auction </h3>
+                      <p> {{labels.currentbid}} </p>
+                      <h3 v-if="this.currentBid !== -1"> {{ currentBid }} {{labels.coin}} </h3>
+                      <h3 v-if="this.currentBid === -1"> {{labels.nocurrentbid}} </h3>
                     </div>
                     <div class="raiseBidButtonWrapper">
-                      <button  class="raiseBidButton" id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">Raise Bid By 1 Coin</button>
+                      <button  class="raiseBidButton" id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">{{labels.raisebid}}</button>
                     </div>
                     <div class="forfeitBidButtonWrapper">
-                      <button class="forfeitBidButton" id="forfeitBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">Forfeit Bidding</button>
+                      <button class="forfeitBidButton" id="forfeitBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">{{labels.forfeitbid}}</button>
                     </div>
                   </div>
                 </div>
@@ -241,11 +241,11 @@
 
                 <div v-bind:class="bidWinnerWrapper">
                     <div class="congratsWrapper">
-                      <h1>Congratulations! You won the bidding.</h1>
+                      <h1>{}{labels.congratulations}}</h1>
                     </div>
                     <div class="cardslotsWrapper">
                       <div class="cardslotsTextWrapper">
-                        <h3>Här är min hand yo! </h3>
+                        <h3>{{labels.myhand}}</h3>
                       </div>
                       <div class="cardslotsCardsWrapper">
                         <div class="cardslots" v-if="players[playerId]">
@@ -257,11 +257,11 @@
                   <div class="paymentAuctionWrapper">
                     <div class="paymentAuctionAllTextWrapper">
                       <div class="paymentAuctionTextWrapper">
-                        <h3>Payment</h3>
+                        <h3>{{labels.payment}}</h3>
                         <br>
-                        Click cards in your hand to use them as payment
+                        {{labels.clickcards}}
                         <br>
-                        These cards will be used as payment:
+                        {{labels.thesecards}}:
 
                       </div>
                       <div class="paymentAuctionPaymentWrapper">
@@ -274,21 +274,21 @@
                         </div>
                         <div class="paymentAuctionPaymentTextWrapper">
                           <br>
-                          Your payment is {{moneyPayment}} coin(s) and the chosen cards
+                          {{labels.yourpaymentis}} {{moneyPayment}} {{labels.andthechosencards}}
                           <br>
-                          Confirm payment by choosing where you want to put your won Auction-card
+                          {{labels.confirm}}
                         </div>
                       </div>
                     </div>
                       <div class="placeAuctionCardWrapper">
                         <div class="placeInItems">
-                          <button  @click="placeAuctionCardInItems">Place your newly won card in Items</button>
+                          <button  @click="placeAuctionCardInItems">{{labels.placeitem}}</button>
                         </div>
                         <div class="placeInSkills">
-                          <button  @click="placeAuctionCardInSkills">Place your newly won card in Skills</button>
+                          <button  @click="placeAuctionCardInSkills">{{labels.placeskills}}</button>
                         </div>
                         <div class="placeInMarket">
-                          <button  @click="placeAuctionCardInMarket">Place your newly won card in raise market</button>
+                          <button  @click="placeAuctionCardInMarket">{{labels.raisemarket}}</button>
                         </div>
                       </div>
                   </div>
@@ -298,7 +298,7 @@
                 <div class="auctionOver" v-if="players[playerId].bidSkipper===true && currentAuction.length!==0"  id="auctionOver">
                   <div class="auctionOverWrapper">
                     <div class="auctionOverTitle">
-                      <h1>Unfortunately, you lost the auction.</h1>
+                      <h1>{{labels.unfortunately}}</h1>
                     </div>
                     <div class="sadEmojiDiv">
                       <div id="sadEmoji">
@@ -307,8 +307,8 @@
                       </div>
                     </div>
                     <div class="auctionOverContent">
-                      <h3>The auction is over.</h3>
-                      <h4>Please wait for the auction winner to place their newly won card.</h4>
+                      <h3>{{labels.auctionover}}</h3>
+                      <h4>{{labels.pleasewaitplacing}}</h4>
                     </div>
                   </div>
 
@@ -336,7 +336,7 @@
             <div id="mePlayer">
                 <div class="myStatus">
                   <div class="myStatusContent">
-                    <h2>My Status</h2>
+                    <h2>{{labels.mystatus}}</h2>
 
                     <div class="myStatusComponent">
                     <CollectorsMePlayer v-if="players[playerId]"
@@ -345,7 +345,7 @@
 
                     <button href="#" class ="openPlayerviewGridButton" @click="expandPlayerviewGrid()">
                       <img src="https://image.flaticon.com/icons/png/512/30/30565.png">
-                      <span>Expand My Status</span>
+                      <span>{{labels.expandstatus}}</span>
                     </button>
 
 
@@ -402,21 +402,21 @@
                       </div>
                       <div class="overlayPlayerView_rightContent">
                         <div class="myHandOverlay">
-                          <h4>My Hand</h4>
+                          <h4>{{labels.myhand}}</h4>
                           <div class="cardslots" v-if="players[playerId]">
                             <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
                           </div>
                         </div>
 
                         <div class="myItemsOverlay">
-                          <h4>My Items</h4>
+                          <h4>{{labels.myitems}}</h4>
                           <div class="cardslots" v-if="players[playerId]">
                             <CollectorsCard v-for="(card, index) in players[playerId].items" :card="card" :key="index"/>
                           </div>
                         </div>
 
                         <div class="mySkillsOverlay">
-                          <h4>My Skills</h4>
+                          <h4>{{labels.myskills}}</h4>
                           <div class="cardslots" v-if="players[playerId]">
                             <CollectorsCard v-for="(card, index) in players[playerId].skills" :card="card" :key="index"/>
                           </div>
@@ -473,6 +473,10 @@ import CollectorsPlayerviewOverlayTitle from '@/components/CollectorsPlayerviewO
 
 
 
+
+
+
+
 export default {
   name: 'Collectors',
   components: {
@@ -490,7 +494,8 @@ export default {
     CollectorsMePlayer,
     CollectorsMePlayerOverlay,
     CollectorsSadEmoji,
-    CollectorsPlayerviewOverlayTitle
+    CollectorsPlayerviewOverlayTitle,
+
 
   },
   data: function () {
@@ -974,7 +979,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
         this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
         playerId: this.playerId,
-        playerName: this.playerName}); 
+        playerName: this.playerName});
 
     },
     submitName2: function(){
@@ -983,7 +988,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
         this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
         playerId: this.playerId,
-        playerName: this.playerName.slice(0, -1)}); 
+        playerName: this.playerName.slice(0, -1)});
 
     },
 
@@ -2681,6 +2686,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin: 0;
     padding: 0;
   }
+
 
 
 

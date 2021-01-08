@@ -57,7 +57,7 @@ Data.prototype.getUILabels = function (roomId) {
   else return {};
 }
 
-Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
+Data.prototype.createRoom = function(roomId, playerCount, lang) {
   let room = {};
   room.players = {};
   room.playerList=[];

@@ -11,7 +11,7 @@
 
           {{player.playerName}}
           <div class="playing" v-if="player.myTurn">
-            Playing
+            {{labels.playing}}
           </div>
           <div class=firstPlayer v-if="player.firstPlayerToken">
             1st

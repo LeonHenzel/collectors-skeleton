@@ -4,7 +4,7 @@
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-            <p>Items</p>
+            <p>{{labels.items}}</p>
           </button>
         </div>
         <div class="buy-cards">
@@ -57,11 +57,11 @@
           <div class="openButtonWrapper">
             <button href="#" class = "openButton openItems" @click="closeNav()">
               <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-              <p>Items</p>
+              <p>{{labels.items}}</p>
             </button>
           </div>
           <div class="buy-cardsWrapper">
-            <h1>These cards are available!</h1>
+            <h1>{{labels.availableCards}}</h1>
             <div class="buy-cards">
               <div class="cardDiv" v-for="(card, index) in itemsOnSale" :key="index">
                 <CollectorsCard
@@ -74,7 +74,7 @@
           </div>
 
           <div class="paymentWrapper">
-            <h2>Choose your payment.</h2>
+            <h2>{{labels.choosepayment}}</h2>
             <div class="buttonsOverlayWrapper">
             <div class="buttons" v-for="(p, index) in placement" :key="index">
               <button
@@ -90,7 +90,7 @@
             </div>
           </div>
           <div class="backToBoard">
-            <button href="#" class = "playerboardButton" @click="closeNav()">Back to playerboard </button>
+            <button href="#" class = "playerboardButton" @click="closeNav()">{{labels.backplayerboard}} </button>
           </div>
         </div>
       </div>

@@ -4,12 +4,12 @@
         <div class="mySkillTokensDiv">
           <div class="glow">
             <div class="mySkillTokens">
-              <h2>My Skills</h2>  
+              <h2>{{labels.myskills}}</h2>
               <div id="skillsFirstRow">
                 <h1 class="badge">
                   <div class="badgeContent">
                     <div class="imageContainer"><img src="/images/skillsVP.png"></div>
-                    <div class="skillPoints">{{player.skillVP.VPAll}}</div> 
+                    <div class="skillPoints">{{player.skillVP.VPAll}}</div>
                   </div>
                 </h1>
               </div>
@@ -263,7 +263,7 @@ export default {
 	position: absolute;
 	left: -2px;
 	top: -2px;
-	background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, 
+	background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094,
 		#0000ff, #00ff00,#ffff00, #ff0000);
 	background-size: 400%;
 	width: calc(100% + 4px);
