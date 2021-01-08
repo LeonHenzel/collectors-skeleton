@@ -1,6 +1,7 @@
 <template>
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
+        <button class="cancelButton" type="submit" v-if="bottlePlaced===true" @click="bottlePlaced=false"></button>
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
@@ -21,7 +22,7 @@
             <button id="smallPurchaseButtonBuyActions"
               v-if="p.playerId===null"
               :disabled="cannotAfford(p.cost)"
-              @click="placeBottle(p)" >
+              @click="bottlePlaced=true, placeBottle(p)" >
               ${{p.cost}}
             </button>
             <div v-if="p.playerId !== null">
@@ -115,6 +116,11 @@ export default {
     placement: Array,
     isPlacedList: Object
   },
+  data: function(){
+    return{
+      bottlePlaced: false,
+    }
+  },
   methods: {
     cannotAfford: function (cost) {
       let minCost = 100;
@@ -128,14 +134,15 @@ export default {
       return this.marketValues[card.market];
     },
     placeBottle: function (p) {
-      if(this.isPlacedList.item===true || this.isPlacedList.market===true
-        || this.isPlacedList.skill===true || this.isPlacedList.auction===true
-        || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
-          return
-        }
-      this.$emit('placeBottle', p.cost);
-      this.highlightAvailableCards(p.cost);
-
+      if(this.bottlePlaced){
+        if(this.isPlacedList.item===true || this.isPlacedList.market===true
+          || this.isPlacedList.skill===true || this.isPlacedList.auction===true
+          || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
+            return
+          }
+        this.$emit('placeBottle', p.cost);
+        this.highlightAvailableCards(p.cost);
+      }
     },
 
     highlightAvailableCards: function (cost=100) {
@@ -186,6 +193,13 @@ export default {
     grid-template-columns: repeat(auto-fill, 100px);
     grid-column: 2;
   }*/
+
+  .cancelButton{
+    position: fixed;
+    height: 6vh;
+    width: 6vh;
+    z-index: 100;
+  }
 
   .arrow {
   border: solid black;
