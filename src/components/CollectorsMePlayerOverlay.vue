@@ -75,19 +75,23 @@
           </div>
         </div>
 
-        <div class="playerInfoWrapper">
-            <div class="pointsSymbol"></div>
-            <div class="pointsPlayer">
-                {{player.points}}
+        <div class="myPointsDiv">
+          <div class="myPoints">
+            <div class="badge pointsBadge">
+              <div class="pointsImageDiv"><div class="pointsSymbol"></div></div>
+              <div class="pointsPlayer">{{player.points}}</div>
             </div>
-            <div class="energySymbol"></div>
-            <div class="energyPlayer">
-                {{player.energyBottles}}
+
+            <div class="badge pointsBadge">
+              <div class="pointsImageDiv"><div class="energySymbol"></div></div>
+              <div class="energyPlayer">{{player.energyBottles}}</div>
             </div>
-            <div class="moneySymbol"></div>
-            <div class="playerMoney">
-            {{player.money}}
+
+            <div class="badge pointsBadge">
+              <div class="pointsImageDiv"><div class="moneySymbol"></div></div>
+              <div class="playerMoney">{{player.money}}</div>
             </div>
+          </div>
         </div>
 
 
@@ -149,6 +153,16 @@ export default {
   font-size: 2vh;
   letter-spacing: 0.2vh;
   z-index: 500;
+}
+
+.mePlayerContent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.myPointsDiv, .itemSummaryWrapper{
+  padding-top: 1vh;
 }
 
 .imageContainer{
@@ -280,22 +294,49 @@ export default {
   font-size: 2.5vh;
 }
 
+.myPointsDiv{
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.myPoints{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: rgb(12, 51, 75);
+  text-align: center;
+  padding: 0.8vh 2vw;
+  border-radius: 5%;
+}
+
+.pointsBadge{
+  background: lightskyblue;
+}
+
+.pointsImageDiv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 4.7vh;
+  width: 4vw;
+}
+
 .pointsSymbol {
   content: url('/images/victoryPoints-Symbol.png');
-  height: 5%;
-  width: 5%;
+  height: 4.7vh;
 }
 
 .energySymbol {
   content: url('/images/energyDrink-Symbol.png');
-  height: 5%;
-  width: 5%;
+  height: 4.7vh;
 }
 
 .moneySymbol {
-  content: url('/images/moneySymbol.png');
-  height: 5%;
-  width: 5%;
+  content: url('/images/moneySymbol.svg');
+  height: 4.7vh;
+  width: 4vw;
 }
 
 </style>
