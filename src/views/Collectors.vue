@@ -1574,6 +1574,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: 100%;
   }
 
+  .openHelpGridButton{
+
+
+  }
+
 
 
   .menuBar a{
@@ -1626,6 +1631,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
+    top: 0;
+    right: 0;
+    position: absolute;
   }
 
   .menuBar .burgerBarsIcon{
