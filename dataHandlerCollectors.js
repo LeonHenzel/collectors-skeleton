@@ -131,6 +131,10 @@ Data.prototype.createRoom = function(roomId, playerCount, lang="en") {
   room.discardCount=0;
   room.allPlayersIn=false;
   room.allPlayersReady=false;
+  room.placementInfo={
+    cost: 0,
+    timesMarket: 0
+  }
 
 }
 
@@ -1038,6 +1042,7 @@ Data.prototype.placeBottle = function (roomId, playerId, action, cost,twoMarket)
         if( activePlacement[i].cost === cost &&
             activePlacement[i].playerId === null ) {
           activePlacement[i].playerId = playerId;
+          room.placementInfo.cost= cost;
           break;
         }
     }
@@ -1084,6 +1089,9 @@ Data.prototype.placeMarketBottle=function(room,playerId,cost){
       activePlacement[i].playerId === null &&
       activePlacement[i].numberOfChangedMarkets===numberOfChangedMarkets) {
     activePlacement[i].playerId = playerId;
+    room.placementInfo.cost= cost;
+    room.placementInfo.timesMarket= numberOfChangedMarkets;
+    break;
 }
 }
 this.setAvalibleMarket(room,playerId)

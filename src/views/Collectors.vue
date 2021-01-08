@@ -126,7 +126,8 @@
                 :placement="buyPlacement"
                 :isPlacedList="isPlacedList"
                 @buyCard="buyCard($event)"
-                @placeBottle="placeBottle('buy', $event)"/>
+                @placeBottle="placeBottle('buy', $event)"
+                @cancelAction="cancelAction()"/>
             </div>
           </div>
 
@@ -555,9 +556,11 @@ export default {
       allPlayersIn: false,
       allPlayersReady: false,
       playerList: [],
-      playerCount: 0
-
-
+      playerCount: 0,
+      placementInfo: {
+        cost: 0,
+        timesMarket: 0
+      }
     }
   },
   computed: {
@@ -608,6 +611,7 @@ export default {
         this.allPlayersIn=d.allPlayersIn;
         this.allPlayersReady=d.allPlayersReady;
         this.playerCount=d.playerCount;
+        this.placementInfo=d.placementInfo;
         this.sortPlayerList();
 
       }.bind(this));
@@ -626,6 +630,7 @@ export default {
         this.skillsOnSale=d.skillsOnSale;
         this.auctionCards=d.auctionCards;
         this.itemsOnSale=d.itemsOnSale;
+        this.placementInfo=d.placementInfo;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -914,14 +919,13 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
   },
   methods: {
-
-    openreadypage: function(){
-
-
-
-
-    },
-
+    cancelAction: function(){
+      his.$store.state.socket.emit("cancelAction", {
+      roomId: this.$route.params.id,
+      playerId: this.playerId,
+      placementInfo: this.placementInfo,
+      isPlacedList: this.isPlacedList})
+    }
 
 
 

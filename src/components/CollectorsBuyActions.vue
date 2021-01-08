@@ -1,7 +1,7 @@
 <template>
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
-        <h1>{{isPlacedList.item}}</h1>
+        <button type="submit" class="cancelButton" v-if="isPlacedList.item" @click="cancelAction()"></button>
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <div class="theButton">
@@ -177,6 +177,9 @@ export default {
     },
     closeNav: function(){
       document.getElementById('navBuyActions').style.height = "0%";
+    },
+    cancelAction: function(){
+      this.$emit('cancelAction')
     }
 
   }
