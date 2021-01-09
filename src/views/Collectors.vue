@@ -43,17 +43,13 @@
       <div class="bigWrapper">
 
         <div class="menuBar">
-
-
-
           <a href="#" class="logo"></a>
           <input class="menuButton" type="checkbox" id="menuButton">
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
           </label>
 
-            <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
-
+          <CollectorsChat :messages="messages" :playerId="playerId" :playerName="players[playerId].playerName" @sendMessage = "sendMessage($event)"/>
 
           <ul class="menu">
             <li class="item desktop">
@@ -1690,16 +1686,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-columns: 10% 40% 50%;*/
     /*grid-template-rows: 100%;*/
     height: 100%;
-    width: 99%;
+    width: 100%;
     margin-right: 1%;
   }
 
   .openHelpGridButton{
-
-
   }
-
-
 
   .menuBar a{
     color: black;
@@ -1719,7 +1711,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .menuBar ul a{
     display: block;
-    padding: 10px 20px;
+    padding: 2.5% 5%;
     border-right: 1px solid #aaa;
     text-decoration: none;
   }
@@ -1735,8 +1727,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     font-size: 2em;
     padding: 5px 20px;
     border-radius: 50em;
-
-
   }
 
   #logo{
@@ -1746,22 +1736,25 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
    margin-bottom: 0%;
 }
 
-  .menu{
-    grid-column: 3;
+  .menuBar .menu{
+    /*grid-column: 3;*/
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
-    top: 0;
+    top: 100%;
     right: 0;
     position: absolute;
-    /* z-index:12; */
+    float: left;
+    width: 100%;
+    /*z-index:3; */
   }
 
   .menuBar .burgerBarsIcon{
-    padding: 28px 20px;
+    padding: 2.5% 5%;
     position: relative;
     float: right;
     cursor: pointer;
+    z-index: 12;
   }
 
   .menuBar .burgerBarsIcon .barsIcon{
@@ -1781,7 +1774,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: 100%;
     position: absolute;
     transition: all .5s ease-out;
-    top: 5px;
+    top: 250%;
   }
 
   .menuBar .burgerBarsIcon .barsIcon:after{
@@ -1792,7 +1785,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: 100%;
     position: absolute;
     transition: all .5s ease-out;
-    top: -5px;
+    top: -250%;
   }
 
   .menuBar .menuButton{
@@ -1800,12 +1793,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .menuButton:checked ~ .menu{
-    max-height: 240px;
+    max-height: 800%;
+    z-index:10;
   }
-
-  /*.menuBar .menuButton:not(:checked) ~ .menu{
-    display: none;
-  }*/
 
   .menuBar .menuButton:checked ~ .burgerBarsIcon .barsIcon{
     background: transparent;
@@ -1820,8 +1810,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     transform: rotate(225deg);
     top: 0;
   }
-  /*mobile menu end*/
-  /*Tablet menu start*/
 
 
     .aboutOverlay{
@@ -1922,6 +1910,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     .menuBar li{
     float: left;
     }
+
     .menuBar ul {
       border-radius:50em;
     }
@@ -1934,7 +1923,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       justify-content: center;
       clear: none;
       float: right;
-      max-height: 0;
+      top: 0;
+      max-height: none;
+      width: auto;
     }
 
     .menuBar .burgerBarsIcon{
@@ -1953,25 +1944,23 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       width: auto;
       order: 1;
       display: block;
-      max-height:240px;
       background: SeaShell;
+      align-items: center;
+
     }
 
     .menuBar ul li:nth-of-type(2){
       width: auto;
       order: 2;
       display: block;
-      max-height:240px;
       align-items: center;
       background: SeaShell;
-
     }
 
     .menuBar ul li:nth-of-type(3){
       width: auto;
       order: 3;
       display: block;
-      max-height:240px;
       align-items: center;
       background: SeaShell;
     }
@@ -1980,7 +1969,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       width: auto;
       order: 4;
       display: block;
-      max-height:240px;
       align-items: center;
       background: SeaShell;
 
@@ -1995,10 +1983,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: block;
     } */
 
-    .menuBar .menuButton:not(:checked) ~ .menu{
+    /*.menuBar .menuButton:not(:checked) ~ .menu{
       max-height: 240px;
-    }
+    }*/
 
+    /* behövs ej var exemple på tablet mode, ej färdigställd
     .menuBar .menuButton:checked ~ .menu li:nth-of-type(-n+3){
       clear: both;
       height: auto;
@@ -2006,7 +1995,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: inline-flex;
       flex: right;
       transform: scale(1.2);
-    }
+    }*/
+
+
+
   }
   /*Tablet menu end*/
   /*Dekstop menu start*/
