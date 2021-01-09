@@ -81,8 +81,10 @@
                     <h3>Adam Bergman</h3>
                     <h3>Anton Dahl</h3>
                     <h3>Leon Henzel</h3>
+                    <img src="/images/sexiboiLeon01.png">
                     <h3>Oskar Jonsson</h3>
                     <h3>Fredrik Nilsson</h3>
+                    <img src="/images/sexiboiFredrik.jpg" height="500">
                     <h3>Kalle Rosengren</h3>
                   </div>
                 </div>

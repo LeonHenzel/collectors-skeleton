@@ -90,6 +90,7 @@
     display: grid;
     grid-template-columns: 20% 80%;
     grid-template-rows: 100%;
+
   }
 
   .workersTitle{
@@ -111,6 +112,7 @@
     height: 100%;
     width: 100%;
     text-align: center;
+    color: black;
   }
 
   .workersTitle>img{
@@ -118,6 +120,7 @@
     grid-column: 1;
     height: 100%;
     width: 100%;
+    object-fit: contain;
   }
 
 
@@ -130,6 +133,7 @@
     display: grid;
     grid-template-columns: 19% 19% 19% 19% 19%;
     grid-gap: 1%;
+
   }
 
   button:disabled{
@@ -147,6 +151,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
+
   }
 
 
@@ -180,6 +186,7 @@
     width: 110%;
     height: 105.5%;
     border-radius: 5px;
+    object-fit: contain;
   }
 
   #quarterRound2{
