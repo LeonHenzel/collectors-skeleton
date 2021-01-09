@@ -265,7 +265,7 @@
                       <h3 v-if="this.currentBid === -1"> {{labels.nocurrentbid}} </h3>
                     </div>
                     <div class="raiseBidButtonWrapper">
-                      <button  class="raiseBidButton" id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">{{labels.raisebid}}</button>
+                      <button  class="raiseBidButton" id="raiseBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="raiseBid">{{labels.raisebidding}}</button>
                     </div>
                     <div class="forfeitBidButtonWrapper">
                       <button class="forfeitBidButton" id="forfeitBidButton" v-if="bidWinnerWrapper === 'bidWinnerWrapperInvisible'" @click="skipThisBidding">{{labels.forfeitbid}}</button>
