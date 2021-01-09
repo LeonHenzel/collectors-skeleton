@@ -91,8 +91,9 @@
                   <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
                   <div class="exitInfoOverlay">
                     <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>{{labels.endgame}}</h1>
-                    <a href="http://localhost:8080/#/" class="exitForReal" >{{labels.exitgame}}</a>
+
+                    <span class="exittext">{{labels.exitgame}}</span>
+                    <a href="http://localhost:8080/#/" class="exitForReal">YES</a>
 
                   </div>
                 </div>
@@ -1878,6 +1879,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       margin-top: -5%;
     }
 
+    .exittext{
+      
+      left: 1000px;
+    }
+
     .helpInfoOverlay{
       color: white;
       align-items: Center;
@@ -1889,12 +1895,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
       border-radius: 70em;
 
-      color:darkred;
+
       font-style: bold;
       background-color: white;
       display: block;
-      max-width: 100px;
-      margin-left: 45%;
+      max-width: 50px;
+      margin-left: 47%;
     }
 
     /* } */
