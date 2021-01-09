@@ -1,7 +1,6 @@
 <template>
     <div class="CollectorsBuySkill">
       <div class="gridWrapper">
-        <button type="submit" class="cancelButton" v-if="isPlacedList.skill && player.myTurn" @click="cancelAction()"></button>
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <div class="theButton">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
@@ -24,7 +23,8 @@
             </div>
           </div>
         </div>
-        <div class="buttonWrapper">
+        <button type="submit" class="cancelButton" v-if="isPlacedList.skill && player.myTurn" @click="cancelAction()">{{labels.cancelAction}}</button>
+        <div class="buttonWrapper" v-if="!isPlacedList.skill || !player.myTurn">
           <div  v-for="(p, index) in placement" :key="index">
             <button :class="['buttons', {'red':p.cost!==0}]"
               v-if="p.playerId===null"
@@ -160,10 +160,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .cancelButton{
-  position: fixed;
-  height: 6vh;
-  width: 6vh;
+  height: 60%;
+  width: 80%;
+  margin: 10%;
   z-index: 100;
+  grid-column: 1;
+  grid-row: 2/4;
 }
 
 .arrowGrid{

@@ -1,8 +1,8 @@
 <template>
   <div class="marketWrapper">
 <h1>{{labels.raiseMarket}}</h1>
-
-    <div class="buttonsMarket">
+  <button type="submit" class="cancelButton" v-if="isPlacedList.market && player.myTurn" @click="cancelAction()">{{labels.cancelAction}}</button>
+    <div class="buttonsMarket" v-if="!isPlacedList.market || !player.myTurn">
 
       <div class="theButtons">
 
@@ -74,7 +74,8 @@ export default {
     labels: Object,
     player: Object,
     placement:  Array,
-    marketValues: Object
+    marketValues: Object,
+    isPlacedList: Object
   },
   methods: {
     cannotAfford: function (cost) {
@@ -88,6 +89,9 @@ export default {
       else {
         this.$emit('placeBottle', p.cost);
       }
+    },
+    cancelAction: function(){
+      this.$emit('cancelAction')
     }
 
 }
@@ -98,6 +102,15 @@ export default {
 
 
 <style lang="css" scoped>
+
+.cancelButton{
+  height: 60%;
+  width: 80%;
+  margin: 10%;
+  z-index: 100;
+  grid-column: 1;
+  grid-row: 2;
+}
 
 
 .buttonGrid>div{
