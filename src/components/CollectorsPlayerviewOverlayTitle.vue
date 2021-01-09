@@ -46,17 +46,17 @@ export default {
     gap: 2vw;
     flex-wrap: wrap;
     /* background: blanchedalmond; */
-    top: 7.5vh;
-    right: 20vw;
+    top: 2vh;
+    right: 12vw;
 }
 
-.secretCard::after{
+.secretCard::before{
     content: "SECRET CARD";
     font-family: 'Bangers', cursive;
     font-size: 2vh;
     letter-spacing: 0.1vw;
     margin-top: 4vh;
-    margin-left: -15vw;
+    /* margin-left: -15vw; */
 }
 
 .card::before{
@@ -68,7 +68,7 @@ export default {
 
 .card{
     /* right: 0; */
-    transform-origin: top right;
+    transform-origin: top left;
 }
 
 .coolTitle {
