@@ -66,7 +66,7 @@
               <a href="#" class=" openTutorial" @click ="expandTutorialGrid()">Help</a>
             </li>
             <li class="item buttonNav secondary">
-              <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">{{labels.exitgame}}</a>
+              <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">{{labels.exitgamee}}</a>
             </li>
           </ul>
 
@@ -92,7 +92,7 @@
                   <div class="exitInfoOverlay">
                     <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
                     <h1>{{labels.endgame}}</h1>
-                    <a href="http://localhost:8080/#/" class="exitForReal" >{{labels.exitgamee}}</a>
+                    <a href="http://localhost:8080/#/" class="exitForReal" >{{labels.exitgame}}</a>
 
                   </div>
                 </div>
@@ -434,7 +434,8 @@
                   <div class="overlayPlayerViewWrapper">
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
                         <CollectorsPlayerviewOverlayTitle v-if="players[playerId]"
-                        :player="players[playerId]" />
+                        :player="players[playerId]"
+                        :labels="labels" />
                     </div>
 
                     <div class="overlayPlayerViewWrapperBottom">

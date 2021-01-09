@@ -15,7 +15,8 @@ export default {
   name: 'CollectorsPlayerviewOverlayTitle'
 ,
   props: {
-    player: Object
+    player: Object,
+    labels: Object
   }
 }
 </script>
