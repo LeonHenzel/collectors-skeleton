@@ -1,7 +1,7 @@
 <template>
   <div class="collectorsOtherPlayers">
     <div class="specificPlayer" v-for="(player, index) in playerList" :key="index">
-      <div class="otherPlayerWrapper">
+      <div class="otherPlayerWrapper" @click="expandThisPlayerviewGrid(player)">
 
       <div class="playerName">
 
@@ -19,9 +19,9 @@
             1st
           </div>
         </div>
-          <button class="expandButton" type="submit">
+          <!-- <button class="expandButton" type="submit" @click="expandThisPlayerviewGrid()">
             <img src="https://www.pinclipart.com/picdir/middle/218-2186085_click-for-full-screen-expand-icon-svg-clipart.png" height="20" width="20">
-          </button>
+          </button> -->
         </div>
       </div>
       <div class="playerInfoWrapper">
@@ -92,6 +92,18 @@
 
       </div>
       <hr>
+
+
+
+      <div class="thisPlayerOverlay">
+        <CollectorsOtherPlayersOverlay v-if="players[playerId]"
+          :player="players[playerId]"
+          :labels="labels" />
+      </div>
+
+
+
+
     </div>
     </div>
 </div>
@@ -99,12 +111,22 @@
 
 
 <script>
+import CollectorsOtherPlayersOverlay from '@/components/CollectorsCard.vue'
+
 export default {
   name: 'CollectorsOtherPlayers'
 ,
+  components: {
+    CollectorsOtherPlayersOverlay
+  },
   props: {
     playerList: Array,
     labels: Object
+  },
+  methods: {
+      expandPlayerviewGrid: function(){
+       document.getElementById('thisPlayerOverlay').style.width = "100%";
+      }
   }
 }
 </script>
@@ -142,7 +164,7 @@ export default {
   grid-template-rows: 100%;
 }
 
-.expandButton{
+/* .expandButton{
   display: inline-block;
   height: 100%;
   z-index: 2;
@@ -154,7 +176,7 @@ export default {
 
 .expandButton:hover{
   cursor: pointer;
-}
+} */
 
 .itemSummaryWrapper>div{
   text-align: center;
@@ -224,7 +246,7 @@ export default {
   background-color: black;
   border: solid black;
   border-radius: 1%;
-
+  cursor: pointer;
 }
 
 .arrowContainer {
