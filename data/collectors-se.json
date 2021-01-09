@@ -81,6 +81,7 @@
 	"uselink": "Använd den här länken för att bjuda in andra spelare:",
 	"work": "Arbetsyta",
 	"placedhere": "Placerad Här",
-	"raisebidding": "Höj Budet 1 Coin"
+	"raisebidding": "Höj Budet 1 Coin",
+	"cancelAction": "Avbryt handling"
 
 }

@@ -193,6 +193,8 @@
             :player="players[playerId]"
             :placement="marketPlacement"
             :marketValues="marketValues"
+            :isPlacedList="isPlacedList"
+            @cancelAction="cancelAction()"
             @placeBottle="placeBottle('market',$event)"
             @changeTwoMarket="changeTwoMarket()"/>
 
@@ -222,6 +224,7 @@
                 :marketValues="marketValues"
                 :placement="auctionPlacement"
                 :isPlacedList="isPlacedList"
+                @cancelAction="cancelAction()"
                 @startAuction="startAuction($event)"
                 @placeBottle="placeBottle('auction', $event)"/>
 

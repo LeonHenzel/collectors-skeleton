@@ -29,7 +29,8 @@
         <div class="bu">
 
         </div>
-        <div class="buttonDiv">
+        <button type="submit" class="cancelButton" v-if="isPlacedList.auction && player.myTurn" @click="cancelAction()">{{labels.cancelAction}}</button>
+        <div class="buttonDiv" v-if="!isPlacedList.auction || !player.myTurn">
           <div class="buttons" v-for="(p, index) in placement" :key="index">
             <button
               v-if="p.playerId===null"
@@ -113,6 +114,9 @@ export default {
         this.$emit('startAuction', card)
         this.highlightAvailableCards()
       }
+    },
+    cancelAction: function(){
+      this.$emit('cancelAction')
     }
 
   }
@@ -120,7 +124,14 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.cancelButton{
+  height: 60%;
+  width: 80%;
+  margin: 10%;
+  z-index: 100;
+  grid-column: 1;
+  grid-row: 3;
+}
 
   .arrowGrid{
     display: grid;

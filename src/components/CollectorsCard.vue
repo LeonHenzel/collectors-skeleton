@@ -185,13 +185,14 @@ export default {
     animation: jiggle 10s ease-in-out;
     animation-iteration-count:infinite;
     box-shadow: 0 0 30px yellow;
+    z-index: 1000;
   }
 
-  @keyframes jiggle {
+  /*@keyframes jiggle {
     0% {transform:rotate(0.1deg);}
     50% {transform:rotate(-0.1deg);}
     100% {transform:rotate(0.1deg);}
-  }
+  }*/
 
 
 </style>

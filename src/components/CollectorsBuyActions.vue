@@ -1,7 +1,7 @@
 <template>
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
-        <button type="submit" class="cancelButton" v-if="isPlacedList.item && player.myTurn" @click="cancelAction()"></button>
+
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <div class="theButton">
@@ -19,7 +19,8 @@
             <!--{{ cardCost(card) }}-->
           </div>
         </div>
-        <div class="buttonWrapper">
+        <button type="submit" class="cancelButton" v-if="isPlacedList.item && player.myTurn" @click="cancelAction()">{{labels.cancelAction}}</button>
+        <div class="buttonWrapper" v-if="!isPlacedList.item || !player.myTurn">
           <div :class="['buttons', {'red':p.cost!==0}]" v-for="(p, index) in placement" :key="index">
             <button id="smallPurchaseButtonBuyActions"
               v-if="p.playerId===null"
@@ -199,10 +200,12 @@ export default {
   }
 
   .cancelButton{
-    position: fixed;
-    height: 6vh;
-    width: 6vh;
+    height: 60%;
+    width: 80%;
+    margin: 10%;
     z-index: 100;
+    grid-column: 1;
+    grid-row: 2/4;
   }
 
   .arrow {

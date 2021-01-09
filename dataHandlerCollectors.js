@@ -274,8 +274,9 @@ Data.prototype.cancelAction=function(roomId,playerId,placementInfo,isPlacedList)
       cards=room.auctionCards;
       room.isPlacedList.auction=false;
     }
-    else if(isPLacedList.market===true){
+    else if(isPlacedList.market===true){
       room.isPlacedList.market=false;
+      console.log("till marketData");
       this.cancelMarket(room,playerId,placementInfo);
       return
     }
@@ -303,31 +304,34 @@ Data.prototype.cancelAction=function(roomId,playerId,placementInfo,isPlacedList)
 }
 
 Data.prototype.cancelMarket=function(room,playerId,placementInfo){
-  for(let i=0; i<room.marketPlacement;i+=1){
+  console.log(placementInfo);
+  for(let i=0; i<room.marketPlacement.length;i+=1){
+    console.log("index placement",i)
     if(room.marketPlacement[i].cost===placementInfo.cost &&
     room.marketPlacement[i].numberOfChangedMarkets===placementInfo.timesMarket &&
     room.marketPlacement[i].playerId!==null){
-      room.marketPlacement[i]=null;
+      room.marketPlacement[i].playerId=null;
       break;
     }
   }
-  for(let i=0;i<room.players[playerId].hand;i+=1){
+  for(let i=0;i<room.players[playerId].hand.length;i+=1){
     room.players[playerId].hand[i].available=false;
   }
   this.resetMarketCards(room)
   room.players[playerId].energyBottles+=1;
   room.placementInfo.cost=0;
   room.placementInfo.timesMarket=0;
+  room.twoMarket=false;
 }
 
 Data.prototype.resetMarketCards=function(room){
-  for(let i=0;i<room.auctionCards;i+=1){
+  for(let i=0;i<room.auctionCards.length;i+=1){
     if(room.auctionCards[i]!==undefined){
       room.auctionCards[i].available=false;
       break;
     }
   }
-  for(let i=0;i<room.skillsOnSale;i+=1){
+  for(let i=0;i<room.skillsOnSale.length;i+=1){
     if(room.skillsOnSale[i]!==undefined){
       room.skillsOnSale[i].available=false;
       break;
