@@ -250,6 +250,7 @@ export default {
     width: 100%;
     border: none;
     background-color: rgb(236, 112, 99);
+    border-radius: 0.6em;
   }
 
   .buttons {
@@ -331,6 +332,7 @@ export default {
     height: 100%;
     grid-template-columns: 25% 75%;
     grid-template-rows: 30% 40% 15% 15%;
+
   }
 
   .arrowAndCostGrid{

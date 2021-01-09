@@ -26,7 +26,7 @@
 	"isnotready": "är inte redo",
 	"ischoosingsecretitem": " väljer sitt hemliga kort",
 	"entername": "Knappa in ditt namn",
-	"help": "Hjälp",
+	"rules": "Spelregler",
 	"about": "Om spelet",
 	"exitgame": "Lämna spelet",
 	"collectors": "Collectors är ett 20-40 minuters strategi spel för 2-4 spelare där varje val spelar roll. Den vinnande spelare är den som har kammat hem den mest värdefulla kollektionen av värdefulla samlingsföremål vid spelets slut. Men var försiktig! Du har bara ett begränsat antal drag och rundor på dig, använd dem väl.",
@@ -82,6 +82,7 @@
 	"work": "Arbetsyta",
 	"placedhere": "Placerad Här",
 	"raisebidding": "Höj Budet 1 Coin",
-	"cancelAction": "Avbryt handling"
+	"cancelAction": "Avbryt handling",
+	"help": "Hjälp"
 
 }

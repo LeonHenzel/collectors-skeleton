@@ -43,7 +43,7 @@
       <div class="bigWrapper">
 
         <div class="menuBar">
-          <a href="#" class="logo"></a>
+          <div href="#" class="logo"> <h1>Collectors</h1></div>
           <input class="menuButton" type="checkbox" id="menuButton">
           <label class="burgerBarsIcon" for="menuButton">
           <span class="barsIcon"></span>
@@ -53,13 +53,13 @@
 
           <ul class="menu">
             <li class="item desktop">
-              <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">{{labels.help}}</a>
+              <a href="#" class = "openHelpGridButton" @click="expandHelpGrid()">{{labels.rules}}</a>
             </li>
             <li class="item buttonNav">
               <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">{{labels.about}}</a>
             </li>
             <li class= "item help">
-              <a href="#" class=" openTutorial" @click ="expandTutorialGrid()">Help</a>
+              <a href="#" class=" openTutorial" @click ="expandTutorialGrid()">{{labels.help}}</a>
             </li>
             <li class="item buttonNav secondary">
               <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">{{labels.exitgamee}}</a>
@@ -1688,9 +1688,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-template-columns: 10% 40% 50%;*/
     /*grid-template-rows: 100%;*/
     height: 100%;
-    width: 100%;
-    margin-right: 1%;
-  }
+    }
 
   .openHelpGridButton{
   }
@@ -1726,9 +1724,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar .logo{
     float: left;
     display: block;
-    font-size: 2em;
-    padding: 5px 20px;
-    border-radius: 50em;
+    margin-left: 5%;
+    margin-right: 10%;
+    text-decoration: none;
+  }
+
+  .menuBar .logo h1{
+    font-size: 120%;
+    font-family: 'Futura';
+    color: #6df1d8;
+    text-shadow: 0 0 2.5px #6df1d8, 0 0 5px #6df1d8, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080, 0 0 27.5px #ff0080, 0 0 52.5px #ff0080;
+    text-align: center;
   }
 
   #logo{
@@ -1959,7 +1965,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       justify-content: center;
       clear: none;
       float: right;
-      top: 0;
+      top: 4.5%;
       max-height: none;
       width: auto;
     }
@@ -2074,19 +2080,18 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .playerInfo{
-    margin-left: 5px;
     grid-column: 2;
     grid-row: 2;
     background-color: beige;
     color: black;
     font-weight: bold;
-    height: 98%;
-    margin-top: 2%;
+    height: 100%;
     position: relative;
     /* overflow-y: hidden; */
     display: grid;
     grid-template-rows: 50% 50%;
     grid-template-columns: 100%;
+    border-radius: 1em;
 
   }
 
@@ -2124,6 +2129,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: rgb(255, 217, 179);
     border-radius: 1em;
     border: 5px solid #fff;
+    width:100%;
   }
 
   .marketWrapperr{
@@ -2333,7 +2339,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myHandOverlay{
-    
+
     border-radius: 1em;
     /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
@@ -2954,10 +2960,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     margin: 0;
     padding: 0;
   }
-
-
-
-
 
   .cardsOnSale{
     height: 100%;

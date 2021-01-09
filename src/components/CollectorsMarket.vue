@@ -159,6 +159,10 @@ export default {
   grid-template-columns: 33% 33% 33%;
 }
 
+.theButtons button:hover{
+  cursor:pointer;
+}
+
 .marketWrapper {
   height: 100%;
   width: 100%;

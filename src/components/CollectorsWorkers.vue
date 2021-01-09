@@ -80,8 +80,8 @@
   }
 
   .workersWrapper{
-    height: 99%;
-    margin-top: 1%;
+    height: 100%;
+    margin-top: 0%;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -90,6 +90,7 @@
     display: grid;
     grid-template-columns: 20% 80%;
     grid-template-rows: 100%;
+    border-radius: 2em;
 
   }
 
@@ -134,6 +135,10 @@
     grid-template-columns: 19% 19% 19% 19% 19%;
     grid-gap: 1%;
 
+  }
+
+  .workerButtons button:hover{
+    cursor: pointer;
   }
 
   button:disabled{

@@ -114,6 +114,7 @@ export default {
 .collectorsOtherPlayers {
   width: 100%;
   height: 33%;
+  margin-top: 2%;
 }
 
 .nameWrapper{
@@ -211,7 +212,7 @@ export default {
 
 .specificPlayer {
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 .otherPlayerWrapper {
