@@ -2381,6 +2381,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     display: grid;
     grid-template-rows: 20% 80%;
+    grid-template-columns: 100%;
   }
 
   .overlayPlayerViewWrapperBottom{
@@ -2402,6 +2403,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-row: 1;
     display: grid;
     grid-template-rows: 33% 33% 33%;
+    grid-template-columns: 100%;
     /* position: relative;
     top: 25%;
     width: 80%;
