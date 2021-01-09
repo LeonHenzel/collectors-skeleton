@@ -92,7 +92,12 @@
 
 
                     <h1 class="exittext">{{labels.exitgame}}</h1> <br>
-                    <a href="http://localhost:8080/#/" class="exitForReal">YES</a>
+                    <a href="http://localhost:8080/#/">
+                      <button class="exitForReal">YES
+                      </button>
+                    </a>
+
+                    <a class="exitforReal" @click="minimizeExitGrid()">NO</a>
 
                   </div>
                 </div>
@@ -100,7 +105,7 @@
                 <div class="helpOverlay" id = "expandHelp">
                   <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
                   <div class="helpInfoOverlay">
-                    <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <img src="/images/CollectorsLogo01.png" class="helplogo" height="500">
                     <h1 class="rulebook">{{labels.rulebook}}</h1>
                     <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
                     <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
@@ -1897,7 +1902,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     .helpInfoOverlay{
       color: white;
-      align-items: Center;
+      position: relative;
+      left: 11%;
 
       margin-top: -5%;
     }
@@ -1905,36 +1911,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     .exitForReal {
 
         background-color: red;
-        border: white;
-        color: white;
+        border: black;
+
         padding: 15px 32px;
         text-decoration: none;
 
 
         align-items: center;
         font-size: 16px;
-        border-radius: 4px;
+
         position: relative;
-        left: 45%;
-
-
-
-
-
+        left: 38%;
 
           border-radius:5px;
-          border:solid 1px #f39c12;
-          background:#e67e22;
+          border:solid 1px black;
+          background: red;
 
-          padding:16px 18px 14px;
+          padding:16px 18px 18px;
 
           -webkit-transition: all 0.1s;
           -moz-transition: all 0.1s;
           transition: all 0.1s;
 
-          -webkit-box-shadow: 0px 6px 0px #d35400;
-          -moz-box-shadow: 0px 6px 0px #d35400;
-          box-shadow: 0px 6px 0px #d35400;
+          -webkit-box-shadow: 0px 8px 0px red;
+          -moz-box-shadow: 0px 8px 0px red;
+          box-shadow: 0px 8px 0px red;
 
 
     }
@@ -1945,6 +1946,58 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 .exitForReal:hover {
   background-color: red;
   color: white;
+  cursor: pointer;
+
+
+
+
+
+}
+
+.exitforReal {
+
+    background-color: red;
+    border: white;
+
+    padding: 15px 32px;
+    text-decoration: none;
+
+
+    align-items: center;
+    font-size: 16px;
+
+    position: relative;
+    left: 45%;
+
+
+
+
+
+
+      border-radius:5px;
+      border:solid 1px black;
+      background:green;
+
+      padding:16px 18px 18px;
+
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      transition: all 0.1s;
+
+      -webkit-box-shadow: 0px 8px 0px green;
+      -moz-box-shadow: 0px 8px 0px green;
+      box-shadow: 0px 8px 0px green;
+
+
+}
+.exitforReal {
+transition-duration: 0.5s;
+}
+
+.exitforReal:hover {
+background-color: green;
+color: white;
+cursor: not-allowed;
 }
 
     @media all and (min-width:900px){
@@ -3090,6 +3143,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: none;
     }
 
+}
+.helplogo{
+  position: relative;
+  left: 12%;
 }
 
 
