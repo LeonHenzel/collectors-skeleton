@@ -7,6 +7,7 @@
             <div class="theButton">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
             <p>{{labels.items}}</p>
+            </div>
           </button>
         </div>
         <div class="buy-cards">

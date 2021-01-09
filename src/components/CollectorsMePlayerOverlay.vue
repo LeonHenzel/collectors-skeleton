@@ -139,7 +139,8 @@ export default {
   name: 'CollectorsMePlayerOverlay'
 ,
   props: {
-    player: Object
+    player: Object,
+    labels: Object
   }
 }
 </script>

@@ -96,7 +96,8 @@ export default {
   name: 'CollectorsMePlayer'
 ,
   props: {
-    player: Object
+    player: Object,
+    labels: Object
   }
 }
 </script>

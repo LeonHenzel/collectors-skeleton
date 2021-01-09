@@ -103,7 +103,8 @@ export default {
   name: 'CollectorsOtherPlayers'
 ,
   props: {
-    playerList: Array
+    playerList: Array,
+    labels: Object
   }
 }
 </script>

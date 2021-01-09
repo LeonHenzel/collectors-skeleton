@@ -334,7 +334,8 @@
 
             <div id="theOtherPlayers">
               <CollectorsOtherPlayers v-if="players[playerId]"
-                :playerList="playerList" />
+                :playerList="playerList"
+                :labels="labels" />
             </div>
 
             <div id="mePlayer">
@@ -344,7 +345,8 @@
 
                     <div class="myStatusComponent">
                     <CollectorsMePlayer v-if="players[playerId]"
-                      :player="players[playerId]" />
+                      :player="players[playerId]"
+                      :labels="labels" />
                     </div>
 
                     <button href="#" class ="openPlayerviewGridButton" @click="expandPlayerviewGrid()">
@@ -401,7 +403,8 @@
                       <div class="overlayPlayerView_leftContent">
                         <div>
                           <CollectorsMePlayerOverlay v-if="players[playerId]"
-                          :player="players[playerId]" />
+                          :player="players[playerId]"
+                          :labels="labels" />
                         </div>
                       </div>
                       <div class="overlayPlayerView_rightContent">

@@ -101,7 +101,7 @@ export default {
     skillsOnSale: Array,
     placement: Array,
     isPlacedList: Object,
-    playerCount: Object
+    playerCount: Number
   },
 
   methods: {
