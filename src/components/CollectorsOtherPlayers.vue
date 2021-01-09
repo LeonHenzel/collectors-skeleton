@@ -1,7 +1,7 @@
 <template>
   <div class="collectorsOtherPlayers">
     <div class="specificPlayer" v-for="(player, index) in playerList" :key="index">
-      <div class="otherPlayerWrapper" @click="expandThisPlayerviewGrid()">
+      <div class="otherPlayerWrapper" @click="expandThisPlayerviewGrid(player)">
 
       <div class="playerName">
 
@@ -96,16 +96,16 @@
 
 
       <div id="thisPlayerOverlay">
-        <CollectorsOtherPlayersOverlay v-if="player"
+        <CollectorsOtherPlayersOverlay v-if="thisPlayer!==''"
           :playerList="playerList"
           :labels="labels"
-          :player="player" />
+          :player="thisPlayer" />
       </div>
 
 
 
 
-    </div>
+      </div>
     </div>
 </div>
 </template>
@@ -120,17 +120,24 @@ export default {
   components: {
     CollectorsOtherPlayersOverlay
   }, 
+  data: function () {
+    return {
+      thisPlayer: '',
+    }
+  },
   props: {
     playerList: Array,
     labels: Object
   },
   methods: {
-      expandThisPlayerviewGrid: function(){
+      expandThisPlayerviewGrid: function(player){
         if (document.getElementById('thisPlayerOverlay').style.visibility === "visible") {
           document.getElementById('thisPlayerOverlay').style.visibility = "hidden";
+          this.thisPlayer='';
         }
         else{
           document.getElementById('thisPlayerOverlay').style.visibility = "visible";
+          this.thisPlayer=player;
         }
         
       }

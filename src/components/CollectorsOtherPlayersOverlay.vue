@@ -141,13 +141,6 @@
                 </div>
 
                 <div class="rightContent">
-                    <div class="myHandOverlay">
-                        <h4>{{player.playerName}}'s Hand</h4>
-                        <div class="cardslots" v-if="player">
-                        <CollectorsCard v-for="(card, index) in player.hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
-                        </div>
-                    </div>
-
                     <div class="myItemsOverlay">
                         <h4>{{player.playerName}}'s Items</h4>
                         <div class="cardslots" v-if="player">
@@ -211,7 +204,7 @@ export default {
     grid-column: 2;
     grid-row: 1;
     display: grid;
-    grid-template-rows: 33% 33% 33%;
+    grid-template-rows: 50% 50%;
     grid-template-columns: 100%;
 }
 
