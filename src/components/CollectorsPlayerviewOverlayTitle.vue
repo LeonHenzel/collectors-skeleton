@@ -6,14 +6,22 @@
             <h1 v-if="player.myTurn">{{player.playerName}}<span>, {{labels.itsyourturn}} </span></h1>
         </div>
         <!-- <h3 v-if="player.firstPlayerToken">In the next round you will be the first player.</h3>   -->
+        <div class="secretCard">
+           <CollectorsCard v-for="(card, index) in player.secret" :card="card" :key="index"/>
+        </div>
     </div>
 </template>
 
 
 <script>
+import CollectorsCard from '@/components/CollectorsCard.vue'
+
 export default {
   name: 'CollectorsPlayerviewOverlayTitle'
 ,
+  components: {
+    CollectorsCard
+  },
   props: {
     player: Object,
     labels: Object
@@ -24,6 +32,19 @@ export default {
 <style lang="css" scoped>
 
 @import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
+
+.playername{
+    /* display: flex;
+    flex-direction: row; */
+}
+
+.secretCard{
+    top: -100px;
+}
+
+.card{
+    margin-top: -200px;
+}
 
 .coolTitle {
     margin-top: 2vh;

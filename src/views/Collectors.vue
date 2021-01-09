@@ -438,6 +438,7 @@
                         :labels="labels" />
                     </div>
 
+
                     <div class="overlayPlayerViewWrapperBottom">
                       <div class="overlayPlayerView_leftContent">
                         <div>
