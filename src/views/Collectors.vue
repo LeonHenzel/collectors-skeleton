@@ -3131,7 +3131,7 @@ cursor: not-allowed;
 }
 .helplogo{
   position: relative;
-  left: 11%;
+  left: 12%;
 }
 
 
