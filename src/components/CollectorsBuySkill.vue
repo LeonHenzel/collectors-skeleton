@@ -350,12 +350,14 @@ transform: rotate(45deg);
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;
-    grid-template-rows: 90% 10%;
+    grid-template-rows: 15% 75% 10%;
     grid-template-areas:
-    "button cards buyaction"
-    "button backToBoard buyaction";
+    "button cardstext buyaction"
+    "cards cards buyaction"
+    "empty backToBoard buyaction";
   }
 
+  /* kan nog tas bort
   .overlay .buy-skillsWrapper{
     height: 100%;
     width: 100%;
@@ -366,29 +368,40 @@ transform: rotate(45deg);
     grid-template-areas:
     "text"
     "availableCards";
-  }
+  }*/
+
   .overlay .buy-skillsWrapper h1{
-    grid-area: text;
+    grid-area: cardstext;
     text-align: center;
   }
   .overlay .buy-skillsWrapper .buy-skills{
-    grid-area: availableCards;
+    grid-area: cards;
+    align-items:center;
   }
 
-  .overlay .openButtonWrapper{
+  /*kan nog tas bort
+    .overlay .openButtonWrapper{
     grid-area: button;
     display: grid;
     grid-template-rows: 15% 85%;
     grid-template-areas:
     "topLeft"
     "bottomLeft";
-  }
+  }*/
 
   .overlay .openButtonWrapper .openButton{
-    grid-area: topLeft;
+    /*grid-area: topLeft;*/
+    /*grid-area: button;*/
     margin-left: 10%;
     margin-top: 10%;
-    font-size: 125%;
+    width: 80%;
+    height: 80%;
+    align-items: center;
+  }
+
+  .overlay .openButtonWrapper .openButton button{
+    /*grid-area: openButtonWrappertopLeft;*/
+    grid-area: button;
   }
 
   .overlay .paymentWrapper{

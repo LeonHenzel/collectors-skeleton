@@ -62,6 +62,9 @@
             <li class="item buttonNav">
               <a href="#" class = "openAboutGridButton" @click="expandAboutGrid()">{{labels.about}}</a>
             </li>
+            <li class= "item help">
+              <a href="#" class=" openTutorial" @click ="expandTutorialGrid()">Help</a>
+            </li>
             <li class="item buttonNav secondary">
               <a id="ExitGame" class = "openExitGridButton" @click="expandExitGrid()">{{labels.exitgame}}</a>
             </li>
@@ -128,6 +131,13 @@
                 @buyCard="buyCard($event)"
                 @placeBottle="placeBottle('buy', $event)"
                 @cancelAction="cancelAction()"/>
+
+              <div class="helpGridItem" id="helpGridItem">
+                <a href="#" class="closeButton" @click="closeHelpGridItem()">&times;</a>
+                <div class="helpGridItemLayout">
+                  <p>Hjälp text om vad som händer i rutan</p>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -149,6 +159,13 @@
               @cancelAction="cancelAction()"
               @buySkill="buySkill($event)"
               @placeBottle="placeBottle('skill',$event)"/>
+
+              <div class="helpGridSkills" id="helpGridSkills">
+                <a href="#" class="closeButton" @click="closeHelpGridSkill()">&times;</a>
+                <div class="helpGridSkillLayout">
+                  <p>Hjälp text om vad som händer i rutan</p>
+                </div>
+              </div>
           </div>
 
           <div class="tempWorker">
@@ -159,6 +176,13 @@
             :round="round"
             @placeWorker="placeWorker($event)"
             @setDiscardTwoTrue="setDiscardTwoTrue()"/>
+
+            <div class="helpGridWorker" id="helpGridWorker">
+              <a href="#" class="closeButton" @click="closeHelpGridWorker()">&times;</a>
+              <div class="helpGridWorkerLayout">
+                <p>Hjälp text om vad som händer i rutan</p>
+              </div>
+            </div>
           </div>
 
           <div class="marketWrapperr">
@@ -169,6 +193,13 @@
             :marketValues="marketValues"
             @placeBottle="placeBottle('market',$event)"
             @changeTwoMarket="changeTwoMarket()"/>
+
+            <div class="helpGridMarket" id="helpGridMarket">
+              <a href="#" class="closeButton" @click="closeHelpGridMarket()">&times;</a>
+              <div class="helpGridMarketLayout">
+                <p>Hjälp text om vad som händer i rutan</p>
+              </div>
+            </div>
           </div>
 
 
@@ -191,6 +222,7 @@
                 :isPlacedList="isPlacedList"
                 @startAuction="startAuction($event)"
                 @placeBottle="placeBottle('auction', $event)"/>
+
             </div>
 
             <div class="overlayAuction" id = "expandAuction">
@@ -320,6 +352,12 @@
               <!--</div>-->
 
             </div>
+            <div class="helpGridAuction" id="helpGridAuction">
+              <a href="#" class="closeButton" @click="closeHelpGridAuction()">&times;</a>
+              <div class="helpGridAuctionLayout">
+                <p>Hjälp text om vad som händer i rutan</p>
+              </div>
+            </div>
           </div>
 
           <!-- här slutar auction-->
@@ -433,6 +471,12 @@
                   </div>
                 </div>
 
+            </div>
+            <div class="helpGridPlayerview" id="helpGridPlayerview">
+              <a href="#" class="closeButton" @click="closeHelpGridPlayerview()">&times;</a>
+              <div class="helpGridPlayerviewLayout">
+                <p>Hjälp text om vad som händer i rutan</p>
+              </div>
             </div>
           </div>
 
@@ -1386,6 +1430,40 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     expandHelpGrid: function(){
       document.getElementById('expandHelp').style.width = "100%";
+
+    },
+
+    expandTutorialGrid: function(){
+      document.getElementById('helpGridItem').style.width = "100%";
+      document.getElementById('helpGridSkills').style.width = "100%";
+      document.getElementById('helpGridWorker').style.width = "100%";
+      document.getElementById('helpGridMarket').style.width = "100%";
+      document.getElementById('helpGridAuction').style.width = "100%";
+      document.getElementById('helpGridPlayerview').style.width = "100%";
+    },
+
+    closeHelpGridItem: function(){
+      document.getElementById('helpGridItem').style.width = "0%";
+    },
+
+    closeHelpGridSkill: function(){
+      document.getElementById('helpGridSkills').style.width = "0%";
+    },
+
+    closeHelpGridWorker: function(){
+      document.getElementById('helpGridWorker').style.width = "0%";
+    },
+
+    closeHelpGridMarket: function(){
+      document.getElementById('helpGridMarket').style.width = "0%";
+    },
+
+    closeHelpGridAuction: function(){
+      document.getElementById('helpGridAuction').style.width = "0%";
+    },
+
+    closeHelpGridPlayerview: function(){
+      document.getElementById('helpGridPlayerview').style.width = "0%";
     },
 
     minimizeHelpGrid: function(){
@@ -1592,7 +1670,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: black;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
-    z-index: 6px;
+    z-index: 12;
     /*display: grid;
     grid-template-columns: 10% 40% 50%;*/
     /*grid-template-rows: 100%;*/
@@ -1653,14 +1731,15 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
    margin-bottom: 0%;
 }
 
-   .menu{
-     grid-column: 3;
+  .menu{
+    grid-column: 3;
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
     top: 0;
     right: 0;
     position: absolute;
+    z-index:12;
   }
 
   .menuBar .burgerBarsIcon{
@@ -1872,9 +1951,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       background: SeaShell;
 
     }
+
     .menuBar ul li:nth-of-type(3){
       width: auto;
       order: 3;
+      display: block;
+      max-height:240px;
+      align-items: center;
+      background: SeaShell;
+    }
+
+    .menuBar ul li:nth-of-type(4){
+      width: auto;
+      order: 4;
       display: block;
       max-height:240px;
       align-items: center;
@@ -1959,16 +2048,18 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .Items{
-    display: inline-block;
     height: 100%;
     width: 100%;
     grid-row: 2;
     grid-column: 2;
-
+    display: inline-block;
+    position: relative;
   }
+
 
   .Skills{
     display: inline-block;
+    position: relative;
     grid-row: 3;
     grid-column: 2;
   }
@@ -1982,6 +2073,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }*/
 
   .tempWorker{
+    display: inline-block;
+    position: relative;
     margin: 2px;
     grid-row: 1;
     grid-column: 1/3;
@@ -1991,6 +2084,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .marketWrapperr{
+    display: inline-block;
+    position: relative;
     height: 94%;
     width: 100%;
     margin: 0px;
@@ -2679,6 +2774,39 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
   }
 
+  .helpGridItem, .helpGridSkills, .helpGridWorker, .helpGridMarket, .helpGridAuction, .helpGridPlayerview{
+    position: absolute;
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.7);
+    overflow-x: hidden;
+    z-index: 6;
+    transition: all 0.5s;
+  }
+
+  .helpGridItemLayout, .helpGridSkillLayout, .helpGridWorkerLayout, .helpGridMarketLayout, .helpGridAuctionLayout, .helpGridPlayerviewLayout{
+    text-align: center;
+    color: white;
+  }
+
+  .helpGridItem__content, .helpGridSkills__content, .helpGridWorker__content, .helpGridMarket__content, .helpGridAuction__content, .helpGridPlayerview__content{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    /*margin-top: 30px;*/
+  }
+
+  .helpGridItem a, .helpGridSkills a, .helpGridWorker a, .helpGridMarket a, .helpGridAuction a, .helpGridPlayerview a{
+    padding: 3%;
+    font-size: 220%;
+    color: white;
+    display: block;
+    float: right;
+  }
+
 
 
   .overlayAuction__content{
@@ -2736,6 +2864,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: RoyalBlue;
   }
   .Auction{
+    display: inline-block;
+    position: relative;
     height: 100%;
     width: 100%;
     grid-row: 2/4;
@@ -2757,7 +2887,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-area: cardsOnSale;
     border-radius: 1em;
     border: 5px solid #fff;
-    background-color: Black;
   }
   .playerView{
     border-radius: 1em;
