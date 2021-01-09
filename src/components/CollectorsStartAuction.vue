@@ -271,6 +271,9 @@ export default {
     background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);*/
 
   }
+  .buttons button:hover{
+    cursor: pointer;
+  }
 
     /* Den svåra delen! Nu ska vi flytta alla kort som är till
   höger om det kortet som är hover:ed

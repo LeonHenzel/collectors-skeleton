@@ -27,7 +27,7 @@
 	"isnotready": "is not ready",
 	"ischoosingsecretitem": "is choosing the secret item.",
 	"entername": "Enter name",
-	"help": "Help",
+	"rules": "Rules",
 	"about": "About",
 	"exitgame": "Exit Game",
 	"collectors": "Collectors is a 20-40 minutes worker placement game for 2-4 players where every choice matters. The winning player is the one with the most valuable collection of rare collectables by the end of the game. Beware though, you have a limited number of actions and turns - make sure that you use them wisely.",
@@ -83,6 +83,7 @@
 	"work": "Work",
 	"placedhere": "Placed here",
 	"raisebidding": "Raise Bid 1 Coin",
-	"cancelAction": "Cancel Action"
+	"cancelAction": "Cancel Action",
+	"help": "Help"
 
 	}
