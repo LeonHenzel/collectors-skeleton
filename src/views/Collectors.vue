@@ -77,8 +77,10 @@
                     <h3>Adam Bergman</h3>
                     <h3>Anton Dahl</h3>
                     <h3>Leon Henzel</h3>
+                    <img src="/images/sexiboiLeon01.png">
                     <h3>Oskar Jonsson</h3>
                     <h3>Fredrik Nilsson</h3>
+                    <img src="/images/sexiboiFredrik.jpg" height="500">
                     <h3>Kalle Rosengren</h3>
                   </div>
                 </div>
@@ -974,7 +976,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
         this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
         playerId: this.playerId,
-        playerName: this.playerName}); 
+        playerName: this.playerName});
 
     },
     submitName2: function(){
@@ -983,7 +985,7 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
 
         this.$store.state.socket.emit('sendPlayerName', {roomId: this.$route.params.id,
         playerId: this.playerId,
-        playerName: this.playerName.slice(0, -1)}); 
+        playerName: this.playerName.slice(0, -1)});
 
     },
 
