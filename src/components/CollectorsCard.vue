@@ -35,7 +35,8 @@ export default {
 
     border-radius: 10px;
     box-shadow: -1rem 0 3rem #000;
-    transition: 0.2s;
+    transition-property: transform,scale;
+    transition-duration: 0.2s; 
     transform: scale(0.45);
     transform-origin: top left;
   }

@@ -1,146 +1,190 @@
 <template>
     <div class="mePlayer" v-if="player">
-      <div class="mePlayerContent">
 
-        <div class="myPointsDiv">
-          <div class="myPoints">
-            <div class="glow">
-              <div class="badge pointsBadge" id="victoryPointsBadge">
-                <h2>Total Victory points</h2>
-                <div class="pointsImageDiv"><div class="pointsSymbol"></div></div>
-                <div class="points pointsPlayer">{{player.points}}</div>
-              </div>
-            </div>
-            
-            <div id="myPointsSecondRow">
-              <div class="badge pointsBadge">
-                <h2>Energy Bottles</h2>
-                <div class="pointsImageDiv"><div class="energySymbol"></div></div>
-                <div class="points energyPlayer">{{player.energyBottles}}</div>
-              </div>
+        <div class="thisPlayerContent">
 
-              <div class="badge pointsBadge">
-                <h2>My Coins</h2>
-                <div class="pointsImageDiv"><div class="moneySymbol"></div></div>
-                <div class="points playerMoney">{{player.money}}</div>
-              </div>
-            </div>
-          </div>
+            <CollectorsOtherPlayerviewOverlayTitle v-if="player"
+            :player="player"
+            :labels="labels" />
+
+
+             <div class="leftandright"> 
+                <div class="mePlayerContent">
+
+                    <div class="myPointsDiv">
+                    <div class="myPoints">
+                        <div class="glow">
+                        <div class="badge pointsBadge" id="victoryPointsBadge">
+                            <h2>Total Victory points</h2>
+                            <div class="pointsImageDiv"><div class="pointsSymbol"></div></div>
+                            <div class="points pointsPlayer">{{player.points}}</div>
+                        </div>
+                        </div>
+                        
+                        <div id="myPointsSecondRow">
+                        <div class="badge pointsBadge">
+                            <h2>Energy Bottles</h2>
+                            <div class="pointsImageDiv"><div class="energySymbol"></div></div>
+                            <div class="points energyPlayer">{{player.energyBottles}}</div>
+                        </div>
+
+                        <div class="badge pointsBadge">
+                            <h2>Coins</h2>
+                            <div class="pointsImageDiv"><div class="moneySymbol"></div></div>
+                            <div class="points playerMoney">{{player.money}}</div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="mySkillTokensDiv">
+                    <!-- <div class="glow"> -->
+                        <div class="mySkillTokens">
+                        <h2>{{player.playerName}}'s Skills</h2>
+                        <div id="skillsFirstRow">
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsVP.png"></div>
+                                <div class="points skillPoints">{{player.skillVP.VPAll}}</div> 
+                            </div>
+                            </h1>
+                        </div>
+                        <div id="skillsSecondRow">
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
+                                <div class="points skillPoints">{{player.skillVP.VPfastaval}}</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
+                                <div class="points skillPoints">{{player.skillVP.VPfigures}}</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
+                                <div class="points skillPoints">{{player.skillVP.VPmovie}}</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
+                                <div class="points skillPoints">{{player.skillVP.VPmusic}}</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
+                                <div class="points skillPoints">{{player.skillVP.VPtechnology}}</div>
+                            </div>
+                            </h1>
+                        </div>
+                        <div id="skillsThirdRow">
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
+                                <div class="points skillPoints">{{player.auctionIncome}}</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
+                                <div class="points skillPoints">?</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillswork2.png"></div>
+                                <div class="points skillPoints">{{player.workerIncome}}</div>
+                            </div>
+                            </h1>
+                            <h1 class="badge">
+                            <div class="badgeContent">
+                                <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
+                                <div class="points skillPoints">{{player.workerCard}}</div>
+                            </div>
+                            </h1>
+                        </div>
+                        </div>
+                    <!-- </div> -->
+                    </div>
+
+                    <div class="itemSummaryWrapperDiv">
+                    <div class="itemSummaryWrapper">
+                        <div>{{player.playerName}}'s Items Market Values</div>
+                        <div class="itemSummaryWrapperContent">
+                        <div class="badge itemsBox">
+                            <div class="points pointsImageDiv"><img src="/images/movieItem.png"/></div>
+                            <div>{{player.itemsByNumber.movie}}</div>
+                        </div>
+                        <div class="badge itemsBox">
+                            <div class="points pointsImageDiv"><img src="/images/musicItem.png" /></div>
+                            <div>{{player.itemsByNumber.music}}</div>
+                        </div>
+                        <div class="badge itemsBox">
+                            <div class="points pointsImageDiv"><img src="/images/techItem.png" /></div>
+                            <div>{{player.itemsByNumber.technology}}</div>
+                        </div>
+                        <div class="badge itemsBox">
+                            <div class="points pointsImageDiv"><img src="/images/figursItem.png" /></div>
+                            <div>{{player.itemsByNumber.figures}}</div>
+                        </div>
+                        <div class="badge itemsBox">
+                            <div class="points pointsImageDiv"><img src="/images/fastavalItem.png" /></div>
+                            <div>{{player.itemsByNumber.fastaval}}</div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="rightContent">
+                    <div class="myHandOverlay">
+                        <h4>{{player.playerName}}'s Hand</h4>
+                        <div class="cardslots" v-if="player">
+                        <CollectorsCard v-for="(card, index) in player.hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                        </div>
+                    </div>
+
+                    <div class="myItemsOverlay">
+                        <h4>{{player.playerName}}'s Items</h4>
+                        <div class="cardslots" v-if="player">
+                        <CollectorsCard v-for="(card, index) in player.items" :card="card" :key="index"/>
+                        </div>
+                    </div>
+
+                    <div class="mySkillsOverlay">
+                        <h4>{{player.playerName}}'s Skills</h4>
+                        <div class="cardslots" v-if="player">
+                        <CollectorsCard v-for="(card, index) in player.skills" :card="card" :key="index"/>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+
         </div>
 
-        <div class="mySkillTokensDiv">
-          <!-- <div class="glow"> -->
-            <div class="mySkillTokens">
-              <h2>{{labels.myskills}}</h2>
-              <div id="skillsFirstRow">
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsVP.png"></div>
-                    <div class="points skillPoints">{{player.skillVP.VPAll}}</div> 
-                  </div>
-                </h1>
-              </div>
-              <div id="skillsSecondRow">
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsFastavalVP.png"></div>
-                    <div class="points skillPoints">{{player.skillVP.VPfastaval}}</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsfiguresVP.png"></div>
-                    <div class="points skillPoints">{{player.skillVP.VPfigures}}</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsmovieVP.png"></div>
-                    <div class="points skillPoints">{{player.skillVP.VPmovie}}</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsMusicVp.png"></div>
-                    <div class="points skillPoints">{{player.skillVP.VPmusic}}</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsTechVP.png"></div>
-                    <div class="points skillPoints">{{player.skillVP.VPtechnology}}</div>
-                  </div>
-                </h1>
-              </div>
-              <div id="skillsThirdRow">
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsAuctionIncome.png"></div>
-                    <div class="points skillPoints">{{player.auctionIncome}}</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsGainBottle.png"></div>
-                    <div class="points skillPoints">?</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillswork2.png"></div>
-                    <div class="points skillPoints">{{player.workerIncome}}</div>
-                  </div>
-                </h1>
-                <h1 class="badge">
-                  <div class="badgeContent">
-                    <div class="imageContainer"><img src="/images/skillsWorkCard.png"></div>
-                    <div class="points skillPoints">{{player.workerCard}}</div>
-                  </div>
-                </h1>
-              </div>
-            </div>
-          <!-- </div> -->
-        </div>
 
-        <div class="itemSummaryWrapperDiv">
-          <div class="itemSummaryWrapper">
-            <div>My Item's Market Values</div>
-            <div class="itemSummaryWrapperContent">
-              <div class="badge itemsBox">
-                <div class="points pointsImageDiv"><img src="/images/movieItem.png"/></div>
-                <div>{{player.itemsByNumber.movie}}</div>
-              </div>
-              <div class="badge itemsBox">
-                <div class="points pointsImageDiv"><img src="/images/musicItem.png" /></div>
-                <div>{{player.itemsByNumber.music}}</div>
-              </div>
-              <div class="badge itemsBox">
-                <div class="points pointsImageDiv"><img src="/images/techItem.png" /></div>
-                <div>{{player.itemsByNumber.technology}}</div>
-              </div>
-              <div class="badge itemsBox">
-                <div class="points pointsImageDiv"><img src="/images/figursItem.png" /></div>
-                <div>{{player.itemsByNumber.figures}}</div>
-              </div>
-              <div class="badge itemsBox">
-                <div class="points pointsImageDiv"><img src="/images/fastavalItem.png" /></div>
-                <div>{{player.itemsByNumber.fastaval}}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 </template>
 
 
 <script>
+import CollectorsOtherPlayerviewOverlayTitle from '@/components/CollectorsOtherPlayerviewOverlayTitle.vue'
+import CollectorsCard from '@/components/CollectorsCard.vue'
+
 export default {
   name: 'CollectorsOtherPlayersOverlay'
 ,
+  components: {
+    CollectorsOtherPlayerviewOverlayTitle,
+    CollectorsCard
+  }, 
   props: {
-    player: Object,
-    labels: Object
+    labels: Object,
+    player: Object
   }
 }
 </script>
@@ -154,6 +198,44 @@ export default {
   font-size: 2vh;
   letter-spacing: 0.2vh;
   z-index: 500;
+}
+
+.leftandright{
+    margin-top: 4vh;
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+.rightContent{
+
+    grid-column: 2;
+    grid-row: 1;
+    display: grid;
+    grid-template-rows: 33% 33% 33%;
+    grid-template-columns: 100%;
+}
+
+.cardslots {
+    margin-top: -1vh;
+    display: grid;
+    grid-template-columns: 12% 12% 12% 12% 12% 12% 12% 12% 12% 12%;
+    grid-template-rows: 100%
+}
+
+.mePlayer{
+    position: absolute;
+    margin-left: calc(-50vw + 50%);
+    height: 92vh;
+    width: 92vw;
+    background: blanchedalmond;
+    margin-left: -69vw;
+    margin-top: -8vh;
+    box-shadow: 0px 0px 5vh 5vw rgb(0, 0, 0);
+    border-radius: 3%;
+}
+
+.thisPlayerContent {
+
 }
 
 .mePlayerContent{

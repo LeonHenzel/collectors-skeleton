@@ -1,7 +1,7 @@
 <template>
   <div class="collectorsOtherPlayers">
     <div class="specificPlayer" v-for="(player, index) in playerList" :key="index">
-      <div class="otherPlayerWrapper" @click="expandThisPlayerviewGrid(player)">
+      <div class="otherPlayerWrapper" @click="expandThisPlayerviewGrid()">
 
       <div class="playerName">
 
@@ -95,10 +95,11 @@
 
 
 
-      <div class="thisPlayerOverlay">
-        <CollectorsOtherPlayersOverlay v-if="players[playerId]"
-          :player="players[playerId]"
-          :labels="labels" />
+      <div id="thisPlayerOverlay">
+        <CollectorsOtherPlayersOverlay v-if="player"
+          :playerList="playerList"
+          :labels="labels"
+          :player="player" />
       </div>
 
 
@@ -111,27 +112,38 @@
 
 
 <script>
-import CollectorsOtherPlayersOverlay from '@/components/CollectorsCard.vue'
+import CollectorsOtherPlayersOverlay from '@/components/CollectorsOtherPlayersOverlay.vue'
 
 export default {
   name: 'CollectorsOtherPlayers'
 ,
   components: {
     CollectorsOtherPlayersOverlay
-  },
+  }, 
   props: {
     playerList: Array,
     labels: Object
   },
   methods: {
-      expandPlayerviewGrid: function(){
-       document.getElementById('thisPlayerOverlay').style.width = "100%";
+      expandThisPlayerviewGrid: function(){
+        if (document.getElementById('thisPlayerOverlay').style.visibility === "visible") {
+          document.getElementById('thisPlayerOverlay').style.visibility = "hidden";
+        }
+        else{
+          document.getElementById('thisPlayerOverlay').style.visibility = "visible";
+        }
+        
       }
   }
 }
 </script>
 
 <style lang="css" scoped>
+
+#thisPlayerOverlay{
+  /* position: float; */
+  visibility: hidden;
+}
 
 .collectorsOtherPlayers {
   width: 100%;
@@ -257,7 +269,7 @@ export default {
 
 
 
-.arrow{
+/* .arrow{
   position:  relative;
     left: -3700%;
     top: -10%;
@@ -265,7 +277,7 @@ export default {
   width: 4400%;
   text-align: center;
   content: url('/images/arrowSymbol.png');
-}
+} */
 
 
 .playerName {

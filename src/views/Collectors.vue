@@ -1677,6 +1677,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .theOtherPlayers{
     grid-column: 1;
     grid-row: 1;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
   }
 
   /*här börjar css för navbar öä*/
@@ -2085,7 +2088,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     font-weight: bold;
     height: 98%;
     margin-top: 2%;
-    position: relative;
+    /* position: relative; */
     /* overflow-y: hidden; */
     display: grid;
     grid-template-rows: 50% 50%;
@@ -2228,7 +2231,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     width: 100%;
     transform: scale(0.9);
     font-size: 1.8vh;
-    position: relative;
+    /* position: relative; */
     top: 0;
     cursor: pointer;
     margin: 2px;
