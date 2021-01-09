@@ -692,9 +692,11 @@ export default {
         this.marketPlacement = d.placements.marketPlacement;
         this.auctionPlacement = d.placements.auctionPlacement;
         this.isPlacedList = d.isPlacedList;
-        this.skillsOnSale=d.skillsOnSale;
-        this.auctionCards=d.auctionCards;
-        this.itemsOnSale=d.itemsOnSale;
+        if(this.players[this.playerId].myTurn===true){
+          this.skillsOnSale=d.skillsOnSale;
+          this.auctionCards=d.auctionCards;
+          this.itemsOnSale=d.itemsOnSale;
+        }
         this.placementInfo=d.placementInfo;
       }.bind(this));
 
