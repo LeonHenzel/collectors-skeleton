@@ -1,7 +1,7 @@
 <template>
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
-        <button type="submit" class="cancelButton" v-if="isPlacedList.item" @click="cancelAction()"></button>
+        <button type="submit" class="cancelButton" v-if="isPlacedList.item && player.myTurn" @click="cancelAction()"></button>
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <div class="theButton">
