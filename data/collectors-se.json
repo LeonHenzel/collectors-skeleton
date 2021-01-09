@@ -24,7 +24,7 @@
 	"chooseyoursecretcard": "Välj ditt hemliga kort!",
 	"isready": "är redo",
 	"isnotready": "är inte redo",
-	"ischoosingsecretitem": "väljer sitt hemliga kort",
+	"ischoosingsecretitem": " väljer sitt hemliga kort",
 	"entername": "Knappa in ditt namn",
 	"help": "Hjälp",
 	"about": "Om spelet",
@@ -32,7 +32,7 @@
 	"collectors": "Collectors är ett 20-40 minuters strategi spel för 2-4 spelare där varje val spelar roll. Den vinnande spelare är den som har kammat hem den mest värdefulla kollektionen av värdefulla samlingsföremål vid spelets slut. Men var försiktig! Du har bara ett begränsat antal drag och rundor på dig, använd dem väl.",
 	"collectors2": "Den digitala versionen av spelet har utvecklats av studenter vid Uppsala Universitet som läser kursen Gränssnittsprogrammering med ett användarperspektiv.",
 	"collectors3": "De studentera är:",
-	"exitgame": "This action will end the current game session, are you sure that you want to Exit the game?",
+	"exitgame": "Det här valet avslutar den nuvarande sessionen av spelet, är du säker på att du vill avsluta?",
 	"exitgamee": "Avsluta spelet!",
 	"rulebook": "Regler",
 	"auction": "Auktion",
@@ -78,6 +78,8 @@
 	"playing": "Spelar nu",
 	"first": "1st",
 	"waitingformore": "Väntar på att fler spelare ska ansluta...",
-	"uselink": "Använd den här länken för att bjuda in andra spelare:"
+	"uselink": "Använd den här länken för att bjuda in andra spelare:",
+	"work": "Arbetsyta",
+	"placedhere": "Placerad Här"
 
 }

@@ -87,7 +87,7 @@
                   <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
                   <div class="exitInfoOverlay">
                     <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>{labels.endgame}</h1>
+                    <h1>{{labels.endgame}}</h1>
                     <a href="http://localhost:8080/#/" class="exitForReal" >{{labels.exitgamee}}</a>
 
                   </div>
@@ -97,7 +97,7 @@
                   <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
                   <div class="helpInfoOverlay">
                     <h1 id="helpLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
-                    <h1>{{labels.rulebook}}</h1>
+                    <h1 class="rulebook">{{labels.rulebook}}</h1>
                     <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
                     <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
                     <img src="/images/Screenshot 2021-01-05 at 14.43.48.png">
@@ -1778,6 +1778,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     .helpInfoOverlay{
       color: white;
+      align-items: Center;
 
       margin-top: -5%;
     }
@@ -2789,9 +2790,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       display: none;
     }
 
+}
 
-
-  }
 
 
 
