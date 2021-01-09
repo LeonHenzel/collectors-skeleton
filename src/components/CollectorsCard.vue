@@ -36,7 +36,7 @@ export default {
     border-radius: 10px;
     box-shadow: -1rem 0 3rem #000;
     transition: 0.2s;
-    transform: scale(0.5);
+    transform: scale(0.45);
     transform-origin: top left;
   }
 
@@ -173,7 +173,7 @@ export default {
 
   @media all and (max-width:500px){
     .card {
-      transform: scale(0.15);
+      transform: scale(0.05);
     }
   }
 

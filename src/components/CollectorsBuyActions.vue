@@ -1,10 +1,13 @@
 <template>
     <div class="CollectorsBuyAction">
       <div class="gridWrapper">
+        <button type="submit" class="cancelButton" v-if="isPlacedList.item" @click="cancelAction()"></button>
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
+            <div class="theButton">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-            <p>Items</p>
+            <span>Items</span>
+          </div>
           </button>
         </div>
         <div class="buy-cards">
@@ -30,9 +33,9 @@
           </div>
         </div>
         <div class="arrowAndCostGrid">
-          <div class="cardCosts">
+          <div class="cardCostsDiv">
           <div  v-for="(card, index) in itemsOnSale" :key="index">
-            {{ cardCost(card) }}
+            <span class="cardCost" v-if="cardCost(card)!==false">Market cost {{ cardCost(card) }}</span>
           </div>
         </div>
         <div class="arrows">
@@ -125,17 +128,19 @@ export default {
       return (this.player.money < minCost);
     },
     cardCost: function (card) {
+      if(this.marketValues[card.market]===undefined){
+        return false;
+      }
       return this.marketValues[card.market];
     },
     placeBottle: function (p) {
-      if(this.isPlacedList.item===true || this.isPlacedList.market===true
-        || this.isPlacedList.skill===true || this.isPlacedList.auction===true
-        || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
-          return
-        }
-      this.$emit('placeBottle', p.cost);
-      this.highlightAvailableCards(p.cost);
-
+        if(this.isPlacedList.item===true || this.isPlacedList.market===true
+          || this.isPlacedList.skill===true || this.isPlacedList.auction===true
+          || this.isPlacedList.getIncome===true|| this.isPlacedList.getIncome2===true){
+            return
+          }
+        this.$emit('placeBottle', p.cost);
+        this.highlightAvailableCards(p.cost);
     },
 
     highlightAvailableCards: function (cost=100) {
@@ -172,6 +177,9 @@ export default {
     },
     closeNav: function(){
       document.getElementById('navBuyActions').style.height = "0%";
+    },
+    cancelAction: function(){
+      this.$emit('cancelAction')
     }
 
   }
@@ -186,6 +194,13 @@ export default {
     grid-template-columns: repeat(auto-fill, 100px);
     grid-column: 2;
   }*/
+
+  .cancelButton{
+    position: fixed;
+    height: 6vh;
+    width: 6vh;
+    z-index: 100;
+  }
 
   .arrow {
   border: solid black;
@@ -203,6 +218,16 @@ export default {
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
+}
+
+.theButton{
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 100%;
+  grid-template-areas:
+  "openButtonLeft openButtonRight";
 }
 
   .buy-cards{
@@ -279,7 +304,7 @@ export default {
 
   .buttonWrapper {
     grid-column: 1;
-    grid-row: 2/4;
+    grid-row: 2/5;
     height: 85%;
     width: 85%;
     display: grid;
@@ -299,18 +324,18 @@ export default {
     width: 100%;
     height: 100%;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 25% 40% 35%;
+    grid-template-rows: 30% 40% 15% 15%;
   }
 
   .arrowAndCostGrid{
     grid-column: 2;
-    grid-row: 3;
+    grid-row: 3/5;
     display: grid;
     grid-template-columns:100%;
     grid-template-rows: 50% 50%;
   }
 
-  .cardCosts{
+  .cardCostsDiv{
     height: 100%;
     width: 100%;
     grid-row: 1;
@@ -318,7 +343,10 @@ export default {
     grid-template-rows: 100%;
     grid-template-columns: 20% 20% 20% 20% 20%;
     text-align: center;
+    bottom: 0;
+    z-index: 4;
   }
+
 
   .arrows{
     height: 100%;
@@ -351,27 +379,28 @@ export default {
     z-index: 3;
     position: relative;
     justify-content: center;
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-areas:
-    "openButtonLeft openButtonRight";
   }
 
-  .openButton img{
+  .theButton img{
     /* height: 1vh; */
     grid-area: openButtonLeft;
     padding: 5%;
-    /*height: 100%;
-    width: 30%; kan tas bort*/
+    height: 100%;
+    width: 100%;
   }
 
-  .openButton p{
+  .openButton span{
     grid-area: openButtonRight;
     text-align: center;
   }
 
   .openItems{
     color: rgb(17, 122, 101);
+    }
+
+    .cardCost{
+
+      color: black;
     }
 
   /*  .openItems>img {
@@ -387,7 +416,7 @@ export default {
   .overlay{
     position: fixed;
     width: 100%;
-    height:0%;
+    height:100%;
     top: 0;
     left: 0;
     background: rgba(0,0,0,.7);
@@ -397,8 +426,13 @@ export default {
   }
 
   .overlayLayout{
+    height: 80%;
+    width: 80%;
     background-color: rgb(236, 112, 99);
-    margin: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
     border-radius: 2em;
     display: grid;
     grid-template-columns: 15% 60% 25%;
@@ -409,9 +443,12 @@ export default {
   }
 
   .overlay .buy-cardsWrapper{
+    height: 100%;
+    width: 100%;
     grid-area: cards;
     display: grid;
     grid-template-rows: 15% 85%;
+    grid-template-columns: 100%;
     grid-template-areas:
     "text"
     "availableCards";
@@ -423,7 +460,6 @@ export default {
   .overlay .buy-cardsWrapper .buy-cards{
     grid-area: availableCards;
     width:100%;
-    align-items: center;
   }
 
   .overlay .openButtonWrapper{
@@ -567,16 +603,37 @@ export default {
     transform: scale(0.5);
     cursor: pointer;
   }*/
-
-  .cardDiv:hover~.cardDiv{
-      transform: translateX(-10%) scale(1.2);
+  .cardDiv:hover{
+    z-index: 2;
   }
+
+/*  .cardDiv:hover~.cardDiv{
+      transform: translateX(-10%) scale(1.2);
+  }*/
 
 
   @media all and (max-width:1200px){
-    .openButton>img{
-      display:none;
-      /*visibility: hidden;*/
+    .openButton{
+      top:0%;
+      left:0%;
+      height: 90%;
+      width: 90%;
+
+    }
+
+    .theButton{
+      grid-template-columns: 100%;
+      grid-template-rows: 100%;
+      grid-template-areas:
+      "openButtonLeft openButtonRight";
+    }
+
+    .theButton>img{
+      display: none;
+    }
+
+    .theButton>span{
+      grid-column: 1;
     }
   }
 
@@ -587,18 +644,8 @@ export default {
       grid-template-rows: 30% 70%;
     }
 
-    .openButton{
-      top:0%;
-      left:0%;
-      height: 90%;
-      width: 90%;
 
-    }
 
-    .openButton>img{
-      display: none;
-      /*visibility: hidden;*/
-    }
 
 
 /*.cardDiv{

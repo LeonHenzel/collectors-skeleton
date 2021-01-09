@@ -21,7 +21,8 @@ function sockets(io, socket, data) {
             discardTwo: data.rooms[d.roomId].discardTwo,
             allPlayersIn: data.rooms[d.roomId].allPlayersIn,
             allPlayersReady: data.rooms[d.roomId].allPlayersReady,
-            playerCount: data.rooms[d.roomId].playerCount
+            playerCount: data.rooms[d.roomId].playerCount,
+            placementInfo: data.rooms[d.roomId].placementInfo
           }
         );
       }
@@ -95,7 +96,9 @@ function sockets(io, socket, data) {
       skillsOnSale: data.rooms[d.roomId].skillsOnSale,
       auctionCards: data.rooms[d.roomId].auctionCards,
       players: data.getPlayers(d.roomId),
-      itemsOnSale: data.rooms[d.roomId].itemsOnSale}
+      itemsOnSale: data.rooms[d.roomId].itemsOnSale,
+      placementInfo: data.rooms[d.roomId].placementInfo
+    }
       );
     });
 
@@ -104,6 +107,19 @@ function sockets(io, socket, data) {
       data.addMessage(d.roomId, d.playerId, d.msg, d.playerName);
       io.to(d.roomId).emit('collectorsUpdateMessages', {
         messages: data.getMessages(d.roomId)
+      })
+    });
+
+    socket.on("cancelAction", function(d){
+      data.cancelAction(d.roomId, d.playerId, d.placementInfo, d.isPlacedList)
+      io.to(d.roomId).emit('collectorsActionCanceld',{
+        placements: data.getPlacements(d.roomId),
+        isPlacedList: data.rooms[d.roomId].isPlacedList,
+        placementInfo: data.rooms[d.roomId].placementInfo,
+        skillsOnSale: data.rooms[d.roomId].skillsOnSale,
+        itemsOnSale: data.rooms[d.roomId].itemsOnSale,
+        auctionCards: data.rooms[d.roomId].auctionCards,
+        players: data.getPlayers(d.roomId)
       })
     });
 

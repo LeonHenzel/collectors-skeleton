@@ -17,6 +17,15 @@
           </div>
         </div>
 
+        <div class="arrowGrid">
+          <div v-for="(card, index) in auctionCards" :key="index">
+            <div class="arrow right" v-if="index!==3">
+            </div>
+            <div class="arrow down" v-else>
+            </div>
+          </div>
+        </div>
+
         <div class="bu">
 
         </div>
@@ -112,6 +121,32 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+
+  .arrowGrid{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 100%;
+    text-align: center;
+  }
+
+  .arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  }
+
+  .down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  }
+
+  .right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+
+
   .auctionLayout{
     width: 100%;
     height: 100%;
@@ -180,7 +215,7 @@ export default {
   .auctionLayoutContentWrapper{
     grid-area: auctionLayoutBottom;
     display: grid;
-    grid-template-rows: 60% 40%;
+    grid-template-rows: 60% 15% 25%;
     grid-template-areas:
     "auctionLayoutContentWrapperTop"
     "auctionLayoutContentWrapperBottom";
@@ -189,17 +224,17 @@ export default {
   .auction-cards{
     grid-area: auctionLayoutContentWrapperTop;
     margin-top: 5%;
-    margin-left: 5%;
+    /*margin-left: 5%;*/
     margin-right: 10%;
     margin-bottom: 5%;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: 90%;
 
   }
 
   .buttonDiv{
-    grid-area: auctionLayoutContentWrapperBottom;
+    grid-row: 3;
     display: grid;
     flex-direction: row;
     grid-template-columns: repeat(4,25%);
@@ -217,7 +252,7 @@ export default {
     border-radius: 2em;
     /*padding: 100%;*/
     width: 100%;
-    height: 50%;
+    height: 80%;
     background: #833ab4;
     background: green;
     /*background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);

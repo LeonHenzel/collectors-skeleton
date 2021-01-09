@@ -3,12 +3,19 @@
 
         <div class="mePlayerWrapper">
             <div class="playerName">
-              <div>{{player.playerName}}</div>
-              <div class="playing" v-if="player.myTurn">
-                Playing
+              <div class="nameWrapper">
+
+                <span class="theName">
+                {{player.playerName}}
+              </span>
+              <div class="tokenGrid">
+                <div class="playing" v-if="player.myTurn">
+                  P
+                </div>
+                <div class="firstPlayer" v-if="player.firstPlayerToken">
+                  1st
+                </div>
               </div>
-              <div class=firstPlayer v-if="player.firstPlayerToken">
-                1st
               </div>
             </div>
 
@@ -97,6 +104,32 @@ export default {
   font-size: 1.6vh;
 }
 
+.nameWrapper{
+  height: 100%;
+  width: 100%;
+  background-color: 	#f8f8ff;
+  display: grid;
+  grid-template-columns: 50% 35% 15%;
+  grid-template-rows: 100%;
+}
+
+.theName{
+  height: 100%;
+  width: 100%;
+  grid-column: 1;
+  grid-row: 1;
+  text-align: left;
+}
+
+.tokenGrid{
+  grid-column: 2;
+  grid-row: 1;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 100%;
+}
 
 .mePlayer {
   width: 100%;
@@ -126,40 +159,42 @@ export default {
 }
 
 .playing{
+  width: 70%;
   display: inline-block;
-  border: 3% dotted yellow;
+  border: 3px dotted yellow;
   background-color: green;
-  padding: 3vh 1.5vh 3vh 1.5vh;
-  border-radius: 40%;
-  font-size: 1.5vh;
+  padding: 15% 5% 15% 5%;
+  margin-right: 5%;
+  border-radius: 3rem;
+  font-size: 100%;
   letter-spacing: 0.1rem;
   font-weight: bold;
   color: white;
-  transform: scale(0.45);
-  transform-origin: center;
-}
-
-.firstPlayer {
+  /*: scale(0.45);
+  transform-origin: top left;*/
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 1;
+  text-align: center;
 }
 
 .firstPlayer{
+  width: 70%;
   display: inline-block;
-  border: 3% dotted yellow;
+  border: 3px dotted yellow;
   background-color: brown;
-  padding: 3vh 1.5vh 3vh 1.5vh;
-  border-radius: 40%;
-  font-size: 1.5vh;
-  letter-spacing: 5%;
+  padding: 15% 5% 15% 5%;
+  margin-right: 5%;
+  border-radius: 3rem;
+  font-size: 100%;
+  letter-spacing: 0.1rem;
   font-weight: bold;
   color: white;
-  transform: scale(0.45);
-  transform-origin: top left;
+  /*transform: scale(0.45);
+  transform-origin: top left;*/
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
 }
-
-
-
 
 .playerName {
   grid-column: 2/5;
