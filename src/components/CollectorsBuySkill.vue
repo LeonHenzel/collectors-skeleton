@@ -4,7 +4,7 @@
         <button type="submit" class="cancelButton" v-if="isPlacedList.skill && player.myTurn" @click="cancelAction()"></button>
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <div class="theButton">
-          <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
+          <img src="https://static.thenounproject.com/png/225624-200.png">
           <p>{{labels.skills}}</p>
           </div>
         </button>
@@ -499,6 +499,11 @@ transform: rotate(45deg);
     grid-template-rows: 100%;
     grid-template-areas:
     "openButtonLeft openButtonRight";
+  }
+
+  .theButton img{
+    height: 5vh;
+    width: 3vw;
   }
 
 
