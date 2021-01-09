@@ -6,7 +6,7 @@
           <button href="#" class = "openButton openItems" @click="openNav()">
             <div class="theButton">
             <img src="https://cdn4.iconfinder.com/data/icons/agile-5-black-fill/64/agile-5-_Black_fill-03-512.png" height="40" width="40">
-            <p>{{labels.items}}</p>
+            <span>{{labels.items}}</span>
             </div>
           </button>
         </div>
@@ -36,7 +36,7 @@
         <div class="arrowAndCostGrid">
           <div class="cardCostsDiv">
           <div  v-for="(card, index) in itemsOnSale" :key="index">
-            <span class="cardCost" v-if="cardCost(card)!==false">Market cost {{ cardCost(card) }}</span>
+            <span class="cardCost" v-if="cardCost(card)!==false">+  ${{ cardCost(card) }}</span>
           </div>
         </div>
         <div class="arrows">
@@ -199,6 +199,12 @@ export default {
     height: 0%;
   }
 
+  .cardCost{
+    font-weight: bold;
+    font-size: 200%;
+    color: blue;
+  }
+
   .cancelButton{
     height: 60%;
     width: 80%;
@@ -330,7 +336,7 @@ export default {
     width: 100%;
     height: 100%;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 30% 40% 15% 15%;
+    grid-template-rows: 30% 35% 10% 25%;
   }
 
   .arrowAndCostGrid{
@@ -688,6 +694,8 @@ export default {
     align-items: center;
 
   }*/
+
+
 
   .buttons {
     border: 0.01rem solid white;

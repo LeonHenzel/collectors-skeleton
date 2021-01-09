@@ -1733,7 +1733,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     float: left;
     display: block;
     font-size: 2em;
-    padding: 5px 20px;
     border-radius: 50em;
   }
 
@@ -1758,7 +1757,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .burgerBarsIcon{
-    padding: 2.5% 5%;
+    /*padding: 2.5% 5%;*/
+    padding: 1% 2%;
     position: relative;
     float: right;
     cursor: pointer;
@@ -2122,9 +2122,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }*/
 
   .tempWorker{
+    height: 85%;
+    width: 100%;
     display: inline-block;
     position: relative;
-    margin: 2px;
+    margin-top: 1%;
+    /*margin: 2px;*/
     grid-row: 1;
     grid-column: 1/3;
     background-color: rgb(255, 217, 179);
@@ -2135,7 +2138,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .marketWrapperr{
     display: inline-block;
     position: relative;
-    height: 94%;
+    height: 90%;
     width: 100%;
     margin: 0px;
     background-color: #4169E1;
@@ -2339,7 +2342,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myHandOverlay{
-    
+
     border-radius: 1em;
     /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
@@ -3031,6 +3034,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     bottom: 0;
     left:0;
     position: absolute;
+  }
+
+  @media all and (max-width: 900px){
+    *{
+      font-size: 2vh;
+    }
   }
 
   @media all and (max-width:500px){

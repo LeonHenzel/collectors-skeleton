@@ -4,7 +4,7 @@
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <div class="theButton">
           <img src="https://static.thenounproject.com/png/225624-200.png">
-          <p>{{labels.skills}}</p>
+          <span>{{labels.skills}}</span>
           </div>
         </button>
         <div class="buy-skills">
@@ -214,10 +214,12 @@ transform: rotate(45deg);
   .buttons{
     border: 0.1em solid white;
     background-color: green;
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
+    padding: 0.1%;
     border-radius: 5rem;
     text-align: center;
+    color: white;
 
 
     /*display: grid;
@@ -275,7 +277,7 @@ transform: rotate(45deg);
     width: 100%;
     display: grid;
     grid-template-columns: 25% 75%;
-    grid-template-rows: 30% 55% 15%;
+    grid-template-rows: 30% 45% 25%;
   }
 
 
@@ -555,12 +557,15 @@ transform: rotate(45deg);
       transform: scale(0.4) translateX(70px);
   }*/
 
-  @media all and (max-width:500px){
+
+
+
+  /*@media all and (max-width:500px){
     .gridWrapper{
       display: grid;
       grid-template-columns: 33% 67%;
       grid-template-rows: 30% 70%;
     }
-  }
+  }*/
 
 </style>

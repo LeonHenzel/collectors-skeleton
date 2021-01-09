@@ -135,7 +135,7 @@ export default {
 
   .arrowGrid{
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 23% 23% 23% 23%;
     grid-template-rows: 100%;
     text-align: center;
   }
@@ -259,12 +259,14 @@ export default {
   }
 
   .buttons button{
-    border-radius: 2em;
-    /*padding: 100%;*/
+    border: 0.1em solid white;
+    background-color: green;
     width: 100%;
-    height: 80%;
-    background: #833ab4;
-    background: green;
+    height: 100%;
+    padding: 0.1%;
+    border-radius: 5rem;
+    text-align: center;
+    color: white;
     /*background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
     background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);*/
 
@@ -437,6 +439,8 @@ export default {
       margin-left:20px
     }
   }*/
+
+
 
     @media all and (max-width:500px){
 
