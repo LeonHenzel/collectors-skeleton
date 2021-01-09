@@ -230,7 +230,7 @@
             <div class="overlayAuction" id = "expandAuction">
               <!--<a href="#" class="closeAuctionGridButton" @click="minimizeAuctionGrid()">&times;</a> kryss knapp auction-->
               <!--<div class="completeAuctionDiv">-->
-              <div class="auctionBigWrapper" v-if="players[playerId].bidSkipper===false">
+              <div class="auctionBigWrapper" v-if="players[playerId].bidSkipper===false && bidWinnerWrapper==='bidWinnerWrapperInvisible'" >
                 <div class="auctionWrapper">
                   <div class="auctionLogoWrapper">
                     <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
@@ -279,7 +279,10 @@
 
                 <div v-bind:class="bidWinnerWrapper">
                     <div class="congratsWrapper">
-                      <h1>{}{labels.congratulations}}</h1>
+                      <h1>{{labels.congratulations}}</h1>
+                      <div id="wonAuctionCardDiv">
+                        <CollectorsCard id="wonAuctionCard" v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+                      </div>
                     </div>
                     <div class="cardslotsWrapper">
                       <div class="cardslotsTextWrapper">
@@ -326,7 +329,7 @@
                           <button  @click="placeAuctionCardInSkills">{{labels.placeskills}}</button>
                         </div>
                         <div class="placeInMarket">
-                          <button  @click="placeAuctionCardInMarket">{{labels.raisemarket}}</button>
+                          <button  @click="placeAuctionCardInMarket">{{labels.placeraisemarket}}</button>
                         </div>
                       </div>
                   </div>
@@ -2365,7 +2368,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayPlayerViewWrapper{
     border-radius: 1%;
-    height: 90vh;
+    height: 100vh;
     width: 90vw;
     /* background: #672d75;
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);
@@ -2450,7 +2453,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayAuction{
     position: fixed;
-    height:100%;
+    height: 100vh;
     width: 0%;
     top: 0;
     right: 0;
@@ -2458,11 +2461,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     overflow-x: hidden;
     z-index: 10;
     transition: all 0.5s;
-    display: grid;
-    grid-template-rows: 60% 40%;
-    grid-template-areas:
-    "auctionTop"
-    "auctionBottom";
   }
 
   /*.completeAuctionDiv{
@@ -2473,7 +2471,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }*/
   .auctionOver{
     /* grid-area: auctionBottom; */
-    height: 100vh;
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2513,18 +2511,21 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 
   .bidWinnerWrapperVisible {
+    height: 90vh;
+    margin-top: 4vh;
     grid-area: auctionBottom;
     display: grid;
     margin-left: 5%;
     margin-right: 5%;
     grid-template-columns: 40% 60%;
-    grid-template-rows: 15% 85%;
+    grid-template-rows: 25% 85%;
     grid-template-areas:
     "bidWinnerWrapperTop bidWinnerWrapperTop"
     "bidWinnerWrapperBottomLeft bidWinnerWrapperBottomRight";
     /*display: flex;
     flex-direction: column;
     align-items: center;*/
+    overflow: hidden;
   }
 
   .bidWinnerWrapperVisible button{
@@ -2546,6 +2547,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .bidWinnerWrapperVisible .congratsWrapper{
     grid-area: bidWinnerWrapperTop;
     text-align: center;
+  }
+
+
+
+  #wonAuctionCardDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* transform-origin: center; */
+  }
+
+  #wonAuctionCard{
+    transform-origin: center top;
   }
 
   .bidWinnerWrapperVisible .cardslotsWrapper{
@@ -2585,6 +2599,17 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .bidWinnerWrapperVisible .paymentAuctionWrapper .placeAuctionCardWrapper .placeInMarket{
     grid-area: paymentAuctionWrapperBottomRight;
+  }
+
+  .placeAuctionCardWrapper{
+    position: absolute;
+    bottom: 7vh;
+    margin-left: -3vw;
+  }
+
+  .placeAuctionCardWrapper div button{
+    height: 9vh;
+    font-size: 1.5vh;
   }
 
   /* #auctionOver{
@@ -2833,7 +2858,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     top: 25%;
     width: 80%;
     text-align: center;
-    margin-top: 30px;
+    /* margin-top: 30px; */
   }
 
   .overlayAuction a{
