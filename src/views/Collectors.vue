@@ -2268,10 +2268,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .overlayPlayerView_rightContent{
+
     grid-column: 2;
     grid-row: 1;
     display: grid;
-    grid-template-rows: 33% 33% 33%
+    grid-template-rows: 33% 33% 33%;
     /* position: relative;
     top: 25%;
     width: 80%;
