@@ -186,7 +186,7 @@
     width: 110%;
     height: 105.5%;
     border-radius: 5px;
-    object-fit: contain;
+  
   }
 
   #quarterRound2{
