@@ -3,27 +3,27 @@
 
 <template>
   <div class="incomeOverlay">
-    <h2>Välj din inkomst</h2>
+    <h2>{{labels.chooseincome}}</h2>
     <div>
-      <label for="drawACard">Dra ett kort</label>
+      <label for="drawACard">{{labels.drawcard}}</label>
       <input type="checkbox" value="1" v-model="drawCardVar" name="drawACard">
     </div>
     <div>
-      <label for="oneIncome">En extra peng</label>
+      <label for="oneIncome">{{labels.onemoredime}}</label>
       <input type="checkbox" value="1" v-model="oneIncomeVar" name="oneIncome">
     </div>
     <div>
-      <label for="twoIncome">Två extra pengar</label>
+      <label for="twoIncome">{{labels.twomoredimes}}</label>
       <input type="checkbox" value="1" v-model="twoIncomeVar"  name="twoIncome">
     </div>
   <div>
   <button
   :disabled="wrongBoxesChecked()"
   @click="sendIncomeInfo()">
-    Bekräfta inkomst
+    {{labels.confirmincome}}
   </button>
   <div v-if="wrongBoxesChecked()">
-    Var god fyll vilka {{player.incomeToChoose}} inkomster du vill välja
+    {{labels.vargodvälj}} {{player.incomeToChoose}} {{labels.inkomsterduvill}}
   </div>
 </div>
 </div>

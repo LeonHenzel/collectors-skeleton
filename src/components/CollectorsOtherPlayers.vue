@@ -13,7 +13,7 @@
         </span>
         <div class="tokenGrid">
           <div class="playing" v-if="player.myTurn">
-            P
+            {{labels.playing}}
           </div>
           <div class="firstPlayer" v-if="player.firstPlayerToken">
             1st

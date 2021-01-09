@@ -2,7 +2,7 @@
   <div class="workersWrapper">
     <div class="workersTitle">
       <img src="https://cdn1.iconfinder.com/data/icons/worker-icons/100/01-1User-512.png" alt="workerImg" width="160px" height="160px">
-      <h1>Work</h1>
+      <h1>{{labels.work}}</h1>
     </div>
     <div class="workerButtons">
       <div class="workerButtonsContent" v-for="(p, index) in placement" :key="index">
@@ -21,7 +21,7 @@
 
         </button>
         <div class="playerIdPlaced" v-if="p.playerId !== null">
-          {{p.playerId}} PLACED HERE
+          {{p.playerId}} {{labels.placedhere}}
         </div>
       </div>
     </div>

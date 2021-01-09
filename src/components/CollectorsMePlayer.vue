@@ -7,15 +7,18 @@
 
                 <span class="theName">
                 {{player.playerName}}
-              </span>
-              <div class="tokenGrid">
-                <div class="playing" v-if="player.myTurn">
-                  P
+                </span>
+                <div class="tokenGrid">
+                  <div class="playing" v-if="player.myTurn">
+                    {{labels.playing}}
+                  </div>
+                  <div class="firstPlayer" v-if="player.firstPlayerToken">
+                    {{labels.first}}
+                  </div>
+
+
                 </div>
-                <div class="firstPlayer" v-if="player.firstPlayerToken">
-                  1st
-                </div>
-              </div>
+
               </div>
             </div>
 

@@ -5,13 +5,13 @@
       <div class="waitingPlayers" v-if="allPlayersIn===false">
 
         <div class="waitingPlayersContent">
-          <div>Waiting for more players to join...</div>  
+          <div>{{labels.waitingformore}}</div>
           <div class="inviteContent">
-            <div>Use the link to invite more players:</div>
+            <div>{{labels.uselink}}</div>
             <div><input class="inviteLinkContainer" type="text" :value="inviteLink" @click="selectAll" readonly="readonly"></div>
           </div>
         </div>
-          
+
       </div>
 
       <button class="startbutton" v-if="allPlayersIn" @click="isReady()">{{labels.ready}}</button>
@@ -45,7 +45,7 @@
 
   </div>
 
-    
+
 
   </div>
 

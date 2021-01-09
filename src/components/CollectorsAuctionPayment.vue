@@ -2,12 +2,12 @@
     <div class="auctionPayment">
       <div class="auction-payment-cards">
         <div class="cardDiv" v-for="(card, index) in auctionPayment" :key="index" @click="doAction(card)">
-          <CollectorsCard 
+          <CollectorsCard
             class="auction-payment-card"
-            :card="card" 
+            :card="card"
             :availableAction="card.available"/>
-            <div class="cardWorthText"> 
-            This card is worth {{ cardAuctionWorth(index) }} coin(s)
+            <div class="cardWorthText">
+            {{labels.value}} {{ cardAuctionWorth(index) }} {{labels.coins}}
             </div>
         </div>
       </div>
@@ -55,9 +55,9 @@ export default {
     transform: translateX(5%)translateY(-90%)
   }
 
-    /* Den svåra delen! Nu ska vi flytta alla kort som är till 
+    /* Den svåra delen! Nu ska vi flytta alla kort som är till
   höger om det kortet som är hover:ed
-  .card:hover~.card targetar all the elements that are siblings 
+  .card:hover~.card targetar all the elements that are siblings
   that come after it (the hovered card) with the card class.
   ~ is called the general sibling combinator and it targets
   all the children after the element, but not the element itself

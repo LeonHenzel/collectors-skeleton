@@ -4,7 +4,7 @@
         <!--<h3>{{ labels.startAuction }}</h3>-->
         <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
           <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
-          Auction
+          {{labels.auction}}
         </button>
       </div>
       <div class="auctionLayoutContentWrapper">
