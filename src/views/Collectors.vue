@@ -92,7 +92,8 @@
                   <div class="exitInfoOverlay">
                     <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
 
-                    <span class="exittext">{{labels.exitgame}}</span>
+
+                    <h1 class="exittext">{{labels.exitgame}}</h1> <br>
                     <a href="http://localhost:8080/#/" class="exitForReal">YES</a>
 
                   </div>
@@ -1880,8 +1881,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
 
     .exittext{
-      
-      left: 1000px;
+    align-content: center;
+      left: 0;
+      position: relative;
+      left: 33%;
     }
 
     .helpInfoOverlay{
@@ -1893,22 +1896,49 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     .exitForReal {
 
-      border-radius: 70em;
+        background-color: red;
+        border: white;
+        color: white;
+        padding: 15px 32px;
+        text-decoration: none;
 
 
-      font-style: bold;
-      background-color: white;
-      display: block;
-      max-width: 50px;
-      margin-left: 47%;
+        align-items: center;
+        font-size: 16px;
+        border-radius: 4px;
+        position: relative;
+        left: 45%;
+
+
+
+
+
+
+          border-radius:5px;
+          border:solid 1px #f39c12;
+          background:#e67e22;
+
+          padding:16px 18px 14px;
+
+          -webkit-transition: all 0.1s;
+          -moz-transition: all 0.1s;
+          transition: all 0.1s;
+
+          -webkit-box-shadow: 0px 6px 0px #d35400;
+          -moz-box-shadow: 0px 6px 0px #d35400;
+          box-shadow: 0px 6px 0px #d35400;
+
+
     }
+    .exitForReal {
+  transition-duration: 0.5s;
+}
 
-    /* } */
-    /* @media (max-width: 920px){
-      .exitForReal:hover{
-          .hide { display:none !important; }
-      }
-    } */
+.exitForReal:hover {
+  background-color: red;
+  color: white;
+}
+
     @media all and (min-width:900px){
 
     .menuBar li{
