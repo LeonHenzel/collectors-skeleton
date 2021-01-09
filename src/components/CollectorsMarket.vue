@@ -127,11 +127,12 @@ export default {
 .buttons{
   border: 0.1em solid white;
   background-color: green;
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
+  padding: 0.1%;
   border-radius: 5rem;
   text-align: center;
-  grid-column: 1;
+  color: white;
 }
 
 
@@ -247,6 +248,8 @@ export default {
   border: solid white;
   background-color: #8A2BE2;
 }
+
+
 
 @media all and (max-width:500px){
 

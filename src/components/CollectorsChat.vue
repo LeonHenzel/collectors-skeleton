@@ -3,6 +3,7 @@
   <div class="mainWrapper">
     <button type="submit" id="openChatButton" @click="chatGotClicked=true">
       <img src="https://www.flaticon.com/premium-icon/icons/svg/14/14558.svg" height="20" width="20">
+      <span>Chat</span>
     </button>
 
     <div id="chatWrapper" v-if="chatGotClicked" @keyup.enter="sendMessage">
@@ -82,8 +83,8 @@
 
 <style>
 .mainWrapper{
-  grid-column: 1;
   margin-left: 5px;
+  height: 100%;
 }
 #senderName{
   padding-left: 2px;
@@ -162,7 +163,15 @@
   #openChatButton{
   border: none;
   outline: none;
+  height: 100%;
+  width: 3%;
   }
+
+  #openChatButton>img{
+    height: 100%;
+    width: 100%;
+  }
+
 
   #openChatButton:hover{
   cursor: pointer;
@@ -207,5 +216,17 @@
 
   #messages{
     color:black;
+  }
+
+  #openChatButton>span{
+    visibility: hidden;
+  }
+  @media all and (max-width:700px){
+    #openChatButton{
+      width: 25px;
+      height: 15px;
+    }
+
+
   }
 </style>

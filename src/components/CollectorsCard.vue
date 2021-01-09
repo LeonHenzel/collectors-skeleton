@@ -36,7 +36,7 @@ export default {
     border-radius: 10px;
     box-shadow: -1rem 0 3rem #000;
     transition: 0.2s;
-    transform: scale(0.45);
+    transform: scale(0.41);
     transform-origin: top left;
   }
 
@@ -49,14 +49,14 @@ export default {
 
   @media all and (max-width:1500px){
     .card{
-      transform: scale(0.47);
+      transform: scale(0.40);
 
     }
   }
 
   @media all and (max-width:1450px){
     .card{
-      transform: scale(0.45);
+      transform: scale(0.39);
 
     }
   }
@@ -64,50 +64,26 @@ export default {
 
   @media all and (max-width:1400px){
     .card{
-      transform: scale(0.43);
+      transform: scale(0.38);
 
     }
   }
 
   @media all and (max-width:1350px){
     .card{
-      transform: scale(0.42);
+      transform: scale(0.37);
 
     }
   }
 
   @media all and (max-width:1300px){
     .card{
-      transform: scale(0.41);
+      transform: scale(0.36);
 
     }
   }
 
   @media all and (max-width:1250px){
-    .card{
-      transform: scale(0.40);
-
-    }
-  }
-
-
-  @media all and (max-width:1200px){
-    .card{
-      transform: scale(0.38);
-
-    }
-  }
-
-
-  @media all and (max-width:1150px){
-    .card{
-      transform: scale(0.37);
-
-    }
-  }
-
-
-  @media all and (max-width:1050px){
     .card{
       transform: scale(0.35);
 
@@ -115,7 +91,15 @@ export default {
   }
 
 
-  @media all and (max-width:1000px){
+  @media all and (max-width:1200px){
+    .card{
+      transform: scale(0.34);
+
+    }
+  }
+
+
+  @media all and (max-width:1150px){
     .card{
       transform: scale(0.33);
 
@@ -123,7 +107,7 @@ export default {
   }
 
 
-  @media all and (max-width:900px){
+  @media all and (max-width:1050px){
     .card{
       transform: scale(0.30);
 
@@ -132,32 +116,75 @@ export default {
 
 
 
-  @media all and (max-width:800px){
+  @media all and (max-width:950px){
     .card{
-      transform: scale(0.27);
+      transform: scale(0.28);
+
+    }
+  }
+
+  @media all and (max-width:900px){
+    .card{
+      transform: scale(0.26);
 
     }
   }
 
 
 
-  @media all and (max-width:700px){
+  @media all and (max-width:850px){
     .card{
       transform: scale(0.25);
 
     }
   }
 
-  @media all and (max-width:600px){
+  @media all and (max-width:800px){
     .card{
-      transform: scale(0.23);
+      transform: scale(0.24);
 
     }
   }
 
-  @media all and (max-width:50){
+
+  @media all and (max-width:750px){
     .card{
-      transform: scale(0.20);
+      transform: scale(0.22);
+
+    }
+  }
+
+  @media all and (max-width:700px){
+    .card{
+      transform: scale(0.21);
+
+    }
+  }
+
+  @media all and (max-width:650px){
+    .card{
+      transform: scale(0.19);
+
+    }
+  }
+
+  @media all and (max-width:600px){
+    .card{
+      transform: scale(0.17);
+
+    }
+  }
+
+  @media all and (max-width:550px){
+    .card{
+      transform: scale(0.15);
+
+    }
+  }
+
+  @media all and (max-width:525px){
+    .card{
+      transform: scale(0.13);
 
     }
   }
@@ -173,7 +200,13 @@ export default {
 
   @media all and (max-width:500px){
     .card {
-      transform: scale(0.05);
+      transform: scale(0.11);
+    }
+  }
+
+  @media all and (max-width:450){
+    .card {
+      transform: scale(0.10);
     }
   }
 
