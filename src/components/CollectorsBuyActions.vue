@@ -194,6 +194,9 @@ export default {
     grid-template-columns: repeat(auto-fill, 100px);
     grid-column: 2;
   }*/
+  .navBuyActions{
+    height: 0%;
+  }
 
   .cancelButton{
     position: fixed;
@@ -416,7 +419,7 @@ export default {
   .overlay{
     position: fixed;
     width: 100%;
-    height:100%;
+    height:0%;
     top: 0;
     left: 0;
     background: rgba(0,0,0,.7);
