@@ -36,7 +36,7 @@
 
 
     <div class="layout">
-      <h1>{{isPlacedList}}</h1>
+      <!-- <h1>{{isPlacedList}}</h1> -->
 
 
 
@@ -2017,7 +2017,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-column: 1;
     display: grid;
     grid-template-columns: 72% 28%;
-    grid-template-rows: 7% 93%;
+    grid-template-rows: 4% 96%;
     height: 100%;
     width: 100%;
 
@@ -2859,6 +2859,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-row: 1;
     border: 5px solid #fff;
     background-color: #313639;
+    height: 3.5vh;
   }
   .otherPlayers{
     border-radius: 1em;
