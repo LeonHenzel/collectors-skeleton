@@ -92,7 +92,12 @@
 
 
                     <h1 class="exittext">{{labels.exitgame}}</h1> <br>
-                    <a href="http://localhost:8080/#/" class="exitForReal">YES</a>
+                    <a href="http://localhost:8080/#/">
+                      <button class="exitForReal">YES
+                      </button>
+                    </a>
+
+                    <a class="exitforReal" @click="minimizeExitGrid()">NO</a>
 
                   </div>
                 </div>
@@ -1899,36 +1904,31 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     .exitForReal {
 
         background-color: red;
-        border: white;
-        color: white;
+        border: black;
+
         padding: 15px 32px;
         text-decoration: none;
 
 
         align-items: center;
         font-size: 16px;
-        border-radius: 4px;
+
         position: relative;
-        left: 45%;
-
-
-
-
-
+        left: 38%;
 
           border-radius:5px;
-          border:solid 1px #f39c12;
-          background:#e67e22;
+          border:solid 1px black;
+          background: red;
 
-          padding:16px 18px 14px;
+          padding:16px 18px 18px;
 
           -webkit-transition: all 0.1s;
           -moz-transition: all 0.1s;
           transition: all 0.1s;
 
-          -webkit-box-shadow: 0px 6px 0px #d35400;
-          -moz-box-shadow: 0px 6px 0px #d35400;
-          box-shadow: 0px 6px 0px #d35400;
+          -webkit-box-shadow: 0px 8px 0px red;
+          -moz-box-shadow: 0px 8px 0px red;
+          box-shadow: 0px 8px 0px red;
 
 
     }
@@ -1939,6 +1939,56 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 .exitForReal:hover {
   background-color: red;
   color: white;
+
+
+
+
+
+}
+
+.exitforReal {
+
+    background-color: red;
+    border: white;
+
+    padding: 15px 32px;
+    text-decoration: none;
+
+
+    align-items: center;
+    font-size: 16px;
+
+    position: relative;
+    left: 45%;
+
+
+
+
+
+
+      border-radius:5px;
+      border:solid 1px black;
+      background:green;
+
+      padding:16px 18px 18px;
+
+      -webkit-transition: all 0.1s;
+      -moz-transition: all 0.1s;
+      transition: all 0.1s;
+
+      -webkit-box-shadow: 0px 8px 0px green;
+      -moz-box-shadow: 0px 8px 0px green;
+      box-shadow: 0px 8px 0px green;
+
+
+}
+.exitforReal {
+transition-duration: 0.5s;
+}
+
+.exitforReal:hover {
+background-color: green;
+color: white;
 }
 
     @media all and (min-width:900px){
@@ -2333,7 +2383,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myHandOverlay{
-    
+
     border-radius: 1em;
     /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
