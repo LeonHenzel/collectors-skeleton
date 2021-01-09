@@ -1,7 +1,7 @@
 <template>
     <div class="CollectorsBuySkill">
       <div class="gridWrapper">
-        <button type="submit" class="cancelButton" v-if="isPlacedList.skill" @click="cancelAction()"></button>
+        <button type="submit" class="cancelButton" v-if="isPlacedList.skill && player.myTurn" @click="cancelAction()"></button>
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <div class="theButton">
           <img src="https://static.thenounproject.com/png/225624-200.png" width="40" height="40">
