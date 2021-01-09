@@ -1577,6 +1577,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
 </script>
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
+
   *{
     font-size: 1.8vh;
   }
@@ -2294,12 +2297,22 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myHandOverlay{
+    
     border-radius: 1em;
     /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 15% 85%;
+    grid-template-rows: 20% 80%;
+  }
+
+  .myHandOverlay h4, .myItemsOverlay h4, .mySkillsOverlay h4{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bangers', cursive;
+    font-size: 2vh;
+    letter-spacing: 0.1vw;
   }
 
   .myHandOverlay>span{
@@ -2315,7 +2328,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     border: 5px dotted #fff;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 15% 85%;
+    grid-template-rows: 10% 85%;
   }
 
 .myItemsOverlay>span{

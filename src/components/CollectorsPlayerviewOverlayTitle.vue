@@ -33,17 +33,42 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Bangers&display=swap');
 
+
 .playername{
     /* display: flex;
     flex-direction: row; */
 }
 
 .secretCard{
-    top: -100px;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    gap: 2vw;
+    flex-wrap: wrap;
+    /* background: blanchedalmond; */
+    top: 7.5vh;
+    right: 20vw;
+}
+
+.secretCard::after{
+    content: "SECRET CARD";
+    font-family: 'Bangers', cursive;
+    font-size: 2vh;
+    letter-spacing: 0.1vw;
+    margin-top: 4vh;
+    margin-left: -15vw;
+}
+
+.card::before{
+    /* position: relative; */
+    /* margin-top: -200px; */
+    background: blanchedalmond;
+    padding: 10px;
 }
 
 .card{
-    margin-top: -200px;
+    /* right: 0; */
+    transform-origin: top right;
 }
 
 .coolTitle {
