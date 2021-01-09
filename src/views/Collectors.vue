@@ -1671,7 +1671,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     background-color: black;
     box-shadow: 1px 1px 4px 0 rgba(0,0,0,0.1);
     position: relative;
-    z-index: 12;
+    /* z-index: 12; */
     /*display: grid;
     grid-template-columns: 10% 40% 50%;*/
     /*grid-template-rows: 100%;*/
@@ -1740,7 +1740,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     top: 0;
     right: 0;
     position: absolute;
-    z-index:12;
+    /* z-index:12; */
   }
 
   .menuBar .burgerBarsIcon{
