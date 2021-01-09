@@ -454,6 +454,9 @@
                         </div>
                       </div>
                       <div class="overlayPlayerView_rightContent">
+                        <div>
+                          <!-- nödvändig -->
+                        </div>
                         <div class="myHandOverlay">
                           <h4>{{labels.myhand}}</h4>
                           <div class="cardslots" v-if="players[playerId]">
@@ -2399,7 +2402,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
   .overlayPlayerViewWrapper{
     border-radius: 1%;
-    height: 100vh;
+    height: 90vh;
     width: 90vw;
     /* background: #672d75;
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);
@@ -2430,7 +2433,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     grid-column: 2;
     grid-row: 1;
     display: grid;
-    grid-template-rows: 33% 33% 33%;
+    grid-template-rows: 10% 29.5% 29.5% 29.5%;
     grid-template-columns: 100%;
     /* position: relative;
     top: 25%;
