@@ -1724,17 +1724,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar .logo{
     float: left;
     display: block;
-    margin-left: 5%;
-    margin-right: 10%;
+    margin-left: 2.5%;
+    margin-right: 5%;
     text-decoration: none;
   }
 
   .menuBar .logo h1{
-    font-size: 120%;
-    font-family: 'Futura';
+    font-size: 200%;
+    font-family: 'Brush Script MT', cursive;
     color: #6df1d8;
-    text-shadow: 0 0 2.5px #6df1d8, 0 0 5px #6df1d8, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080, 0 0 27.5px #ff0080, 0 0 52.5px #ff0080;
+    text-shadow: 0 0 5px #6df1d8, 0 0 10px #6df1d8, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
     text-align: center;
+    letter-spacing: 2px;
+    margin-top:0;
+    margin-bottom: 0;
   }
 
   #logo{
