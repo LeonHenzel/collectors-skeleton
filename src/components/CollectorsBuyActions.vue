@@ -201,7 +201,7 @@ export default {
 
   .cardCost{
     font-weight: bold;
-    font-size: 200%;
+    font-size: 3vh;
     color: blue;
   }
 
@@ -242,6 +242,12 @@ export default {
   "openButtonLeft openButtonRight";
 }
 
+.theButton img{
+  margin-right: 0.5vw;
+  height: 5vh;
+  width: 3vw;
+}
+
   .buy-cards{
     grid-row: 1;
     grid-column: 2;
@@ -266,6 +272,7 @@ export default {
     height: 80%;
     border-radius: 5rem;
     text-align:center;
+    font-size: 2vh;
     /*transform: scale(1.4);*/
     /*margin-bottom: 1rem;*/
     /*display: grid;
@@ -290,6 +297,7 @@ export default {
     text-align: center;
     padding: 0.1%;
     color: white;
+    font-size: 2vh;
   }
 
   #smallPurchaseButtonBuyActions:hover{
@@ -404,8 +412,12 @@ export default {
   }
 
   .openButton span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: openButtonRight;
     text-align: center;
+    font-size: 2vh;
   }
 
   .openItems{
@@ -707,7 +719,6 @@ export default {
     margin-bottom: rem;
     /*display: grid;
     grid-template-columns: repeat(auto-fill, 100px);*/
-    font-size: 75%;
   }
 
   }

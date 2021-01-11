@@ -57,31 +57,31 @@
             <div class="itemSummaryWrapper">
               <div class="firstItem itemsBox">
                 <img src="/images/movieItem.png"  />
-                <div>
+                <div class="itemsCount">
                 {{player.itemsByNumber.movie}}
-              </div>
+                </div>
               </div>
               <div class="secondItem itemsBox">
                 <img src="/images/musicItem.png" />
-                <div>
+                <div class="itemsCount">
                   {{player.itemsByNumber.music}}
                 </div>
               </div>
               <div class="thirdItem itemsBox">
               <img src="/images/techItem.png" />
-                <div>
+                <div class="itemsCount">
                   {{player.itemsByNumber.technology}}
                 </div>
               </div>
               <div class="fourthItem itemsBox">
                 <img src="/images/figursItem.png" />
-                <div>
+                <div class="itemsCount">
                 {{player.itemsByNumber.figures}}
               </div>
               </div>
               <div class="fithItem itemsBox">
                 <img src="/images/fastavalItem.png" />
-                <div>
+                <div class="itemsCount">
                 {{player.itemsByNumber.fastaval}}
               </div>
               </div>
@@ -108,6 +108,10 @@ export default {
   font-size: 1.6vh;
 }
 
+.itemsCount{
+  font-size: 2.2vh;
+}
+
 .nameWrapper{
   height: 100%;
   width: 100%;
@@ -123,6 +127,9 @@ export default {
   grid-column: 1;
   grid-row: 1;
   text-align: left;
+  margin-top: 0.5vh;
+  margin-left: 1vw;
+  font-size: 1.9vh;
 }
 
 .tokenGrid{
@@ -273,16 +280,19 @@ export default {
 }
 
 .pointsPlayer {
+  font-size: 2.2vh;
   text-align: center;
   padding: 30%;
 }
 
 .playerMoney {
+  font-size: 2.2vh;
   text-align: center;
   padding: 30%;
 }
 
 .energyPlayer {
+  font-size: 2.2vh;
   text-align: center;
   padding: 30%;
 }

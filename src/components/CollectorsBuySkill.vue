@@ -220,6 +220,7 @@ transform: rotate(45deg);
     border-radius: 5rem;
     text-align: center;
     color: white;
+    font-size: 2vh;
 
 
     /*display: grid;
@@ -296,7 +297,6 @@ transform: rotate(45deg);
     Letter-spacing: 10%;
     text-transform: uppercase;
     font-family: "sans", serif;
-    padding: 5%;
     border-color: white;
     border-width: 0.2em;
     font-weight: bold;
@@ -312,8 +312,12 @@ transform: rotate(45deg);
     width: 100%
   }
   .openButton span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     grid-area: openButtonRight;
     text-align: center;
+    font-size: 2vh;
   }
 
 
@@ -499,13 +503,14 @@ transform: rotate(45deg);
     display: grid;
     height: 100%;
     width: 100%;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 35% 60%;
     grid-template-rows: 100%;
     grid-template-areas:
     "openButtonLeft openButtonRight";
   }
 
   .theButton img{
+    margin-left: 0.5vw;
     height: 5vh;
     width: 3vw;
   }

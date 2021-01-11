@@ -267,6 +267,7 @@ export default {
     border-radius: 5rem;
     text-align: center;
     color: white;
+    font-size: 2vh;
     /*background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
     background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);*/
 

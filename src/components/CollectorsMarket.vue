@@ -133,6 +133,7 @@ export default {
   border-radius: 5rem;
   text-align: center;
   color: white;
+  font-size: 2vh;
 }
 
 
