@@ -134,7 +134,9 @@ Data.prototype.createRoom = function(roomId, playerCount, lang) {
   room.placementInfo={
     cost: 0,
     timesMarket: 0
-  }
+  };
+  room.twoTimesMarket= 0;
+
 
 }
 
@@ -323,16 +325,15 @@ Data.prototype.cancelMarket=function(room,playerId,placementInfo){
   room.placementInfo.timesMarket=0;
   room.twoMarket=false;
 }
-
 Data.prototype.resetMarketCards=function(room){
   for(let i=0;i<room.auctionCards.length;i+=1){
-    if(room.auctionCards[i]!==undefined){
+    if(room.auctionCards[i].item!==undefined){
       room.auctionCards[i].available=false;
       break;
     }
   }
   for(let i=0;i<room.skillsOnSale.length;i+=1){
-    if(room.skillsOnSale[i]!==undefined){
+    if(room.skillsOnSale[i].item!==undefined){
       room.skillsOnSale[i].available=false;
       break;
     }
@@ -1400,11 +1401,13 @@ Data.prototype.getAllpoints(room);
 this.resetAvalibleMarket(room, playerId);
 if(room.twoMarket===true){
   if(room.twoMarketCounter===0){
-    room.twoMarketCounter=1
+    room.twoMarketCounter=1;
+    room.twoTimesMarket=1;
     room.isPlacedList.market=true;
     this.setAvalibleMarket(room,playerId)
   }
   else{
+    room.twoTimesMarket=0;
     room.twoMarket=false;
     room.twoMarketCounter=0;
   }

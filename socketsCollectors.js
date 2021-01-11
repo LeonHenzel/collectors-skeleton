@@ -22,7 +22,8 @@ function sockets(io, socket, data) {
             allPlayersIn: data.rooms[d.roomId].allPlayersIn,
             allPlayersReady: data.rooms[d.roomId].allPlayersReady,
             playerCount: data.rooms[d.roomId].playerCount,
-            placementInfo: data.rooms[d.roomId].placementInfo
+            placementInfo: data.rooms[d.roomId].placementInfo,
+            twoTimesMarket: data.rooms[d.roomId].twoTimesMarket
           }
         );
       }
@@ -97,7 +98,8 @@ function sockets(io, socket, data) {
       auctionCards: data.rooms[d.roomId].auctionCards,
       players: data.getPlayers(d.roomId),
       itemsOnSale: data.rooms[d.roomId].itemsOnSale,
-      placementInfo: data.rooms[d.roomId].placementInfo
+      placementInfo: data.rooms[d.roomId].placementInfo,
+      twoTimesMarket: data.rooms[d.roomId].twoTimesMarket
     }
       );
     });
@@ -204,7 +206,8 @@ function sockets(io, socket, data) {
         skillsOnSale: data.rooms[d.roomId].skillsOnSale,
         auctionCards: data.rooms[d.roomId].auctionCards,
         isPlacedList: data.rooms[d.roomId].isPlacedList,
-        twoMarket: data.rooms[d.roomId].twoMarket
+        twoMarket: data.rooms[d.roomId].twoMarket,
+        twoTimesMarket: data.rooms[d.roomId].twoTimesMarket
 
       })
 

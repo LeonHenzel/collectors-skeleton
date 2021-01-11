@@ -197,6 +197,7 @@
             :placement="marketPlacement"
             :marketValues="marketValues"
             :isPlacedList="isPlacedList"
+            :twoTimesMarket="twoTimesMarket"
             @cancelAction="cancelAction()"
             @placeBottle="placeBottle('market',$event)"
             @changeTwoMarket="changeTwoMarket()"/>
@@ -294,9 +295,9 @@
                       <div class="cardslotsTextWrapper">
                         <h3>{{labels.myhand}}</h3>
                       </div>
-                      <div class="cardslotsCardsWrapper">
-                        <div class="cardslots" v-if="players[playerId]">
-                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                      <div class="cardslotsCardsWrapper" v-if="players[playerId]">
+                        <div class="cardslots"  v-for="(card, index) in players[playerId].hand" :key="index">
+                          <CollectorsCard  :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
                         </div>
                       </div>
                     </div>
@@ -626,6 +627,7 @@ export default {
       allPlayersReady: false,
       playerList: [],
       playerCount: 0,
+      twoTimesMarket:0,
       placementInfo: {
         cost: 0,
         timesMarket: 0
@@ -681,7 +683,9 @@ export default {
         this.allPlayersReady=d.allPlayersReady;
         this.playerCount=d.playerCount;
         this.placementInfo=d.placementInfo;
+        this.twoTimesMarket=d.twoTimesMarket;
         this.sortPlayerList();
+
 
       }.bind(this));
 
@@ -713,6 +717,7 @@ export default {
           this.itemsOnSale=d.itemsOnSale;
         }
         this.placementInfo=d.placementInfo;
+        this.twoTimesMarket=d.twoTimesMarket;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -875,11 +880,7 @@ export default {
       this.auctionCards=d.auctionCards;
       this.isPlacedList=d.isPlacedList;
       this.twoMarket=d.twoMarket;
-      if (this.twoMarket===true){
-        //console.log("kör market en gång till")
-        //this.placeBottle('market',0);
-      }
-      //console.log(this.twoMarket);
+      this.twoTimesMarket=d.twoTimesMarket;
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
@@ -1831,6 +1832,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     top: 0;
   }
 
+  .cardslotsTextWrapper{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+ .cardslotsCardsWrapper{
+   grid-column: 1;
+   grid-row: 2;
+   display: grid;
+   grid-template-columns: 30% 30% 30%;
+   grid-template-rows: 33% 30% 30%;
+
+ }
 
     .aboutOverlay{
 
@@ -2666,6 +2680,9 @@ cursor: not-allowed;
 
   .bidWinnerWrapperVisible .cardslotsWrapper{
     grid-area: bidWinnerWrapperBottomLeft;
+    display: grid;
+    grid-template-columns: 80%;
+    grid-template-rows: 20% 70%;
   }
 
   .bidWinnerWrapperVisible .paymentAuctionWrapper{
