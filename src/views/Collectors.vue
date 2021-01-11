@@ -1735,7 +1735,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     color: #6df1d8;
     text-shadow: 0 0 5px #6df1d8, 0 0 10px #6df1d8, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
     text-align: center;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     margin-top:0;
     margin-bottom: 0;
   }
