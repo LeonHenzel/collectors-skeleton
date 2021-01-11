@@ -1828,8 +1828,6 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     height: 100%;
     }
 
-  .openHelpGridButton{
-  }
 
   .menuBar a{
     color: black;
@@ -2727,12 +2725,6 @@ cursor: pointer;
     grid-template-rows: 100%;
   }
 
-
-
-  .overlayPlayerView_leftContent{
-    /* display: grid;
-    grid-template-rows: 10% 90% */
-  }
 
   .overlayPlayerView_rightContent{
 
