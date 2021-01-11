@@ -1980,7 +1980,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 .exitForReal:hover {
   background-color: red;
   color: white;
-  cursor: pointer;
+  cursor: not-allowed;
 
 
 
@@ -2031,7 +2031,7 @@ transition-duration: 0.5s;
 .exitforReal:hover {
 background-color: green;
 color: white;
-cursor: not-allowed;
+cursor: pointer;
 }
 
     @media all and (min-width:900px){
