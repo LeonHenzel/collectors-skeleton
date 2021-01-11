@@ -141,7 +141,7 @@
               <div class="helpGridItem" id="helpGridItem">
                 <a href="#" class="closeButton" @click="closeHelpGridItem()">&times;</a>
                 <div class="helpGridItemLayout">
-                  <p>Hjälp text om vad som händer i rutan</p>
+                  <p>{{labels.helpGridItem}}</p>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@
               <div class="helpGridSkills" id="helpGridSkills">
                 <a href="#" class="closeButton" @click="closeHelpGridSkill()">&times;</a>
                 <div class="helpGridSkillLayout">
-                  <p>Hjälp text om vad som händer i rutan</p>
+                  <p>{{labels.helpGridSkills}}</p>
                 </div>
               </div>
           </div>
@@ -186,7 +186,7 @@
             <div class="helpGridWorker" id="helpGridWorker">
               <a href="#" class="closeButton" @click="closeHelpGridWorker()">&times;</a>
               <div class="helpGridWorkerLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridWorker}}</p>
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@
             <div class="helpGridMarket" id="helpGridMarket">
               <a href="#" class="closeButton" @click="closeHelpGridMarket()">&times;</a>
               <div class="helpGridMarketLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridMarket}}</p>
               </div>
             </div>
           </div>
@@ -368,7 +368,7 @@
             <div class="helpGridAuction" id="helpGridAuction">
               <a href="#" class="closeButton" @click="closeHelpGridAuction()">&times;</a>
               <div class="helpGridAuctionLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridAuction}}</p>
               </div>
             </div>
           </div>
@@ -496,7 +496,7 @@
             <div class="helpGridPlayerview" id="helpGridPlayerview">
               <a href="#" class="closeButton" @click="closeHelpGridPlayerview()">&times;</a>
               <div class="helpGridPlayerviewLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridPlayerview}}</p>
               </div>
             </div>
           </div>
@@ -1749,17 +1749,20 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   .menuBar .logo{
     float: left;
     display: block;
-    margin-left: 5%;
-    margin-right: 10%;
+    margin-left: 2.5%;
+    margin-right: 5%;
     text-decoration: none;
   }
 
   .menuBar .logo h1{
-    font-size: 120%;
-    font-family: 'Futura';
+    font-size: 200%;
+    font-family: 'Courier New', monospace;
     color: #6df1d8;
-    text-shadow: 0 0 2.5px #6df1d8, 0 0 5px #6df1d8, 0 0 10px #ff0080, 0 0 15px #ff0080, 0 0 20px #ff0080, 0 0 27.5px #ff0080, 0 0 52.5px #ff0080;
+    text-shadow: 0 0 5px #6df1d8, 0 0 10px #6df1d8, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080;
     text-align: center;
+    letter-spacing: 1.5px;
+    margin-top:0;
+    margin-bottom: 0;
   }
 
   #logo{
