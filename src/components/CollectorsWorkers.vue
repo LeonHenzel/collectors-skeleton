@@ -187,12 +187,14 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 75px;
-    width: 150px;
+    height: 75%;
+    width: 100%;
+    object-fit: cover;
     border-radius: 5px;
     text-transform: uppercase;
     font-style: italic;
     font-weight: bold;
+    box-shadow: orange;
     color: black;
     background: #d9a7c7;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to top, #fffcdc, #aee1ff);  /* Chrome 10-25, Safari 5.1-6 */
@@ -211,7 +213,7 @@
     width: 110%;
     height: 105.5%;
     border-radius: 5px;
-    object-fit: contain;
+
   }
 
   #quarterRound2{

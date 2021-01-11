@@ -215,7 +215,7 @@ transform: rotate(45deg);
     background-color: rgb(69, 179, 157);
   }
 
-  .buttons{
+  .buttons {
     border: 0.1em solid white;
     background-color: green;
     width: 100%;
@@ -239,6 +239,7 @@ transform: rotate(45deg);
 
 
 
+
   }
   .buttons button:hover{
     background-color: rgb(220, 220, 220);
@@ -246,7 +247,12 @@ transform: rotate(45deg);
 
 
   .red{
-    background-color: red;
+    background-color: crimson;
+
+  }
+
+  .red:hover{
+    background-color: tomato;
   }
 
   .smallPurchaseButtonBuySkill:hover{
@@ -433,6 +439,7 @@ transform: rotate(45deg);
   .overlay .openButtonWrapper .openButton button{
     /*grid-area: openButtonWrappertopLeft;*/
     grid-area: button;
+    object-fit: contain;
   }
 
   .overlay .paymentWrapper{
@@ -459,6 +466,11 @@ transform: rotate(45deg);
     width: 80%;
     height: 60%;
   }
+
+  .buttonsOverlayWrapper .buttons{
+    border-radius: 5rem;
+  }
+
 
   .overlay .paymentWrapper .buttonsOverlayWrapper .buttons button{
     height: 100%;
@@ -532,10 +544,8 @@ transform: rotate(45deg);
     "openButtonLeft openButtonRight";
   }
 
-  .theButton img{
-    margin-left: 0.5vw;
-    height: 5vh;
-    width: 3vw;
+  .theButton>img{
+    object-fit: contain;
   }
 
 

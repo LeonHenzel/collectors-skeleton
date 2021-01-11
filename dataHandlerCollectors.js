@@ -61,7 +61,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang) {
   let room = {};
   room.players = {};
   room.playerList=[];
-  room.round=1;
+  room.round=4;
   room.lang = lang;
   room.playerNumber=0;
   room.deck = this.createDeck(lang);
@@ -138,6 +138,8 @@ Data.prototype.createRoom = function(roomId, playerCount, lang) {
   room.twoTimesMarket= 0;
   room.choosenPlacementCost=0;
 
+
+  room.endTheGame=false;
 
 }
 
@@ -621,6 +623,12 @@ Data.prototype.discardACard=function(player, card){
 Data.prototype.startIncome=function(roomId){
   let room=this.rooms[roomId];
   if(typeof room !== 'undefined'){
+
+    if(room.round===4){
+      this.changeRound(roomId);
+      return
+    }
+
     for(let i=0;i<room.playerCount;i+=1){
         room.playerList[i].myTurn=false;
         room.playerList[i].hasChoosenIncome=false;
@@ -678,12 +686,17 @@ Data.prototype.changeRound=function(roomId){
   Data.prototype.changeQuarterPlacement(room);
   Data.prototype.resetPlacements(room);
   Data.prototype.changeTurnBetweenRound(room);
+  console.log("RoundChange?", room.round);
 
   room.round+=1;
+
+  console.log("RoundChange?", room.round);
 }
 }
 
 Data.prototype.endGame=function(room){
+  console.log("ENDGAME");
+  room.endTheGame=true;
   for(let i=0;i<room.playerList.length;i+=1){
     room.playerList[i].myTurn=false;
     room.playerList[i].points+=Data.prototype.endGamePoints(room.playerList[i],room);
@@ -695,7 +708,8 @@ Data.prototype.endGamePoints=function(player,room){
   let secretPoints=0;
   console.log("playerMoney",player.money)
   console.log("moneyPoints",moneyPoints);
-  /*if(player.secret[0].item==="fastaval"){
+
+  if(player.secret[0].item==="fastaval"){
     secretPoints=room.market.fastaval;
   }
   else if(player.secret[0].item==="movie"){
@@ -709,8 +723,11 @@ Data.prototype.endGamePoints=function(player,room){
   }
   else if(player.secret[0].item==="figures"){
     secretPoints=room.market.figures;
-  }*/
-  return moneyPoints //+secretPoints;
+  }
+  console.log("playerPoints",player.points);
+  player.points=player.points + moneyPoints + secretPoints;
+  console.log("playerPoints",player.points);
+  return moneyPoints + secretPoints;
 }
 
 Data.prototype.changeQuarterPlacement=function(room){
