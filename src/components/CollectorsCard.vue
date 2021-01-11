@@ -222,6 +222,10 @@ export default {
     z-index: 1000;
   }
 
+  .available-to-choose:hover {
+    z-index: 1001;
+  }
+
   /*@keyframes jiggle {
     0% {transform:rotate(0.1deg);}
     50% {transform:rotate(-0.1deg);}
