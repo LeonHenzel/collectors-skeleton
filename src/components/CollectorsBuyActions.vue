@@ -285,8 +285,8 @@ export default {
   }
 
   .buttons {
+    outline: none;
     border: 0.1em solid white;
-    background-color: green;
     width: 80%;
     height: 80%;
     border-radius: 5rem;
@@ -298,13 +298,24 @@ export default {
     grid-template-columns: repeat(auto-fill, 100px);*/
   }
 
+  .buttonWrapper .buttons{
+    background-color: crimson;
+  }
+
+  .buttonWrapper .buttons:hover{
+    background-color: tomato;
+    box-shadow: 0.05em 0.1em 0.21em 0.05em darkgray;
+  }
+
   .buttons button{
+    outline: none;
     border-radius: 2em;
     padding: 2%;
   }
 
   .buttons button:hover{
     background-color: rgb(220, 220, 220);
+    cursor: pointer;
   }
 
   #smallPurchaseButtonBuyActions{
@@ -400,6 +411,7 @@ export default {
   }
 
   .openButton{
+    outline: none;
     height: 100%;
     width: 80%;
     grid-column: 1;
@@ -617,16 +629,15 @@ export default {
 
   .buttonsOverlayWrapper .buttons{
     border: 0.1em solid white;
-    background-color: green;
     width: 100%;
     height: 100%;
-    border-radius: 5rem;
+    border-radius: 10rem;
     /*transform: scale(1.4);*/
     /*margin-bottom: 1rem;*/
   }
 
-  .buttons .red{
-    background-color: red;
+  .buttonsOverlayWrapper .buttons button{
+    border-radius: 10rem;
   }
 
   .openButton:hover{

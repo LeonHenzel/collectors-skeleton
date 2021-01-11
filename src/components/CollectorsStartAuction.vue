@@ -278,12 +278,14 @@ export default {
   .buttonDiv .buttons{
     width: 80%;
     height: 80%;
-
+    outline: none;
   }
 
   .buttons button{
     border: 0.1em solid white;
     background-color: green;
+    outline: none;
+    /*padding: 100%;*/
     width: 100%;
     height: 100%;
     padding: 0.1%;
@@ -297,6 +299,12 @@ export default {
   }
   .buttons button:hover{
     cursor: pointer;
+  }
+
+  .buttons button:hover{
+    cursor: pointer;
+    background-color: forestGreen;
+    box-shadow: 0.05em 0.1em 0.21em 0.05em darkgray;
   }
 
     /* Den svåra delen! Nu ska vi flytta alla kort som är till
