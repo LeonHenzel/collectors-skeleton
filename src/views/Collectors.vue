@@ -1904,7 +1904,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     position: relative;
     float: right;
     cursor: pointer;
-    z-index: 12;
+    z-index: 9;
   }
 
   .menuBar .burgerBarsIcon .barsIcon{
@@ -1943,7 +1943,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .menuButton:checked ~ .menu{
-    max-height: 800%;
+    max-height: 1200%;
     z-index:10;
   }
 
