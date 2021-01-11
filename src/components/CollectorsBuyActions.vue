@@ -440,7 +440,7 @@ export default {
   }
 
   .openItems{
-    color: rgb(17, 122, 101);
+    color: rgb(168, 39, 24);
     }
 
     .cardCost{
