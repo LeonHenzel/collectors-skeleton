@@ -499,6 +499,9 @@ Data.prototype.workerQuarter=function(roomId,playerId,cost){
     room.workerPlacement[0].playerId=player.playerName;
     room.isPlacedList.getIncome=true;
     player.money-=cost;
+    for(let i=0; i<room.players[playerId].hand.length;i+=1){
+      room.players[playerId].hand[i].available=true;
+    }
     if(room.discardTwo===true){
       if(room.discardCount===0){
         room.discardCount=1;
@@ -539,7 +542,11 @@ Data.prototype.raiseIncome=function(roomId,playerId,card){
       player.hand.push(card);
       room.isPlacedList.getIncome2=false;
     }
+    for(let i=0; i<room.players[playerId].hand.length;i+=1){
+      room.players[playerId].hand[i].available=false;
+    }
   }
+
 
 }
 
@@ -568,6 +575,9 @@ Data.prototype.workers=function(roomId,playerId,cost,action){
       room.isPlacedList.getIncome=true;
       room.isPlacedList.getIncome2=true;
       player.energyBottles-=1;
+      for(let i=0; i<room.players[playerId].hand.length;i+=1){
+        room.players[playerId].hand[i].available=true;
+      }
     }
   }
 }
