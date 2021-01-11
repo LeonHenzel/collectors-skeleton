@@ -14,13 +14,12 @@
         </div>
 
       <form class="yourMessage">
-        <hr>
-        <span>
+        <div class="commentWrapper">
           <textarea id="commentWindow" v-model="message"></textarea>
          <button id="sendButton" type="submit" @click="sendMessage">
-            <img src ="https://image.flaticon.com/icons/png/512/46/46076.png" width="20" height="20">
+            <img src ="https://image.flaticon.com/icons/png/512/46/46076.png">
           </button>
-        </span>
+        </div>
       </form>
       <div id="messages">
         <div id="invisibleDiv" v-for="(msg,index) in messages" :key="'msg'+index">
@@ -95,22 +94,26 @@
   margin-left: 10px;
 }
 
+.commentWrapper{
+  height: 6vh;
+  background-color: #f8f8ff;
+
+}
+
 #commentWindow{
   resize: none;
-  max-height: 16pt;
   font-size: 11pt;
   margin-left: 10%;
   width: 70%;
   border-radius: 5px;
   outline: none;
-
+  height: 3.5vh;
 }
 
 
 #messages{
   position:absolute;
-  height: 65vh;
-  max-height: 50vh;
+  height: 55vh;
   width:100%;
   overflow:auto;
   background-color: #313639;
@@ -182,16 +185,25 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 7vh;
+  z-index: 5;
   }
 
   #sendButton{
-  margin: 10px;
-  width: 28px;
-  height: 30px;
-  outline: none;
-  border: none;
-  background-color: transparent;
-  left: 5px;
+    position: absolute;
+    float: right;
+    margin: 1vh;
+    width: 5vw;
+    height: 5vh;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    bottom: 1vh;
+  }
+
+  #sendButton>img{
+    width: 3.5vh;
+    height: 3.5vh;
   }
 
   #sendButton:hover{
