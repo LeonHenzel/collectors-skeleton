@@ -305,12 +305,14 @@ transform: rotate(45deg);
     justify-content: center;
   }
 
-  .openButton img{
+  .theButton img{
+    /* height: 1vh; */
     grid-area: openButtonLeft;
-    /*padding: 5%;*/
+    padding: 5%;
     height: 100%;
-    width: 100%
+    width: 100%;
   }
+
   .openButton span{
     display: flex;
     align-items: center;
