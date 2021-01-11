@@ -665,7 +665,7 @@ export default {
       placementInfo: {
         cost: 0,
         timesMarket: 0,
-      },  
+      },
       choosenPlacementCost:0,
       helpGridOpened: false,
       endTheGame: false
@@ -1240,7 +1240,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         }
         this.moneyPayment = this.winningBid - this.cardPayment;
       }
-      
+
       if(this.players[this.playerId].myTurn === false || card.available===false){
         return
       }
@@ -1943,7 +1943,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .menuBar .menuButton:checked ~ .menu{
-    max-height: 800%;
+    max-height: 1200%;
     z-index:10;
   }
 
