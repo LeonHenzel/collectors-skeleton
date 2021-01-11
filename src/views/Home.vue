@@ -176,6 +176,13 @@ export default {
   padding: 0px;
 }
 
+
+
+
+
+
+/* Bird Animations är skapade av http://www.iamramraj.com/flying-birds-css-animation-examples/ */
+
 .bird {
   background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/174479/bird-cells-new.svg);
   background-size: auto 100%;

@@ -79,6 +79,7 @@
 	"playing": "Playing",
 	"first": "1st",
 	"waitingformore": "Waiting for more players to join...",
+	"waitingforplayer": "Waiting for player to submit name...",
 	"uselink": "Use the link to invite more players:",
 	"work": "Work",
 	"placedhere": "Placed here",

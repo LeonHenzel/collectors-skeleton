@@ -400,7 +400,7 @@
 
                     <button href="#" class ="openPlayerviewGridButton" @click="expandPlayerviewGrid()">
                       <img src="https://image.flaticon.com/icons/png/512/30/30565.png">
-                      <span>{{labels.expandstatus}}</span>
+                      <span class="openPlayerviewGridButtonText">{{labels.expandstatus}}</span>
                     </button>
 
 
@@ -2399,6 +2399,10 @@ cursor: not-allowed;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .openPlayerviewGridButtonText{
+    font-size: 2.3vh;
   }
 
   .myHandOverlay{

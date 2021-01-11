@@ -38,7 +38,8 @@
         <div v-else> <h1>{{playerr.playerName}} {{labels.isready}}</h1></div>
         </div>
         <div v-else>
-          <h1>{{playerr.playerName}} {{labels.isnotready}} </h1>
+          <h1 v-if="playerr.playerName===''">{{labels.waitingforplayer}}</h1>
+          <h1 v-else>{{playerr.playerName}} {{labels.isnotready}} </h1>
         </div>
       </ul>
     </div>
