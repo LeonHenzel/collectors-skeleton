@@ -19,6 +19,7 @@
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
+
       <div class="startgamewrapper">
       <div>
         <CollectorsStartGame v-if="!allPlayersReady"
@@ -197,6 +198,7 @@
             :placement="marketPlacement"
             :marketValues="marketValues"
             :isPlacedList="isPlacedList"
+            :twoTimesMarket="twoTimesMarket"
             @cancelAction="cancelAction()"
             @placeBottle="placeBottle('market',$event)"
             @changeTwoMarket="changeTwoMarket()"/>
@@ -294,9 +296,9 @@
                       <div class="cardslotsTextWrapper">
                         <h3>{{labels.myhand}}</h3>
                       </div>
-                      <div class="cardslotsCardsWrapper">
-                        <div class="cardslots" v-if="players[playerId]">
-                          <CollectorsCard v-for="(card, index) in players[playerId].hand" :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
+                      <div class="cardslotsCardsWrapper" v-if="players[playerId]">
+                        <div class="cardslots"  v-for="(card, index) in players[playerId].hand" :key="index">
+                          <CollectorsCard  :card="card" :availableAction="card.available" @doAction="doAction(card)" :key="index"/>
                         </div>
                       </div>
                     </div>
@@ -441,8 +443,11 @@
                 </div>
 
                 <div class="overlayPlayerView" id = "expandPlayerview">
-                  <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
+
                   <div class="overlayPlayerViewWrapper">
+                    <button class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">
+                      <a href="#">&times; </a>
+                    </button>
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
                         <CollectorsPlayerviewOverlayTitle v-if="players[playerId]"
                         :player="players[playerId]"
@@ -626,10 +631,12 @@ export default {
       allPlayersReady: false,
       playerList: [],
       playerCount: 0,
+      twoTimesMarket:0,
       placementInfo: {
         cost: 0,
         timesMarket: 0
-      }
+      },
+      choosenPlacementCost:0
     }
   },
   computed: {
@@ -681,7 +688,10 @@ export default {
         this.allPlayersReady=d.allPlayersReady;
         this.playerCount=d.playerCount;
         this.placementInfo=d.placementInfo;
+        this.twoTimesMarket=d.twoTimesMarket;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         this.sortPlayerList();
+
 
       }.bind(this));
 
@@ -697,6 +707,7 @@ export default {
       this.auctionCards=d.auctionCards;
       this.itemsOnSale=d.itemsOnSale;
       this.placementInfo=d.placementInfo;
+      this.choosenPlacementCost=d.choosenPlacementCost;
     }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
@@ -713,6 +724,8 @@ export default {
           this.itemsOnSale=d.itemsOnSale;
         }
         this.placementInfo=d.placementInfo;
+        this.twoTimesMarket=d.twoTimesMarket;
+        this.choosenPlacementCost=d.choosenPlacementCost;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -739,6 +752,7 @@ export default {
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlacedList=d.isPlacedList;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -760,6 +774,7 @@ export default {
         this.players=d.players;
         this.skillsOnSale=d.skillsOnSale;
         this.isPlacedList=d.isPlacedList;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -774,6 +789,7 @@ export default {
         this.currentAuction = d.currentAuction;
         this.currentBid = d.currentBid;
         this.isPlacedList=d.isPlacedList;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         console.log("currentAuction = " + this.currentAuction);
 
         this.expandAuctionGrid();
@@ -875,11 +891,8 @@ export default {
       this.auctionCards=d.auctionCards;
       this.isPlacedList=d.isPlacedList;
       this.twoMarket=d.twoMarket;
-      if (this.twoMarket===true){
-        //console.log("kör market en gång till")
-        //this.placeBottle('market',0);
-      }
-      //console.log(this.twoMarket);
+      this.twoTimesMarket=d.twoTimesMarket;
+      this.choosenPlacementCost=d.choosenPlacementCost;
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
@@ -1091,11 +1104,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           return
         }
       else if(action ==="market"){
-        this.chosenPlacementCost = cost;
+        this.choosenPlacementCost = cost;
         this.marketBottle(action, cost, this.twoMarket);
         return
       }
-      this.chosenPlacementCost =cost ;
+      this.choosenPlacementCost =cost ;
       this.$store.state.socket.emit('collectorsPlaceBottle', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -1142,8 +1155,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     doAction: function(card){
-      if(this.players[this.playerId].myTurn === false){
-        console.log("not my turn");
+      if(this.players[this.playerId].myTurn === false || card.available===false){
+        return
+
       }
       else if(this.isPlacedList.item===true){
 
@@ -1350,7 +1364,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           roomId: this.$route.params.id,
           playerId: this.playerId,
           card: card,
-          cost: this.marketValues[card.market] + this.chosenPlacementCost
+          cost: this.marketValues[card.item] + this.choosenPlacementCost
         }
       );
     },
@@ -1369,7 +1383,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
             roomId: this.$route.params.id,
             playerId: this.playerId,
             card: card,
-            cost: this.chosenPlacementCost
+            cost: this.choosenPlacementCost
         }
           );
         }
@@ -1392,7 +1406,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           roomId: this.$route.params.id,
           playerId: this.playerId,
           card: card,
-          cost: this.chosenPlacementCost
+          cost: this.choosenPlacementCost
         }
 
       );}
@@ -1577,7 +1591,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.chosenPlacementCost,
+        cost: this.choosenPlacementCost,
         action: action
   });
   this.marketBottleDone();
@@ -1831,6 +1845,19 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     top: 0;
   }
 
+  .cardslotsTextWrapper{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+ .cardslotsCardsWrapper{
+   grid-column: 1;
+   grid-row: 2;
+   display: grid;
+   grid-template-columns: 30% 30% 30%;
+   grid-template-rows: 33% 30% 30%;
+
+ }
 
     .aboutOverlay{
 
@@ -2145,7 +2172,7 @@ cursor: not-allowed;
     background-color: beige;
     color: black;
     font-weight: bold;
-    height: 100%;
+    height: 99.5%;
     position: relative;
     /* overflow-y: hidden; */
     display: grid;
@@ -2233,7 +2260,8 @@ cursor: not-allowed;
   }
 
   .myStatus{
-    margin-top: -5px;
+    margin-top: 2%;
+    margin-bottom: 3%;
     background: #672d75;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2242,7 +2270,7 @@ cursor: not-allowed;
     border-color: white;
     border-radius: 20px;
     width: 95.8%;
-    height: 98%;
+    height: 94.9%;
   }
 
   #myStatusTitle{
@@ -2481,9 +2509,16 @@ cursor: not-allowed;
     background: repeating-conic-gradient(#933, #bf4040 1%);
 
     display: grid;
-    grid-template-rows: 20% 80%;
-    grid-template-columns: 100%;
+    grid-template-rows: 5% 15% 80%;
+    grid-template-columns: 95% 5%;
   }
+
+  .overlayPlayerViewWrapperTop{
+    grid-column: 1/3;
+    grid-row: 1/3;
+
+  }
+
 
   .overlayPlayerViewWrapperBottom{
     display: grid;
@@ -2517,16 +2552,19 @@ cursor: not-allowed;
     "myHandOverlay myItemsOverlay mySkillsOverlay"; */
   }
   .overlayPlayerView a{
-    padding: 10px;
     color: white;
     display: block;
   }
 
   .overlayPlayerView .closePlayerviewGridButton{
-    position: absolute;
-    top: 5vh;
-    right: 10vh;
     font-size: 6vh;
+    background-color: transparent;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .overlayPlayerView .closePlayerviewGridButton>a{
+
   }
 
   .aboutOverlay .closeAboutGridButton{
@@ -2670,6 +2708,9 @@ cursor: not-allowed;
 
   .bidWinnerWrapperVisible .cardslotsWrapper{
     grid-area: bidWinnerWrapperBottomLeft;
+    display: grid;
+    grid-template-columns: 80%;
+    grid-template-rows: 20% 70%;
   }
 
   .bidWinnerWrapperVisible .paymentAuctionWrapper{
