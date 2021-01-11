@@ -446,7 +446,7 @@
 
                   <div class="overlayPlayerViewWrapper">
                     <button class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">
-                      <img src="expand.svg" alt="">
+                      <a href="#">&times; </a>
                     </button>
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
                         <CollectorsPlayerviewOverlayTitle v-if="players[playerId]"
@@ -2172,7 +2172,7 @@ cursor: not-allowed;
     background-color: beige;
     color: black;
     font-weight: bold;
-    height: 97%;
+    height: 96.5%;
     position: relative;
     /* overflow-y: hidden; */
     display: grid;
@@ -2277,7 +2277,7 @@ cursor: not-allowed;
     border-color: white;
     border-radius: 20px;
     width: 100%;
-    height: 94.9%;
+    height: 99%;
   }
 
   #myStatusTitle{

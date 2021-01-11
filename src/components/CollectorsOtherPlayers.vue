@@ -21,7 +21,7 @@
         </div>
 
           <button class="expandButton" @click="expandThisPlayerviewGrid(player)">
-            <img src="https://www.pinclipart.com/picdir/middle/218-2186085_click-for-full-screen-expand-icon-svg-clipart.png" height="20" width="20">
+            <img src="/images/expand.svg" height="20" width="20">
           </button>
         </div>
       </div>
