@@ -244,10 +244,11 @@ export default {
   .buttonDiv .buttons{
     width: 80%;
     height: 80%;
-
+    outline: none;
   }
 
   .buttons button{
+    outline: none;
     border-radius: 2em;
     /*padding: 100%;*/
     width: 100%;
@@ -257,6 +258,12 @@ export default {
     /*background: -webkit-linear-gradient(to right, #fcb045, #fd1d1d, #833ab4);
     background: linear-gradient(to right, #00dbde 0%, #fc00ff 100%);*/
 
+  }
+
+  .buttons button:hover{
+    cursor: pointer;
+    background-color: forestGreen;
+    box-shadow: 0.05em 0.1em 0.21em 0.05em darkgray;
   }
 
     /* Den svåra delen! Nu ska vi flytta alla kort som är till

@@ -8,7 +8,7 @@
 
     <div  v-for="(p, index) in placement" :key="index">
       <div class="buttonGrid">
-      <button class="buttons"
+      <button :class="['buttons', {'red': p.cost>0}]"
         v-if="p.playerId===null"
         :disabled="cannotAfford(p.cost)"
         @click="placeBottle(p)" >
@@ -112,6 +112,7 @@ export default {
 }
 
 .buttons{
+  outline: none;
   border: 0.1em solid white;
   background-color: green;
   width: 80%;
@@ -119,6 +120,23 @@ export default {
   border-radius: 5rem;
   text-align: center;
   grid-column: 1;
+}
+.buttons:hover{
+  cursor: pointer;
+  background-color: forestGreen;
+  box-shadow: 0.05em 0.1em 0.21em 0.05em darkgray;
+}
+
+.red{
+  background-color: crimson;
+}
+
+.red button{
+  background-color:  crimson;
+}
+
+.red:hover{
+  background-color: tomato;
 }
 
 

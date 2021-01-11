@@ -209,7 +209,7 @@ transform: rotate(45deg);
     background-color: rgb(69, 179, 157);
   }
 
-  .buttons {
+  .buttons{
     border: 0.1em solid white;
     background-color: green;
     width: 80%;
@@ -222,19 +222,32 @@ transform: rotate(45deg);
     grid-template-columns: repeat(auto-fill, 100px);*/
   }
 
+  .buttonWrapper .buttons button{
+    outline: none;
+  }
+
+  .buttons{
+    outline: none;
+  }
+
   .buttons button{
+    outline: none;
     height: 80%;
     width: 80%;
     border-radius: 2em;
-    padding: 2%;
-
-
-
-
+    padding: 2%
   }
   .buttons button:hover{
     background-color: rgb(220, 220, 220);
   }
+
+  .buttonWrapper .buttons:hover{
+    background-color: forestGreen;
+    cursor: pointer;
+    box-shadow: 0.05em 0.1em 0.21em 0.05em darkgray;
+  }
+
+
 
 
   .red{
@@ -242,7 +255,7 @@ transform: rotate(45deg);
 
   }
 
-  .red:hover{
+  .buttonWrapper .red:hover{
     background-color: tomato;
   }
 
@@ -305,6 +318,7 @@ transform: rotate(45deg);
     z-index: 3;
     position: relative;
     justify-content: center;
+    outline: none;
   }
 
   .openButton img{
@@ -395,6 +409,7 @@ transform: rotate(45deg);
     "bottomLeft";
   }*/
 
+
   .overlay .openButtonWrapper .openButton{
     /*grid-area: topLeft;*/
     /*grid-area: button;*/
@@ -434,16 +449,15 @@ transform: rotate(45deg);
   .overlay .paymentWrapper .buttonsOverlayWrapper .buttons{
     width: 80%;
     height: 60%;
-  }
-
-  .buttonsOverlayWrapper .buttons{
     border-radius: 5rem;
   }
+
 
 
   .overlay .paymentWrapper .buttonsOverlayWrapper .buttons button{
     height: 100%;
     width: 100%;
+    border-radius: 5rem;
   }
 
   .overlay .backToBoard{
@@ -513,9 +527,9 @@ transform: rotate(45deg);
     "openButtonLeft openButtonRight";
   }
 
-  .theButton>img{
+  /*.theButton>img{
     object-fit: contain;
-  }
+  }*/
 
 
   @media all and (max-width:1200px){
