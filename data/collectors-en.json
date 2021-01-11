@@ -82,6 +82,9 @@
 	"uselink": "Use the link to invite more players:",
 	"work": "Work",
 	"placedhere": "Placed here",
-	"raisebidding": "Raise Bid 1 Coin"
+	"raisebidding": "Raise Bid 1 Coin",
+	"endTheGame": "The Game is Finished!",
+	"scoreIs": "The score in descending order: ",
+	"score": "Score:"
 
 	}

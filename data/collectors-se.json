@@ -81,6 +81,8 @@
 	"uselink": "Använd den här länken för att bjuda in andra spelare:",
 	"work": "Arbetsyta",
 	"placedhere": "Placerad Här",
-	"raisebidding": "Höj Budet 1 Coin"
-
+	"raisebidding": "Höj Budet 1 Coin",
+	"endTheGame": "Spelet är slut!",
+	"scoreIs": "Poängen i minskande ordning: ",
+	"score": "Poäng:"
 }

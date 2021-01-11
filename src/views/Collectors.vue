@@ -18,7 +18,7 @@
 
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
-
+      {{endTheGame}}
       <div class="startgamewrapper">
       <div>
         <CollectorsStartGame v-if="!allPlayersReady"
@@ -88,6 +88,27 @@
                     <h3>Kalle Rosengren</h3>
                   </div>
                 </div>
+
+                <div class="endGameOverlay" v-if="endTheGame"  id = "expandEndGame">
+                  <!-- <a href="#" class="closeEndGameGridButton" @click="minimizeEndGameGrid()">&times;</a> -->
+                  <div class="EndGameInfoOverlay">
+                    <h1 id="EndGameLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+
+                    <h1>{{labels.endTheGame}}</h1>
+
+                    <h2>{{labels.scoreIs}}</h2>
+
+                    <ol v-for="(player, index) in playerEndList" :key="index"><div>{{player.playerName}} {{labels.score}} {{player.points}}</div></ol>
+
+
+
+
+
+
+                  </div>
+                </div>
+
+
 
                 <div class="exitOverlay" id = "expandExit">
                   <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
@@ -613,11 +634,15 @@ export default {
       allPlayersIn: false,
       allPlayersReady: false,
       playerList: [],
+      playerEndList: [],
       playerCount: 0,
       placementInfo: {
         cost: 0,
         timesMarket: 0
-      }
+
+      },
+
+      endTheGame: false
     }
   },
   computed: {
@@ -669,7 +694,13 @@ export default {
         this.allPlayersReady=d.allPlayersReady;
         this.playerCount=d.playerCount;
         this.placementInfo=d.placementInfo;
+        this.endTheGame=d.endTheGame;
         this.sortPlayerList();
+
+        if(this.endTheGame)
+        {
+            this.scoreSort();
+        }
 
       }.bind(this));
 
@@ -945,6 +976,8 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
     this.$store.state.socket.on('incomeStarted',function(d){
       this.players=d.players;
       this.incomePhase=d.incomePhase;
+      this.endTheGame=d.endTheGame;
+      this.scoreSort();
     }.bind(this));
 
     this.$store.state.socket.on('incomeGotten',function(d){
@@ -1053,6 +1086,17 @@ this.$store.state.socket.on('discardTwoIsTrue',function(d){
         playerName: this.playerName});
 
     },
+
+    // checkEndGame: function(){
+    //
+    //     if(this.round = true;
+    //
+    //     this.$store.state.socket.emit("hasGameEnded", {roomId: this.$route.params.id,
+    //     playerId: this.playerId,
+    //     playerName: this.playerName});
+    //
+    // }
+
     submitName2: function(){
 
       this.gotSubmitted = true;
@@ -1243,6 +1287,25 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         roomId: this.$route.params.id})
     },
 
+    scoreSort: function(){
+
+      this.playerEndList=[]
+
+      for(let id in this.players){
+        this.playerEndList.push(this.players[id])
+      }
+
+      for(let n=0;n<this.playerEndList.length-1;n+=1){
+        for(let i=0;i<this.playerEndList.length-1;i+=1){
+          if(this.playerEndList[i].points<this.playerEndList[i+1].points){
+            let memory=this.playerEndList[i];
+            this.playerEndList[i]=this.playerEndList[i+1];
+            this.playerEndList[i+1]=memory;
+          }
+        }
+      }
+  },
+
 
     placeWorker: function(d){
       if(this.players[this.playerId].myTurn===false){
@@ -1423,6 +1486,14 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     minimizeAboutGrid: function(){
+      document.getElementById('expandAbout').style.width = "0%";
+    },
+
+    expandEndGameGrid: function(){
+      document.getElementById('expandAbout').style.width = "100%";
+    },
+
+    minimizeEndGameGrid: function(){
       document.getElementById('expandAbout').style.width = "0%";
     },
 
@@ -1836,6 +1907,24 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     }
 
+    .endGameOverlay{
+
+      position: fixed;
+      width: 100%;
+      height:100%;
+      top: 0;
+      right: 0;
+      background: rgba(0,0,0,.7);
+      overflow-x: hidden;
+      z-index: 10;
+      transition: all 0.5s;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0px 0px;
+      /* grid-template-areas: */
+
+    }
+
     .exitOverlay{
 
       position: fixed;
@@ -1875,6 +1964,12 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     }
 
     .aboutInfoOverlay{
+      color: white;
+      margin-left: 30%;
+      margin-top: -5%;
+    }
+
+    .aboutEndGameOverlay{
       color: white;
       margin-left: 30%;
       margin-top: -5%;
@@ -2299,7 +2394,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
   }
 
   .myHandOverlay{
-    
+
     border-radius: 1em;
     /* grid-area: myHandOverlay; */
     border: 5px dotted #fff;

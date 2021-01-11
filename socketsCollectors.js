@@ -22,7 +22,9 @@ function sockets(io, socket, data) {
             allPlayersIn: data.rooms[d.roomId].allPlayersIn,
             allPlayersReady: data.rooms[d.roomId].allPlayersReady,
             playerCount: data.rooms[d.roomId].playerCount,
-            placementInfo: data.rooms[d.roomId].placementInfo
+            placementInfo: data.rooms[d.roomId].placementInfo,
+            endTheGame: data.rooms[d.roomId].endTheGame
+
           }
         );
       }
@@ -275,7 +277,9 @@ function sockets(io, socket, data) {
       data.startIncome(d.roomId)
       io.to(d.roomId).emit('incomeStarted',{
         players:  data.getPlayers(d.roomId),
-        incomePhase: data.rooms[d.roomId].incomePhase
+        incomePhase: data.rooms[d.roomId].incomePhase,
+        endTheGame: data.rooms[d.roomId].endTheGame
+
       });
     });
 
@@ -283,6 +287,7 @@ function sockets(io, socket, data) {
       data.getIncome(d.drawOneCard, d.oneIncome, d.twoIncome, d.roomId,d.playerId)
       io.to(d.roomId).emit('incomeGotten',{
         players: data.getPlayers(d.roomId)
+
       });
     });
 
