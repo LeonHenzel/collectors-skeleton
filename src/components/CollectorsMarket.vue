@@ -1,5 +1,7 @@
 <template>
+
   <div class="marketWrapper">
+    <button type="submit" class="openHelpGridMarket" @click="openHelpGridMarket()">?</button>
 <h1>{{labels.raiseMarket}}</h1>
   <button type="submit" class="cancelButton" v-if="isPlacedList.market && player.myTurn && twoTimesMarket===0" @click="cancelAction()">{{labels.cancelAction}}</button>
     <div class="buttonsMarket" v-if="!isPlacedList.market || !player.myTurn || twoTimesMarket===1">
@@ -93,6 +95,9 @@ export default {
     },
     cancelAction: function(){
       this.$emit('cancelAction')
+    },
+    openHelpGridMarket: function(){
+      this.$emit('openHelpGridMarket')
     }
 
 }
@@ -113,6 +118,23 @@ export default {
   grid-row: 2;
 }
 
+.openHelpGridMarket{
+  position: absolute;
+  right: 0;
+  height: 4vh;
+  width: 2.3vw;
+  border-radius: 100%;
+  font-weight: bold;
+  outline:none;
+  font-size: 2vh;
+  z-index: 5;
+  border: 1px solid black;
+  margin: 1px;
+}
+
+.openHelpGridMarket:hover{
+  cursor:pointer;
+}
 
 .buttonGrid>div{
   grid-column: 1;

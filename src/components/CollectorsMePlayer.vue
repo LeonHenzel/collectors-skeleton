@@ -1,6 +1,5 @@
 <template>
     <div class="mePlayer" v-if="player">
-
         <div class="mePlayerWrapper">
             <div class="playerName">
               <div class="nameWrapper">
@@ -116,6 +115,7 @@ export default {
   grid-template-columns: 50% 35% 15%;
   grid-template-rows: 100%;
 }
+
 
 .theName{
   height: 100%;

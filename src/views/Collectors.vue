@@ -125,6 +125,7 @@
 
         <div class="gameBoardWrapper">
           <div class="Items">
+            <!---->
             <div class="cardsOnSale">
               <CollectorsBuyActions v-if="players[playerId]"
                 :labels="labels"
@@ -135,7 +136,8 @@
                 :isPlacedList="isPlacedList"
                 @buyCard="buyCard($event)"
                 @placeBottle="placeBottle('buy', $event)"
-                @cancelAction="cancelAction()"/>
+                @cancelAction="cancelAction()"
+                @openHelpGridItem="openHelpGridItem()"/>
 
               <div class="helpGridItem" id="helpGridItem">
                 <a href="#" class="closeButton" @click="closeHelpGridItem()">&times;</a>
@@ -163,7 +165,8 @@
               :playerCount="playerCount"
               @cancelAction="cancelAction()"
               @buySkill="buySkill($event)"
-              @placeBottle="placeBottle('skill',$event)"/>
+              @placeBottle="placeBottle('skill',$event)"
+              @openHelpGridSkill="openHelpGridSkill()"/>
 
               <div class="helpGridSkills" id="helpGridSkills">
                 <a href="#" class="closeButton" @click="closeHelpGridSkill()">&times;</a>
@@ -180,7 +183,8 @@
             :placement="workerPlacement"
             :round="round"
             @placeWorker="placeWorker($event)"
-            @setDiscardTwoTrue="setDiscardTwoTrue()"/>
+            @setDiscardTwoTrue="setDiscardTwoTrue()"
+            @openHelpGridWorker="openHelpGridWorker()"/>
 
             <div class="helpGridWorker" id="helpGridWorker">
               <a href="#" class="closeButton" @click="closeHelpGridWorker()">&times;</a>
@@ -200,7 +204,8 @@
             :twoTimesMarket="twoTimesMarket"
             @cancelAction="cancelAction()"
             @placeBottle="placeBottle('market',$event)"
-            @changeTwoMarket="changeTwoMarket()"/>
+            @changeTwoMarket="changeTwoMarket()"
+            @openHelpGridMarket="openHelpGridMarket()"/>
 
             <div class="helpGridMarket" id="helpGridMarket">
               <a href="#" class="closeButton" @click="closeHelpGridMarket()">&times;</a>
@@ -230,7 +235,8 @@
                 :isPlacedList="isPlacedList"
                 @cancelAction="cancelAction()"
                 @startAuction="startAuction($event)"
-                @placeBottle="placeBottle('auction', $event)"/>
+                @placeBottle="placeBottle('auction', $event)"
+                @openHelpGridAuction="openHelpGridAuction()"/>
 
             </div>
 
@@ -389,6 +395,7 @@
             </div>
 
             <div id="mePlayer">
+              <button type="submit" class="openHelpGridPlayerview" @click="openHelpGridPlayerview()">?</button>
                 <div class="myStatus">
                   <div class="myStatusContent">
                     <h2 id="myStatusTitle">{{labels.mystatus}}</h2>
@@ -396,7 +403,8 @@
                     <div class="myStatusComponent">
                     <CollectorsMePlayer v-if="players[playerId]"
                       :player="players[playerId]"
-                      :labels="labels" />
+                      :labels="labels"
+                      @openHelpGridPlayerview="openHelpGridPlayerview()" />
                     </div>
 
                     <button href="#" class ="openPlayerviewGridButton" @click="expandPlayerviewGrid()">
@@ -631,7 +639,8 @@ export default {
       placementInfo: {
         cost: 0,
         timesMarket: 0
-      }
+      },
+      helpGridOpened: false
     }
   },
   computed: {
@@ -1453,11 +1462,46 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     expandTutorialGrid: function(){
+      if(this.helpGridOpened===false){
+        document.getElementById('helpGridItem').style.width = "100%";
+        document.getElementById('helpGridSkills').style.width = "100%";
+        document.getElementById('helpGridWorker').style.width = "100%";
+        document.getElementById('helpGridMarket').style.width = "100%";
+        document.getElementById('helpGridAuction').style.width = "100%";
+        document.getElementById('helpGridPlayerview').style.width = "100%";
+        this.helpGridOpened = true;
+        return;
+      }
+      document.getElementById('helpGridItem').style.width = "0%";
+      document.getElementById('helpGridSkills').style.width = "0%";
+      document.getElementById('helpGridWorker').style.width = "0%";
+      document.getElementById('helpGridMarket').style.width = "0%";
+      document.getElementById('helpGridAuction').style.width = "0%";
+      document.getElementById('helpGridPlayerview').style.width = "0%";
+      this.helpGridOpened = false;
+    },
+
+    openHelpGridItem: function(){
       document.getElementById('helpGridItem').style.width = "100%";
+    },
+
+    openHelpGridSkill: function(){
       document.getElementById('helpGridSkills').style.width = "100%";
+    },
+
+    openHelpGridWorker: function(){
       document.getElementById('helpGridWorker').style.width = "100%";
+    },
+
+    openHelpGridMarket: function(){
       document.getElementById('helpGridMarket').style.width = "100%";
+    },
+
+    openHelpGridAuction: function(){
       document.getElementById('helpGridAuction').style.width = "100%";
+    },
+
+    openHelpGridPlayerview: function(){
       document.getElementById('helpGridPlayerview').style.width = "100%";
     },
 
@@ -1892,7 +1936,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       right: 0;
       background: rgba(0,0,0,.7);
       overflow-x: hidden;
-      z-index: 10;
+      z-index: 100;
       transition: all 0.5s;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -2244,6 +2288,23 @@ cursor: not-allowed;
     height: 100%;
     grid-column: 1;
     grid-row: 2;
+  }
+
+  .openHelpGridPlayerview{
+    position: absolute;
+    right: 0;
+    height: 4vh;
+    width: 2.3vw;
+    border-radius: 100%;
+    font-weight: bold;
+    outline:none;
+    font-size: 2vh;
+    z-index: 5;
+    border: 1px solid black;
+  }
+
+  .openHelpGridPlayerview:hover{
+    cursor:pointer;
   }
 
   .myStatus{
