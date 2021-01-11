@@ -1,5 +1,6 @@
 <template>
   <div class="workersWrapper">
+    <button type="submit" class="openHelpGridWorker" @click="openHelpGridWorker()">?</button>
     <div class="workersTitle">
       <img src="https://cdn1.iconfinder.com/data/icons/worker-icons/100/01-1User-512.png" alt="workerImg" width="160px" height="160px">
       <h1>{{labels.work}}</h1>
@@ -68,6 +69,9 @@
           return true;
         }
 
+      },
+      openHelpGridWorker: function(){
+        this.$emit('openHelpGridWorker')
       }
     }
   }
@@ -124,6 +128,22 @@
     object-fit: contain;
   }
 
+  .openHelpGridWorker{
+    position: absolute;
+    right: 0;
+    height: 4vh;
+    width: 2.3vw;
+    border-radius: 100%;
+    font-weight: bold;
+    outline:none;
+    font-size: 2vh;
+    z-index: 5;
+    border: 1px solid black;
+  }
+
+  .openHelpGridWorker:hover{
+    cursor:pointer;
+  }
 
 
   .workerButtons{

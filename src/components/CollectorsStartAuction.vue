@@ -1,5 +1,6 @@
 <template>
     <div class="auctionLayout">
+      <button type="submit" class="openHelpGridAuction" @click="openHelpGridAuction()">?</button>
       <div class="auctionLayoutTitleWrapper">
         <!--<h3>{{ labels.startAuction }}</h3>-->
         <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
@@ -117,6 +118,9 @@ export default {
     },
     cancelAction: function(){
       this.$emit('cancelAction')
+    },
+    openHelpGridAuction: function(){
+      this.$emit('openHelpGridAuction')
     }
 
   }
@@ -155,6 +159,23 @@ export default {
   .right {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
+  }
+
+  .openHelpGridAuction{
+    position: absolute;
+    right: 0;
+    height: 4vh;
+    width: 2.3vw;
+    border-radius: 100%;
+    font-weight: bold;
+    outline:none;
+    font-size: 2vh;
+    z-index: 5;
+    border: 1px solid black;
+  }
+
+  .openHelpGridAuction:hover{
+    cursor:pointer;
   }
 
 

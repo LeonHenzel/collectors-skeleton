@@ -1,7 +1,7 @@
 <template>
     <div class="CollectorsBuyAction">
+      <button type="submit" class="openHelpGridItem" @click="openHelpGridItem()">?</button>
       <div class="gridWrapper">
-
         <div class="openButtonWrapper">
           <button href="#" class = "openButton openItems" @click="openNav()">
             <div class="theButton">
@@ -180,6 +180,9 @@ export default {
     },
     cancelAction: function(){
       this.$emit('cancelAction')
+    },
+    openHelpGridItem: function(){
+      this.$emit("openHelpGridItem");
     }
 
   }
@@ -211,6 +214,23 @@ export default {
     z-index: 100;
     grid-column: 1;
     grid-row: 2/4;
+  }
+
+  .openHelpGridItem{
+    position: absolute;
+    right: 0;
+    height: 4vh;
+    width: 2.3vw;
+    border-radius: 100%;
+    font-weight: bold;
+    outline:none;
+    font-size: 2vh;
+    z-index: 5;
+    border: 1px solid black;
+  }
+
+  .openHelpGridItem:hover{
+    cursor:pointer;
   }
 
   .arrow {

@@ -1,5 +1,6 @@
 <template>
     <div class="CollectorsBuySkill">
+      <button type="submit" class="openHelpGridSkill" @click="openHelpGridSkill()">?</button>
       <div class="gridWrapper">
         <button href="#" title="Expands with more info" class="openButton openSkills" @click="openNav()">
           <div class="theButton">
@@ -152,6 +153,9 @@ export default {
     },
     cancelAction: function(){
       this.$emit('cancelAction')
+    },
+    openHelpGridSkill: function(){
+      this.$emit('openHelpGridSkill')
     }
 
   }
@@ -279,6 +283,23 @@ transform: rotate(45deg);
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 30% 45% 25%;
+  }
+
+  .openHelpGridSkill{
+    position: absolute;
+    right: 0;
+    height: 4vh;
+    width: 2.3vw;
+    border-radius: 100%;
+    font-weight: bold;
+    outline:none;
+    font-size: 2vh;
+    z-index: 5;
+    border: 1px solid black;
+  }
+
+  .openHelpGridSkill:hover{
+    cursor:pointer;
   }
 
 
