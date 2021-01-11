@@ -2172,13 +2172,17 @@ cursor: not-allowed;
     background-color: beige;
     color: black;
     font-weight: bold;
-    height: 99.5%;
+    height: 98%;
     position: relative;
     /* overflow-y: hidden; */
     display: grid;
     grid-template-rows: 50% 50%;
     grid-template-columns: 100%;
     border-radius: 1em;
+    margin-top: 2%;
+    border: 6px;
+    border-style: solid;
+    border-color: white;
 
   }
 
@@ -2257,19 +2261,22 @@ cursor: not-allowed;
     height: 100%;
     grid-column: 1;
     grid-row: 2;
+    margin: 0;
   }
 
   .myStatus{
-    margin-top: 2%;
-    margin-bottom: 3%;
+    margin: 0;
     background: #672d75;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    border: 6px;
+    border-top: 6px;
+    border-right:  0px;
+    border-bottom: 6px;
+    border-left:   0px;
     border-style: solid;
     border-color: white;
     border-radius: 20px;
-    width: 95.8%;
+    width: 100%;
     height: 94.9%;
   }
 
@@ -2284,7 +2291,7 @@ cursor: not-allowed;
     display: grid;
     flex-direction: column;
     height: 98%;
-    width: 98%;
+    width: 100%;
     /*margin-top: -10px;*/
   }
 
