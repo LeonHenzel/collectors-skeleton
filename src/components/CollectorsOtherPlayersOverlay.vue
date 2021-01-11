@@ -1,14 +1,19 @@
 <template>
     <div class="mePlayer" v-if="player">
-
         <div class="thisPlayerContent">
-
             <CollectorsOtherPlayerviewOverlayTitle v-if="player"
             :player="player"
             :labels="labels" />
 
+            <div class="topRightContent">
+                <button class="closeButton" @click="closeOverLay(player);">
+                  <a href="#" >&times;</a>
+                </button>
+            </div>
 
-             <div class="leftandright"> 
+
+
+             <div class="leftandright">
                 <div class="mePlayerContent">
 
                     <div class="myPointsDiv">
@@ -20,7 +25,7 @@
                             <div class="points pointsPlayer">{{player.points}}</div>
                         </div>
                         </div>
-                        
+
                         <div id="myPointsSecondRow">
                         <div class="badge pointsBadge">
                             <h2>Energy Bottles</h2>
@@ -45,7 +50,7 @@
                             <h1 class="badge">
                             <div class="badgeContent">
                                 <div class="imageContainer"><img src="/images/skillsVP.png"></div>
-                                <div class="points skillPoints">{{player.skillVP.VPAll}}</div> 
+                                <div class="points skillPoints">{{player.skillVP.VPAll}}</div>
                             </div>
                             </h1>
                         </div>
@@ -155,7 +160,7 @@
                         </div>
                     </div>
                 </div>
-            </div>  
+            </div>
 
         </div>
 
@@ -174,10 +179,17 @@ export default {
   components: {
     CollectorsOtherPlayerviewOverlayTitle,
     CollectorsCard
-  }, 
+  },
   props: {
     labels: Object,
     player: Object
+  },
+  methods: {
+
+    closeOverLay: function(hej){
+      this.$emit('closeOverlay',hej )
+    }
+
   }
 }
 </script>
@@ -193,10 +205,28 @@ export default {
   z-index: 500;
 }
 
+.closeButton{
+  grid-column: 2;
+  grid-row: 1;
+  background-color: transparent;
+  margin: 10%;
+}
+
+.topRightContent {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 30% 70%;
+}
+
 .leftandright{
+    grid-row: 2;
+    grid-column: 1/3;
     margin-top: 4vh;
     display: grid;
     grid-template-columns: 60% 40%;
+    grid-template-rows: 100%;
 }
 
 .rightContent{
@@ -228,22 +258,35 @@ export default {
 }
 
 .thisPlayerContent {
-
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-rows: 30% 70%;
 }
 
 .mePlayerContent{
-  display: flex;
-  flex-direction: column;
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 25% 50% 25%;
+  /*display: felx;
+  flex-direction: column;*/
   align-items: center;
-  height: 70vh;
+  height: 100%;;
 }
 
+
 .myPointsDiv{
+  justify-content: center;
   padding-bottom: 1vh;
+
 }
 
 .itemSummaryWrapperDiv{
   padding-top: 1vh;
+  justify-content: center;
 }
 
 .imageContainer{
@@ -379,6 +422,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   text-align: center;
+  align-items: center;
 }
 
 .myPoints{

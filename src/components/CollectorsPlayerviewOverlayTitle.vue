@@ -37,7 +37,7 @@ export default {
 .secretCard{
     position: absolute;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column;
     gap: 0.6vh;
     flex-wrap: wrap;
     /* background: blanchedalmond; */
@@ -111,6 +111,8 @@ h3 {
 
 
 .playerName h1{
+    grid-row: 1;
+    grid-column: 1;
     text-transform: capitalize;
 }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="collectorsOtherPlayers">
     <div class="specificPlayer" v-for="(player, index) in playerList" :key="index">
-      <div class="otherPlayerWrapper" @click="expandThisPlayerviewGrid(player)">
+      <div class="otherPlayerWrapper" >
 
       <div class="playerName">
 
@@ -19,9 +19,10 @@
             1st
           </div>
         </div>
-          <!-- <button class="expandButton" type="submit" @click="expandThisPlayerviewGrid()">
+
+          <button class="expandButton" @click="expandThisPlayerviewGrid(player)">
             <img src="https://www.pinclipart.com/picdir/middle/218-2186085_click-for-full-screen-expand-icon-svg-clipart.png" height="20" width="20">
-          </button> -->
+          </button>
         </div>
       </div>
       <div class="playerInfoWrapper">
@@ -99,7 +100,8 @@
         <CollectorsOtherPlayersOverlay v-if="thisPlayer!==''"
           :playerList="playerList"
           :labels="labels"
-          :player="thisPlayer" />
+          :player="thisPlayer"
+          @closeOverlay="expandThisPlayerviewGrid(player)" />
       </div>
 
 
@@ -131,6 +133,7 @@ export default {
   },
   methods: {
       expandThisPlayerviewGrid: function(player){
+        console.log("1");
         if (document.getElementById('thisPlayerOverlay').style.visibility === "visible") {
           document.getElementById('thisPlayerOverlay').style.visibility = "hidden";
           this.thisPlayer='';
@@ -186,19 +189,26 @@ export default {
   grid-template-rows: 100%;
 }
 
-/* .expandButton{
+ .expandButton{
   display: inline-block;
   height: 100%;
+  width: 100%;
   z-index: 2;
   background-color: transparent;
   outline: none;
   border: none;
   grid-column: 3;
+  padding: 0px 0px 0px 0px;
+}
+
+.expandButton > img {
+  width: 100%;
+  height: 100%;
 }
 
 .expandButton:hover{
   cursor: pointer;
-} */
+}
 
 .itemSummaryWrapper>div{
   text-align: center;

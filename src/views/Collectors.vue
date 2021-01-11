@@ -2172,7 +2172,7 @@ cursor: not-allowed;
     background-color: beige;
     color: black;
     font-weight: bold;
-    height: 100%;
+    height: 99.5%;
     position: relative;
     /* overflow-y: hidden; */
     display: grid;
@@ -2260,7 +2260,8 @@ cursor: not-allowed;
   }
 
   .myStatus{
-    margin-top: -5px;
+    margin-top: 2%;
+    margin-bottom: 3%;
     background: #672d75;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #C6426E, #642B73);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #C6426E, #642B73); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -2269,7 +2270,7 @@ cursor: not-allowed;
     border-color: white;
     border-radius: 20px;
     width: 95.8%;
-    height: 98%;
+    height: 94.9%;
   }
 
   #myStatusTitle{
