@@ -119,7 +119,7 @@ export default {
 ,
   components: {
     CollectorsOtherPlayersOverlay
-  }, 
+  },
   data: function () {
     return {
       thisPlayer: '',
@@ -139,13 +139,15 @@ export default {
           document.getElementById('thisPlayerOverlay').style.visibility = "visible";
           this.thisPlayer=player;
         }
-        
+
       }
   }
 }
 </script>
 
 <style lang="css" scoped>
+
+
 
 #thisPlayerOverlay{
   /* position: float; */

@@ -136,6 +136,7 @@ Data.prototype.createRoom = function(roomId, playerCount, lang) {
     timesMarket: 0
   };
   room.twoTimesMarket= 0;
+  room.choosenPlacementCost=0;
 
 
 }
@@ -230,6 +231,7 @@ Data.prototype.allReady=function(roomId){
       }
       for(let i=0; i<room.playerCount;i+=1){
         room.playerList[i].playerNumberInList=i;
+        room.playerList[i].money=2+i;
       }
     }
 
@@ -442,6 +444,7 @@ Data.prototype.buyCard = function (roomId, playerId, card, cost) {
     room.players[playerId].items.push(...c);
     Data.prototype.raiseItem(c, room, playerId);
     room.players[playerId].money -= cost;
+    room.choosenPlacementCost=0;
     // Turn-base- function
     Data.prototype.calculatePoints(room,playerId);
     this.resetAvalible(room.itemsOnSale, room , playerId);
@@ -1036,6 +1039,7 @@ Data.prototype.buySkill=function (roomId,playerId,card,cost){
   Data.prototype.skillChanges(room.players[playerId],card);
   room.players[playerId].skills.push(...c);
   room.players[playerId].money -= cost;
+  room.choosenPlacementCost=0;
   Data.prototype.calculatePoints(room,playerId);
   this.resetAvalible(room.skillsOnSale, room , playerId);
   }
@@ -1104,10 +1108,11 @@ Data.prototype.placeBottle = function (roomId, playerId, action, cost,twoMarket)
 
   if (typeof room !== 'undefined') {
     let activePlacement = [];
+    room.choosenPlacementCost=cost;
     if (action === "buy") {
       activePlacement = room.buyPlacement;
       room.isPlacedList.item=true;
-      this.setAvalible(room.itemsOnSale,room,playerId);
+      this.setAvalibleItems(room.itemsOnSale,room,playerId,cost);
     }
     else if (action === "skill") {
       activePlacement = room.skillPlacement;
@@ -1141,6 +1146,18 @@ Data.prototype.setAvalible=function(lista,room,playerId){
   }
   for(let i=0; i<lista.length;i+=1){
     lista[i].available=true;
+  }
+}
+
+Data.prototype.setAvalibleItems=function(lista,room,playerId,cost){
+  for(let i=0; i<room.players[playerId].hand.length;i+=1){
+      if(room.players[playerId].money>=room.market[room.players[playerId].hand[i].item]+cost)
+
+    room.players[playerId].hand[i].available=true;
+  }
+  for(let i=0; i<lista.length;i+=1){
+      if(room.players[playerId].money>=room.market[lista[i].item]+cost)
+      lista[i].available=true;
   }
 }
 
@@ -1231,7 +1248,7 @@ Data.prototype.startAuction = function (roomId, playerId, card, cost) {
     }
     room.currentAuction = c;
     room.players[playerId].money -= cost; //hejsan
-
+    room.choosenPlacementCost=0;
 
 
         // När en auction start så måste en kreditupplysning göras på varje spelare. I collectors.vue ska jag ha en variabel som är maxAffordance för varje spelare
@@ -1387,6 +1404,7 @@ Data.prototype.raiseMarket=function(roomId, playerId, card, cost,action){
       room.market.figures+=1;
     }
     room.players[playerId].money -= cost;
+    room.choosenPlacementCost=0;
   }
   if(action==='skill'){
     Data.prototype.getRidOfSkill(room);

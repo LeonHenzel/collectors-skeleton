@@ -19,6 +19,8 @@
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
+      {{choosenPlacementCost}}
+
       <div class="startgamewrapper">
       <div>
         <CollectorsStartGame v-if="!allPlayersReady"
@@ -631,7 +633,8 @@ export default {
       placementInfo: {
         cost: 0,
         timesMarket: 0
-      }
+      },
+      choosenPlacementCost:0
     }
   },
   computed: {
@@ -684,6 +687,7 @@ export default {
         this.playerCount=d.playerCount;
         this.placementInfo=d.placementInfo;
         this.twoTimesMarket=d.twoTimesMarket;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         this.sortPlayerList();
 
 
@@ -701,6 +705,7 @@ export default {
       this.auctionCards=d.auctionCards;
       this.itemsOnSale=d.itemsOnSale;
       this.placementInfo=d.placementInfo;
+      this.choosenPlacementCost=d.choosenPlacementCost;
     }.bind(this));
 
     this.$store.state.socket.on('collectorsBottlePlaced',
@@ -718,6 +723,7 @@ export default {
         }
         this.placementInfo=d.placementInfo;
         this.twoTimesMarket=d.twoTimesMarket;
+        this.choosenPlacementCost=d.choosenPlacementCost;
       }.bind(this));
 
     this.$store.state.socket.on('collectorsPointsUpdated', (d) => this.points = d );
@@ -744,6 +750,7 @@ export default {
         this.players = d.players;
         this.itemsOnSale = d.itemsOnSale;
         this.isPlacedList=d.isPlacedList;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -765,6 +772,7 @@ export default {
         this.players=d.players;
         this.skillsOnSale=d.skillsOnSale;
         this.isPlacedList=d.isPlacedList;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         if(this.players[this.playerId].myTurn===true){
         this.changeTurn();
       }
@@ -779,6 +787,7 @@ export default {
         this.currentAuction = d.currentAuction;
         this.currentBid = d.currentBid;
         this.isPlacedList=d.isPlacedList;
+        this.choosenPlacementCost=d.choosenPlacementCost;
         console.log("currentAuction = " + this.currentAuction);
 
         this.expandAuctionGrid();
@@ -881,6 +890,7 @@ export default {
       this.isPlacedList=d.isPlacedList;
       this.twoMarket=d.twoMarket;
       this.twoTimesMarket=d.twoTimesMarket;
+      this.choosenPlacementCost=d.choosenPlacementCost;
       if(this.players[this.playerId].myTurn===true&&this.twoMarket===false){
       this.changeTurn();
     }
@@ -1092,11 +1102,11 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           return
         }
       else if(action ==="market"){
-        this.chosenPlacementCost = cost;
+        this.choosenPlacementCost = cost;
         this.marketBottle(action, cost, this.twoMarket);
         return
       }
-      this.chosenPlacementCost =cost ;
+      this.choosenPlacementCost =cost ;
       this.$store.state.socket.emit('collectorsPlaceBottle', {
           roomId: this.$route.params.id,
           playerId: this.playerId,
@@ -1143,8 +1153,9 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     doAction: function(card){
-      if(this.players[this.playerId].myTurn === false){
-        console.log("not my turn");
+      if(this.players[this.playerId].myTurn === false || card.available===false){
+        return
+
       }
       else if(this.isPlacedList.item===true){
 
@@ -1351,7 +1362,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           roomId: this.$route.params.id,
           playerId: this.playerId,
           card: card,
-          cost: this.marketValues[card.market] + this.chosenPlacementCost
+          cost: this.marketValues[card.item] + this.choosenPlacementCost
         }
       );
     },
@@ -1370,7 +1381,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
             roomId: this.$route.params.id,
             playerId: this.playerId,
             card: card,
-            cost: this.chosenPlacementCost
+            cost: this.choosenPlacementCost
         }
           );
         }
@@ -1393,7 +1404,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
           roomId: this.$route.params.id,
           playerId: this.playerId,
           card: card,
-          cost: this.chosenPlacementCost
+          cost: this.choosenPlacementCost
         }
 
       );}
@@ -1578,7 +1589,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         roomId: this.$route.params.id,
         playerId: this.playerId,
         card: card,
-        cost: this.chosenPlacementCost,
+        cost: this.choosenPlacementCost,
         action: action
   });
   this.marketBottleDone();
