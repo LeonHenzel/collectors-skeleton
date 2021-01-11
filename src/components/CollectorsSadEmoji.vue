@@ -1,6 +1,6 @@
 <!--
 
-Copyright (c) 2020 - Adam Bergman - https://codepen.io/AshBardhan/pen/dNKwXz
+Copyright (c) 2020 - Ash Bardhan - https://codepen.io/AshBardhan/pen/dNKwXz
 
 Permission is hereby granted, free of charge, to any person 
 obtaining a copy of this software and associated documentation 
