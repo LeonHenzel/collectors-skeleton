@@ -247,18 +247,18 @@
               <div class="auctionBigWrapper" v-if="players[playerId].bidSkipper===false && bidWinnerWrapper==='bidWinnerWrapperInvisible'" >
                 <div class="auctionWrapper">
                   <div class="auctionLogoWrapper">
-                    <button href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
-                      <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png">
+                    <div href="#" class = "openButton openAuctionGridButton"> <!-- @click="minimizeAuctionGrid()"-->
+                      <img class="bildAuction" src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png">
                       <p>{{labels.auction}}</p>
-                    </button>
+                    </div>
                   </div>
                   <div class="auctionTitleWrapper">
                     <h1>{{labels.currentauction}}</h1>
                   </div>
 
-                    <div class="cardslots">
-                      <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
-                    </div>
+                  <div class="cardslots">
+                    <CollectorsCard v-for="(card, index) in currentAuction" :card="card" :key="index"/>
+                  </div>
 
                   <!-- Får error om jag inte kör denna extra div runt h3:n -->
                   <div v-if="players[playerId]">
@@ -1164,28 +1164,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     },
 
     doAction: function(card){
-      if(this.players[this.playerId].myTurn === false || card.available===false){
-        return
 
-      }
-      else if(this.isPlacedList.item===true){
-
-        this.buyCard(card);
-      }
-      else if(this.isPlacedList.skill===true){
-        this.buySkill(card);
-      }
-      else if(this.isPlacedList.auction===true){
-
-        this.startAuction(card);
-      }
-      else if(this.isPlacedList.market===true){
-        this.raiseMarket(card,'hand');
-
-      }
-      else if(this.isPlacedList.getIncome===true){
-        this.raiseIncome(card);
-      }
       // if you won the auction, you can pay with your own cards
       if(this.bidWinnerWrapper==="bidWinnerWrapperVisible" && this.players[this.playerId].hand.indexOf(card) > -1){
 
@@ -1221,6 +1200,29 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         }
         this.moneyPayment = this.winningBid - this.cardPayment;
       }
+      
+      if(this.players[this.playerId].myTurn === false || card.available===false){
+        return
+      }
+      else if(this.isPlacedList.item===true){
+
+        this.buyCard(card);
+      }
+      else if(this.isPlacedList.skill===true){
+        this.buySkill(card);
+      }
+      else if(this.isPlacedList.auction===true){
+
+        this.startAuction(card);
+      }
+      else if(this.isPlacedList.market===true){
+        this.raiseMarket(card,'hand');
+
+      }
+      else if(this.isPlacedList.getIncome===true){
+        this.raiseIncome(card);
+      }
+
     },
 
 
@@ -2843,8 +2845,9 @@ cursor: not-allowed;
   }
 
   .auctionBigWrapper .auctionWrapper{
+    height: 90vh;
     background-color: rgb(195, 155, 211);
-    margin-top: 10%;
+    margin-top: 2%;
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 2%;
@@ -2905,8 +2908,7 @@ cursor: not-allowed;
    /* height: 1vh; */
    grid-area: openButtonLeft;
    padding: 5%;
-   height: 100%;
-   width:100%;
+   height: 5vh;
    /*height: 100%;
    width: 30%; kan tas bort*/
  }
@@ -2918,10 +2920,14 @@ cursor: not-allowed;
 
 
   .Auction .openAuctionGridButton {
+  display: flex;
+  flex-direction: column;
   color: rgb(155, 89, 182);
   height: 100%;
   width: 60%;
   text-align: center;
+  border: 1px white;
+  border-style: solid;
   }
 
   /*.Auction .auctionLogoWrapper .openAuctionGridButton img{
@@ -2929,6 +2935,10 @@ cursor: not-allowed;
   width: 60%;
   }*/
 
+  /* .openAuctionGridButton img{
+    height: 5vh;
+    width: 3vw;
+  } */
 
 
   /*.openAuctionGridButton:hover {

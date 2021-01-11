@@ -3,10 +3,10 @@
       <button type="submit" class="openHelpGridAuction" @click="openHelpGridAuction()">?</button>
       <div class="auctionLayoutTitleWrapper">
         <!--<h3>{{ labels.startAuction }}</h3>-->
-        <button href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
+        <div href="#" class = "openButton openAuctionGridButton" > <!--@click="expandAuctionGrid()" öppna auction vid klick-->
           <img src="https://www.freeiconspng.com/thumbs/gavel-icon/gavel-icon-1.png"  height="40px" width="30px">
           {{labels.auction}}
-        </button>
+        </div>
       </div>
       <div class="auctionLayoutContentWrapper">
         <div class="auction-cards">
@@ -236,6 +236,8 @@ export default {
   height: 7vh;
   width: 70%;
   text-align: center;
+  border: 1px white;
+  border-style: solid;
   }
 
   .openAuctionGridButton img{
