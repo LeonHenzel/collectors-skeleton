@@ -135,7 +135,7 @@
               <div class="helpGridItem" id="helpGridItem">
                 <a href="#" class="closeButton" @click="closeHelpGridItem()">&times;</a>
                 <div class="helpGridItemLayout">
-                  <p>Hjälp text om vad som händer i rutan</p>
+                  <p>{{labels.helpGridItem}}</p>
                 </div>
               </div>
             </div>
@@ -163,7 +163,7 @@
               <div class="helpGridSkills" id="helpGridSkills">
                 <a href="#" class="closeButton" @click="closeHelpGridSkill()">&times;</a>
                 <div class="helpGridSkillLayout">
-                  <p>Hjälp text om vad som händer i rutan</p>
+                  <p>{{labels.helpGridSkills}}</p>
                 </div>
               </div>
           </div>
@@ -180,7 +180,7 @@
             <div class="helpGridWorker" id="helpGridWorker">
               <a href="#" class="closeButton" @click="closeHelpGridWorker()">&times;</a>
               <div class="helpGridWorkerLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridWorker}}</p>
               </div>
             </div>
           </div>
@@ -199,7 +199,7 @@
             <div class="helpGridMarket" id="helpGridMarket">
               <a href="#" class="closeButton" @click="closeHelpGridMarket()">&times;</a>
               <div class="helpGridMarketLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridMarket}}</p>
               </div>
             </div>
           </div>
@@ -361,7 +361,7 @@
             <div class="helpGridAuction" id="helpGridAuction">
               <a href="#" class="closeButton" @click="closeHelpGridAuction()">&times;</a>
               <div class="helpGridAuctionLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridAuction}}</p>
               </div>
             </div>
           </div>
@@ -483,7 +483,7 @@
             <div class="helpGridPlayerview" id="helpGridPlayerview">
               <a href="#" class="closeButton" @click="closeHelpGridPlayerview()">&times;</a>
               <div class="helpGridPlayerviewLayout">
-                <p>Hjälp text om vad som händer i rutan</p>
+                <p>{{labels.helpGridPlayerview}}</p>
               </div>
             </div>
           </div>
