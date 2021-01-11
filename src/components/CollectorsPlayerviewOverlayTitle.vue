@@ -112,7 +112,7 @@ h3 {
 
 .playerName h1{
     grid-row: 1;
-    grid-column: 1;
+    grid-column: 1/3;
     text-transform: capitalize;
 }
 

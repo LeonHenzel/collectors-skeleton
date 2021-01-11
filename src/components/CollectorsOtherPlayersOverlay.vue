@@ -209,7 +209,10 @@ export default {
   grid-column: 2;
   grid-row: 1;
   background-color: transparent;
-  margin: 10%;
+  height: 5vh;
+  margin-right: 2vw;
+  margin-top: 3vh;
+  cursor: pointer;
 }
 
 .topRightContent {
@@ -262,7 +265,7 @@ export default {
   height: 100%;
   display: grid;
   grid-template-columns: 60% 40%;
-  grid-template-rows: 30% 70%;
+  grid-template-rows: 20% 75%;
 }
 
 .mePlayerContent{

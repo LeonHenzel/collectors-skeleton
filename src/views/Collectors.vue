@@ -2563,10 +2563,6 @@ cursor: not-allowed;
     grid-row: 1;
   }
 
-  .overlayPlayerView .closePlayerviewGridButton>a{
-
-  }
-
   .aboutOverlay .closeAboutGridButton{
     width: 0;
     position: absolute;

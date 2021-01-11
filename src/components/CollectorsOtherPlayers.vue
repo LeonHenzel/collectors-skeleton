@@ -285,7 +285,7 @@ export default {
   background-color: black;
   border: solid black;
   border-radius: 1%;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .arrowContainer {
