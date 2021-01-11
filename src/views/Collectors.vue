@@ -70,7 +70,7 @@
                 <div class="aboutOverlay" id = "expandAbout">
                   <a href="#" class="closeAboutGridButton" @click="minimizeAboutGrid()">&times;</a>
                   <div class="aboutInfoOverlay">
-                    <h1 id="aboutLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1 ><img id="aboutLogo" src="/images/CollectorsLogo01.png" height="500"></h1>
                     <h2>{{labels.collectors}}
                     </h2>
                     <h2>{{labels.collectors2}}</h2>
@@ -110,7 +110,7 @@
                 <div class="exitOverlay" id = "expandExit">
                   <a href="#" class="closeExitGridButton" @click="minimizeExitGrid()">&times;</a>
                   <div class="exitInfoOverlay">
-                    <h1 id="exitLogo"><img src="/images/CollectorsLogo01.png" height="500"></h1>
+                    <h1 ><img id="exitLogo" src="/images/CollectorsLogo01.png" height="500"></h1>
 
 
                     <h1 class="exittext">{{labels.exitgame}}</h1> <br>
@@ -127,7 +127,7 @@
                 <div class="helpOverlay" id = "expandHelp">
                   <a href="#" class="closeHelpGridButton" @click="minimizeHelpGrid()">&times;</a>
                   <div class="helpInfoOverlay">
-                    <img src="/images/CollectorsLogo01.png" class="helplogo" height="500">
+                    <img id="ruleLogo" src="/images/CollectorsLogo01.png" class="helplogo" height="500">
                     <h1 class="rulebook">{{labels.rulebook}}</h1>
                     <img src="/images/Screenshot 2021-01-05 at 14.43.21.png">
                     <img src="/images/Screenshot 2021-01-05 at 14.48.01.png">
@@ -665,7 +665,7 @@ export default {
       placementInfo: {
         cost: 0,
         timesMarket: 0,
-      },  
+      },
       choosenPlacementCost:0,
       helpGridOpened: false,
       endTheGame: false
@@ -1240,7 +1240,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
         }
         this.moneyPayment = this.winningBid - this.cardPayment;
       }
-      
+
       if(this.players[this.playerId].myTurn === false || card.available===false){
         return
       }
@@ -1986,9 +1986,7 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       overflow-x: hidden;
       z-index: 10;
       transition: all 0.5s;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0px 0px;
+      display: flex;
       /* grid-template-areas: */
 
     }
@@ -2022,9 +2020,8 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       overflow-x: hidden;
       z-index: 10;
       transition: all 0.5s;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0px 0px;
+      display: flex;
+
       /* grid-template-areas: */
 
 
@@ -2041,18 +2038,42 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
       overflow-x: hidden;
       z-index: 100;
       transition: all 0.5s;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0px 0px;
+      display: flex;
+
       /* grid-template-areas: */
 
 
     }
 
+    .helpInfoOverlay>img{
+      height: 90%;
+      width: 50%;
+    }
+
+    #ruleLogo{
+
+      height: 70%;
+      width: 70%;
+
+      align-items: center;
+    }
+
+    #aboutLogo{
+      height: 70%;
+      width: 70%;
+      margin-left: 15%;
+      align-items: center;
+    }
+
     .aboutInfoOverlay{
       color: white;
-      margin-left: 30%;
+
       margin-top: -5%;
+
+      height: 100vh;
+      width: 100vw;
+
+      object-fit: contain;
     }
 
     .aboutEndGameOverlay{
@@ -2063,8 +2084,21 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
 
     .exitInfoOverlay{
       color: white;
-      margin-left: 30%;
-      margin-top: -5%;
+
+      height: 100vh;
+      width: 100vw;
+
+      object-fit: contain;
+    }
+
+    #exitLogo{
+
+      height: 70%;
+      width: 70%;
+      margin-left: 15%;
+
+      align-items: center;
+
     }
 
     .exittext{
@@ -2077,7 +2111,10 @@ har gjort true eller false. Om man börjar auction så ska auction vara true och
     .helpInfoOverlay{
       color: white;
       position: relative;
-      left: 11%;
+      height: 100vh;
+      width: 100vw;
+
+      object-fit: contain;
 
       margin-top: -5%;
     }
@@ -2751,6 +2788,12 @@ cursor: pointer;
     right: 50px;
     font-size: 40px;
     color: white;
+    z-index: 1000;
+
+  }
+
+  .helpOverlay .closeHelpGridButton:hover{
+cursor: pointer;
 
   }
 
