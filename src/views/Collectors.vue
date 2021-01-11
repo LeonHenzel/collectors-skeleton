@@ -19,7 +19,6 @@
   <div id="megaWrapper" v-if="players[playerId].playerName!==''">
     <main>
 
-      {{choosenPlacementCost}}
 
       <div class="startgamewrapper">
       <div>
@@ -444,8 +443,11 @@
                 </div>
 
                 <div class="overlayPlayerView" id = "expandPlayerview">
-                  <a href="#" class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">&times;</a>
+
                   <div class="overlayPlayerViewWrapper">
+                    <button class="closePlayerviewGridButton" @click="minimizePlayerviewGrid()">
+                      <a href="#">&times; </a>
+                    </button>
                     <div class="overlayPlayerViewWrapperTop" v-if="players[playerId]">
                         <CollectorsPlayerviewOverlayTitle v-if="players[playerId]"
                         :player="players[playerId]"
@@ -2502,9 +2504,16 @@ cursor: not-allowed;
     background: repeating-conic-gradient(#933, #bf4040 1%);
 
     display: grid;
-    grid-template-rows: 20% 80%;
-    grid-template-columns: 100%;
+    grid-template-rows: 5% 15% 80%;
+    grid-template-columns: 95% 5%;
   }
+
+  .overlayPlayerViewWrapperTop{
+    grid-column: 1/3;
+    grid-row: 1/3;
+
+  }
+
 
   .overlayPlayerViewWrapperBottom{
     display: grid;
@@ -2538,16 +2547,19 @@ cursor: not-allowed;
     "myHandOverlay myItemsOverlay mySkillsOverlay"; */
   }
   .overlayPlayerView a{
-    padding: 10px;
     color: white;
     display: block;
   }
 
   .overlayPlayerView .closePlayerviewGridButton{
-    position: absolute;
-    top: 5vh;
-    right: 10vh;
     font-size: 6vh;
+    background-color: transparent;
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .overlayPlayerView .closePlayerviewGridButton>a{
+
   }
 
   .aboutOverlay .closeAboutGridButton{
